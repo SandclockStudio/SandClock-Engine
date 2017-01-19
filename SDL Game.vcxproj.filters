@@ -79,6 +79,12 @@
     <ClInclude Include="MathGeoLib.h">
       <Filter>Utils</Filter>
     </ClInclude>
+    <ClInclude Include="parson.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="JsonParser.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -129,5 +135,16 @@
     <ClCompile Include="ModuleUI.cpp">
       <Filter>Game Modules</Filter>
     </ClCompile>
+    <ClCompile Include="parson.c">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="JsonParser.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="config.json">
+      <Filter>Utils</Filter>
+    </None>
   </ItemGroup>
 </Project>
