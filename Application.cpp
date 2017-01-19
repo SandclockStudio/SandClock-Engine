@@ -17,6 +17,9 @@ using namespace std;
 
 Application::Application()
 {
+	t1.start();
+	t2.start();
+
 	// Order matters: they will init/start/pre/update/post in this order
 	json_parser = new JsonParser(JSONCONFIG);
 	modules.push_back(input = new ModuleInput());
@@ -34,6 +37,9 @@ Application::Application()
 	modules.push_back(collision = new ModuleCollision());
 	modules.push_back(particles = new ModuleParticles());
 	modules.push_back(fade = new ModuleFadeToBlack());
+	
+	LOG("ESTO HA TARDADO EN MILI: %d ", t1.stop());
+	LOG("ESTO HA TARDADO EN MICRO: %f ", t2.stop());
 
 }
 

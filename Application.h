@@ -4,6 +4,8 @@
 #include<list>
 #include "Globals.h"
 #include "Module.h"
+#include "SimpleTimer.h"
+#include "Timer.h"
 
 class ModuleRender;
 class ModuleWindow;
@@ -47,7 +49,8 @@ public:
 	ModuleParticles* particles;
 
 	JsonParser* json_parser;
-
+	SimpleTimer t1;
+	Timer t2;
 	// Game modules ---
 	ModuleUI* ui;
 	ModulePlayer* player;
