@@ -129,9 +129,6 @@
     <ClCompile Include="ModuleSceneLevel.cpp">
       <Filter>Game Modules</Filter>
     </ClCompile>
-    <ClCompile Include="Timer.cpp">
-      <Filter>Utils</Filter>
-    </ClCompile>
     <ClCompile Include="ModuleUI.cpp">
       <Filter>Game Modules</Filter>
     </ClCompile>
