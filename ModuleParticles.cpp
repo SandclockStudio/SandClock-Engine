@@ -100,7 +100,7 @@ Particle::Particle() : collider(NULL)
 
 Particle::Particle(const Particle& p) : animation(p.animation), position(p.position), speed(p.speed), collider(p.collider)
 {
-	t.setFirstTime();
+
 }
 
 Particle::~Particle()
@@ -111,7 +111,6 @@ Particle::~Particle()
 bool Particle::Update()
 {
 	bool ret = true;
-	t.setSecondTime();
 
 	if (collider != NULL)
 	{
