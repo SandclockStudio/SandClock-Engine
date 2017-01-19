@@ -7,7 +7,6 @@
 #include "ModuleFadeToBlack.h"
 #include "ModuleSceneIntro.h"
 
-// Reference at https://www.youtube.com/watch?v=OEhmUuehGOA
 
 ModuleSceneIntro::ModuleSceneIntro(bool active) : Module(active)
 {}
@@ -20,7 +19,7 @@ bool ModuleSceneIntro::Start()
 {
 	LOG("Loading space intro");
 	
-	background = App->textures->Load("ken_stage.png");
+	background = App->textures->Load("rtype/intro.png");
 	App->audio->PlayMusic("", 0.0f);
 	App->renderer->camera.x = App->renderer->camera.y = 0;
 	

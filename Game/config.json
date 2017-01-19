@@ -1,0 +1,11 @@
+﻿{"Config": {
+	"App": {
+		"Title": "Super Awesome Game",
+		"Width": 384,
+		"Height": 220,
+		"Size": 3,
+		"Vsync": true,
+		"Fullscreen": false
+	}
+}
+}
