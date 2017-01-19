@@ -91,6 +91,7 @@
     <ClInclude Include="MyRandom.h" />
     <ClInclude Include="parson.h" />
     <ClInclude Include="Point.h" />
+    <ClInclude Include="SimpleTimer.h" />
     <ClInclude Include="Timer.h" />
   </ItemGroup>
   <ItemGroup>
