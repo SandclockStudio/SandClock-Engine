@@ -11,12 +11,16 @@
 #include "ModuleSceneLevel.h"
 #include "ModulePlayer.h"
 #include "ModuleUI.h"
+#include "JsonParser.h"
 
 using namespace std;
 
 Application::Application()
 {
 	// Order matters: they will init/start/pre/update/post in this order
+
+	json_parser = new JsonParser(JSONCONFIG);
+
 	modules.push_back(input = new ModuleInput());
 	modules.push_back(window = new ModuleWindow());
 	modules.push_back(renderer = new ModuleRender());
@@ -40,6 +44,7 @@ Application::~Application()
 {
 	for(list<Module*>::iterator it = modules.begin(); it != modules.end(); ++it)
 		RELEASE(*it);
+	RELEASE(json_parser);
 }
 
 bool Application::Init()

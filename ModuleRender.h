@@ -26,6 +26,13 @@ public:
 public:
 	SDL_Renderer* renderer = nullptr;
 	SDL_Rect camera;
+	int screenWidth = 0;
+	int screenHeight = 0;
+	int screenSize = 0;
+	bool vsync = false;
+
+private:
+	bool LoadConfig();
 };
 
 #endif // __MODULERENDER_H__

@@ -15,6 +15,9 @@ class ModuleCollision;
 class ModuleParticles;
 class ModuleUI;
 
+//JSON Parser
+class JsonParser;
+
 
 // Game modules ---
 class ModulePlayer;
@@ -42,6 +45,8 @@ public:
 	ModuleFadeToBlack* fade;
 	ModuleCollision* collision;
 	ModuleParticles* particles;
+
+	JsonParser* json_parser;
 
 	// Game modules ---
 	ModuleUI* ui;

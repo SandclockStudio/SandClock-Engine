@@ -20,7 +20,7 @@ bool ModuleSceneIntro::Start()
 {
 	LOG("Loading space intro");
 	
-	background = App->textures->Load("");
+	background = App->textures->Load("ken_stage.png");
 	App->audio->PlayMusic("", 0.0f);
 	App->renderer->camera.x = App->renderer->camera.y = 0;
 	

@@ -70,6 +70,8 @@ private:
 	KeyState	mouse_buttons[NUM_MOUSE_BUTTONS];
 	iPoint mouse_motion;
 	iPoint mouse;
+	bool LoadConfig();
+	int screenSize = 0;
 };
 
 #endif // __MODULEINPUT_H__

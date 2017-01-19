@@ -2,9 +2,11 @@
 #include "Application.h"
 #include "ModuleWindow.h"
 #include "SDL/include/SDL.h"
+#include "JsonParser.h"
 
 ModuleWindow::ModuleWindow()
 {
+	
 }
 
 // Destructor
@@ -18,6 +20,12 @@ bool ModuleWindow::Init()
 	LOG("Init SDL window & surface");
 	bool ret = true;
 
+	if (LoadConfig() == false)
+	{
+		LOG("Problem in the configuration file");
+		ret = false;
+	}
+
 	if(SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
 		LOG("SDL_VIDEO could not initialize! SDL_Error: %s\n", SDL_GetError());
@@ -26,16 +34,16 @@ bool ModuleWindow::Init()
 	else
 	{
 		//Create window
-		int width = SCREEN_WIDTH * SCREEN_SIZE;
-		int height = SCREEN_HEIGHT * SCREEN_SIZE;
+		int width = screenWidth * screenSize;
+		int height = screenHeight * screenSize;
 		Uint32 flags = SDL_WINDOW_SHOWN;
 
-		if(FULLSCREEN == true)
+		if(fullScreen == true)
 		{
 			flags |= SDL_WINDOW_FULLSCREEN;
 		}
 
-		window = SDL_CreateWindow(TITLE, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, flags);
+		window = SDL_CreateWindow(title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, flags);
 
 		if(window == nullptr)
 		{
@@ -68,3 +76,19 @@ bool ModuleWindow::CleanUp()
 	return true;
 }
 
+bool ModuleWindow::LoadConfig()
+{
+	bool return_value = true;
+
+	if (App->json_parser->LoadObject("Config.App"))
+	{
+		title = App->json_parser->GetString("Title");
+		screenWidth = App->json_parser->GetInt("Width");
+		screenHeight = App->json_parser->GetInt("Height");
+		screenSize = App->json_parser->GetInt("Size");
+		fullScreen = App->json_parser->GetBool("Fullscreen");
+		return_value = App->json_parser->UnloadObject();
+	}
+
+	return return_value;
+}

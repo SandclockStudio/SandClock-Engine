@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "ModuleInput.h"
 #include "SDL/include/SDL.h"
+#include "JsonParser.h"
 
 #define MAX_KEYS 300
 
@@ -24,6 +25,12 @@ bool ModuleInput::Init()
 	LOG("Init SDL input event system");
 	bool ret = true;
 	SDL_Init(0);
+
+	if (LoadConfig() == false)
+	{
+		LOG("Problem in the configuration file");
+		ret = false;
+	}
 
 	if(SDL_InitSubSystem(SDL_INIT_EVENTS) < 0)
 	{
@@ -114,10 +121,10 @@ update_status ModuleInput::PreUpdate()
 			break;
 
 			case SDL_MOUSEMOTION:
-				mouse_motion.x = event.motion.xrel / SCREEN_SIZE;
-				mouse_motion.y = event.motion.yrel / SCREEN_SIZE;
-				mouse.x = event.motion.x / SCREEN_SIZE;
-				mouse.y = event.motion.y / SCREEN_SIZE;
+				mouse_motion.x = event.motion.xrel / screenSize;
+				mouse_motion.y = event.motion.yrel / screenSize;
+				mouse.x = event.motion.x / screenSize;
+				mouse.y = event.motion.y / screenSize;
 			break;
 		}
 	}
@@ -150,4 +157,21 @@ const iPoint& ModuleInput::GetMousePosition() const
 const iPoint& ModuleInput::GetMouseMotion() const
 {
 	return mouse_motion;
+}
+
+bool ModuleInput::LoadConfig()
+{
+	bool return_value = true;
+
+	if (App->json_parser->LoadObject("Config.App"))
+	{
+		//screenWidth = App->json_parser->GetInt("Width");
+		//screenHeight = App->json_parser->GetInt("Height");
+		screenSize = App->json_parser->GetInt("Size");
+		//vsync = App->json_parser->GetBool("Vsync");
+		return_value = App->json_parser->UnloadObject();
+	}
+
+	return return_value;
+
 }
