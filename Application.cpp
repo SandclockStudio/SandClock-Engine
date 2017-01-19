@@ -13,14 +13,13 @@
 #include "ModuleUI.h"
 #include "JsonParser.h"
 
-
 using namespace std;
 
 Application::Application()
 {
-	timer = new SimpleTimer();
+	t1.start();
+	t2.start();
 
-	timer->start();
 	// Order matters: they will init/start/pre/update/post in this order
 	json_parser = new JsonParser(JSONCONFIG);
 	modules.push_back(input = new ModuleInput());
@@ -38,6 +37,9 @@ Application::Application()
 	modules.push_back(collision = new ModuleCollision());
 	modules.push_back(particles = new ModuleParticles());
 	modules.push_back(fade = new ModuleFadeToBlack());
+	
+	LOG("ESTO HA TARDADO EN MILI: %d ", t1.stop());
+	LOG("ESTO HA TARDADO EN MICRO: %f ", t2.stop());
 
 }
 
@@ -69,7 +71,6 @@ bool Application::Init()
 
 update_status Application::Update()
 {
-
 	update_status ret = UPDATE_CONTINUE;
 
 	for(list<Module*>::iterator it = modules.begin(); it != modules.end() && ret == UPDATE_CONTINUE; ++it)
@@ -83,7 +84,7 @@ update_status Application::Update()
 	for(list<Module*>::iterator it = modules.begin(); it != modules.end() && ret == UPDATE_CONTINUE; ++it)
 		if((*it)->IsEnabled() == true) 
 			ret = (*it)->PostUpdate();
-	LOG("Time: %u", timer->read());
+
 	return ret;
 }
 
