@@ -4,6 +4,7 @@
 #include<list>
 #include "Globals.h"
 #include "Module.h"
+#include "SimpleTimer.h"
 
 class ModuleRender;
 class ModuleWindow;
@@ -17,6 +18,7 @@ class ModuleUI;
 
 //JSON Parser
 class JsonParser;
+
 
 
 // Game modules ---
@@ -46,6 +48,7 @@ public:
 	ModuleCollision* collision;
 	ModuleParticles* particles;
 
+	SimpleTimer* timer;
 	JsonParser* json_parser;
 
 	// Game modules ---
@@ -56,7 +59,6 @@ public:
 	ModuleEnemy* enemies;
 
 private:
-
 	std::list<Module*> modules;
 };
 
