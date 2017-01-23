@@ -18,7 +18,6 @@ using namespace std;
 Application::Application()
 {
 	t1.start();
-	t2.start();
 
 	// Order matters: they will init/start/pre/update/post in this order
 	json_parser = new JsonParser(JSONCONFIG);
@@ -78,6 +77,7 @@ update_status Application::Update()
 		t1.stop();
 		t1.start();
 		LOG("FPS: %d ", fps);
+		//window->title = "FPS: " + t1.stop();
 		fps = 0;
 	}
 	update_status ret = UPDATE_CONTINUE;

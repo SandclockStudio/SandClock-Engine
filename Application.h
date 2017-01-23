@@ -51,19 +51,21 @@ public:
 	JsonParser* json_parser;
 	SimpleTimer t1;
 
+
 	// Game modules --
 	ModuleUI* ui;
 	ModulePlayer* player;
 	ModuleSceneIntro* scene_intro;
 	ModuleSceneLevel* scene_level;
 	ModuleEnemy* enemies;
-	int frames = 0;
-	int fps = 0;
+
 
 private:
 
 	bool start = true;
 	int fps = 0;
+	int frames = 0;
+
 	std::list<Module*> modules;
 };
 
