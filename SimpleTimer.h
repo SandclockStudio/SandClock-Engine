@@ -25,7 +25,6 @@ public:
 
 	Uint32 stop()
 	{
-		lol = SDL_GetTicks();
 		if (stopTimer == false)
 			time = SDL_GetTicks() - init;
 		stopTimer = true;
@@ -40,7 +39,6 @@ public:
 public:
 	bool stopTimer;
 	Uint32 time,init;
-	Uint32 lol;
 
 };
 

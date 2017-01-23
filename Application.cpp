@@ -38,8 +38,8 @@ Application::Application()
 	modules.push_back(particles = new ModuleParticles());
 	modules.push_back(fade = new ModuleFadeToBlack());
 	
-	LOG("ESTO HA TARDADO EN MILI: %d ", t1.stop());
-	LOG("ESTO HA TARDADO EN MICRO: %f ", t2.stop());
+	//LOG("ESTO HA TARDADO EN MILI: %d ", t1.stop());
+	//LOG("ESTO HA TARDADO EN MICRO: %f ", t2.stop());
 
 }
 
@@ -65,12 +65,21 @@ bool Application::Init()
 
 	// Start the first scene --
 	fade->FadeToBlack(scene_intro, nullptr, 3.0f);
-
+	
 	return ret;
 }
 
 update_status Application::Update()
 {
+	frames += 1;
+	fps += 1;
+	if (t1.read() > 1000)
+	{
+		t1.stop();
+		t1.start();
+		LOG("FPS: %d ", fps);
+		fps = 0;
+	}
 	update_status ret = UPDATE_CONTINUE;
 
 	for(list<Module*>::iterator it = modules.begin(); it != modules.end() && ret == UPDATE_CONTINUE; ++it)
@@ -84,14 +93,16 @@ update_status Application::Update()
 	for(list<Module*>::iterator it = modules.begin(); it != modules.end() && ret == UPDATE_CONTINUE; ++it)
 		if((*it)->IsEnabled() == true) 
 			ret = (*it)->PostUpdate();
-
+	//LOG("ESTO HA TARDADO EN MILI: %d ", t1.read());
+	
 	return ret;
 }
 
 bool Application::CleanUp()
 {
+	LOG("Frames all application: %d ", frames);
 	bool ret = true;
-
+	t1.stop();
 	for(list<Module*>::reverse_iterator it = modules.rbegin(); it != modules.rend() && ret; ++it)
 		if((*it)->IsEnabled() == true) 
 			ret = (*it)->CleanUp();

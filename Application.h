@@ -57,6 +57,8 @@ public:
 	ModuleSceneIntro* scene_intro;
 	ModuleSceneLevel* scene_level;
 	ModuleEnemy* enemies;
+	int frames = 0;
+	int fps = 0;
 
 private:
 

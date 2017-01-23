@@ -82,7 +82,7 @@ bool ModuleWindow::LoadConfig()
 
 	if (App->json_parser->LoadObject("Config.App"))
 	{
-		title = App->json_parser->GetString("Title");
+		title = App->json_parser->GetString("Title") ;
 		screenWidth = App->json_parser->GetInt("Width");
 		screenHeight = App->json_parser->GetInt("Height");
 		screenSize = App->json_parser->GetInt("Size");
