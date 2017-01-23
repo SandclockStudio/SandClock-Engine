@@ -17,8 +17,7 @@ using namespace std;
 
 Application::Application()
 {
-	t1.start();
-	t2.start();
+
 
 	// Order matters: they will init/start/pre/update/post in this order
 	json_parser = new JsonParser(JSONCONFIG);
@@ -38,8 +37,7 @@ Application::Application()
 	modules.push_back(particles = new ModuleParticles());
 	modules.push_back(fade = new ModuleFadeToBlack());
 	
-	LOG("ESTO HA TARDADO EN MILI: %d ", t1.stop());
-	LOG("ESTO HA TARDADO EN MICRO: %f ", t2.stop());
+
 
 }
 
@@ -54,6 +52,12 @@ bool Application::Init()
 {
 	bool ret = true;
 
+	if (start)
+	{
+		t1.start();
+		start = false;
+	}
+
 	for(list<Module*>::iterator it = modules.begin(); it != modules.end() && ret; ++it)
 		ret = (*it)->Init(); // we init everything, even if not anabled
 
@@ -61,6 +65,18 @@ bool Application::Init()
 	{
 		if((*it)->IsEnabled() == true)
 			ret = (*it)->Start();
+	}
+
+
+	if (t1.read() >= 1000)
+	{
+		window->title = "FPS: " + t1.stop();
+		fps = 0;
+		start = true;
+	}
+	else
+	{
+		fps++;
 	}
 
 	// Start the first scene --
@@ -72,6 +88,7 @@ bool Application::Init()
 update_status Application::Update()
 {
 	update_status ret = UPDATE_CONTINUE;
+
 
 	for(list<Module*>::iterator it = modules.begin(); it != modules.end() && ret == UPDATE_CONTINUE; ++it)
 		if((*it)->IsEnabled() == true) 
