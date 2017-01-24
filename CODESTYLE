@@ -1,0 +1,39 @@
+Sandclock Engine Codestyle
+
+Class Names
+---------------------------------------------------------------------------------------
+	- Name the class after what it is. 
+	- Compound names of no more than two words.
+	- First character in a name is upper case.
+	- Use upper case letters as word separators, lower case for the rest of a word.
+	- No underbars ('_')
+
+Method and Function Names
+---------------------------------------------------------------------------------------
+	- The name should make clear what it does: CheckForErrors() instead of ErrorCheck(), DumpDataToFile() instead of DataFile().
+	- Use of prefixes like Is/Get/Set.
+	- First character in a name is upper case.
+	- Use upper case letters as word separators, lower case for the rest of a word.
+	- No underbars ('_')
+	
+Enum Names
+---------------------------------------------------------------------------------------
+	-Enum labels should be all caps with '_' separators.
+
+Global Constants
+---------------------------------------------------------------------------------------
+	-Global constants should be all caps with '_' separators.
+
+Variable Names
+---------------------------------------------------------------------------------------
+	- The first character should be lower case.
+	- All word beginnings after the first letter should be upper case as with class names.
+	
+Brace Policy
+---------------------------------------------------------------------------------------
+	- Brace under and inline with keywords
+
+Identation/Tab Policy
+---------------------------------------------------------------------------------------
+	-Identation = 4
+	-Tab = 4
