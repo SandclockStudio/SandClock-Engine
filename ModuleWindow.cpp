@@ -96,7 +96,6 @@ bool ModuleWindow::LoadConfig()
 update_status ModuleWindow::Update(float dt)
 {
 
-	sprintf(newTitle, "%s -- %.6f", title, dt);
-	SDL_SetWindowTitle(window, newTitle);
+
 	return UPDATE_CONTINUE;
 }

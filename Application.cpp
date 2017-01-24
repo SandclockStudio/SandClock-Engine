@@ -65,16 +65,18 @@ bool Application::Init()
 	}
 	// Start the first scene --
 	fade->FadeToBlack(scene_intro, nullptr, 3.0f);
-	
+	mili.start();
 	return ret;
+	
 }
 
 update_status Application::Update()
 {
-	frames += 1;
-	fps += 1;
+
 	dtTimer.start();
 	
+
+
 	update_status ret = UPDATE_CONTINUE;
 
 	for(list<Module*>::iterator it = modules.begin(); it != modules.end() && ret == UPDATE_CONTINUE; ++it)
@@ -88,8 +90,10 @@ update_status Application::Update()
 	for(list<Module*>::iterator it = modules.begin(); it != modules.end() && ret == UPDATE_CONTINUE; ++it)
 		if((*it)->IsEnabled() == true) 
 			ret = (*it)->PostUpdate(dt);
-	
+
 	dt = dtTimer.stop();
+	frames += 1;
+	fps += 1;
 	if (dt < (1000.0f / fps_cap))
 	{
 		LOG("We wanted to wait %f ", (1000.0f/fps_cap) - dt )
@@ -98,10 +102,12 @@ update_status Application::Update()
 		LOG("But we waited %f ", micro.stop()*1000)
 	}
 	
-
-	if (fps == fps_cap)
+	if (mili.read() >= 1000.0f)
 	{
-		LOG("FPS: %d ", fps);
+		mili.stop();
+		sprintf(newTitle, "%s -- %i", window->title, App->fps);
+		SDL_SetWindowTitle(window->window, newTitle);
+		mili.start();
 		fps = 0;
 	}
 	return ret;

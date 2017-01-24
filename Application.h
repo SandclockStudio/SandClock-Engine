@@ -53,7 +53,7 @@ public:
 	Timer micro,dtTimer;
 	int fps_cap = 0;
 	float dt = 0;
-
+	int fps = 0;
 
 	// Game modules --
 	ModuleUI* ui;
@@ -66,9 +66,8 @@ public:
 private:
 
 	bool start = true;
-	int fps = 0;
 	int frames = 0;
-
+	char newTitle[30];
 	std::list<Module*> modules;
 };
 

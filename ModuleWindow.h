@@ -37,7 +37,6 @@ public:
 	int screenHeight = 0;
 	int screenSize = 0;
 	bool fullScreen = false;
-	char newTitle [30];
 
 private:
 	bool LoadConfig();
