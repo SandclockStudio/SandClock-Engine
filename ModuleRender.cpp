@@ -35,7 +35,7 @@ bool ModuleRender::Init()
 		flags |= SDL_RENDERER_PRESENTVSYNC;
 	}
 
-	renderer = SDL_CreateRenderer(App->window->window, -1, flags);
+	renderer = SDL_CreateRenderer(App->window->window, -1, 0);
 	
 	if(renderer == nullptr)
 	{

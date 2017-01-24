@@ -49,7 +49,8 @@ public:
 	ModuleParticles* particles;
 
 	JsonParser* json_parser;
-	SimpleTimer t1;
+	SimpleTimer mili;
+	Timer micro;
 
 
 	// Game modules --

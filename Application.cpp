@@ -17,7 +17,7 @@ using namespace std;
 
 Application::Application()
 {
-	t1.start();
+	mili.start();
 
 	// Order matters: they will init/start/pre/update/post in this order
 	json_parser = new JsonParser(JSONCONFIG);
@@ -36,9 +36,6 @@ Application::Application()
 	modules.push_back(collision = new ModuleCollision());
 	modules.push_back(particles = new ModuleParticles());
 	modules.push_back(fade = new ModuleFadeToBlack());
-	
-	//LOG("ESTO HA TARDADO EN MILI: %d ", t1.stop());
-	//LOG("ESTO HA TARDADO EN MICRO: %f ", t2.stop());
 
 }
 
@@ -72,12 +69,15 @@ update_status Application::Update()
 {
 	frames += 1;
 	fps += 1;
-	if (t1.read() > 1000)
+	if (fps == 60)
 	{
-		t1.stop();
-		t1.start();
+		LOG("We wanted to wait %d ", 1000 - mili.read())
+		micro.start();
+		SDL_Delay(1000 - mili.read());
+		LOG("But we waited %f ", micro.stop()*1000)
+		mili.stop();
+		mili.start();
 		LOG("FPS: %d ", fps);
-		//window->title = "FPS: " + t1.stop();
 		fps = 0;
 	}
 	update_status ret = UPDATE_CONTINUE;
@@ -102,7 +102,6 @@ bool Application::CleanUp()
 {
 	LOG("Frames all application: %d ", frames);
 	bool ret = true;
-	t1.stop();
 	for(list<Module*>::reverse_iterator it = modules.rbegin(); it != modules.rend() && ret; ++it)
 		if((*it)->IsEnabled() == true) 
 			ret = (*it)->CleanUp();
