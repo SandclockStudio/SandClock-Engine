@@ -17,7 +17,7 @@ using namespace std;
 
 Application::Application()
 {
-	mili.start();
+	
 	
 	// Order matters: they will init/start/pre/update/post in this order
 	json_parser = new JsonParser(JSONCONFIG);
@@ -74,17 +74,7 @@ update_status Application::Update()
 	frames += 1;
 	fps += 1;
 	dtTimer.start();
-	if (fps == fps_cap)
-	{
-		LOG("We wanted to wait %d ", 1000 - mili.read())
-		micro.start();
-		SDL_Delay(1000 - mili.read());
-		LOG("But we waited %f ", micro.stop()*1000)
-		mili.stop();
-		mili.start();
-		LOG("FPS: %d ", fps);
-		fps = 0;
-	}
+	
 	update_status ret = UPDATE_CONTINUE;
 
 	for(list<Module*>::iterator it = modules.begin(); it != modules.end() && ret == UPDATE_CONTINUE; ++it)
@@ -100,7 +90,20 @@ update_status Application::Update()
 			ret = (*it)->PostUpdate(dt);
 	
 	dt = dtTimer.stop();
+	if (dt < (1000.0f / fps_cap))
+	{
+		LOG("We wanted to wait %f ", (1000.0f/fps_cap) - dt )
+		micro.start();
+		SDL_Delay(1000.0f / fps_cap - dt );
+		LOG("But we waited %f ", micro.stop()*1000)
+	}
+	
 
+	if (fps == fps_cap)
+	{
+		LOG("FPS: %d ", fps);
+		fps = 0;
+	}
 	return ret;
 }
 
