@@ -18,7 +18,7 @@ using namespace std;
 Application::Application()
 {
 	mili.start();
-
+	
 	// Order matters: they will init/start/pre/update/post in this order
 	json_parser = new JsonParser(JSONCONFIG);
 	modules.push_back(input = new ModuleInput());
@@ -37,6 +37,11 @@ Application::Application()
 	modules.push_back(particles = new ModuleParticles());
 	modules.push_back(fade = new ModuleFadeToBlack());
 
+	if (json_parser->LoadObject("Config.App"))
+	{
+		fps_cap = json_parser->GetInt("fps_cap");
+		json_parser->UnloadObject();
+	}
 }
 
 Application::~Application()
@@ -58,7 +63,6 @@ bool Application::Init()
 		if((*it)->IsEnabled() == true)
 			ret = (*it)->Start();
 	}
-
 	// Start the first scene --
 	fade->FadeToBlack(scene_intro, nullptr, 3.0f);
 	
@@ -69,7 +73,7 @@ update_status Application::Update()
 {
 	frames += 1;
 	fps += 1;
-	if (fps == 60)
+	if (fps == fps_cap)
 	{
 		LOG("We wanted to wait %d ", 1000 - mili.read())
 		micro.start();
@@ -93,7 +97,6 @@ update_status Application::Update()
 	for(list<Module*>::iterator it = modules.begin(); it != modules.end() && ret == UPDATE_CONTINUE; ++it)
 		if((*it)->IsEnabled() == true) 
 			ret = (*it)->PostUpdate();
-	//LOG("ESTO HA TARDADO EN MILI: %d ", t1.read());
 	
 	return ret;
 }

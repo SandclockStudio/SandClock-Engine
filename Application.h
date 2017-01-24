@@ -51,6 +51,7 @@ public:
 	JsonParser* json_parser;
 	SimpleTimer mili;
 	Timer micro;
+	int fps_cap = 0;
 
 
 	// Game modules --

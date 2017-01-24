@@ -5,7 +5,8 @@
 		"Height": 220,
 		"Size": 3,
 		"Vsync": true,
-		"Fullscreen": false
+        "Fullscreen": false,
+        "fps_cap": 60
 	}
 }
 }
