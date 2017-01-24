@@ -40,7 +40,7 @@ public:
 	~ModuleParticles();
 
 	bool Start();
-	update_status Update();
+	update_status Update(float dt);
 	bool CleanUp();
 	void OnCollision(Collider * c1, Collider * c2);
 	void AddParticle(const Particle& particle, int x, int y,int speed,particle_type type, COLLIDER_TYPE collider_type); // feel free to expand this call

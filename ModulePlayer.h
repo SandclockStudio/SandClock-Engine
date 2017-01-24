@@ -16,7 +16,7 @@ class ModulePlayer : public Module
 		~ModulePlayer();
 
 		bool Start();
-		update_status Update();
+		update_status Update(float dt);
 		void OnCollision(Collider* c1,Collider* c2);
 		bool CleanUp();
 

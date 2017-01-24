@@ -24,7 +24,7 @@ bool ModuleUI::Start()
 	return true;
 }
 
-update_status ModuleUI::Update()
+update_status ModuleUI::Update(float dt)
 {
 
 	return UPDATE_CONTINUE;

@@ -73,6 +73,7 @@ update_status Application::Update()
 {
 	frames += 1;
 	fps += 1;
+	dtTimer.start();
 	if (fps == fps_cap)
 	{
 		LOG("We wanted to wait %d ", 1000 - mili.read())
@@ -88,16 +89,18 @@ update_status Application::Update()
 
 	for(list<Module*>::iterator it = modules.begin(); it != modules.end() && ret == UPDATE_CONTINUE; ++it)
 		if((*it)->IsEnabled() == true) 
-			ret = (*it)->PreUpdate();
+			ret = (*it)->PreUpdate(dt);
 
 	for(list<Module*>::iterator it = modules.begin(); it != modules.end() && ret == UPDATE_CONTINUE; ++it)
 		if((*it)->IsEnabled() == true) 
-			ret = (*it)->Update();
+			ret = (*it)->Update(dt);
 
 	for(list<Module*>::iterator it = modules.begin(); it != modules.end() && ret == UPDATE_CONTINUE; ++it)
 		if((*it)->IsEnabled() == true) 
-			ret = (*it)->PostUpdate();
+			ret = (*it)->PostUpdate(dt);
 	
+	dt = dtTimer.stop();
+
 	return ret;
 }
 

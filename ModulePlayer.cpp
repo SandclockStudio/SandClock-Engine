@@ -42,7 +42,7 @@ void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
 {}
 
 // Update: draw background
-update_status ModulePlayer::Update()
+update_status ModulePlayer::Update(float dt)
 {
 	// Draw everything --------------------------------------
 

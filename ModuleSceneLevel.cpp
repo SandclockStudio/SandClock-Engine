@@ -47,7 +47,7 @@ bool ModuleSceneLevel::CleanUp()
 }
 
 // Update: draw background
-update_status ModuleSceneLevel::Update()
+update_status ModuleSceneLevel::Update(float dt)
 {
 	// Move camera forward -----------------------------
 

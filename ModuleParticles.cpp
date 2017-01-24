@@ -53,7 +53,7 @@ void ModuleParticles::OnCollision(Collider* c1, Collider* c2)
 
 
 // Update: draw background
-update_status ModuleParticles::Update()
+update_status ModuleParticles::Update(float dt)
 {
 	for (list<Particle*>::iterator it = active.begin(); it != active.end();)
 	{
