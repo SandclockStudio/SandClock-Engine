@@ -74,8 +74,6 @@ update_status Application::Update()
 {
 
 	dtTimer.start();
-	
-
 
 	update_status ret = UPDATE_CONTINUE;
 
@@ -94,6 +92,7 @@ update_status Application::Update()
 	dt = dtTimer.stop();
 	frames += 1;
 	fps += 1;
+
 	if (dt < (1000.0f / fps_cap))
 	{
 		LOG("We wanted to wait %f ", (1000.0f/fps_cap) - dt )
@@ -110,6 +109,7 @@ update_status Application::Update()
 		mili.start();
 		fps = 0;
 	}
+
 	return ret;
 }
 

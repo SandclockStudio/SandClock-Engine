@@ -57,7 +57,7 @@ update_status ModuleRender::PreUpdate(float dt)
 update_status ModuleRender::Update(float dt)
 {
 	// debug camera
-	int speed = 1;
+	int speed = ceil(100*dt);
 
 	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 		App->renderer->camera.y += speed;
