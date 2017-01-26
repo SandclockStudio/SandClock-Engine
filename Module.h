@@ -69,6 +69,7 @@ public:
 	virtual void OnCollision(Collider* col1, Collider* col2)
 	{ }
 
+	bool fpsDependent = false;
 
 private:
 	bool active = true;

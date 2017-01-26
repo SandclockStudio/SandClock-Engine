@@ -11,6 +11,7 @@ ModuleRender::ModuleRender()
 	camera.x = camera.y = 0;
 	camera.w = screenWidth * screenSize;
 	camera.h = screenHeight* screenSize;
+	fpsDependent = true;
 }
 
 // Destructor
