@@ -12,7 +12,7 @@
 #include "ModulePlayer.h"
 #include "ModuleUI.h"
 #include "JsonParser.h"
-#include "GL\glew.h"
+
 
 using namespace std;
 

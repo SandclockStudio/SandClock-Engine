@@ -3,6 +3,9 @@
 #include "ModuleWindow.h"
 #include "SDL/include/SDL.h"
 #include "JsonParser.h"
+#include "GL/glew.h"
+#include "SDL/include/SDL_opengl.h"
+
 
 ModuleWindow::ModuleWindow()
 {
@@ -36,14 +39,21 @@ bool ModuleWindow::Init()
 		//Create window
 		int width = screenWidth * screenSize;
 		int height = screenHeight * screenSize;
-		Uint32 flags = SDL_WINDOW_SHOWN;
+		Uint32 flags = SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL;
+
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+		SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+		SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
+		SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
 
 		if(fullScreen == true)
 		{
 			flags |= SDL_WINDOW_FULLSCREEN;
 		}
 
-		window = SDL_CreateWindow(title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, flags);
+		/*window = SDL_CreateWindow(title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, flags);
 
 		if(window == nullptr)
 		{
@@ -54,7 +64,15 @@ bool ModuleWindow::Init()
 		{
 			//Get window surface
 			screen_surface = SDL_GetWindowSurface(window);
-		}
+		}*/
+
+		GLenum err = glewInit();
+		LOG("Using Glew %s", glewGetString(GLEW_VERSION));
+		LOG("Vendor %s", glGetString(GL_VENDOR));
+		LOG("Renderer %s", glGetString(GL_RENDERER));
+		LOG("OpenGL version supported %s", glGetString(GL_VERSION));
+		LOG("GLSL %s", glGetString(GL_SHADING_LANGUAGE_VERSION));
+
 	}
 
 	return ret;
