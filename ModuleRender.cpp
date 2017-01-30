@@ -5,6 +5,9 @@
 #include "ModuleInput.h"
 #include "SDL/include/SDL.h"
 #include "JsonParser.h"
+#include "Libraries/OpenGL/include/GL/glew.h"
+
+#pragma comment (lib, "opengl32.lib") 
 
 ModuleRender::ModuleRender()
 {
@@ -36,13 +39,38 @@ bool ModuleRender::Init()
 		flags |= SDL_RENDERER_PRESENTVSYNC;
 	}
 
-	renderer = SDL_CreateRenderer(App->window->window, -1, 0);
+	flags |= SDL_WINDOW_OPENGL;
+
+	context = SDL_GL_CreateContext(App->window->window);
+
+	if (context == nullptr)
+	{
+		LOG("OpenGL context could not be created! SDL_Error: %s\n", SDL_GetError());
+		ret = false;
+	}
+
+	GLenum err = glewInit();
+
+	if (err != GLEW_OK)
+	{
+		LOG("Glew library could not init %s\n", glewGetErrorString(err));
+		ret = false;
+	}
+
+	LOG("Using Glew %s", glewGetString(GLEW_VERSION));
+	LOG("Vendor %s", glGetString(GL_VENDOR));
+	LOG("Renderer %s", glGetString(GL_RENDERER));
+	LOG("OpenGL version supported %s", glGetString(GL_VERSION));
+	LOG("GLSL %s", glGetString(GL_SHADING_LANGUAGE_VERSION));
+
+
+	//renderer = SDL_CreateRenderer(App->window->window, -1, 0);
 	
-	if(renderer == nullptr)
+	/*if(renderer == nullptr)
 	{
 		LOG("Renderer could not be created! SDL_Error: %s\n", SDL_GetError());
 		ret = false;
-	}
+	}*/
 
 	return ret;
 }

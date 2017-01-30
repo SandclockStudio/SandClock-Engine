@@ -25,6 +25,7 @@ public:
 
 public:
 	SDL_Renderer* renderer = nullptr;
+	SDL_GLContext context;
 	SDL_Rect camera;
 	int screenWidth = 0;
 	int screenHeight = 0;

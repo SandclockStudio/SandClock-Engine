@@ -3,8 +3,9 @@
 #include "ModuleWindow.h"
 #include "SDL/include/SDL.h"
 #include "JsonParser.h"
-#include "GL/glew.h"
 #include "SDL/include/SDL_opengl.h"
+
+
 
 
 ModuleWindow::ModuleWindow()
@@ -53,7 +54,7 @@ bool ModuleWindow::Init()
 			flags |= SDL_WINDOW_FULLSCREEN;
 		}
 
-		/*window = SDL_CreateWindow(title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, flags);
+		window = SDL_CreateWindow(title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, flags);
 
 		if(window == nullptr)
 		{
@@ -64,14 +65,9 @@ bool ModuleWindow::Init()
 		{
 			//Get window surface
 			screen_surface = SDL_GetWindowSurface(window);
-		}*/
+		}
 
-		GLenum err = glewInit();
-		LOG("Using Glew %s", glewGetString(GLEW_VERSION));
-		LOG("Vendor %s", glGetString(GL_VENDOR));
-		LOG("Renderer %s", glGetString(GL_RENDERER));
-		LOG("OpenGL version supported %s", glGetString(GL_VERSION));
-		LOG("GLSL %s", glGetString(GL_SHADING_LANGUAGE_VERSION));
+		
 
 	}
 
