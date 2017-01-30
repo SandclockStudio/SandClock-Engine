@@ -5,7 +5,7 @@
 #include "ModuleInput.h"
 #include "SDL/include/SDL.h"
 #include "JsonParser.h"
-#include "Libraries/OpenGL/include/GL/glew.h"
+#include "../Libraries/OpenGL/include/GL/glew.h"
 
 #pragma comment (lib, "opengl32.lib") 
 
@@ -64,13 +64,13 @@ bool ModuleRender::Init()
 	LOG("GLSL %s", glGetString(GL_SHADING_LANGUAGE_VERSION));
 
 
-	//renderer = SDL_CreateRenderer(App->window->window, -1, 0);
+	renderer = SDL_CreateRenderer(App->window->window, -1, 0);
 	
-	/*if(renderer == nullptr)
+	if(renderer == nullptr)
 	{
 		LOG("Renderer could not be created! SDL_Error: %s\n", SDL_GetError());
 		ret = false;
-	}*/
+	}
 
 	return ret;
 }
