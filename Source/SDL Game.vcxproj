@@ -46,12 +46,12 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>false</SDLCheck>
       <ExceptionHandling>Sync</ExceptionHandling>
-      <AdditionalIncludeDirectories>C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Time;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Geometry;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Math;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Algorithm\Random;../Libraries/OpenGL/bin/Release/Win32;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\Libraries;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Time;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Geometry;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Math;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Algorithm\Random;../Libraries/OpenGL/bin/Release/Win32;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
-      <AdditionalDependencies>../Libraries/OpenGL/lib/Release/Win32/glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(ProjectDir)../Libraries/OpenGL/lib/Release/Win32/glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Algorithm;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Math;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source;C:\Users\marcdc\Source\Repos\SandClock-Engine\Libraries;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -63,14 +63,14 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>false</SDLCheck>
       <ExceptionHandling>Sync</ExceptionHandling>
-      <AdditionalIncludeDirectories>../Libraries/OpenGL/bin/Release/Win32;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\Libraries;../Libraries/OpenGL/bin/Release/Win32;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <SubSystem>Windows</SubSystem>
-      <AdditionalDependencies>../Libraries/OpenGL/lib/Release/Win32/glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(ProjectDir)../Libraries/OpenGL/lib/Release/Win32/glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
