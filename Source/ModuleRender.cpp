@@ -107,7 +107,11 @@ update_status ModuleRender::PreUpdate(float dt)
 // Called every draw update
 update_status ModuleRender::Update(float dt)
 {
-	
+	glBegin(GL_TRIANGLES);
+	glVertex3f(-1.0f, -0.5f, -4.0f); // lower left vertex
+	glVertex3f(1.0f, -0.5f, -4.0f); // lower right vertex
+	glVertex3f(0.0f, 0.5f, -4.0f); // upper vertex
+	glEnd();
 	// debug camera
 	int speed = ceil(100*dt);
 
@@ -128,11 +132,7 @@ update_status ModuleRender::Update(float dt)
 
 update_status ModuleRender::PostUpdate(float dt)
 {
-	glBegin(GL_TRIANGLES);
-	glVertex3f(-1.0f, -0.5f, -4.0f); // lower left vertex
-	glVertex3f(1.0f, -0.5f, -4.0f); // lower right vertex
-	glVertex3f(0.0f, 0.5f, -4.0f); // upper vertex
-	glEnd();
+	
 	SDL_GL_SwapWindow(App->window->window);
 	return UPDATE_CONTINUE;
 }
