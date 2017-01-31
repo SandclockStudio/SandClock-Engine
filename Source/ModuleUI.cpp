@@ -17,7 +17,7 @@ ModuleUI::~ModuleUI()
 
 bool ModuleUI::Start()
 {
-	LOG("Loading fonts");
+	LOGCHAR("Loading fonts");
 
 	ui = App->textures->Load("");
 
@@ -32,7 +32,7 @@ update_status ModuleUI::Update(float dt)
 
 bool ModuleUI::CleanUp()
 {
-	LOG("Unloading fonts");
+	LOGCHAR("Unloading fonts");
 
 
 	return true;

@@ -5,8 +5,8 @@
 #include "ModuleInput.h"
 #include "SDL/include/SDL.h"
 #include "JsonParser.h"
+#include "MathGeoLib.h"
 #include "../Libraries/OpenGL/include/GL/glew.h"
-
 #pragma comment (lib, "opengl32.lib") 
 
 ModuleRender::ModuleRender()
@@ -24,13 +24,13 @@ ModuleRender::~ModuleRender()
 // Called before render is available
 bool ModuleRender::Init()
 {
-	LOG("Creating Renderer context");
+	LOGCHAR("Creating Renderer context");
 	bool ret = true;
 	Uint32 flags = 0;
 
 	if (LoadConfig() == false)
 	{
-		LOG("Problem in the configuration file");
+		LOGCHAR("Problem in the configuration file");
 		ret = false;
 	}
 
@@ -45,7 +45,7 @@ bool ModuleRender::Init()
 
 	if (context == nullptr)
 	{
-		LOG("OpenGL context could not be created! SDL_Error: %s\n", SDL_GetError());
+		LOGCHAR("OpenGL context could not be created! SDL_Error: %s\n", SDL_GetError());
 		ret = false;
 	}
 
@@ -53,31 +53,27 @@ bool ModuleRender::Init()
 
 	if (err != GLEW_OK)
 	{
-		LOG("Glew library could not init %s\n", glewGetErrorString(err));
+		LOGCHAR("Glew library could not init %s\n", glewGetErrorString(err));
 		ret = false;
 	}
 
-	LOG("Using Glew %s", glewGetString(GLEW_VERSION));
-	LOG("Vendor %s", glGetString(GL_VENDOR));
-	LOG("Renderer %s", glGetString(GL_RENDERER));
-	LOG("OpenGL version supported %s", glGetString(GL_VERSION));
-	LOG("GLSL %s", glGetString(GL_SHADING_LANGUAGE_VERSION));
+	LOGCHAR("Using Glew %s", glewGetString(GLEW_VERSION));
+	LOGCHAR("Vendor %s", glGetString(GL_VENDOR));
+	LOGCHAR("Renderer %s", glGetString(GL_RENDERER));
+	LOGCHAR("OpenGL version supported %s", glGetString(GL_VERSION));
+	LOGCHAR("GLSL %s", glGetString(GL_SHADING_LANGUAGE_VERSION));
 
 
 	renderer = SDL_CreateRenderer(App->window->window, -1, 0);
 	
 	if(renderer == nullptr)
 	{
-		LOG("Renderer could not be created! SDL_Error: %s\n", SDL_GetError());
+		LOGCHAR("Renderer could not be created! SDL_Error: %s\n", SDL_GetError());
 		ret = false;
 	}
 	else
 	{
-		glMatrixMode(GL_PROJECTION);
-		glLoadIdentity();
-		glMatrixMode(GL_MODELVIEW);
-		glLoadIdentity();
-
+		
 		glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 		glClearDepth(1.0f);
 		glClearColor(0.f, 0.f, 0.f, 1.f);
@@ -95,14 +91,23 @@ bool ModuleRender::Init()
 
 update_status ModuleRender::PreUpdate(float dt)
 {
-	SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
-	SDL_RenderClear(renderer);
+	glViewport(0, 0, screenWidth, screenHeight);
+	glClearColor(0, 0, 0, 1);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glMatrixMode(GL_MODELVIEW);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+
+	glFrustum(-1.0,1.0f,-1.0f,1.0f,2.0f,5.0f);
 	return UPDATE_CONTINUE;
 }
 
 // Called every draw update
 update_status ModuleRender::Update(float dt)
 {
+	
 	// debug camera
 	int speed = ceil(100*dt);
 
@@ -123,14 +128,19 @@ update_status ModuleRender::Update(float dt)
 
 update_status ModuleRender::PostUpdate(float dt)
 {
-	SDL_RenderPresent(renderer);
+	glBegin(GL_TRIANGLES);
+	glVertex3f(-1.0f, -0.5f, -4.0f); // lower left vertex
+	glVertex3f(1.0f, -0.5f, -4.0f); // lower right vertex
+	glVertex3f(0.0f, 0.5f, -4.0f); // upper vertex
+	glEnd();
+	SDL_GL_SwapWindow(App->window->window);
 	return UPDATE_CONTINUE;
 }
 
 // Called before quitting
 bool ModuleRender::CleanUp()
 {
-	LOG("Destroying renderer");
+	LOGCHAR("Destroying renderer");
 
 	//Destroy window
 	if(renderer != nullptr)
@@ -164,7 +174,7 @@ bool ModuleRender::Blit(SDL_Texture* texture, int x, int y, SDL_Rect* section, f
 
 	if(SDL_RenderCopy(renderer, texture, section, &rect) != 0)
 	{
-		LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
+		LOGCHAR("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
 		ret = false;
 	}
 
@@ -189,7 +199,7 @@ bool ModuleRender::DrawQuad(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uin
 
 	if (SDL_RenderFillRect(renderer, &rec) != 0)
 	{
-		LOG("Cannot draw quad to screen. SDL_RenderFillRect error: %s", SDL_GetError());
+		LOGCHAR("Cannot draw quad to screen. SDL_RenderFillRect error: %s", SDL_GetError());
 		ret = false;
 	}
 

@@ -17,7 +17,7 @@ ModuleSceneIntro::~ModuleSceneIntro()
 // Load assets
 bool ModuleSceneIntro::Start()
 {
-	LOG("Loading space intro");
+	LOGCHAR("Loading space intro");
 	
 	background = App->textures->Load("rtype/intro.png");
 	App->audio->PlayMusic("", 0.0f);
@@ -29,7 +29,7 @@ bool ModuleSceneIntro::Start()
 // UnLoad assets
 bool ModuleSceneIntro::CleanUp()
 {
-	LOG("Unloading space scene");
+	LOGCHAR("Unloading space scene");
 
 	App->textures->Unload(background);
 	
@@ -39,7 +39,7 @@ bool ModuleSceneIntro::CleanUp()
 // Update: draw background
 update_status ModuleSceneIntro::Update(float dt)
 {
-	App->renderer->Blit(background, 0, 0, NULL);
+	//App->renderer->Blit(background, 0, 0, NULL);
 
 	if(App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && App->fade->isFading() == false)
 	{

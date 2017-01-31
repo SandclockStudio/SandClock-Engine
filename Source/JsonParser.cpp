@@ -23,10 +23,10 @@ bool JsonParser::LoadObject(const char * name)
 			parsedObject = true;
 		}
 		else 
-			LOG("Object not loaded");
+			LOGCHAR("Object not loaded");
 	}
 	else 
-		LOG("Object already loaded.");
+		LOGCHAR("Object already loaded.");
 
 	return parsedObject;
 }
@@ -38,7 +38,7 @@ bool JsonParser::UnloadObject()
 	//si parseObject esta a true es que esta el objeto cargado
 
 	if (parsedObject == false)
-		LOG("Parsing with errors.");
+		LOGCHAR("Parsing with errors.");
 
 	parsedObject = true;
 	object = nullptr;
@@ -58,13 +58,13 @@ const char* JsonParser::GetString(const char* name)
 		}
 		else
 		{
-			LOG("Incorrect string value");
+			LOGCHAR("Incorrect string value");
 			parsedObject = false;
 		}
 	}
 	else
 	{
-		LOG("No section loaded. Existing Object");
+		LOGCHAR("No section loaded. Existing Object");
 		parsedObject = true;
 	}
 	return return_value;
@@ -82,13 +82,13 @@ int JsonParser::GetInt(const char* name)
 		}
 		else
 		{
-			LOG("Incorrect integer value");
+			LOGCHAR("Incorrect integer value");
 			parsedObject = false;
 		}
 	}
 	else
 	{
-		LOG("No section loaded. Existing Object");
+		LOGCHAR("No section loaded. Existing Object");
 		parsedObject = false;
 	}
 	return return_value;
@@ -103,14 +103,14 @@ bool JsonParser::GetBool(const char* name)
 			return_value = json_object_dotget_boolean(object, name) > 0 ? true : false;
 		else
 		{
-			LOG("Incorrect boolean value");
+			LOGCHAR("Incorrect boolean value");
 			parsedObject = false;
 		}
 	}
 
 	else
 	{
-		LOG("No section loaded. Existing Object");
+		LOGCHAR("No section loaded. Existing Object");
 		parsedObject = false;
 	}
 	return return_value;

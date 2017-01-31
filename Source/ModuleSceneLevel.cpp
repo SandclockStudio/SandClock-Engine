@@ -21,7 +21,7 @@ ModuleSceneLevel::~ModuleSceneLevel()
 // Load assets
 bool ModuleSceneLevel::Start()
 {
-	LOG("Loading space scene");
+	LOGCHAR("Loading space scene");
 
 	background = App->textures->Load("");
 	App->audio->PlayMusic("", 1.0f);
@@ -36,7 +36,7 @@ bool ModuleSceneLevel::Start()
 // UnLoad assets
 bool ModuleSceneLevel::CleanUp()
 {
-	LOG("Unloading space scene");
+	LOGCHAR("Unloading space scene");
 
  	App->textures->Unload(background);
 	App->player->Disable();

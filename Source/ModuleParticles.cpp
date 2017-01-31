@@ -17,7 +17,7 @@ ModuleParticles::~ModuleParticles()
 // Load assets
 bool ModuleParticles::Start()
 {
-	LOG("Loading particles");
+	LOGCHAR("Loading particles");
 	//graphics = App->textures->Load("");
 	return true;
 }
@@ -25,7 +25,7 @@ bool ModuleParticles::Start()
 // Unload assets
 bool ModuleParticles::CleanUp()
 {
-	LOG("Unloading particles");
+	LOGCHAR("Unloading particles");
 	App->textures->Unload(graphics);
 
 	for (list<Particle*>::iterator it = active.begin(); it != active.end(); ++it)

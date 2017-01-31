@@ -46,13 +46,13 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>false</SDLCheck>
       <ExceptionHandling>Sync</ExceptionHandling>
-      <AdditionalIncludeDirectories>../Libraries/OpenGL/bin/Release/Win32;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Time;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Geometry;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Math;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Algorithm\Random;../Libraries/OpenGL/bin/Release/Win32;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <AdditionalDependencies>../Libraries/OpenGL/lib/Release/Win32/glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\franciscocm22\Source\Repos\SandClock-Engine\lib\Release MX\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Algorithm;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Math;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source;C:\Users\marcdc\Source\Repos\SandClock-Engine\Libraries;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

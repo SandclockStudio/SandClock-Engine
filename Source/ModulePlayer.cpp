@@ -21,7 +21,7 @@ ModulePlayer::~ModulePlayer()
 // Load assets
 bool ModulePlayer::Start()
 {
-	LOG("Loading player");
+	LOGCHAR("Loading player");
 
 	graphics = App->textures->Load("");
 	return true;
@@ -30,7 +30,7 @@ bool ModulePlayer::Start()
 // Unload assets
 bool ModulePlayer::CleanUp()
 {
-	LOG("Unloading player");
+	LOGCHAR("Unloading player");
 
 	App->textures->Unload(graphics);
 

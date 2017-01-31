@@ -18,7 +18,7 @@
 
 #pragma once
 
-#include "Libraries/Geometry/GeometryAll.h"
-#include "Libraries/Math/MathAll.h"
-#include "Libraries/Algorithm/Random/LCG.h"
-#include "Libraries/Time/Clock.h"
+#include "Geometry/GeometryAll.h"
+#include "Math/MathAll.h"
+#include "Algorithm/Random/LCG.h"
+#include "Time/Clock.h"

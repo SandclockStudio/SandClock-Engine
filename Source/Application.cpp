@@ -33,7 +33,7 @@ Application::Application()
 	modules.push_back(ui = new ModuleUI());
 	modules.push_back(player = new ModulePlayer(false));
 
-	// Modules to draw on top of game logic
+	// Modules to draw on top of game LOGCHARic
 	modules.push_back(collision = new ModuleCollision());
 	modules.push_back(particles = new ModuleParticles());
 	modules.push_back(fade = new ModuleFadeToBlack());
@@ -96,10 +96,10 @@ update_status Application::Update()
 
 	if (dt < (1000.0f / fps_cap))
 	{
-		LOG("We wanted to wait %f ", (1000.0f/fps_cap) - dt )
+		LOGCHAR("We wanted to wait %f ", (1000.0f/fps_cap) - dt )
 		micro.start();
 		SDL_Delay(1000.0f / fps_cap - dt );
-		LOG("But we waited %f ", micro.stop()*1000)
+		LOGCHAR("But we waited %f ", micro.stop()*1000)
 	}
 	
 	if (mili.read() >= 1000.0f)
@@ -116,7 +116,7 @@ update_status Application::Update()
 
 bool Application::CleanUp()
 {
-	LOG("Frames all application: %d ", frames);
+	LOGCHAR("Frames all application: %d ", frames);
 	bool ret = true;
 	for(list<Module*>::reverse_iterator it = modules.rbegin(); it != modules.rend() && ret; ++it)
 		if((*it)->IsEnabled() == true) 
