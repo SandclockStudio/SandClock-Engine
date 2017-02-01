@@ -73,7 +73,6 @@ bool ModuleRender::Init()
 	}
 	else
 	{
-		
 		glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 		glClearDepth(1.0f);
 		glClearColor(0.f, 0.f, 0.f, 1.f);
@@ -107,6 +106,7 @@ update_status ModuleRender::PreUpdate(float dt)
 // Called every draw update
 update_status ModuleRender::Update(float dt)
 {
+
 	glBegin(GL_TRIANGLES);
 	glVertex3f(-1.0f, -0.5f, -4.0f); // lower left vertex
 	glVertex3f(1.0f, -0.5f, -4.0f); // lower right vertex

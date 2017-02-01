@@ -256,3 +256,4 @@ paket-files/
 /Source/emscripten
 /Source/Algorithm/Random
 /Source/Algorithm
+/Libraries/emscripten
