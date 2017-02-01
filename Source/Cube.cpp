@@ -12,6 +12,60 @@ void Cube::Translate()
 void Cube::Rotate()
 {}
 
+void Cube::DrawDirect()
+{
+		glBegin(GL_TRIANGLES);
+	glVertex3f(0.0f, 0.0f, 0.0f); 
+	glVertex3f(size, 0.0f, 0.0f); 
+	glVertex3f(0.0f, size, 0.0f); 
+
+	glVertex3f(0.0f, size, 0.0f); 
+	glVertex3f(size, 0.0f, 0.0f); 
+	glVertex3f(size, size, 0.0f); 
+
+	glVertex3f(0.0f, size, 0.0f); 
+	glVertex3f(size, size, 0.0f); 
+	glVertex3f(0.0f, size, size); 
+
+	glVertex3f(0.0f, size, size); 
+	glVertex3f(size, size, 0.0f); 
+	glVertex3f(size, size, size); 
+
+	glVertex3f(size, size, 0); 
+	glVertex3f(size, 0.0f, 0.0f); 
+	glVertex3f(size, 0.0f, size); 
+
+	glVertex3f(size, size, 0.0f); 
+	glVertex3f(size, 0.0f, size); 
+	glVertex3f(size, size, size); 
+
+
+	glVertex3f(0.0f, size, size); 
+	glVertex3f(0.0f, 0.0f, 0.0f); 
+	glVertex3f(0.0f, size, 0.0f); 
+
+	glVertex3f(0.0f, size, size); 
+	glVertex3f(0.0f, 0.0f, size); 
+	glVertex3f(0.0f, 0.0f, 0.0f); 
+
+	glVertex3f(0.0f, 0.0f, 0.0f); 
+	glVertex3f(size, 0.0f, size); 
+	glVertex3f(size, 0.0f, 0.0f); 
+
+	glVertex3f(0.0f, 0.0f, 0.0f); 
+	glVertex3f(0.0f, 0.0f, size); 
+	glVertex3f(size, 0.0f, size); 
+
+	glVertex3f(0.0f, size, size); 
+	glVertex3f(size, size, size); 
+	glVertex3f(size, 0.0f, size); 
+
+	glVertex3f(0.0f, size, size); 
+	glVertex3f(size, 0.0f, size); 
+	glVertex3f(0.0f, 0.0f, size); 
+	glEnd();
+}
+
 void Cube::Draw()
 {
 	
@@ -21,13 +75,6 @@ void Cube::Draw()
 	glDrawArrays(GL_TRIANGLES, 0, num_vertices * 3);
 	glDisableClientState(GL_VERTEX_ARRAY);
 	
-	/*
-	glBegin(GL_TRIANGLES);
-	glVertex3f(-1.0f, -0.5f, -4.0f); // lower left vertex
-	glVertex3f(1.0f, -0.5f, -4.0f); // lower right vertex
-	glVertex3f(0.0f, 0.5f, -4.0f); // upper vertex
-	glEnd();
-	*/
 }
 
 void Cube::Start()

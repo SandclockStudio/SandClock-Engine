@@ -23,6 +23,9 @@ public:
 	virtual void Draw()
 	{}
 
+	virtual void DrawDirect()
+	{}
+
 	virtual void Start()
 	{}
 };

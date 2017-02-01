@@ -18,7 +18,7 @@ ModuleSceneIntro::~ModuleSceneIntro()
 bool ModuleSceneIntro::Start()
 {
 	LOGCHAR("Loading space intro");
-	c = new Cube(5,index);
+	c = new Cube(0.25f,index);
 
 	c->Start();
 	return true;
@@ -39,6 +39,7 @@ update_status ModuleSceneIntro::Update(float dt)
 {
 	
 	c->Draw();
+	c->Rotate();
 
 	/*
 

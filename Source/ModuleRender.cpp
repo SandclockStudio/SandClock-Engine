@@ -99,7 +99,8 @@ update_status ModuleRender::PreUpdate(float dt)
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	glFrustum(-1.0,1.0f,-1.0f,1.0f,2.0f,5.0f);
+
+	glFrustum(0.0,0.0f,0.0f,0.0f,2.0f,5.0f);
 	return UPDATE_CONTINUE;
 }
 

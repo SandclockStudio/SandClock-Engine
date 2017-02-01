@@ -15,6 +15,8 @@ public:
 
 	void Rotate();
 
+	void DrawDirect();
+
 	void Draw();
 
 	void Start();
