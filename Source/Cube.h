@@ -22,10 +22,8 @@ public:
 private:
 
 	MY::Uint index;
-	GLfloat num_vertices;
+	GLfloat num_vertices = 12;
 	float size;
-	
-
 };
 
 #endif // __CUBE_H__

@@ -31,6 +31,8 @@ public:
 	int screenHeight = 0;
 	int screenSize = 0;
 	bool vsync = false;
+	
+
 
 private:
 	bool LoadConfig();

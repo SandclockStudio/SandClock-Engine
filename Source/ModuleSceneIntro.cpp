@@ -18,11 +18,9 @@ ModuleSceneIntro::~ModuleSceneIntro()
 bool ModuleSceneIntro::Start()
 {
 	LOGCHAR("Loading space intro");
-	
-	background = App->textures->Load("rtype/intro.png");
-	App->audio->PlayMusic("", 0.0f);
-	App->renderer->camera.x = App->renderer->camera.y = 0;
-	
+	c = new Cube(5,index);
+
+	c->Start();
 	return true;
 }
 
@@ -39,13 +37,17 @@ bool ModuleSceneIntro::CleanUp()
 // Update: draw background
 update_status ModuleSceneIntro::Update(float dt)
 {
-	//App->renderer->Blit(background, 0, 0, NULL);
+	
+	c->Draw();
+
+	/*
 
 	if(App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && App->fade->isFading() == false)
 	{
 		App->fade->FadeToBlack((Module*)App->scene_level, this);
 		App->audio->PlayFx(fx);
 	}
+	*/
 
 	return UPDATE_CONTINUE;
 }
