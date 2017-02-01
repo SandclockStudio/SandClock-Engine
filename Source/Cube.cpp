@@ -110,43 +110,43 @@ void Cube::Start()
 						//3
 						 0,size,0,
 						 size,size,0,
-						 0,size,size,
+						 0,size,-size,
 						//4
-						 0,size,size,
+						 0,size,-size,
 						 size,size,0,
-						 size,size,size,
+						 size,size,-size,
 						//5
 						 size,size,0,
 						 size,0,0,
-						 size,0,size,
+						 size,0,-size,
 						//6
 						 size,size,0,
-						 size,0,size,
-						 size,size,size,
+						 size,0,-size,
+						 size,size,-size,
 						//7 
-						0,size,size,
+						0,size,-size,
 						0,0,0,
 						0,size,0,
 						//8
-						0,size,size,
-						0,0,size,
+						0,size,-size,
+						0,0,-size,
 						0,0,0,
 						//9
 						0,0,0,
-						size,0,size,
+						size,0,-size,
 						size,0,0,
 						//10
 						0,0,0,
-						0,0,size,
-						size,0,size,
+						0,0,-size,
+						size,0,-size,
 						//11
-						0,size,size,
-						size,size,size,
-						size,0,size,
+						0,size,-size,
+						size,size,-size,
+						size,0,-size,
 						//12
-						0,size,size,
-						size,0,size,
-						0,0,size
+						0,size,-size,
+						size,0,-size,
+						0,0,-size
 						};
 
 	
