@@ -135,6 +135,7 @@
     <ClInclude Include="..\Libraries\Time\Clock.h" />
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Application.h" />
+    <ClInclude Include="Cube.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="GL\glew.h" />
     <ClInclude Include="JsonParser.h" />
@@ -155,6 +156,7 @@
     <ClInclude Include="MyRandom.h" />
     <ClInclude Include="parson.h" />
     <ClInclude Include="Point.h" />
+    <ClInclude Include="Primitive.h" />
     <ClInclude Include="SimpleTimer.h" />
     <ClInclude Include="Timer.h" />
   </ItemGroup>
@@ -190,6 +192,7 @@
     <ClCompile Include="..\Libraries\Math\TransformOps.cpp" />
     <ClCompile Include="..\Libraries\Time\Clock.cpp" />
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="Cube.cpp" />
     <ClCompile Include="JsonParser.cpp" />
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="Main.cpp" />
