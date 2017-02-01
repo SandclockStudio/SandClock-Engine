@@ -6,31 +6,46 @@ Cube::Cube(float size, MY::Uint index) : size(size), index(index)
 Cube::~Cube()
 {}
 
-void Cube::Translate()
-{}
+void Cube::Translate(GLfloat translation[])
+{
+	glMatrixMode(GL_PROJECTION);
+	glTranslatef(translation[0], translation[1], translation[2]);
 
-void Cube::Rotate()
-{}
+}
+
+void Cube::Rotate(float angle, GLfloat vector[])
+{
+	glRotatef(angle, vector[0], vector[1], vector[2]);
+}
 
 void Cube::DrawDirect()
 {
+	
 		glBegin(GL_TRIANGLES);
+	//front
+	glColor3f(1, 0, 0);
 	glVertex3f(0.0f, 0.0f, 0.0f); 
 	glVertex3f(size, 0.0f, 0.0f); 
 	glVertex3f(0.0f, size, 0.0f); 
 
-	glVertex3f(0.0f, size, 0.0f); 
-	glVertex3f(size, 0.0f, 0.0f); 
+	glVertex3f(0.0f, size, 0.0f);
+	glVertex3f(size, 0.0f, 0.0f);
 	glVertex3f(size, size, 0.0f); 
 
-	glVertex3f(0.0f, size, 0.0f); 
-	glVertex3f(size, size, 0.0f); 
-	glVertex3f(0.0f, size, size); 
+	
+
+	//up
+	glColor3f(0, 1, 0);
+	glVertex3f(0.0f, size, 0.0f);
+	glVertex3f(size, size, 0.0f);
+	glVertex3f(0.0f, size, size);
 
 	glVertex3f(0.0f, size, size); 
-	glVertex3f(size, size, 0.0f); 
+	glVertex3f(size, size, 0.0f);
 	glVertex3f(size, size, size); 
 
+	//right
+	glColor3f(0, 0, 1);
 	glVertex3f(size, size, 0); 
 	glVertex3f(size, 0.0f, 0.0f); 
 	glVertex3f(size, 0.0f, size); 
@@ -38,8 +53,8 @@ void Cube::DrawDirect()
 	glVertex3f(size, size, 0.0f); 
 	glVertex3f(size, 0.0f, size); 
 	glVertex3f(size, size, size); 
-
-
+	//left
+	glColor3f(0, 1, 1);
 	glVertex3f(0.0f, size, size); 
 	glVertex3f(0.0f, 0.0f, 0.0f); 
 	glVertex3f(0.0f, size, 0.0f); 
@@ -48,6 +63,8 @@ void Cube::DrawDirect()
 	glVertex3f(0.0f, 0.0f, size); 
 	glVertex3f(0.0f, 0.0f, 0.0f); 
 
+	//Down
+	glColor3f(1, 1, 1);
 	glVertex3f(0.0f, 0.0f, 0.0f); 
 	glVertex3f(size, 0.0f, size); 
 	glVertex3f(size, 0.0f, 0.0f); 
@@ -56,6 +73,8 @@ void Cube::DrawDirect()
 	glVertex3f(0.0f, 0.0f, size); 
 	glVertex3f(size, 0.0f, size); 
 
+	//back
+	glColor3f(0.5f, 0.5f, 1);
 	glVertex3f(0.0f, size, size); 
 	glVertex3f(size, size, size); 
 	glVertex3f(size, 0.0f, size); 
@@ -129,7 +148,9 @@ void Cube::Start()
 						0,0,size
 						};
 
+	
 	glGenBuffers(1, (GLuint*) &(index));
 	glBindBuffer(GL_ARRAY_BUFFER, index);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(float)*num_vertices * 3, vertices, GL_STATIC_DRAW);
+	
 }

@@ -11,9 +11,9 @@ public:
 
 	~Cube();
 
-	void Translate();
+	void Translate(GLfloat translation[]);
 
-	void Rotate();
+	void Rotate(float angle, GLfloat vector[]);
 
 	void DrawDirect();
 
@@ -26,6 +26,7 @@ private:
 	MY::Uint index;
 	GLfloat num_vertices = 12;
 	float size;
+
 };
 
 #endif // __CUBE_H__

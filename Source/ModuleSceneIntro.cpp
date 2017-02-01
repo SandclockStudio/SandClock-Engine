@@ -37,9 +37,11 @@ bool ModuleSceneIntro::CleanUp()
 // Update: draw background
 update_status ModuleSceneIntro::Update(float dt)
 {
+	GLfloat vector[] = { 1,1,0 };
+	c->Rotate(angle, vector);
+	angle++;
+	c->DrawDirect();
 	
-	c->Draw();
-	c->Rotate();
 
 	/*
 

@@ -75,7 +75,6 @@ bool ModuleRender::Init()
 	{
 		glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 		glClearDepth(1.0f);
-		glClearColor(0.f, 0.f, 0.f, 1.f);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glEnable(GL_DEPTH_TEST);
 		glEnable(GL_CULL_FACE);
@@ -99,8 +98,7 @@ update_status ModuleRender::PreUpdate(float dt)
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-
-	glFrustum(0.0,0.0f,0.0f,0.0f,2.0f,5.0f);
+	glFrustum(-1.0,1.0f,-1.0f,1.0f,0.0f,1000.0f);
 	return UPDATE_CONTINUE;
 }
 

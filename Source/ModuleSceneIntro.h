@@ -22,6 +22,7 @@ public:
 	uint fx = 0;
 	Cube* c;
 	MY::Uint index = 0;
+	float angle = 0;
 };
 
 #endif // __MODULESCENEINTRO_H__
