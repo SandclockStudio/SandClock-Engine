@@ -17,6 +17,10 @@ enum update_status
 	UPDATE_ERROR
 };
 
+namespace MY {
+	typedef unsigned int Uint;
+}
+
 // Useful typedefs ---------
 typedef unsigned int uint;
 

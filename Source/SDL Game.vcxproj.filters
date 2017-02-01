@@ -14,6 +14,9 @@
     <Filter Include="Utils">
       <UniqueIdentifier>{ad89cf24-f35e-4d0c-90e5-820c054c274d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="OpenGL Tools">
+      <UniqueIdentifier>{53d14cff-10dd-401c-85cd-ff851d048c18}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ModuleRender.h">
@@ -91,6 +94,12 @@
     <ClInclude Include="MathGeoLib.h">
       <Filter>Utils</Filter>
     </ClInclude>
+    <ClInclude Include="Primitive.h">
+      <Filter>OpenGL Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Cube.h">
+      <Filter>OpenGL Tools</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -143,6 +152,9 @@
     </ClCompile>
     <ClCompile Include="JsonParser.cpp">
       <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Cube.cpp">
+      <Filter>OpenGL Tools</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

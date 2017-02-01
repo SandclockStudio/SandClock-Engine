@@ -7,7 +7,7 @@ class Cube : public Primitive
 {
 public:
 
-	Cube();
+	Cube(float size, MY::Uint index);
 
 	~Cube();
 
@@ -16,6 +16,16 @@ public:
 	void Rotate();
 
 	void Draw();
+
+	void Start();
+
+private:
+
+	MY::Uint index;
+	GLfloat num_vertices;
+	float size;
+	
+
 };
 
 #endif // __CUBE_H__

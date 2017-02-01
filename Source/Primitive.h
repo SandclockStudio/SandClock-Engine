@@ -1,6 +1,7 @@
 #ifndef __PRIMITIVE_H__
 #define __PRIMITIVE_H__
 #include "../Libraries/OpenGL/include/GL/glew.h"
+#include "Globals.h"
 #pragma comment (lib, "opengl32.lib") 
 
 class Primitive
@@ -20,6 +21,9 @@ public:
 	{}
 
 	virtual void Draw()
+	{}
+
+	virtual void Start()
 	{}
 };
 
