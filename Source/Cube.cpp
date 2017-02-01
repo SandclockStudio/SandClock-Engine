@@ -8,14 +8,15 @@ Cube::~Cube()
 
 void Cube::Translate(GLfloat translation[])
 {
-	glMatrixMode(GL_PROJECTION);
 	glTranslatef(translation[0], translation[1], translation[2]);
+	glPushMatrix();
 
 }
 
 void Cube::Rotate(float angle, GLfloat vector[])
 {
 	glRotatef(angle, vector[0], vector[1], vector[2]);
+	glPushMatrix();
 }
 
 void Cube::DrawDirect()
@@ -38,50 +39,50 @@ void Cube::DrawDirect()
 	glColor3f(0, 1, 0);
 	glVertex3f(0.0f, size, 0.0f);
 	glVertex3f(size, size, 0.0f);
-	glVertex3f(0.0f, size, size);
+	glVertex3f(0.0f, size, -size);
 
-	glVertex3f(0.0f, size, size); 
+	glVertex3f(0.0f, size, -size); 
 	glVertex3f(size, size, 0.0f);
-	glVertex3f(size, size, size); 
+	glVertex3f(size, size, -size); 
 
 	//right
 	glColor3f(0, 0, 1);
 	glVertex3f(size, size, 0); 
 	glVertex3f(size, 0.0f, 0.0f); 
-	glVertex3f(size, 0.0f, size); 
+	glVertex3f(size, 0.0f, -size); 
 
 	glVertex3f(size, size, 0.0f); 
-	glVertex3f(size, 0.0f, size); 
-	glVertex3f(size, size, size); 
+	glVertex3f(size, 0.0f, -size); 
+	glVertex3f(size, size, -size); 
 	//left
 	glColor3f(0, 1, 1);
-	glVertex3f(0.0f, size, size); 
+	glVertex3f(0.0f, size, -size); 
 	glVertex3f(0.0f, 0.0f, 0.0f); 
 	glVertex3f(0.0f, size, 0.0f); 
 
-	glVertex3f(0.0f, size, size); 
-	glVertex3f(0.0f, 0.0f, size); 
+	glVertex3f(0.0f, size, -size); 
+	glVertex3f(0.0f, 0.0f,-size); 
 	glVertex3f(0.0f, 0.0f, 0.0f); 
 
 	//Down
-	glColor3f(1, 1, 1);
+	glColor3f(0.5f, 1, 1);
 	glVertex3f(0.0f, 0.0f, 0.0f); 
-	glVertex3f(size, 0.0f, size); 
+	glVertex3f(size, 0.0f, -size); 
 	glVertex3f(size, 0.0f, 0.0f); 
 
 	glVertex3f(0.0f, 0.0f, 0.0f); 
-	glVertex3f(0.0f, 0.0f, size); 
-	glVertex3f(size, 0.0f, size); 
+	glVertex3f(0.0f, 0.0f, -size); 
+	glVertex3f(size, 0.0f, -size); 
 
 	//back
 	glColor3f(0.5f, 0.5f, 1);
-	glVertex3f(0.0f, size, size); 
-	glVertex3f(size, size, size); 
-	glVertex3f(size, 0.0f, size); 
+	glVertex3f(0.0f, size, -size); 
+	glVertex3f(size, size, -size); 
+	glVertex3f(size, 0.0f, -size); 
 
-	glVertex3f(0.0f, size, size); 
-	glVertex3f(size, 0.0f, size); 
-	glVertex3f(0.0f, 0.0f, size); 
+	glVertex3f(0.0f, size, -size); 
+	glVertex3f(size, 0.0f, -size); 
+	glVertex3f(0.0f, 0.0f, -size); 
 	glEnd();
 }
 
