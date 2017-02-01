@@ -15,7 +15,7 @@ public:
 	virtual void Translate()
 	{}
 
-	virtual bool Rotate()
+	virtual void Rotate()
 	{}
 
 };
