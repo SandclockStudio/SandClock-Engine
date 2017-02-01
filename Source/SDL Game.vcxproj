@@ -75,7 +75,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\Libraries\Algorithm\Random\LCG.h" />
-    <ClInclude Include="..\Libraries\emscripten\library_system.h" />
     <ClInclude Include="..\Libraries\Geometry\AABB.h" />
     <ClInclude Include="..\Libraries\Geometry\AABB2D.h" />
     <ClInclude Include="..\Libraries\Geometry\Capsule.h" />
@@ -211,7 +210,6 @@
     <ClCompile Include="parson.c" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Libraries\emscripten\library_system.js" />
     <None Include="..\Libraries\Geometry\KDTree.inl" />
     <None Include="..\Libraries\Geometry\QuadTree.inl" />
     <None Include="..\Libraries\Geometry\TriangleMesh_IntersectRay_AVX.inl" />
