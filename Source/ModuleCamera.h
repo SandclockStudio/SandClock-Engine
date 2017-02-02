@@ -16,8 +16,8 @@ class ModuleCamera : public Module
 	public:
 		void SetFov();
 		void SetAspectRatio();
-		void SetPlaneDistances();
-		void Position();
+		void SetPlaneDistances(float near, float far);
+		void Position(float3 pos);
 		void Orientation();
 		void LookAt();
 		void GetProjectionMatrix();
