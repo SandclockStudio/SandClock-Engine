@@ -1,8 +1,9 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleCamera.h"
+#include "../Libraries/OpenGL/include/GL/glew.h"
+#pragma comment (lib, "opengl32.lib") 
 #include "JsonParser.h"
-
 
 ModuleCamera::ModuleCamera()
 {
@@ -43,12 +44,15 @@ void ModuleCamera::SetAspectRatio(float newAspectRatio)
 	//f.horizontalFov = Tan(f.verticalFov / 2) / f.AspectRatio;
 }
 
-void ModuleCamera::SetPlaneDistances()
+void ModuleCamera::SetPlaneDistances(float near, float far)
 {
+	f.farPlaneDistance = far;
+	f.nearPlaneDistance = near;
 }
 
-void ModuleCamera::Position()
+void ModuleCamera::Position(float3 pos)
 {
+	f.pos = pos;
 }
 
 void ModuleCamera::Orientation()
@@ -59,14 +63,14 @@ void ModuleCamera::LookAt()
 {
 }
 
-float4x4 ModuleCamera::GetProjectionMatrix()
+void ModuleCamera::GetProjectionMatrix()
 {
-	return float4x4();
+	glGetFloatv(GL_PROJECTION_MATRIX, projectionMatrix);
 }
 
-float4x4 ModuleCamera::GetViewMatrix()
+void ModuleCamera::GetViewMatrix()
 {
-	return float4x4();
+	glGetFloatv(GL_MODELVIEW_MATRIX, viewMatrix);
 }
 
 bool ModuleCamera::LoadConfig()

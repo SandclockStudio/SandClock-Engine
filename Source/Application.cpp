@@ -97,10 +97,10 @@ update_status Application::Update()
 
 	if (dt < (1000.0f / fps_cap))
 	{
-		LOGCHAR("We wanted to wait %f ", (1000.0f/fps_cap) - dt )
-		micro.start();
+		//LOGCHAR("We wanted to wait %f ", (1000.0f/fps_cap) - dt )
+		//micro.start();
 		SDL_Delay(1000.0f / fps_cap - dt );
-		LOGCHAR("But we waited %f ", micro.stop()*1000)
+		//LOGCHAR("But we waited %f ", micro.stop()*1000)
 	}
 	
 	if (mili.read() >= 1000.0f)
