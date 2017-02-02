@@ -94,6 +94,29 @@ int JsonParser::GetInt(const char* name)
 	return return_value;
 }
 
+float JsonParser::GetFloat(const char* name)
+{
+	float return_value = NULL;
+	if (object != nullptr)
+	{
+		if (json_object_dothas_value_of_type(object, name, JSONNumber))
+		{
+			return_value = (float)json_object_dotget_number(object, name);
+		}
+		else
+		{
+			LOGCHAR("Incorrect float value");
+			parsedObject = false;
+		}
+	}
+	else
+	{
+		LOGCHAR("No section loaded. Existing Object");
+		parsedObject = false;
+	}
+	return return_value;
+}
+
 bool JsonParser::GetBool(const char* name)
 {
 	bool return_value = false;

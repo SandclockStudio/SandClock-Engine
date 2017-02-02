@@ -18,6 +18,7 @@ public:
 	const char* GetString(const char* name);
 	int GetInt(const char* name);
 	bool GetBool(const char* name);
+	float GetFloat(const char* name);
 
 	JSON_Object* json_file = nullptr;
 	JSON_Object* object = nullptr;

@@ -6,6 +6,9 @@
 		"Size": 3,
 		"Vsync": true,
 		"Fullscreen": false
+		"FOVY": 90,
+		"FOVX": 90,
+		"AspectRatio": 4.3
 	}
 }
 }
