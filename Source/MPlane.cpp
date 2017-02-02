@@ -22,8 +22,9 @@ void MPlane::Rotate(float angle, GLfloat vector[])
 
 void MPlane::DrawDirect()
 {
-
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	glBegin(GL_TRIANGLES);
+	glColor3f(1, 1, 1);
 	for (int i = 0; i < (planeSize); i++)
 	{
 		for (int j = 0; j < (planeSize); j++)

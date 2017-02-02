@@ -21,8 +21,8 @@ void Cube::Rotate(float angle, GLfloat vector[])
 
 void Cube::DrawDirect()
 {
-	
-		glBegin(GL_TRIANGLES);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	glBegin(GL_TRIANGLES);
 	//front
 	glColor3f(1, 0, 0);
 	glVertex3f(0.0f, 0.0f, 0.0f); 

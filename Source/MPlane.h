@@ -29,7 +29,7 @@ private:
 	float size;
 	int planeSize;
 	float3 vertex;
-	float3 vertices[1000];
+	float3 vertices[100000];
 
 };
 

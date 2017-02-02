@@ -441,6 +441,12 @@
     <ClCompile Include="Cube.cpp">
       <Filter>OpenGlTools</Filter>
     </ClCompile>
+    <ClCompile Include="MPlane.cpp">
+      <Filter>OpenGlTools</Filter>
+    </ClCompile>
+    <ClCompile Include="Gizmo.cpp">
+      <Filter>OpenGlTools</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="config.json">

@@ -4,6 +4,8 @@
 #include "Module.h"
 #include "Cube.h"
 #include "MPlane.h"
+#include "Gizmo.h"
+
 
 
 struct SDL_Texture;
@@ -23,6 +25,7 @@ public:
 	SDL_Texture* background = nullptr;
 	uint fx = 0;
 	Cube* c;
+	Gizmo* g;
 	MPlane* p;
 	MY::Uint index = 0;
 	float angle = 0;
