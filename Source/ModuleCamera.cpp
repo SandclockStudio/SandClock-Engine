@@ -1,8 +1,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleCamera.h"
-#include "../Libraries/OpenGL/include/GL/glew.h"
-#pragma comment (lib, "opengl32.lib") 
+
 #include "JsonParser.h"
 
 ModuleCamera::ModuleCamera()
@@ -34,13 +33,13 @@ void ModuleCamera::SetFov(float newFOV)
 
 	f.verticalFov = newFOV;
 	//recalculate horizontal FOV to mantein aspect ratio
-	f.horizontalFov = Tan(f.verticalFov / 2) / f.AspectRatio;
+	f.horizontalFov = Tan(f.verticalFov / 2) / f.AspectRatio();
 }
 
 void ModuleCamera::SetAspectRatio(float newAspectRatio)
 {
-	f.AspectRatio = newAspectRatio;
-	f.verticalFov = 2 * Atan(Tan(f.horizontalFov) * f.AspectRatio);
+	
+	f.verticalFov = 2 * Atan(Tan(f.horizontalFov) * newAspectRatio);
 	//f.horizontalFov = Tan(f.verticalFov / 2) / f.AspectRatio;
 }
 
@@ -65,12 +64,12 @@ void ModuleCamera::LookAt()
 
 void ModuleCamera::GetProjectionMatrix()
 {
-	glGetFloatv(GL_PROJECTION_MATRIX, projectionMatrix);
+	glGetFloatv(GL_PROJECTION_MATRIX, pm);
 }
 
 void ModuleCamera::GetViewMatrix()
 {
-	glGetFloatv(GL_MODELVIEW_MATRIX, viewMatrix);
+	glGetFloatv(GL_MODELVIEW_MATRIX, vm);
 }
 
 bool ModuleCamera::LoadConfig()
@@ -81,7 +80,7 @@ bool ModuleCamera::LoadConfig()
 	{
 		f.verticalFov = App->json_parser->GetInt("FOVY");
 		f.horizontalFov = App->json_parser->GetInt("FOVX");
-		f.AspectRatio = App->json_parser->GetFloat("AspectRatio");
+		//f.AspectRatio = App->json_parser->GetFloat("AspectRatio");
 		return_value = App->json_parser->UnloadObject();
 	}
 

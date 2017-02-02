@@ -3,6 +3,8 @@
 
 #include "Module.h"
 #include "MathGeoLib.h"
+#include "../Libraries/OpenGL/include/GL/glew.h"
+#pragma comment (lib, "opengl32.lib") 
 
 class ModuleCamera : public Module
 {
@@ -22,9 +24,10 @@ class ModuleCamera : public Module
 		void LookAt();
 		void GetProjectionMatrix();
 		void GetViewMatrix();
-		
-		GLfloat projectionMatrix [16];
-		GLfloat viewMatrix[16];
+		bool LoadConfig();
+
+		GLfloat pm [16];
+		GLfloat vm[16];
 
 	private:
 		Frustum f;
