@@ -135,6 +135,7 @@
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Application.h" />
     <ClInclude Include="Cube.h" />
+    <ClInclude Include="Gizmo.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="GL\glew.h" />
     <ClInclude Include="JsonParser.h" />
@@ -193,6 +194,7 @@
     <ClCompile Include="..\Libraries\Time\Clock.cpp" />
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Cube.cpp" />
+    <ClCompile Include="Gizmo.cpp" />
     <ClCompile Include="JsonParser.cpp" />
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="Main.cpp" />

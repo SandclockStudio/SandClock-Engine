@@ -289,6 +289,9 @@
     <ClInclude Include="Cube.h">
       <Filter>OpenGlTools</Filter>
     </ClInclude>
+    <ClInclude Include="Gizmo.h">
+      <Filter>OpenGlTools</Filter>
+    </ClInclude>
     <ClInclude Include="MPlane.h">
       <Filter>OpenGlTools</Filter>
     </ClInclude>
@@ -436,9 +439,6 @@
       <Filter>Math\Time</Filter>
     </ClCompile>
     <ClCompile Include="Cube.cpp">
-      <Filter>OpenGlTools</Filter>
-    </ClCompile>
-    <ClCompile Include="MPlane.cpp">
       <Filter>OpenGlTools</Filter>
     </ClCompile>
   </ItemGroup>
