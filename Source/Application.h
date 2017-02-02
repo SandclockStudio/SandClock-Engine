@@ -62,6 +62,7 @@ public:
 	ModuleSceneIntro* scene_intro;
 	ModuleSceneLevel* scene_level;
 	ModuleEnemy* enemies;
+	ModuleCamera* camera;
 
 
 private:

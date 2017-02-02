@@ -11,6 +11,7 @@ class ModuleCamera : public Module
 	public:
 		ModuleCamera();
 		~ModuleCamera();
+		bool Init();
 		update_status Update(float dt);
 		bool Start();
 		bool CleanUp();
@@ -21,7 +22,7 @@ class ModuleCamera : public Module
 		void SetFov(float newFOV);
 		void SetAspectRatio(float newAspectRatio);
 		void Orientation();
-		void LookAt();
+		void LookAt(float3, float3);
 		float* GetProjectionMatrix();
 		float* GetViewMatrix();
 		bool LoadConfig();

@@ -1,31 +1,53 @@
-#include "Globals.h"
 #include "Application.h"
 #include "ModuleCamera.h"
-
+#include "ModuleInput.h"
 #include "JsonParser.h"
 
 ModuleCamera::ModuleCamera()
 {
+
 }
 
 ModuleCamera::~ModuleCamera()
 {
 }
 
+
+
+bool ModuleCamera::Init()
+{
+	LoadConfig();
+	return true;
+}
 update_status ModuleCamera::Update(float dt)
 {
-	return update_status();
+	
+	if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT) 
+	{
+		float3 pos = f.pos;
+		Position(float3(pos.x, pos.y+ (1.5f*dt), pos.z));
+
+	}
+		
+
+	if (App->input->GetKey(SDL_SCANCODE_E) == KEY_REPEAT)
+	{
+		float3 pos = f.pos;
+		Position(float3(pos.x , pos.y - (1.5f *dt), pos.z));
+	}
+
+	return UPDATE_CONTINUE;
 }
 
 bool ModuleCamera::Start()
 {
-	return false;
+	return true;
 }
 
 
 bool ModuleCamera::CleanUp()
 {
-	return false;
+	return true;
 }
 
 void ModuleCamera::SetFov(float newFOV)
@@ -56,10 +78,13 @@ void ModuleCamera::Position(float3 pos)
 
 void ModuleCamera::Orientation()
 {
+
 }
 
-void ModuleCamera::LookAt()
+void ModuleCamera::LookAt(float3 front, float3 up)
 {
+	f.front = front;
+	f.up = up;
 }
 
 float * ModuleCamera::GetProjectionMatrix()
@@ -88,11 +113,22 @@ bool ModuleCamera::LoadConfig()
 
 	if (App->json_parser->LoadObject("Config.App"))
 	{
-		f.verticalFov = App->json_parser->GetInt("FOVY");
-		f.horizontalFov = App->json_parser->GetInt("FOVX");
+		/*f.verticalFov = App->json_parser->GetInt("FOVY");
+		f.horizontalFov = App->json_parser->GetInt("FOVX");*/
+		f.verticalFov = 1.0f;
+		f.horizontalFov = 1.0f;
 		//f.AspectRatio = App->json_parser->GetFloat("AspectRatio");
+		Position(float3(0.0f, 0.0f, 0.0f));
+		LookAt(float3::unitZ,float3::unitY);
+		f.nearPlaneDistance = 0.1f;
+		f.farPlaneDistance = 1000.0f;
+		
+
+
 		return_value = App->json_parser->UnloadObject();
 	}
 
 	return return_value;
 }
+
+

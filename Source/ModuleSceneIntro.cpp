@@ -43,14 +43,8 @@ bool ModuleSceneIntro::CleanUp()
 update_status ModuleSceneIntro::Update(float dt)
 {
 
-	GLfloat translate[] = { -5.0,-3.0f,-1.0f };
-	p->Translate(translate);
-	GLfloat vector[] = { 1,0,0 };
-	angle = 60;
-	p->Rotate(angle, vector);
+
 	p->DrawDirect();
-	GLfloat translate2[] = { 1.5f,0.0f,-2.0f };
-	c->Translate(translate2);
 	c->DrawDirect();
 	g->DrawDirect();
 

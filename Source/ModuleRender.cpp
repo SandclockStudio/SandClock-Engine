@@ -7,6 +7,7 @@
 #include "JsonParser.h"
 #include "MathGeoLib.h"
 #include "../Libraries/OpenGL/include/GL/glew.h"
+#include "ModuleCamera.h"
 #pragma comment (lib, "opengl32.lib") 
 
 ModuleRender::ModuleRender()
@@ -97,7 +98,8 @@ update_status ModuleRender::PreUpdate(float dt)
 	glLoadIdentity();
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	glFrustum(-2.0f,2.0f,-1.0f,1.0f,1,5);
+	//glFrustum(-2.0f,2.0f,-1.0f,1.0f,1,5);
+	glLoadMatrixf(App->camera->GetViewMatrix());
 	return UPDATE_CONTINUE;
 }
 

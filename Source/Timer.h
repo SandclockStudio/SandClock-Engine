@@ -8,7 +8,7 @@ class Timer
 {
 	public:
 
-		Uint64 t1,t2;
+		float t1,t2;
 		bool stopTimer = true;
 
 	public:
@@ -22,22 +22,22 @@ class Timer
 		void start()
 		{
 			stopTimer = false;
-			t1 = SDL_GetPerformanceCounter();
+			t1 = (float)SDL_GetPerformanceCounter();
 		}
 
-		Uint64 read()
+		float read()
 		{
 			if (!stopTimer)
-				return ((SDL_GetPerformanceCounter() - t1)  / SDL_GetPerformanceFrequency());
+				return (float)((SDL_GetPerformanceCounter() - t1)  / SDL_GetPerformanceFrequency());
 			else
 				return t2;
 		}
 
-		Uint64 stop()
+		float stop()
 		{
 			stopTimer = true;
-			t2 = ((SDL_GetPerformanceCounter() - t1) ) /( SDL_GetPerformanceFrequency());
-			return ((SDL_GetPerformanceCounter() - t1) )/ (SDL_GetPerformanceFrequency());
+			t2 = (float)((SDL_GetPerformanceCounter() - t1) ) /( SDL_GetPerformanceFrequency());
+			return t2;
 		}
 
 };

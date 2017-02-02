@@ -38,6 +38,7 @@ Application::Application()
 	modules.push_back(collision = new ModuleCollision());
 	modules.push_back(particles = new ModuleParticles());
 	modules.push_back(fade = new ModuleFadeToBlack());
+	modules.push_back(camera = new ModuleCamera());
 
 	if (json_parser->LoadObject("Config.App"))
 	{
