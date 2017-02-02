@@ -19,7 +19,9 @@ bool ModuleSceneIntro::Start()
 {
 	LOGCHAR("Loading space intro");
 	c = new Cube(0.5f,index);
+	p = new MPlane(0.2f, 4, index);
 
+	p->Start();
 	c->Start();
 	return true;
 }
@@ -37,13 +39,21 @@ bool ModuleSceneIntro::CleanUp()
 // Update: draw background
 update_status ModuleSceneIntro::Update(float dt)
 {
-	GLfloat translate[] = { -0.5f,0,-2.0f };
+	/*GLfloat translate[] = { -0.5f,0,-2.0f };
 	c->Translate(translate);
 	GLfloat vector[] = { 1,1,0 };
 	c->Rotate(angle, vector);
 	angle++;
 	c->DrawDirect();
-
+	*/
+	GLfloat translate[] = { -0.5f,0,-2.0f };
+	p->Translate(translate);
+	GLfloat vector[] = { 1,0,0 };
+	p->Rotate(angle, vector);
+	angle++;
+	//c->DrawDirect();
+	p->DrawDirect();
+	
 
 	/*
 

@@ -154,6 +154,7 @@
     <ClInclude Include="ModuleWindow.h" />
     <ClInclude Include="MyRandom.h" />
     <ClInclude Include="parson.h" />
+    <ClInclude Include="MPlane.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="Primitive.h" />
     <ClInclude Include="SimpleTimer.h" />
@@ -208,6 +209,7 @@
     <ClCompile Include="ModuleTextures.cpp" />
     <ClCompile Include="ModuleWindow.cpp" />
     <ClCompile Include="parson.c" />
+    <ClCompile Include="MPlane.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Libraries\Geometry\KDTree.inl" />

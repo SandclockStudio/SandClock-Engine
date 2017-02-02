@@ -41,6 +41,7 @@
 
 #ifdef MATH_GRAPHICSENGINE_INTEROP
 #include "VertexBuffer.h"
+#include "..\..\Source\Plane.h"
 #endif
 
 MATH_BEGIN_NAMESPACE
@@ -976,3 +977,4 @@ void Plane::ToLineList(VertexBuffer &vb, float uWidth, float vHeight, const floa
 
 #endif
 MATH_END_NAMESPACE
+
