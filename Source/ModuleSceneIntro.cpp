@@ -19,8 +19,9 @@ bool ModuleSceneIntro::Start()
 {
 	LOGCHAR("Loading space intro");
 	c = new Cube(0.5f,index);
-
+	g = new Gizmo(0.5f, 2.0f, index);
 	c->Start();
+	g->Start();
 	return true;
 }
 
@@ -43,7 +44,7 @@ update_status ModuleSceneIntro::Update(float dt)
 	c->Rotate(angle, vector);
 	angle++;
 	c->DrawDirect();
-
+	g->DrawDirect();
 
 	/*
 
