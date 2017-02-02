@@ -20,11 +20,14 @@ class ModuleCamera : public Module
 		void Position();
 		void Orientation();
 		void LookAt();
-		float4x4 GetProjectionMatrix();
-		float4x4 GetViewMatrix();
+		void GetProjectionMatrix();
+		void GetViewMatrix();
+		
+		GLfloat projectionMatrix [16];
+		GLfloat viewMatrix[16];
 
 	private:
-		float verticalFOV, horizontalFOV, aspectRatio;
+		Frustum f;
 
 };
 

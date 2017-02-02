@@ -1,7 +1,8 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleCamera.h"
-
+#include "../Libraries/OpenGL/include/GL/glew.h"
+#pragma comment (lib, "opengl32.lib") 
 
 ModuleCamera::ModuleCamera()
 {
@@ -51,12 +52,12 @@ void ModuleCamera::LookAt()
 {
 }
 
-float4x4 ModuleCamera::GetProjectionMatrix()
+void ModuleCamera::GetProjectionMatrix()
 {
-	return float4x4();
+	glGetFloatv(GL_PROJECTION_MATRIX, projectionMatrix);
 }
 
-float4x4 ModuleCamera::GetViewMatrix()
+void ModuleCamera::GetViewMatrix()
 {
-	return float4x4();
+	glGetFloatv(GL_MODELVIEW_MATRIX, viewMatrix);
 }
