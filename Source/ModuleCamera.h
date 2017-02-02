@@ -16,15 +16,15 @@ class ModuleCamera : public Module
 	public:
 		void SetFov();
 		void SetAspectRatio();
-		void SetPlaneDistances();
-		void Position();
+		void SetPlaneDistances(float near, float far);
+		void Position(float3 pos);
 		void Orientation();
 		void LookAt();
 		float4x4 GetProjectionMatrix();
 		float4x4 GetViewMatrix();
 
 	private:
-		float verticalFOV, horizontalFOV, aspectRatio;
+		Frustum f;
 
 };
 
