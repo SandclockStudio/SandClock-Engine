@@ -14,14 +14,10 @@ class ModuleCamera : public Module
 		bool CleanUp();
 
 	public:
-		void SetFov();
-		void SetAspectRatio();
 		void SetPlaneDistances(float near, float far);
 		void Position(float3 pos);
 		void SetFov(float newFOV);
 		void SetAspectRatio(float newAspectRatio);
-		void SetPlaneDistances();
-		void Position();
 		void Orientation();
 		void LookAt();
 		void GetProjectionMatrix();
