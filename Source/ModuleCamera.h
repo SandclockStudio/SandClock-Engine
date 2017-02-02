@@ -22,12 +22,10 @@ class ModuleCamera : public Module
 		void SetAspectRatio(float newAspectRatio);
 		void Orientation();
 		void LookAt();
-		void GetProjectionMatrix();
-		void GetViewMatrix();
+		float* GetProjectionMatrix();
+		float* GetViewMatrix();
 		bool LoadConfig();
 
-		GLfloat pm [16];
-		GLfloat vm[16];
 
 	private:
 		Frustum f;

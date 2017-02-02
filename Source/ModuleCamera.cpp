@@ -62,14 +62,24 @@ void ModuleCamera::LookAt()
 {
 }
 
-void ModuleCamera::GetProjectionMatrix()
+float * ModuleCamera::GetProjectionMatrix()
 {
-	glGetFloatv(GL_PROJECTION_MATRIX, pm);
+	float4x4 m;
+
+	m = f.ProjectionMatrix();
+	m.Transpose();
+
+	return (float*)m.v;
 }
 
-void ModuleCamera::GetViewMatrix()
+float * ModuleCamera::GetViewMatrix()
 {
-	glGetFloatv(GL_MODELVIEW_MATRIX, vm);
+	float4x4 m;
+
+	m = f.ViewMatrix();
+	m.Transpose();
+
+	return (float*)m.v;
 }
 
 bool ModuleCamera::LoadConfig()
