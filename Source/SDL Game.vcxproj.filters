@@ -295,6 +295,9 @@
     <ClInclude Include="MPlane.h">
       <Filter>OpenGlTools</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleCamera.h">
+      <Filter>Core Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -441,11 +444,14 @@
     <ClCompile Include="Cube.cpp">
       <Filter>OpenGlTools</Filter>
     </ClCompile>
-    <ClCompile Include="MPlane.cpp">
-      <Filter>OpenGlTools</Filter>
-    </ClCompile>
     <ClCompile Include="Gizmo.cpp">
-      <Filter>OpenGlTools</Filter>
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="MPlane.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleCamera.cpp">
+      <Filter>Core Modules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

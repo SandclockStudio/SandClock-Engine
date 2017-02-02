@@ -16,6 +16,7 @@ class ModuleFadeToBlack;
 class ModuleCollision;
 class ModuleParticles;
 class ModuleUI;
+class ModuleCamera;
 
 //JSON Parser
 class JsonParser;

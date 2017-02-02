@@ -12,6 +12,7 @@
 #include "ModulePlayer.h"
 #include "ModuleUI.h"
 #include "JsonParser.h"
+#include "ModuleCamera.h"
 
 
 using namespace std;
