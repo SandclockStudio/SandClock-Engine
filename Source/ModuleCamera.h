@@ -30,6 +30,7 @@ class ModuleCamera : public Module
 
 	private:
 		Frustum f;
+		float speed;
 
 };
 
