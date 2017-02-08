@@ -8,7 +8,6 @@
 #include "MathGeoLib.h"
 #include "../Libraries/OpenGL/include/GL/glew.h"
 #include "ModuleCamera.h"
-#include "JsonParser.h"
 
 #pragma comment (lib, "opengl32.lib") 
 
@@ -27,11 +26,10 @@ ModuleRender::~ModuleRender()
 // Called before render is available
 bool ModuleRender::Init()
 {
-	json_parser = new JsonParser(JSONCONFIG);
-	if (json_parser->LoadObject("Config.App"))
+	if (App->json_parser->LoadObject("Config.App"))
 	{
-		fps_cap = json_parser->GetInt("fps_cap");
-		json_parser->UnloadObject();
+		fps_cap = App->json_parser->GetInt("fps_cap");
+		App->json_parser->UnloadObject();
 	}
 	LOGCHAR("Creating Renderer context");
 	bool ret = true;
@@ -156,7 +154,6 @@ bool ModuleRender::CleanUp()
 	{
 		SDL_DestroyRenderer(renderer);
 	}
-	RELEASE(json_parser);
 
 	return true;
 }

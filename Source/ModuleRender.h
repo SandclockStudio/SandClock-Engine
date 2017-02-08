@@ -32,7 +32,6 @@ public:
 	int screenSize = 0;
 	bool vsync = false;
 	int fps_cap = 0;
-	JsonParser* json_parser;
 
 	
 
