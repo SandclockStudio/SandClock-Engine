@@ -28,13 +28,23 @@ update_status ModuleCamera::Update(float dt)
 		Position(float3(pos.x, pos.y+ (1.5f*dt), pos.z));
 
 	}
-		
-
 	if (App->input->GetKey(SDL_SCANCODE_E) == KEY_REPEAT)
 	{
 		float3 pos = f.pos;
 		Position(float3(pos.x , pos.y - (1.5f *dt), pos.z));
 	}
+
+	float3 right(f.WorldRight());
+	float3 forward(f.front);
+
+	float3 movement(float3::zero);
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) movement += forward;
+	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) movement -= forward;
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) movement += right;
+	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) movement -= right;
+
+	if (movement.Equals(float3::zero) == false)
+		f.Translate(movement * dt);
 
 	return UPDATE_CONTINUE;
 }
@@ -62,7 +72,8 @@ void ModuleCamera::SetFov(float newFOV)
 void ModuleCamera::SetAspectRatio(float newAspectRatio)
 {
 	
-	f.horizontalFov = 2 * Atan(Tan(f.horizontalFov) * newAspectRatio);
+	f.verticalFov = 2 * Atan(Tan(f.horizontalFov) * newAspectRatio);
+	SetFov(f.verticalFov);
 	//f.horizontalFov = Tan(f.verticalFov / 2) / f.AspectRatio();
 }
 
