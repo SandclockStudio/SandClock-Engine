@@ -17,27 +17,31 @@ ModuleCamera::~ModuleCamera()
 bool ModuleCamera::Init()
 {
 	LoadConfig();
+	right = f.WorldRight();
+	forward = f.front;
+	speed = 1.5f;
 	return true;
 }
 update_status ModuleCamera::Update(float dt)
 {
+
+
+
+	movement = float3::zero;
 	
 	if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT) 
 	{
 		float3 pos = f.pos;
-		Position(float3(pos.x, pos.y+ (1.5f*dt), pos.z));
+		Position(float3(pos.x, pos.y+ (speed*dt), pos.z));
 
 	}
 	if (App->input->GetKey(SDL_SCANCODE_E) == KEY_REPEAT)
 	{
 		float3 pos = f.pos;
-		Position(float3(pos.x , pos.y - (1.5f *dt), pos.z));
+		Position(float3(pos.x , pos.y - (speed *dt), pos.z));
 	}
 
-	float3 right(f.WorldRight());
-	float3 forward(f.front);
 
-	float3 movement(float3::zero);
 	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) movement += forward;
 	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) movement -= forward;
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) movement += right;
