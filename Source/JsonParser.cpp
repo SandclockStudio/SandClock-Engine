@@ -9,7 +9,8 @@ JsonParser::JsonParser(const char* file)
 
 JsonParser::~JsonParser()
 {
-
+	json_object_clear(object);
+	json_object_clear(json_file);
 }
 
 bool JsonParser::LoadObject(const char * name)
@@ -41,6 +42,7 @@ bool JsonParser::UnloadObject()
 		LOGCHAR("Parsing with errors.");
 
 	parsedObject = true;
+
 	object = nullptr;
 
 	return return_value;
