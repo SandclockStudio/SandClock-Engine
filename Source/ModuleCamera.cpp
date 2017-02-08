@@ -18,23 +18,24 @@ bool ModuleCamera::Init()
 {
 	LoadConfig();
 	speed = 1.5f;
+
+	right = f.WorldRight();
+	forward = f.front;
+	movement = float3::zero;
+
 	return true;
 }
 update_status ModuleCamera::Update(float dt)
 {
 
-	float3 right(f.WorldRight());
-	float3 forward(f.front);
-
-	float3 movement(float3::zero);
+	movement = float3::zero;
 	
 	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) movement += forward;
 	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) movement -= forward;
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) movement += right;
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) movement -= right;
 
-	if (movement.Equals(float3::zero) == false)
-		f.Translate(movement * dt);
+	f.Translate(movement * dt);
 
 	return UPDATE_CONTINUE;
 }
@@ -116,7 +117,7 @@ bool ModuleCamera::LoadConfig()
 		/*f.verticalFov = App->json_parser->GetInt("FOVY");
 		f.horizontalFov = App->json_parser->GetInt("FOVX");*/
 		f.verticalFov = 1.0f;
-		f.horizontalFov = 1.0f;
+		f.horizontalFov = 1.0;
 		//f.AspectRatio = App->json_parser->GetFloat("AspectRatio");
 		Position(float3(0.0f, 0.0f, 0.0f));
 		LookAt(float3::unitZ,float3::unitY);
