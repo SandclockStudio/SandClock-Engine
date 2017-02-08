@@ -5,9 +5,6 @@
 #include "JsonParser.h"
 #include "SDL/include/SDL_opengl.h"
 
-
-
-
 ModuleWindow::ModuleWindow()
 {
 	
@@ -40,7 +37,7 @@ bool ModuleWindow::Init()
 		//Create window
 		int width = screenWidth * screenSize;
 		int height = screenHeight * screenSize;
-		Uint32 flags = SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL;
+		Uint32 flags = SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL |  SDL_WINDOW_RESIZABLE;
 
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 		SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
@@ -53,8 +50,8 @@ bool ModuleWindow::Init()
 		{
 			flags |= SDL_WINDOW_FULLSCREEN;
 		}
-
-		window = SDL_CreateWindow(title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, flags);
+		
+		window = SDL_CreateWindow(title,SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, flags);
 
 		if(window == nullptr)
 		{
