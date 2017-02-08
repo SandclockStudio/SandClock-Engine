@@ -138,7 +138,8 @@ void Application::EventHandler()
 							App->window->screenWidth = event.window.data1;
 							App->window->screenHeight = event.window.data2;
 							float fovNew = (float)App->window->screenWidth / (float)App->window->screenHeight;
-							camera->SetFov(fovNew);
+							camera->SetAspectRatio(fovNew);
+							glViewport(0, 0, (float)App->window->screenWidth, (float)App->window->screenHeight);
 							glMatrixMode(GL_PROJECTION);
 							glLoadIdentity();
 							glLoadMatrixf((GLfloat*)App->camera->GetProjectionMatrix());

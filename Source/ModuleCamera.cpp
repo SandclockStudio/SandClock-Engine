@@ -67,13 +67,13 @@ bool ModuleCamera::CleanUp()
 
 void ModuleCamera::SetFov(float newFOV)
 {
-	f.verticalFov = newFOV;
+	f.verticalFov = newFOV*0.0174532925199432957f;
 	SetAspectRatio(f.AspectRatio());
 }
 
 void ModuleCamera::SetAspectRatio(float newAspectRatio)
 {
-	f.horizontalFov = 2.f * atanf(tanf(f.verticalFov * 0.5f) * newAspectRatio);
+	f.horizontalFov = 2.f * atanf(tanf(f.verticalFov *0.5) * newAspectRatio);
 }
 
 void ModuleCamera::SetPlaneDistances(float near, float far)
@@ -127,7 +127,7 @@ bool ModuleCamera::LoadConfig()
 		/*f.verticalFov = App->json_parser->GetInt("FOVY");
 		f.horizontalFov = App->json_parser->GetInt("FOVX");*/
 		f.verticalFov = 1.0f;
-		f.horizontalFov = 1.0f;
+		f.horizontalFov = 1.5f;
 		Position(float3(0.0f, 0.0f, 0.0f));
 		LookAt(float3::unitZ,float3::unitY);
 		f.nearPlaneDistance = 0.1f;
