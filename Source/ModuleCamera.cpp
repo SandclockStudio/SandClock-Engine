@@ -5,7 +5,7 @@
 
 ModuleCamera::ModuleCamera()
 {
-
+	f.type = PerspectiveFrustum;
 }
 
 ModuleCamera::~ModuleCamera()
@@ -41,6 +41,7 @@ update_status ModuleCamera::Update(float dt)
 
 bool ModuleCamera::Start()
 {
+
 	return true;
 }
 
@@ -61,8 +62,8 @@ void ModuleCamera::SetFov(float newFOV)
 void ModuleCamera::SetAspectRatio(float newAspectRatio)
 {
 	
-	f.verticalFov = 2 * Atan(Tan(f.horizontalFov) * newAspectRatio);
-	//f.horizontalFov = Tan(f.verticalFov / 2) / f.AspectRatio;
+	f.horizontalFov = 2 * Atan(Tan(f.horizontalFov) * newAspectRatio);
+	//f.horizontalFov = Tan(f.verticalFov / 2) / f.AspectRatio();
 }
 
 void ModuleCamera::SetPlaneDistances(float near, float far)
@@ -117,7 +118,6 @@ bool ModuleCamera::LoadConfig()
 		f.horizontalFov = App->json_parser->GetInt("FOVX");*/
 		f.verticalFov = 1.0f;
 		f.horizontalFov = 1.0f;
-		//f.AspectRatio = App->json_parser->GetFloat("AspectRatio");
 		Position(float3(0.0f, 0.0f, 0.0f));
 		LookAt(float3::unitZ,float3::unitY);
 		f.nearPlaneDistance = 0.1f;

@@ -126,7 +126,6 @@ void Application::EventHandler()
 	{
 		switch (event.type) 
 		{
-
 			case SDL_WINDOWEVENT: 
 			{
 				if (event.window.windowID == windowID) 
@@ -138,6 +137,17 @@ void Application::EventHandler()
 						{
 							App->window->screenWidth = event.window.data1;
 							App->window->screenHeight = event.window.data2;
+							float fovNew = (float)App->window->screenWidth / (float)App->window->screenHeight;
+							camera->SetAspectRatio(fovNew);
+							glViewport(0, 0, (float)App->window->screenWidth, (float)App->window->screenHeight);
+
+							glMatrixMode(GL_PROJECTION);
+							glLoadIdentity();
+							glLoadMatrixf((GLfloat*)camera->GetProjectionMatrix());
+
+							glMatrixMode(GL_MODELVIEW);
+							glLoadIdentity();
+							
 							break;
 						}
 					}
@@ -146,7 +156,7 @@ void Application::EventHandler()
 			}
 		}
 	}
-
+	
 }
 
 
