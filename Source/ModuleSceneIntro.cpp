@@ -33,9 +33,10 @@ bool ModuleSceneIntro::Start()
 bool ModuleSceneIntro::CleanUp()
 {
 	LOGCHAR("Unloading space scene");
-
 	App->textures->Unload(background);
-	
+	delete(c);
+	delete(p);
+	delete(g);
 	return true;
 }
 
