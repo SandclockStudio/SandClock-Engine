@@ -40,11 +40,7 @@ Application::Application()
 	modules.push_back(fade = new ModuleFadeToBlack());
 	modules.push_back(camera = new ModuleCamera());
 
-	if (json_parser->LoadObject("Config.App"))
-	{
-		fps_cap = json_parser->GetInt("fps_cap");
-		json_parser->UnloadObject();
-	}
+	
 }
 
 Application::~Application()
@@ -96,14 +92,6 @@ update_status Application::Update()
 	frames += 1;
 	fps += 1;
 
-	if (dt < (1000.0f / fps_cap))
-	{
-		//LOGCHAR("We wanted to wait %f ", (1000.0f/fps_cap) - dt )
-		//micro.start();
-		SDL_Delay(1000.0f / fps_cap - dt );
-		//LOGCHAR("But we waited %f ", micro.stop()*1000)
-	}
-	
 	if (mili.read() >= 1000.0f)
 	{
 		mili.stop();
