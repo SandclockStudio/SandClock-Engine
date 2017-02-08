@@ -138,15 +138,13 @@ void Application::EventHandler()
 							App->window->screenWidth = event.window.data1;
 							App->window->screenHeight = event.window.data2;
 							float fovNew = (float)App->window->screenWidth / (float)App->window->screenHeight;
-							camera->SetAspectRatio(fovNew);
-							glViewport(0, 0, (float)App->window->screenWidth, (float)App->window->screenHeight);
-
+							camera->SetFov(fovNew);
 							glMatrixMode(GL_PROJECTION);
 							glLoadIdentity();
-							glLoadMatrixf((GLfloat*)camera->GetProjectionMatrix());
-
+							glLoadMatrixf((GLfloat*)App->camera->GetProjectionMatrix());
 							glMatrixMode(GL_MODELVIEW);
 							glLoadIdentity();
+							glLoadMatrixf((GLfloat*)App->camera->GetViewMatrix());
 							
 							break;
 						}

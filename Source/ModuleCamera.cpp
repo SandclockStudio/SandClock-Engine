@@ -67,18 +67,13 @@ bool ModuleCamera::CleanUp()
 
 void ModuleCamera::SetFov(float newFOV)
 {
-
 	f.verticalFov = newFOV;
-	//recalculate horizontal FOV to mantein aspect ratio
-	f.horizontalFov = Tan(f.verticalFov / 2) / f.AspectRatio();
+	SetAspectRatio(f.AspectRatio());
 }
 
 void ModuleCamera::SetAspectRatio(float newAspectRatio)
 {
-	
-	f.verticalFov = 2 * Atan(Tan(f.horizontalFov) * newAspectRatio);
-	SetFov(f.verticalFov);
-	//f.horizontalFov = Tan(f.verticalFov / 2) / f.AspectRatio();
+	f.horizontalFov = 2.f * atanf(tanf(f.verticalFov * 0.5f) * newAspectRatio);
 }
 
 void ModuleCamera::SetPlaneDistances(float near, float far)
