@@ -45,7 +45,7 @@ update_status ModuleSceneIntro::Update(float dt)
 {
 
 	p->DrawDirect();
-	c->DrawDirect();
+	c->Draw();
 	g->DrawDirect();
 
 	/*

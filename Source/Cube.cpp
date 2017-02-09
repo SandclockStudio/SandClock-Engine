@@ -46,7 +46,7 @@ void Cube::DrawDirect()
 
 
 
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
 	glBegin(GL_TRIANGLES);
 
 	//front
@@ -147,12 +147,35 @@ void Cube::DrawDirect()
 
 void Cube::Draw()
 {
-	
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glBindBuffer(GL_ARRAY_BUFFER, index);
 	glVertexPointer(3, GL_FLOAT, 0, NULL);
 	glDrawArrays(GL_TRIANGLES, 0, num_vertices * 3);
 	glDisableClientState(GL_VERTEX_ARRAY);
+
+	GLubyte checkImage[CHECKERS_HEIGHT][CHECKERS_WIDTH][4];
+	for (int i = 0; i < CHECKERS_HEIGHT; i++) {
+		for (int j = 0; j < CHECKERS_WIDTH; j++) {
+			int c = ((((i & 0x8) == 0) ^ (((j & 0x8)) == 0))) * 255;
+			checkImage[i][j][0] = (GLubyte)c;
+			checkImage[i][j][1] = (GLubyte)c;
+			checkImage[i][j][2] = (GLubyte)c;
+			checkImage[i][j][3] = (GLubyte)255;
+		}
+	}
+
+	/*
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	glGenTextures(1, &index);
+	glBindTexture(GL_TEXTURE_2D, index);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, CHECKERS_WIDTH, CHECKERS_HEIGHT,
+		0, GL_RGBA, GL_UNSIGNED_BYTE, checkImage);
+	*/
 	
 }
 
@@ -161,43 +184,43 @@ void Cube::Start()
 						//1
 	GLfloat vertices[] = {0,0,0,
 						 size,0,0, 
-						 0,size,0,
-						//2
-						 0,size,0,
-						 size,0,0,
 						 size,size,0,
+						//2
+						 0,0,0,
+						 size,size,0,
+						 0,size,0,
 						//3
 						 0,size,0,
 						 size,size,0,
-						 0,size,-size,
-						//4
-						 0,size,-size,
-						 size,size,0,
 						 size,size,-size,
+						//4
+						 0,size,0,
+						 size,size,-size,
+						 0,size,-size,
 						//5
-						 size,size,0,
 						 size,0,0,
 						 size,0,-size,
-						//6
-						 size,size,0,
-						 size,0,-size,
 						 size,size,-size,
+						//6
+						 size,0,0,
+						 size,size,-size,
+						 size,size,0,
 						//7 
-						0,size,-size,
+						0,0,-size,
 						0,0,0,
 						0,size,0,
 						//8
-						0,size,-size,
 						0,0,-size,
-						0,0,0,
+						0,size,0,
+						0,size,-size,
 						//9
-						0,0,0,
+						0,0,-size,
 						size,0,-size,
 						size,0,0,
 						//10
-						0,0,0,
 						0,0,-size,
-						size,0,-size,
+						size,0,0,
+						0,0,0,
 						//11
 						0,size,-size,
 						size,size,-size,
@@ -212,5 +235,4 @@ void Cube::Start()
 	glGenBuffers(1, (GLuint*) &(index));
 	glBindBuffer(GL_ARRAY_BUFFER, index);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(float)*num_vertices * 3, vertices, GL_STATIC_DRAW);
-	
 }
