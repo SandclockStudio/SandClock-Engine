@@ -36,9 +36,9 @@ update_status ModuleCamera::Update(float dt)
 
 	//Mouse
 	iPoint motion = App->input->GetMouseMotion();
-	float dx = -motion.x * rotation_speed * dt;
-	float dy = -motion.y * rotation_speed * dt;
-	LookAt(dx, dy);
+	xRotation = -motion.x * rotation_speed * dt;
+	yRotation = -motion.y * rotation_speed * dt;
+	LookAt(xRotation, yRotation);
 	
 
 	return UPDATE_CONTINUE;
@@ -83,13 +83,13 @@ void ModuleCamera::Orientation()
 
 }
 
-void ModuleCamera::LookAt(float dx, float dy)
+void ModuleCamera::LookAt(float xRotation, float yRotation)
 {
-	Quat q = Quat::RotateY(dx);
+	Quat q = Quat::RotateY(xRotation);
 	f.front = q.Mul(f.front);
 	f.up = q.Mul(f.up);
 
-	q = Quat::RotateAxisAngle(f.WorldRight(), dy);
+	q = Quat::RotateAxisAngle(f.WorldRight(), yRotation);
 	f.up = q.Mul(f.up);
 	f.front = q.Mul(f.front);
 }
@@ -129,8 +129,6 @@ bool ModuleCamera::LoadConfig()
 		f.up = float3::unitY;
 		f.nearPlaneDistance = 0.1f;
 		f.farPlaneDistance = 1000.0f;
-		
-
 
 		return_value = App->json_parser->UnloadObject();
 	}

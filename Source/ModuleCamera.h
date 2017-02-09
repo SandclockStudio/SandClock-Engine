@@ -30,8 +30,7 @@ class ModuleCamera : public Module
 
 	private:
 		Frustum f;
-		float speed,rotation_speed;
-
+		float speed,rotation_speed, xRotation, yRotation;
 		float3 movement;
 };
 
