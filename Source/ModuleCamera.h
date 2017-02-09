@@ -22,7 +22,7 @@ class ModuleCamera : public Module
 		void SetFov(float newFOV);
 		void SetAspectRatio(float newAspectRatio);
 		void Orientation();
-		void LookAt(float3, float3);
+		void LookAt(float dx, float dy);
 		float* GetProjectionMatrix();
 		float* GetViewMatrix();
 		bool LoadConfig();
@@ -30,9 +30,8 @@ class ModuleCamera : public Module
 
 	private:
 		Frustum f;
-		float speed;
-		float3 right;
-		float3 forward;
+		float speed,rotation_speed;
+
 		float3 movement;
 };
 

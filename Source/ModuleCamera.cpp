@@ -17,38 +17,29 @@ ModuleCamera::~ModuleCamera()
 bool ModuleCamera::Init()
 {
 	LoadConfig();
-	right = f.WorldRight();
-	forward = f.front;
 	speed = 1.5f;
+	rotation_speed = 0.35f;
 	return true;
 }
 update_status ModuleCamera::Update(float dt)
 {
 
-
-
+	//Keyboard
 	movement = float3::zero;
+	if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT) Position(float3(f.pos.x, f.pos.y+ (speed*dt), f.pos.z));
+	if (App->input->GetKey(SDL_SCANCODE_E) == KEY_REPEAT) Position(float3(f.pos.x , f.pos.y - (speed *dt), f.pos.z));
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) movement += f.front;
+	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) movement -= f.front;
+	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) movement += f.WorldRight();
+	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) movement -= f.WorldRight();
+	f.Translate(movement * dt);
+
+	//Mouse
+	iPoint motion = App->input->GetMouseMotion();
+	float dx = -motion.x * rotation_speed * dt;
+	float dy = -motion.y * rotation_speed * dt;
+	LookAt(dx, dy);
 	
-	if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT) 
-	{
-		float3 pos = f.pos;
-		Position(float3(pos.x, pos.y+ (speed*dt), pos.z));
-
-	}
-	if (App->input->GetKey(SDL_SCANCODE_E) == KEY_REPEAT)
-	{
-		float3 pos = f.pos;
-		Position(float3(pos.x , pos.y - (speed *dt), pos.z));
-	}
-
-
-	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) movement += forward;
-	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) movement -= forward;
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) movement += right;
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) movement -= right;
-
-	if (movement.Equals(float3::zero) == false)
-		f.Translate(movement * dt);
 
 	return UPDATE_CONTINUE;
 }
@@ -92,10 +83,15 @@ void ModuleCamera::Orientation()
 
 }
 
-void ModuleCamera::LookAt(float3 front, float3 up)
+void ModuleCamera::LookAt(float dx, float dy)
 {
-	f.front = front;
-	f.up = up;
+	Quat q = Quat::RotateY(dx);
+	f.front = q.Mul(f.front);
+	f.up = q.Mul(f.up);
+
+	q = Quat::RotateAxisAngle(f.WorldRight(), dy);
+	f.up = q.Mul(f.up);
+	f.front = q.Mul(f.front);
 }
 
 float * ModuleCamera::GetProjectionMatrix()
@@ -129,7 +125,8 @@ bool ModuleCamera::LoadConfig()
 		f.verticalFov = 1.0f;
 		f.horizontalFov = 1.5f;
 		Position(float3(0.0f, 0.0f, 0.0f));
-		LookAt(float3::unitZ,float3::unitY);
+		f.front = float3::unitZ;
+		f.up = float3::unitY;
 		f.nearPlaneDistance = 0.1f;
 		f.farPlaneDistance = 1000.0f;
 		
