@@ -21,69 +21,128 @@ void Cube::Rotate(float angle, GLfloat vector[])
 
 void Cube::DrawDirect()
 {
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	glBegin(GL_TRIANGLES);
-	//front
-	glColor3f(1, 0, 0);
-	glVertex3f(0.0f, 0.0f, 0.0f); 
-	glVertex3f(size, 0.0f, 0.0f); 
-	glVertex3f(0.0f, size, 0.0f); 
-
-	glVertex3f(0.0f, size, 0.0f);
-	glVertex3f(size, 0.0f, 0.0f);
-	glVertex3f(size, size, 0.0f); 
-
 	
 
-	//up
-	glColor3f(0, 1, 0);
-	glVertex3f(0.0f, size, 0.0f);
-	glVertex3f(size, size, 0.0f);
-	glVertex3f(0.0f, size, -size);
+	GLubyte checkImage[CHECKERS_HEIGHT][CHECKERS_WIDTH][4];
+	for (int i = 0; i < CHECKERS_HEIGHT; i++) {
+		for (int j = 0; j < CHECKERS_WIDTH; j++) {
+			int c = ((((i & 0x8) == 0) ^ (((j & 0x8)) == 0))) * 255;
+			checkImage[i][j][0] = (GLubyte)c;
+			checkImage[i][j][1] = (GLubyte)c;
+			checkImage[i][j][2] = (GLubyte)c;
+			checkImage[i][j][3] = (GLubyte)255;
+		}
+	}
 
-	glVertex3f(0.0f, size, -size); 
-	glVertex3f(size, size, 0.0f);
-	glVertex3f(size, size, -size); 
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	glGenTextures(1, &index);
+	glBindTexture(GL_TEXTURE_2D, index);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, CHECKERS_WIDTH, CHECKERS_HEIGHT,
+		0, GL_RGBA, GL_UNSIGNED_BYTE, checkImage);
 
-	//right
-	glColor3f(0, 0, 1);
-	glVertex3f(size, size, 0); 
-	glVertex3f(size, 0.0f, 0.0f); 
-	glVertex3f(size, 0.0f, -size); 
 
-	glVertex3f(size, size, 0.0f); 
-	glVertex3f(size, 0.0f, -size); 
-	glVertex3f(size, size, -size); 
-	//left
-	glColor3f(0, 1, 1);
-	glVertex3f(0.0f, size, -size); 
+
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	glBegin(GL_TRIANGLES);
+
+	//front
+	glTexCoord2d(0.0, 0.0);
 	glVertex3f(0.0f, 0.0f, 0.0f); 
+	glTexCoord2d(1.0, 0.0);
+	glVertex3f(size, 0.0f, 0.0f); 
+	glTexCoord2d(1.0, 1.0);
+	glVertex3f(size, size, 0.0f); 
+
+	glTexCoord2d(0.0, 0.0);
+	glVertex3f(0.0f, 0.0f, 0.0f);
+	glTexCoord2d(1.0, 1.0);
+	glVertex3f(size, size, 0.0f);
+	glTexCoord2d(0.0, 1.0);
 	glVertex3f(0.0f, size, 0.0f); 
 
-	glVertex3f(0.0f, size, -size); 
-	glVertex3f(0.0f, 0.0f,-size); 
+	//up
+	glTexCoord2d(0.0, 0.0);
+	glVertex3f(0.0f, size, 0.0f);
+	glTexCoord2d(1.0, 0.0);
+	glVertex3f(size, size, 0.0f);
+	glTexCoord2d(1.0, 1.0);
+	glVertex3f(size, size, -size);
+
+	glTexCoord2d(0.0, 0.0);
+	glVertex3f(0.0f, size, 0); 
+	glTexCoord2d(1.0, 1.0);
+	glVertex3f(size, size, -size);
+	glTexCoord2d(0.0, 1.0);
+	glVertex3f(0, size, -size); 
+
+	//right
+	glTexCoord2d(0.0, 0.0);
+	glVertex3f(size, 0, 0); 
+	glTexCoord2d(1.0, 0.0);
+	glVertex3f(size, 0.0f, -size);
+	glTexCoord2d(1.0, 1.0);
+	glVertex3f(size, size, -size);
+
+	glTexCoord2d(0.0, 0.0);
+	glVertex3f(size, 0.0f, 0.0f); 
+	glTexCoord2d(1.0, 1.0);
+	glVertex3f(size, size, -size);
+	glTexCoord2d(0.0, 1.0);
+	glVertex3f(size, size, 0.0f);
+
+	//left
+	glTexCoord2d(0.0, 0.0);
+	glVertex3f(0.0f, 0.0f, -size); 
+	glTexCoord2d(1.0, 0.0);
 	glVertex3f(0.0f, 0.0f, 0.0f); 
+	glTexCoord2d(1.0, 1.0);
+	glVertex3f(0.0f, size, 0.0f); 
+
+	glTexCoord2d(0.0, 0.0);
+	glVertex3f(0.0f, 0.0f, -size); 
+	glTexCoord2d(1.0, 1.0);
+	glVertex3f(0.0f, size,0.0f);
+	glTexCoord2d(0.0, 1.0);
+	glVertex3f(0.0f, size, -size);
 
 	//Down
-	glColor3f(0.5f, 1, 1);
-	glVertex3f(0.0f, 0.0f, 0.0f); 
-	glVertex3f(size, 0.0f, -size); 
-	glVertex3f(size, 0.0f, 0.0f); 
+	glTexCoord2d(0.0, 0.0);
+	glVertex3f(0.0f, 0.0f, -size);
+	glTexCoord2d(1.0, 0.0);
+	glVertex3f(size, 0.0f, -size);
+	glTexCoord2d(1.0, 1.0);
+	glVertex3f(size, 0.0f,0.0f);
+	
 
-	glVertex3f(0.0f, 0.0f, 0.0f); 
-	glVertex3f(0.0f, 0.0f, -size); 
-	glVertex3f(size, 0.0f, -size); 
+	glTexCoord2d(0.0, 0.0);
+	glVertex3f(0.0f, 0.0f, -size);
+	glTexCoord2d(1.0, 1.0);
+	glVertex3f(size, 0.0f,0.0f);
+	glTexCoord2d(0.0, 1.0);
+	glVertex3f(0.0f, 0.0f, 0.0f);
+	
 
 	//back
-	glColor3f(0.5f, 0.5f, 1);
-	glVertex3f(0.0f, size, -size); 
-	glVertex3f(size, size, -size); 
-	glVertex3f(size, 0.0f, -size); 
+	glTexCoord2d(0.0, 0.0);
+	glVertex3f(0.0f, size, -size);
+	glTexCoord2d(1.0, 0.0);
+	glVertex3f(size, size, -size);
+	glTexCoord2d(1.0, 1.0);
+	glVertex3f(size, 0.0f, -size);
 
-	glVertex3f(0.0f, size, -size); 
-	glVertex3f(size, 0.0f, -size); 
-	glVertex3f(0.0f, 0.0f, -size); 
+	glTexCoord2d(0.0, 0.0);
+	glVertex3f(0.0f, size, -size);
+	glTexCoord2d(1.0, 1.0);
+	glVertex3f(size, 0.0f, -size);
+	glTexCoord2d(0.0, 1.0);
+	glVertex3f(0.0f, 0.0f, -size);
 	glEnd();
+
+
 }
 
 void Cube::Draw()

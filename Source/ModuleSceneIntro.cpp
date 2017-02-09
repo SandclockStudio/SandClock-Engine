@@ -44,7 +44,6 @@ bool ModuleSceneIntro::CleanUp()
 update_status ModuleSceneIntro::Update(float dt)
 {
 
-
 	p->DrawDirect();
 	c->DrawDirect();
 	g->DrawDirect();

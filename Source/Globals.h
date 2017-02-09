@@ -10,6 +10,9 @@ void log(const char file[], int line, const char* format, ...);
 #define MIN( a, b ) ( ((a) < (b)) ? (a) : (b) )
 #define MAX( a, b ) ( ((a) > (b)) ? (a) : (b) )
 
+#define CHECKERS_HEIGHT 32
+#define CHECKERS_WIDTH 32
+
 enum update_status
 {
 	UPDATE_CONTINUE = 1,
