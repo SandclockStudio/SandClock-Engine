@@ -101,9 +101,6 @@ update_status Application::Update()
 		fps = 0;
 	}
 
-	//Event handler from the window
-	EventHandler();
-
 	return ret;
 }
 
@@ -118,45 +115,6 @@ bool Application::CleanUp()
 	return ret;
 }
 
-void Application::EventHandler()
-{
-	Uint32 windowID = SDL_GetWindowID(App->window->window);
-	SDL_Event event;
-	while (SDL_PollEvent(&event))
-	{
-		switch (event.type) 
-		{
-			case SDL_WINDOWEVENT: 
-			{
-				if (event.window.windowID == windowID) 
-				{
-					switch (event.window.event)
-					{
-
-						case SDL_WINDOWEVENT_RESIZED:
-						{
-							App->window->screenWidth = event.window.data1;
-							App->window->screenHeight = event.window.data2;
-							float fovNew = (float)App->window->screenWidth / (float)App->window->screenHeight;
-							camera->SetAspectRatio(fovNew);
-							glViewport(0, 0, (float)App->window->screenWidth, (float)App->window->screenHeight);
-							glMatrixMode(GL_PROJECTION);
-							glLoadIdentity();
-							glLoadMatrixf((GLfloat*)App->camera->GetProjectionMatrix());
-							glMatrixMode(GL_MODELVIEW);
-							glLoadIdentity();
-							glLoadMatrixf((GLfloat*)App->camera->GetViewMatrix());
-							
-							break;
-						}
-					}
-				}
-				break;
-			}
-		}
-	}
-	
-}
 
 
 

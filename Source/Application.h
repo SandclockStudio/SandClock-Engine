@@ -38,7 +38,6 @@ public:
 	bool Init();
 	update_status Update();
 	bool CleanUp();
-	void EventHandler();
 
 public:
 	ModuleRender* renderer;

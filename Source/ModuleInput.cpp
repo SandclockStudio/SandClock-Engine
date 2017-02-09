@@ -3,6 +3,12 @@
 #include "ModuleInput.h"
 #include "SDL/include/SDL.h"
 #include "JsonParser.h"
+#include "ModuleWindow.h"
+#include "MathGeoLib.h"
+#include "../Libraries/OpenGL/include/GL/glew.h"
+#include "ModuleCamera.h"
+
+#pragma comment (lib, "opengl32.lib") 
 
 #define MAX_KEYS 300
 
@@ -83,6 +89,7 @@ update_status ModuleInput::PreUpdate(float dt)
 		if(mouse_buttons[i] == KEY_UP)
 			mouse_buttons[i] = KEY_IDLE;
 	}
+	
 
 	while(SDL_PollEvent(&event) != 0)
 	{
@@ -95,6 +102,22 @@ update_status ModuleInput::PreUpdate(float dt)
 			case SDL_WINDOWEVENT:
 				switch(event.window.event)
 				{
+					case SDL_WINDOWEVENT_RESIZED:
+					{
+						App->window->screenWidth = event.window.data1;
+						App->window->screenHeight = event.window.data2;
+						float fovNew = (float)App->window->screenWidth / (float)App->window->screenHeight;
+						App->camera->SetAspectRatio(fovNew);
+						glViewport(0, 0, (float)App->window->screenWidth, (float)App->window->screenHeight);
+						glMatrixMode(GL_PROJECTION);
+						glLoadIdentity();
+						glLoadMatrixf((GLfloat*)App->camera->GetProjectionMatrix());
+						glMatrixMode(GL_MODELVIEW);
+						glLoadIdentity();
+						glLoadMatrixf((GLfloat*)App->camera->GetViewMatrix());
+
+						break;
+					}
 					//case SDL_WINDOWEVENT_LEAVE:
 					case SDL_WINDOWEVENT_HIDDEN:
 					case SDL_WINDOWEVENT_MINIMIZED:
