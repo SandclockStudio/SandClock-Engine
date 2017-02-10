@@ -1,4 +1,5 @@
 #include "Cube.h"
+#include "SOIL.h"
 
 Cube::Cube(float size, MY::Uint index) : size(size), index(index)
 {}
@@ -21,6 +22,7 @@ void Cube::Rotate(float angle, GLfloat vector[])
 
 void Cube::DrawDirect()
 {
+
 	
 
 	GLubyte checkImage[CHECKERS_HEIGHT][CHECKERS_WIDTH][4];
@@ -181,6 +183,40 @@ void Cube::Draw()
 
 void Cube::Start()
 {
+
+	// cube ///////////////////////////////////////////////////////////////////////
+	//    v6----- v5
+	//   /|      /|
+	//  v1------v0|
+	//  | |     | |
+	//  | |v7---|-|v4
+	//  |/      |/
+	//  v2------v3
+
+	// 	glBufferData(GL_TEXTURE, sizeof(float)*num_vertices * 2, arrayTextura, GL_STATIC_DRAW);
+
+
+
+							//front
+	GLfloat vertices1[] = {	0,0,0,				size,0,0,		size,size,0,		//v0-v1-v2
+							size,size,0,		0,size,0,		0,0,0,				//V2-V3-V0
+							//right
+							0,0,0,				0,size,0,		0,size,-size,		//v0-v3-v4
+							0,size,-size,		0,0,-size,		0,0,0,				//v4-v5-v0	cre3o que mal v5
+							//up
+							0,0,0,				0,0,-size,		size,0,-size,		//v0-v5-v6
+							size,0,-size,		size,0,0,		0,0,0,				//v6-v1-v0
+							//left
+							size,0,0,			size,0,-size,	size,size,-size,	//v1,v6,v7	
+							size,size,-size,	size,size,0,	size,0,0,			//v7,v2,v1		
+							//down
+							size,size,-size,	0,size - size,	0,size,0,			//v7-v4-v3
+							0,size,0,			size,size,0,	size,size,-size,	//v3-v2-v7
+							//back
+							0,size,-size,		size,size,-size, size,0,-size,		//v4-v7-v6
+							size,0,-size,		0,0,-size,		0,size,-size		//v6-v5-v4
+	};
+
 						//1
 	GLfloat vertices[] = {0,0,0,
 						 size,0,0, 
@@ -232,7 +268,9 @@ void Cube::Start()
 						};
 
 	
+	
 	glGenBuffers(1, (GLuint*) &(index));
 	glBindBuffer(GL_ARRAY_BUFFER, index);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float)*num_vertices * 3, vertices, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float)*num_vertices * 3, vertices1, GL_STATIC_DRAW);
+	
 }

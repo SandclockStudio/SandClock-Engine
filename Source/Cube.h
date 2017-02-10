@@ -24,7 +24,7 @@ public:
 private:
 
 	MY::Uint index;
-	GLfloat num_vertices = 12;
+	GLfloat num_vertices = 8;
 	float size;
 
 };
