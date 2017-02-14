@@ -46,7 +46,8 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>false</SDLCheck>
       <ExceptionHandling>Sync</ExceptionHandling>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\Libraries;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Time;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Geometry;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Math;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Algorithm\Random;../Libraries/OpenGL/bin/Release/Win32;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source;C:\Users\javier\Source\Repos\SandClock-Engine\Libraries\Devil;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\Libraries;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Time;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Geometry;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Math;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Algorithm\Random;../Libraries/OpenGL/bin/Release/Win32;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
