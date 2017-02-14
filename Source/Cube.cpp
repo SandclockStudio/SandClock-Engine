@@ -23,7 +23,6 @@ void Cube::Rotate(float angle, GLfloat vector[])
 void Cube::DrawDirect()
 {
 
-	
 
 	GLubyte checkImage[CHECKERS_HEIGHT][CHECKERS_WIDTH][4];
 	for (int i = 0; i < CHECKERS_HEIGHT; i++) {
@@ -143,20 +142,23 @@ void Cube::DrawDirect()
 	glTexCoord2d(0.0, 1.0);
 	glVertex3f(0.0f, 0.0f, -size);
 	glEnd();
-
+	glBindTexture(GL_TEXTURE_2D, 0);
 
 }
-
 void Cube::Draw()
 {
+	
+
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	glEnableClientState(GL_VERTEX_ARRAY);
+
 	glBindBuffer(GL_ARRAY_BUFFER, index);
+
 	glVertexPointer(3, GL_FLOAT, 0, NULL);
-	glDrawArrays(GL_TRIANGLES, 0, num_vertices * 3);
+	glDrawArrays(GL_TRIANGLES, 0, 36);
 	glDisableClientState(GL_VERTEX_ARRAY);
 
-	GLubyte checkImage[CHECKERS_HEIGHT][CHECKERS_WIDTH][4];
+	/*GLubyte checkImage[CHECKERS_HEIGHT][CHECKERS_WIDTH][4];
 	for (int i = 0; i < CHECKERS_HEIGHT; i++) {
 		for (int j = 0; j < CHECKERS_WIDTH; j++) {
 			int c = ((((i & 0x8) == 0) ^ (((j & 0x8)) == 0))) * 255;
@@ -167,7 +169,7 @@ void Cube::Draw()
 		}
 	}
 
-	/*
+	
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 	glGenTextures(1, &index);
 	glBindTexture(GL_TEXTURE_2D, index);
@@ -210,67 +212,19 @@ void Cube::Start()
 							size,0,0,			size,0,-size,	size,size,-size,	//v1,v6,v7	
 							size,size,-size,	size,size,0,	size,0,0,			//v7,v2,v1		
 							//down
-							size,size,-size,	0,size - size,	0,size,0,			//v7-v4-v3
+							size,size,-size,	0,size,-size,	0,size,0,			//v7-v4-v3
 							0,size,0,			size,size,0,	size,size,-size,	//v3-v2-v7
 							//back
 							0,size,-size,		size,size,-size, size,0,-size,		//v4-v7-v6
 							size,0,-size,		0,0,-size,		0,size,-size		//v6-v5-v4
 	};
 
-						//1
-	GLfloat vertices[] = {0,0,0,
-						 size,0,0, 
-						 size,size,0,
-						//2
-						 0,0,0,
-						 size,size,0,
-						 0,size,0,
-						//3
-						 0,size,0,
-						 size,size,0,
-						 size,size,-size,
-						//4
-						 0,size,0,
-						 size,size,-size,
-						 0,size,-size,
-						//5
-						 size,0,0,
-						 size,0,-size,
-						 size,size,-size,
-						//6
-						 size,0,0,
-						 size,size,-size,
-						 size,size,0,
-						//7 
-						0,0,-size,
-						0,0,0,
-						0,size,0,
-						//8
-						0,0,-size,
-						0,size,0,
-						0,size,-size,
-						//9
-						0,0,-size,
-						size,0,-size,
-						size,0,0,
-						//10
-						0,0,-size,
-						size,0,0,
-						0,0,0,
-						//11
-						0,size,-size,
-						size,size,-size,
-						size,0,-size,
-						//12
-						0,size,-size,
-						size,0,-size,
-						0,0,-size
-						};
+
 
 	
 	
 	glGenBuffers(1, (GLuint*) &(index));
 	glBindBuffer(GL_ARRAY_BUFFER, index);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float)*num_vertices * 3, vertices1, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float)*108, vertices1, GL_STATIC_DRAW);
 	
 }
