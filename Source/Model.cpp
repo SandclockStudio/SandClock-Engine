@@ -1,7 +1,7 @@
 #include "Model.h"
-#include <assimp/cimport.h>
-#include <assimp/postprocess.h>
-#include <assimp/scene.h>
+#include "assimp\include\assimp\cimport.h"
+#include <assimp\include\assimp\postprocess.h>
+#include <assimp\include\assimp\scene.h>
 
 
 Model::Model()

@@ -430,6 +430,9 @@
     <ClInclude Include="..\Libraries\assimp\include\assimp\ProgressHandler.hpp">
       <Filter>Assimp</Filter>
     </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>OpenGlTools</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -584,6 +587,9 @@
     </ClCompile>
     <ClCompile Include="ModuleCamera.cpp">
       <Filter>Core Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="Model.cpp">
+      <Filter>OpenGlTools</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

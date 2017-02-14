@@ -1,7 +1,7 @@
 #ifndef _MODEL_H_
 #define _MODEL_H_
 
-//#include <assimp/>
+#include <assimp/include/assimp/scene.h>
 
 class Model
 {
