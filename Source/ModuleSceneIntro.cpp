@@ -49,7 +49,7 @@ update_status ModuleSceneIntro::Update(float dt)
 {
 	batman->Draw();
 	p->DrawDirect();
-	//c->Draw();
+	c->Draw();
 	g->DrawDirect();
 
 
