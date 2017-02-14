@@ -18,6 +18,7 @@ void Model::Load(const char * file)
 
 void Model::Clear()
 {
+	delete(scene);
 }
 
 void Model::Draw()
