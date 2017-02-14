@@ -5,6 +5,7 @@
 #include "Cube.h"
 #include "MPlane.h"
 #include "Gizmo.h"
+#include "Model.h"
 
 
 
@@ -29,6 +30,7 @@ public:
 	MPlane* p;
 	MY::Uint index = 0;
 	float angle = 0;
+	Model* batman;
 };
 
 #endif // __MODULESCENEINTRO_H__

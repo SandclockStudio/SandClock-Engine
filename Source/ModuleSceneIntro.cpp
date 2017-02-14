@@ -25,6 +25,9 @@ bool ModuleSceneIntro::Start()
 	p->Start();
 	c->Start();
 	g->Start();
+	batman = new Model();
+	batman->Load("batman.obj");
+
 
 	return true;
 }
@@ -37,6 +40,7 @@ bool ModuleSceneIntro::CleanUp()
 	delete(c);
 	delete(p);
 	delete(g);
+	//batman->Clear();
 	return true;
 }
 
@@ -45,8 +49,9 @@ update_status ModuleSceneIntro::Update(float dt)
 {
 
 	p->DrawDirect();
-	c->Draw();
+	//c->Draw();
 	g->DrawDirect();
+	batman->Draw();
 
 	/*
 

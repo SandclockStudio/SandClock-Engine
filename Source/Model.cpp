@@ -17,24 +17,31 @@ Model::~Model()
 
 void Model::Load(const char * file)
 {
+	scene = aiImportFile(file, aiProcess_TransformUVCoords | aiProcess_PreTransformVertices);
 }
 
 void Model::Clear()
 {
+	delete(scene);
 }
 
 void Model::Draw()
 {
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
 	glBegin(GL_TRIANGLES);
 	for (int i = 0; i < scene->mNumMeshes; i++)
 	{
 		for (int j = 0; j < scene->mMeshes[i]->mNumVertices; j++)
 		{
+			glColor3b(1, 0, 0);
+
 			glVertex3f(scene->mMeshes[i]->mVertices[j].x, scene->mMeshes[i]->mVertices[j].y, scene->mMeshes[i]->mVertices[j].z);
-			if ((scene->mMeshes[i]->HasNormals))
+			if ((scene->mMeshes[i]->HasNormals()))
 				glNormal3f(scene->mMeshes[i]->mNormals[j].x, scene->mMeshes[i]->mNormals[j].y, scene->mMeshes[i]->mNormals[j].z);
-			if ((scene->mMeshes[i]->HasTextureCoords))
-				glTexCoord2f(scene->mMeshes[i]->mTextureCoords[j]->x, scene->mMeshes[i]->mTextureCoords[j]->y);
+			/*if ((scene->mMeshes[i]->HasTextureCoords()))
+				glTexCoord2f(scene->mMeshes[i]->mTextureCoords[j]->x, scene->mMeshes[i]->mTextureCoords[j]->y);*/
+
 		}
 	}
 	glEnd();
