@@ -582,13 +582,13 @@
     <ClCompile Include="Gizmo.cpp">
       <Filter>Main</Filter>
     </ClCompile>
-    <ClCompile Include="MPlane.cpp">
-      <Filter>Main</Filter>
-    </ClCompile>
     <ClCompile Include="ModuleCamera.cpp">
       <Filter>Core Modules</Filter>
     </ClCompile>
     <ClCompile Include="Model.cpp">
+      <Filter>OpenGlTools</Filter>
+    </ClCompile>
+    <ClCompile Include="MPlane.cpp">
       <Filter>OpenGlTools</Filter>
     </ClCompile>
   </ItemGroup>

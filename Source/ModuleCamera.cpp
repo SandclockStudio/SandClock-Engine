@@ -17,7 +17,7 @@ ModuleCamera::~ModuleCamera()
 bool ModuleCamera::Init()
 {
 	LoadConfig();
-	speed = 1.5f;
+	speed = 2.0f;
 	rotation_speed = 0.35f;
 	return true;
 }
@@ -32,7 +32,7 @@ update_status ModuleCamera::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) movement -= f.front;
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) movement += f.WorldRight();
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) movement -= f.WorldRight();
-	f.Translate(movement * dt);
+	f.Translate(movement *speed* dt);
 
 	//Mouse
 

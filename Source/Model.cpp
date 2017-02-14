@@ -30,15 +30,16 @@ void Model::Draw()
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 	glBegin(GL_TRIANGLES);
+	glColor3f(1.0f, 1.0f, 1.0f);
 	for (int i = 0; i < scene->mNumMeshes; i++)
 	{
 		for (int j = 0; j < scene->mMeshes[i]->mNumVertices; j++)
 		{
-			glColor3b(1, 0, 0);
-
-			glVertex3f(scene->mMeshes[i]->mVertices[j].x, scene->mMeshes[i]->mVertices[j].y, scene->mMeshes[i]->mVertices[j].z);
+			
 			if ((scene->mMeshes[i]->HasNormals()))
 				glNormal3f(scene->mMeshes[i]->mNormals[j].x, scene->mMeshes[i]->mNormals[j].y, scene->mMeshes[i]->mNormals[j].z);
+			glVertex3f(scene->mMeshes[i]->mVertices[j].x, scene->mMeshes[i]->mVertices[j].y, scene->mMeshes[i]->mVertices[j].z);
+			
 			/*if ((scene->mMeshes[i]->HasTextureCoords()))
 				glTexCoord2f(scene->mMeshes[i]->mTextureCoords[j]->x, scene->mMeshes[i]->mTextureCoords[j]->y);*/
 

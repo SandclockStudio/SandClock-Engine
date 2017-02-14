@@ -80,8 +80,8 @@ bool ModuleRender::Init()
 	}
 	else
 	{
-		GLfloat light_diffuse[] = { 1.0, 1.0, 1.0, 1.0 };
-		GLfloat light_position[] = { 0.25, 1.0, 1.0, 0.0 };
+		GLfloat light_diffuse[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+		GLfloat light_position[] = { 0.25f, 1.0f, 1.0f, 0.0 };
 		glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 		glClearDepth(1.0f);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
