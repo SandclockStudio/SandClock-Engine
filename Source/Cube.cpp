@@ -6,9 +6,11 @@
 #include "IL/ilut.h"
 
 
+
 #pragma comment (lib, "DevIL.lib") 
 #pragma comment (lib, "ILU.lib") 
 #pragma comment (lib, "ILUT.lib") 
+#pragma comment (lib, "assimp-vc140-mt.lib")
 
 Cube::Cube(float size, MY::Uint index) : size(size), index(index)
 {}
@@ -156,11 +158,20 @@ void Cube::DrawDirect()
 }
 void Cube::Draw()
 {
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+
 
 
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
 	glBindTexture(GL_TEXTURE_2D, lenaImg);
 
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	/*glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, CHECKERS_WIDTH, CHECKERS_HEIGHT,
+		0, GL_RGBA, GL_UNSIGNED_BYTE, lenaImg);*/
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	glEnableClientState(GL_VERTEX_ARRAY);
@@ -261,7 +272,7 @@ void Cube::Start()
 	ilInit();
 	iluInit();
 	ilutInit();
-
+	ilClearColour(255, 255, 255, 000);
 	ilutRenderer(ILUT_OPENGL);
 	ilutEnable(ILUT_OPENGL_CONV);
 
