@@ -34,11 +34,11 @@ void Model::Draw()
 	{
 		for (int j = 0; j < scene->mMeshes[i]->mNumVertices; j++)
 		{
-			glColor3f(1.0f, 1.0f, 1.0f);
+			glColor3f(0.0f, 1.0f, 1.0f);
 			/*if ((scene->mMeshes[i]->HasTextureCoords(j)))
-				glTexCoord2f(scene->mMeshes[i]->mTextureCoords[j]->x, scene->mMeshes[i]->mTextureCoords[j]->y);
+				glTexCoord2f(scene->mMeshes[i]->mTextureCoords[j]->x, scene->mMeshes[i]->mTextureCoords[j]->y);*/
 			if ((scene->mMeshes[i]->HasNormals()))
-				glNormal3f(scene->mMeshes[i]->mNormals[j].x, scene->mMeshes[i]->mNormals[j].y, scene->mMeshes[i]->mNormals[j].z);*/
+				glNormal3f(scene->mMeshes[i]->mNormals[j].x, scene->mMeshes[i]->mNormals[j].y, scene->mMeshes[i]->mNormals[j].z);
 
 			glVertex3f(scene->mMeshes[i]->mVertices[j].x, scene->mMeshes[i]->mVertices[j].y, scene->mMeshes[i]->mVertices[j].z);
 

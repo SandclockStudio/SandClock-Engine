@@ -47,9 +47,9 @@ bool ModuleSceneIntro::CleanUp()
 // Update: draw background
 update_status ModuleSceneIntro::Update(float dt)
 {
-
+	batman->Draw();
 	p->DrawDirect();
-	//c->Draw();
+	c->Draw();
 	g->DrawDirect();
 	//batman->Draw();
 
