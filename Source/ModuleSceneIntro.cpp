@@ -6,7 +6,7 @@
 #include "ModuleRender.h"
 #include "ModuleFadeToBlack.h"
 #include "ModuleSceneIntro.h"
-
+#include "assimp\include\assimp\scene.h"
 
 ModuleSceneIntro::ModuleSceneIntro(bool active) : Module(active)
 {}
