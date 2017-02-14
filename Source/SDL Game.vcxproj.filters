@@ -35,6 +35,9 @@
     <Filter Include="OpenGlTools">
       <UniqueIdentifier>{35276d3c-e36f-4712-95f3-28281310ab83}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Devil">
+      <UniqueIdentifier>{7efe4422-876f-441f-a762-7a5668eac63a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ModuleRender.h">
@@ -301,6 +304,30 @@
     <ClInclude Include="SOIL.h">
       <Filter>Utils</Filter>
     </ClInclude>
+    <ClInclude Include="..\Libraries\Devil\include\IL\devil_cpp_wrapper.hpp">
+      <Filter>Devil</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\Devil\include\IL\devil_internal_exports.h">
+      <Filter>Devil</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\Devil\include\IL\il.h">
+      <Filter>Devil</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\Devil\include\IL\il_wrap.h">
+      <Filter>Devil</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\Devil\include\IL\ilu.h">
+      <Filter>Devil</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\Devil\include\IL\ilu_region.h">
+      <Filter>Devil</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\Devil\include\IL\ilut.h">
+      <Filter>Devil</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\Devil\include\IL\ilut_config.h">
+      <Filter>Devil</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -478,6 +505,9 @@
     </None>
     <None Include="..\Libraries\Math\Matrix.inl">
       <Filter>Math\Math</Filter>
+    </None>
+    <None Include="..\Libraries\Devil\include\IL\DevIL.i">
+      <Filter>Devil</Filter>
     </None>
   </ItemGroup>
 </Project>

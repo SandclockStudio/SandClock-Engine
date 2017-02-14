@@ -1,5 +1,14 @@
 #include "Cube.h"
 #include "SOIL.h"
+#include "IL/ilut_config.h"
+#include "IL/il.h"
+#include "IL/ilu.h"
+#include "IL/ilut.h"
+
+
+#pragma comment (lib, "DevIL.lib") 
+#pragma comment (lib, "ILU.lib") 
+#pragma comment (lib, "ILUT.lib") 
 
 Cube::Cube(float size, MY::Uint index) : size(size), index(index)
 {}
@@ -147,7 +156,11 @@ void Cube::DrawDirect()
 }
 void Cube::Draw()
 {
-	
+
+
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+	glBindTexture(GL_TEXTURE_2D, lenaImg);
+
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	glEnableClientState(GL_VERTEX_ARRAY);
@@ -157,6 +170,8 @@ void Cube::Draw()
 	glVertexPointer(3, GL_FLOAT, 0, NULL);
 	glDrawArrays(GL_TRIANGLES, 0, 36);
 	glDisableClientState(GL_VERTEX_ARRAY);
+	glBindTexture(GL_TEXTURE_2D, 0);
+
 
 	/*GLubyte checkImage[CHECKERS_HEIGHT][CHECKERS_WIDTH][4];
 	for (int i = 0; i < CHECKERS_HEIGHT; i++) {
@@ -241,4 +256,15 @@ void Cube::Start()
 	glBindBuffer(GL_ARRAY_BUFFER, index);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(float)*108, vertices1, GL_STATIC_DRAW);
 	
+
+
+	ilInit();
+	iluInit();
+	ilutInit();
+
+	ilutRenderer(ILUT_OPENGL);
+	ilutEnable(ILUT_OPENGL_CONV);
+
+	lenaImg = ilutGLLoadImage("lena.png");
+
 }

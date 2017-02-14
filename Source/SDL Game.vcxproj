@@ -46,14 +46,14 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>false</SDLCheck>
       <ExceptionHandling>Sync</ExceptionHandling>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\Libraries;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Time;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Geometry;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Math;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Algorithm\Random;../Libraries/OpenGL/bin/Release/Win32;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\Libraries;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Time;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Geometry;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Math;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Algorithm\Random;../Libraries/OpenGL/bin/Release/Win32;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source;C:\Users\javier\Source\Repos\SandClock-Engine\Libraries\Devil\include\IL;C:\Users\javier\Source\Repos\SandClock-Engine\Libraries\Devil\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
-      <AdditionalDependencies>$(ProjectDir)../Libraries/OpenGL/lib/Release/Win32/glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Algorithm;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Math;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source;C:\Users\marcdc\Source\Repos\SandClock-Engine\Libraries;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(ProjectDir)../Libraries/OpenGL/lib/Release/Win32/glew32.lib;$(ProjectDir)../Libraries/Devil/lib/x86/Release/DevIL.lib;$(ProjectDir)../Libraries/Devil/lib/x86/Release/ILU.lib;$(ProjectDir)../Libraries/Devil/lib/x86/Release/ILUT.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Algorithm;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Math;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source;C:\Users\marcdc\Source\Repos\SandClock-Engine\Libraries;C:\Users\javier\Source\Repos\SandClock-Engine\Libraries\Devil\lib\x86\Release;C:\Users\javier\Source\Repos\SandClock-Engine\Libraries\Devil\lib\x86\unicode\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -76,6 +76,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\Libraries\Algorithm\Random\LCG.h" />
+    <ClInclude Include="..\Libraries\Devil\include\IL\devil_cpp_wrapper.hpp" />
+    <ClInclude Include="..\Libraries\Devil\include\IL\devil_internal_exports.h" />
+    <ClInclude Include="..\Libraries\Devil\include\IL\il.h" />
+    <ClInclude Include="..\Libraries\Devil\include\IL\ilu.h" />
+    <ClInclude Include="..\Libraries\Devil\include\IL\ilut.h" />
+    <ClInclude Include="..\Libraries\Devil\include\IL\ilut_config.h" />
+    <ClInclude Include="..\Libraries\Devil\include\IL\ilu_region.h" />
+    <ClInclude Include="..\Libraries\Devil\include\IL\il_wrap.h" />
     <ClInclude Include="..\Libraries\Geometry\AABB.h" />
     <ClInclude Include="..\Libraries\Geometry\AABB2D.h" />
     <ClInclude Include="..\Libraries\Geometry\Capsule.h" />
@@ -218,6 +226,7 @@
     <ClCompile Include="MPlane.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Libraries\Devil\include\IL\DevIL.i" />
     <None Include="..\Libraries\Geometry\KDTree.inl" />
     <None Include="..\Libraries\Geometry\QuadTree.inl" />
     <None Include="..\Libraries\Geometry\TriangleMesh_IntersectRay_AVX.inl" />

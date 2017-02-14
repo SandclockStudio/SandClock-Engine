@@ -28,6 +28,7 @@ private:
 	MY::Uint index;
 	GLfloat num_vertices = 8;
 	float size;
+	GLuint lenaImg;
 
 };
 
