@@ -14,6 +14,7 @@ Model::~Model()
 
 void Model::Load(const char * file)
 {
+	scene = aiImportFile(file,aiProcess_TransformUVCoords | aiProcess_PreTransformVertices);
 }
 
 void Model::Clear()
@@ -22,4 +23,5 @@ void Model::Clear()
 
 void Model::Draw()
 {
+	
 }
