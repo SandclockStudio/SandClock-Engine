@@ -38,6 +38,9 @@
     <Filter Include="Devil">
       <UniqueIdentifier>{7efe4422-876f-441f-a762-7a5668eac63a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Assimp">
+      <UniqueIdentifier>{0b0f1bbb-b2a5-48e2-8ca5-de41d4d10d47}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ModuleRender.h">
@@ -328,6 +331,105 @@
     <ClInclude Include="..\Libraries\Devil\include\IL\ilut_config.h">
       <Filter>Devil</Filter>
     </ClInclude>
+    <ClInclude Include="..\Libraries\assimp\include\assimp\quaternion.h">
+      <Filter>Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\assimp\include\assimp\scene.h">
+      <Filter>Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\assimp\include\assimp\texture.h">
+      <Filter>Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\assimp\include\assimp\types.h">
+      <Filter>Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\assimp\include\assimp\vector2.h">
+      <Filter>Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\assimp\include\assimp\vector3.h">
+      <Filter>Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\assimp\include\assimp\version.h">
+      <Filter>Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\assimp\include\assimp\ai_assert.h">
+      <Filter>Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\assimp\include\assimp\anim.h">
+      <Filter>Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\assimp\include\assimp\camera.h">
+      <Filter>Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\assimp\include\assimp\cexport.h">
+      <Filter>Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\assimp\include\assimp\cfileio.h">
+      <Filter>Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\assimp\include\assimp\cimport.h">
+      <Filter>Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\assimp\include\assimp\color4.h">
+      <Filter>Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\assimp\include\assimp\config.h">
+      <Filter>Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\assimp\include\assimp\DefaultLogger.hpp">
+      <Filter>Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\assimp\include\assimp\defs.h">
+      <Filter>Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\assimp\include\assimp\Exporter.hpp">
+      <Filter>Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\assimp\include\assimp\Importer.hpp">
+      <Filter>Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\assimp\include\assimp\importerdesc.h">
+      <Filter>Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\assimp\include\assimp\IOStream.hpp">
+      <Filter>Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\assimp\include\assimp\IOSystem.hpp">
+      <Filter>Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\assimp\include\assimp\light.h">
+      <Filter>Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\assimp\include\assimp\Logger.hpp">
+      <Filter>Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\assimp\include\assimp\LogStream.hpp">
+      <Filter>Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\assimp\include\assimp\material.h">
+      <Filter>Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\assimp\include\assimp\matrix3x3.h">
+      <Filter>Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\assimp\include\assimp\matrix4x4.h">
+      <Filter>Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\assimp\include\assimp\mesh.h">
+      <Filter>Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\assimp\include\assimp\metadata.h">
+      <Filter>Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\assimp\include\assimp\NullLogger.hpp">
+      <Filter>Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\assimp\include\assimp\postprocess.h">
+      <Filter>Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\assimp\include\assimp\ProgressHandler.hpp">
+      <Filter>Assimp</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -508,6 +610,27 @@
     </None>
     <None Include="..\Libraries\Devil\include\IL\DevIL.i">
       <Filter>Devil</Filter>
+    </None>
+    <None Include="..\Libraries\assimp\include\assimp\quaternion.inl">
+      <Filter>Assimp</Filter>
+    </None>
+    <None Include="..\Libraries\assimp\include\assimp\vector2.inl">
+      <Filter>Assimp</Filter>
+    </None>
+    <None Include="..\Libraries\assimp\include\assimp\vector3.inl">
+      <Filter>Assimp</Filter>
+    </None>
+    <None Include="..\Libraries\assimp\include\assimp\color4.inl">
+      <Filter>Assimp</Filter>
+    </None>
+    <None Include="..\Libraries\assimp\include\assimp\material.inl">
+      <Filter>Assimp</Filter>
+    </None>
+    <None Include="..\Libraries\assimp\include\assimp\matrix3x3.inl">
+      <Filter>Assimp</Filter>
+    </None>
+    <None Include="..\Libraries\assimp\include\assimp\matrix4x4.inl">
+      <Filter>Assimp</Filter>
     </None>
   </ItemGroup>
 </Project>

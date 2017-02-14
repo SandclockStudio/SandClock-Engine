@@ -46,14 +46,14 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>false</SDLCheck>
       <ExceptionHandling>Sync</ExceptionHandling>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\Libraries;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Time;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Geometry;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Math;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Algorithm\Random;../Libraries/OpenGL/bin/Release/Win32;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source;$(ProjectDir)../Libraries/Devil/include\IL;$(ProjectDir)../Libraries/Devil/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\Libraries;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Time;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Geometry;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Math;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Algorithm\Random;../Libraries/OpenGL/bin/Release/Win32;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source;$(ProjectDir)../Libraries/Devil/include\IL;$(ProjectDir)../Libraries/Devil/include;$ProjectDir)../Libraries/assimp/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <AdditionalDependencies>$(ProjectDir)../Libraries/OpenGL/lib/Release/Win32/glew32.lib;$(ProjectDir)../Libraries/Devil/lib/x86/Release/DevIL.lib;$(ProjectDir)../Libraries/Devil/lib/x86/Release/ILU.lib;$(ProjectDir)../Libraries/Devil/lib/x86/Release/ILUT.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Algorithm;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Math;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source;C:\Users\marcdc\Source\Repos\SandClock-Engine\Libraries;$(ProjectDir)../Libraries/Devil\lib\x86\Release;$(ProjectDir)../Libraries/Devil\lib\x86\unicode\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Algorithm;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Math;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source;C:\Users\marcdc\Source\Repos\SandClock-Engine\Libraries;$(ProjectDir)../Libraries/Devil\lib\x86\Release;$(ProjectDir)../Libraries/Devil\lib\x86\unicode\Release;$(ProjectDir)../Libraries\assimp\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -76,6 +76,39 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\Libraries\Algorithm\Random\LCG.h" />
+    <ClInclude Include="..\Libraries\assimp\include\assimp\ai_assert.h" />
+    <ClInclude Include="..\Libraries\assimp\include\assimp\anim.h" />
+    <ClInclude Include="..\Libraries\assimp\include\assimp\camera.h" />
+    <ClInclude Include="..\Libraries\assimp\include\assimp\cexport.h" />
+    <ClInclude Include="..\Libraries\assimp\include\assimp\cfileio.h" />
+    <ClInclude Include="..\Libraries\assimp\include\assimp\cimport.h" />
+    <ClInclude Include="..\Libraries\assimp\include\assimp\color4.h" />
+    <ClInclude Include="..\Libraries\assimp\include\assimp\config.h" />
+    <ClInclude Include="..\Libraries\assimp\include\assimp\DefaultLogger.hpp" />
+    <ClInclude Include="..\Libraries\assimp\include\assimp\defs.h" />
+    <ClInclude Include="..\Libraries\assimp\include\assimp\Exporter.hpp" />
+    <ClInclude Include="..\Libraries\assimp\include\assimp\Importer.hpp" />
+    <ClInclude Include="..\Libraries\assimp\include\assimp\importerdesc.h" />
+    <ClInclude Include="..\Libraries\assimp\include\assimp\IOStream.hpp" />
+    <ClInclude Include="..\Libraries\assimp\include\assimp\IOSystem.hpp" />
+    <ClInclude Include="..\Libraries\assimp\include\assimp\light.h" />
+    <ClInclude Include="..\Libraries\assimp\include\assimp\Logger.hpp" />
+    <ClInclude Include="..\Libraries\assimp\include\assimp\LogStream.hpp" />
+    <ClInclude Include="..\Libraries\assimp\include\assimp\material.h" />
+    <ClInclude Include="..\Libraries\assimp\include\assimp\matrix3x3.h" />
+    <ClInclude Include="..\Libraries\assimp\include\assimp\matrix4x4.h" />
+    <ClInclude Include="..\Libraries\assimp\include\assimp\mesh.h" />
+    <ClInclude Include="..\Libraries\assimp\include\assimp\metadata.h" />
+    <ClInclude Include="..\Libraries\assimp\include\assimp\NullLogger.hpp" />
+    <ClInclude Include="..\Libraries\assimp\include\assimp\postprocess.h" />
+    <ClInclude Include="..\Libraries\assimp\include\assimp\ProgressHandler.hpp" />
+    <ClInclude Include="..\Libraries\assimp\include\assimp\quaternion.h" />
+    <ClInclude Include="..\Libraries\assimp\include\assimp\scene.h" />
+    <ClInclude Include="..\Libraries\assimp\include\assimp\texture.h" />
+    <ClInclude Include="..\Libraries\assimp\include\assimp\types.h" />
+    <ClInclude Include="..\Libraries\assimp\include\assimp\vector2.h" />
+    <ClInclude Include="..\Libraries\assimp\include\assimp\vector3.h" />
+    <ClInclude Include="..\Libraries\assimp\include\assimp\version.h" />
     <ClInclude Include="..\Libraries\Devil\include\IL\devil_cpp_wrapper.hpp" />
     <ClInclude Include="..\Libraries\Devil\include\IL\devil_internal_exports.h" />
     <ClInclude Include="..\Libraries\Devil\include\IL\il.h" />
@@ -226,6 +259,13 @@
     <ClCompile Include="MPlane.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Libraries\assimp\include\assimp\color4.inl" />
+    <None Include="..\Libraries\assimp\include\assimp\material.inl" />
+    <None Include="..\Libraries\assimp\include\assimp\matrix3x3.inl" />
+    <None Include="..\Libraries\assimp\include\assimp\matrix4x4.inl" />
+    <None Include="..\Libraries\assimp\include\assimp\quaternion.inl" />
+    <None Include="..\Libraries\assimp\include\assimp\vector2.inl" />
+    <None Include="..\Libraries\assimp\include\assimp\vector3.inl" />
     <None Include="..\Libraries\Devil\include\IL\DevIL.i" />
     <None Include="..\Libraries\Geometry\KDTree.inl" />
     <None Include="..\Libraries\Geometry\QuadTree.inl" />
