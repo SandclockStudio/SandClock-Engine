@@ -183,6 +183,20 @@ void Cube::Draw()
 	
 }
 
+void Cube::Draw2()
+{
+	GLfloat v0[] = { 0,0,0 };
+	GLfloat v1[] = { size,0,0 };
+	GLfloat v2[] = { size,size,0 };
+	GLfloat v3[] = { 0,size,0 };
+	GLfloat v4[] = { 0,size,-size };
+	GLfloat v5[] = { 0,0,-size };
+	GLfloat v6[] = { size,0,-size };
+	GLfloat v7[] = { size,size,-size };
+
+
+}
+
 void Cube::Start()
 {
 
