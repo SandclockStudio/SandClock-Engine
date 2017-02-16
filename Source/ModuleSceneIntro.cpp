@@ -7,6 +7,7 @@
 #include "ModuleFadeToBlack.h"
 #include "ModuleSceneIntro.h"
 #include "assimp\include\assimp\scene.h"
+#include "IMGUI\imgui.h"
 
 ModuleSceneIntro::ModuleSceneIntro(bool active) : Module(active)
 {}
@@ -51,7 +52,7 @@ update_status ModuleSceneIntro::Update(float dt)
 	p->DrawDirect();
 	c->Draw2();
 	g->DrawDirect();
-
+	//ImGui::ShowTestWindow();
 
 	/*
 

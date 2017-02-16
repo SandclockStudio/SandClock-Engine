@@ -13,6 +13,7 @@
 #include "ModuleUI.h"
 #include "JsonParser.h"
 #include "ModuleCamera.h"
+#include "ModuleEditor.h"
 
 
 using namespace std;
@@ -26,8 +27,11 @@ Application::Application()
 	modules.push_back(input = new ModuleInput());
 	modules.push_back(window = new ModuleWindow());
 	modules.push_back(renderer = new ModuleRender());
+	modules.push_back(editor = new ModuleEditor());
+
 	modules.push_back(textures = new ModuleTextures());
 	modules.push_back(audio = new ModuleAudio());
+
 	// Game Modules
 	modules.push_back(scene_intro = new ModuleSceneIntro(false));
 	modules.push_back(scene_level = new ModuleSceneLevel(false));
@@ -35,10 +39,13 @@ Application::Application()
 	modules.push_back(player = new ModulePlayer(false));
 
 	// Modules to draw on top of game LOGCHARic
+
 	modules.push_back(collision = new ModuleCollision());
 	modules.push_back(particles = new ModuleParticles());
 	modules.push_back(fade = new ModuleFadeToBlack());
 	modules.push_back(camera = new ModuleCamera());
+
+
 
 	
 }

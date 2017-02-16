@@ -1,14 +1,16 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleInput.h"
+#include "ModuleEditor.h"
 #include "SDL/include/SDL.h"
 #include "JsonParser.h"
 #include "ModuleWindow.h"
 #include "MathGeoLib.h"
 #include "../Libraries/OpenGL/include/GL/glew.h"
 #include "ModuleCamera.h"
-
 #pragma comment (lib, "opengl32.lib") 
+
+
 
 #define MAX_KEYS 300
 
@@ -93,6 +95,7 @@ update_status ModuleInput::PreUpdate(float dt)
 
 	while(SDL_PollEvent(&event) != 0)
 	{
+		App->editor->InputHandler(&event);
 		switch(event.type)
 		{
 			case SDL_QUIT:

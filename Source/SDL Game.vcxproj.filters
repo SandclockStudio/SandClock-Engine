@@ -457,6 +457,9 @@
     <ClInclude Include="..\Libraries\IMGUI\imgui_impl_sdl_gl3.h">
       <Filter>IMGUI</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleEditor.h">
+      <Filter>Core Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -626,6 +629,9 @@
     </ClCompile>
     <ClCompile Include="..\Libraries\IMGUI\imgui_impl_sdl_gl3.cpp">
       <Filter>IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleEditor.cpp">
+      <Filter>Core Modules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

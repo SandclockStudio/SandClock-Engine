@@ -8,6 +8,7 @@
 #include "MathGeoLib.h"
 #include "../Libraries/OpenGL/include/GL/glew.h"
 #include "ModuleCamera.h"
+#include "IMGUI/imgui.h"
 
 #pragma comment (lib, "opengl32.lib") 
 
@@ -146,7 +147,7 @@ update_status ModuleRender::Update(float dt)
 
 update_status ModuleRender::PostUpdate(float dt)
 {
-	
+	ImGui::Render();
 	SDL_GL_SwapWindow(App->window->window);
 	return UPDATE_CONTINUE;
 }
