@@ -3,6 +3,18 @@
 
 #include "Primitive.h"
 
+#include "IL/ilut_config.h"
+#include "IL/il.h"
+#include "IL/ilu.h"
+#include "IL/ilut.h"
+
+
+#pragma comment (lib, "DevIL.lib") 
+#pragma comment (lib, "ILU.lib") 
+#pragma comment (lib, "ILUT.lib") 
+#pragma comment (lib, "assimp-vc140-mt.lib")
+
+
 class Cube : public Primitive
 {
 public:
@@ -23,13 +35,16 @@ public:
 
 	void Start();
 
+	void ImageLoad(char * imgName);
+	GLuint loadImages(const char*);
+
 private:
 
 	MY::Uint index;
 	GLfloat num_vertices = 8;
 	float size;
-	GLuint lenaImg;
-
+	GLuint img;
+	ILuint imgID = 0;
 };
 
 #endif // __CUBE_H__

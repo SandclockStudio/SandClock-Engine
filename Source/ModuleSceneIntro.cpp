@@ -23,7 +23,7 @@ bool ModuleSceneIntro::Start()
 	g = new Gizmo(0.5f, 5.0f, index);
 
 	p->Start();
-	//c->Start();
+	c->Start();
 	g->Start();
 	batman = new Model();
 	batman->Load("Batman.obj");
@@ -49,7 +49,7 @@ update_status ModuleSceneIntro::Update(float dt)
 {
 	batman->Draw();
 	p->DrawDirect();
-	c->Draw();
+	c->Draw2();
 	g->DrawDirect();
 
 
