@@ -9,6 +9,7 @@
 #include "../Libraries/OpenGL/include/GL/glew.h"
 #include "ModuleCamera.h"
 #include "IMGUI/imgui.h"
+#include "ModuleEditor.h"
 
 #pragma comment (lib, "opengl32.lib") 
 
@@ -33,12 +34,14 @@ bool ModuleRender::Init()
 		App->json_parser->UnloadObject();
 	}
 	LOGCHAR("Creating Renderer context");
+	App->editor->AddLog("Creating Renderer context \n");
 	bool ret = true;
 	Uint32 flags = 0;
 
 	if (LoadConfig() == false)
 	{
 		LOGCHAR("Problem in the configuration file");
+		App->editor->AddLog("Problem in the configuration file\n");
 		ret = false;
 	}
 
@@ -54,6 +57,7 @@ bool ModuleRender::Init()
 	if (context == nullptr)
 	{
 		LOGCHAR("OpenGL context could not be created! SDL_Error: %s\n", SDL_GetError());
+		App->editor->AddLog("OpenGL context could not be created! SDL_Error: %s\n", SDL_GetError());
 		ret = false;
 	}
 
@@ -66,10 +70,15 @@ bool ModuleRender::Init()
 	}
 
 	LOGCHAR("Using Glew %s", glewGetString(GLEW_VERSION));
+	App->editor->AddLog("Using Glew %s", glewGetString(GLEW_VERSION));
 	LOGCHAR("Vendor %s", glGetString(GL_VENDOR));
+	App->editor->AddLog("Vendor %s", glGetString(GL_VENDOR));
 	LOGCHAR("Renderer %s", glGetString(GL_RENDERER));
+	App->editor->AddLog("Renderer %s", glGetString(GL_RENDERER));
 	LOGCHAR("OpenGL version supported %s", glGetString(GL_VERSION));
+	App->editor->AddLog("OpenGL version supported %s", glGetString(GL_VERSION));
 	LOGCHAR("GLSL %s", glGetString(GL_SHADING_LANGUAGE_VERSION));
+	App->editor->AddLog("GLSL %s", glGetString(GL_SHADING_LANGUAGE_VERSION));
 
 
 	renderer = SDL_CreateRenderer(App->window->window, -1, 0);
@@ -156,7 +165,6 @@ update_status ModuleRender::PostUpdate(float dt)
 bool ModuleRender::CleanUp()
 {
 	LOGCHAR("Destroying renderer");
-
 	//Destroy window
 	if(renderer != nullptr)
 	{

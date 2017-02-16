@@ -31,7 +31,7 @@ update_status ModuleEditor::PreUpdate(float dt)
 
 update_status ModuleEditor::Update(float dt)
 {
-	ImGui::ShowTestWindow();
+	DrawConsole();
 	return UPDATE_CONTINUE;
 }
 
@@ -40,6 +40,22 @@ update_status ModuleEditor::PostUpdate(float dt)
 	//ImGui::ShowTestWindow();
 
 	return UPDATE_CONTINUE;
+}
+
+void ModuleEditor::DrawConsole()
+{
+	ImGui::Begin("Console", NULL, 0);
+	ImGui::TextUnformatted(Buf.begin());
+	ImGui::End();
+}
+
+void ModuleEditor::AddLog(const char * fmt, ...)
+{
+	va_list args;
+	va_start(args, fmt);
+	Buf.appendv(fmt, args);
+	Buf.appendv("\n", nullptr);
+	va_end(args);
 }
 
 
