@@ -41,6 +41,9 @@
     <Filter Include="Assimp">
       <UniqueIdentifier>{0b0f1bbb-b2a5-48e2-8ca5-de41d4d10d47}</UniqueIdentifier>
     </Filter>
+    <Filter Include="IMGUI">
+      <UniqueIdentifier>{b0344978-948c-47c1-91d3-19914eda28cf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ModuleRender.h">
@@ -433,6 +436,27 @@
     <ClInclude Include="Model.h">
       <Filter>OpenGlTools</Filter>
     </ClInclude>
+    <ClInclude Include="..\Libraries\IMGUI\imconfig.h">
+      <Filter>IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\IMGUI\imgui.h">
+      <Filter>IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\IMGUI\imgui_internal.h">
+      <Filter>IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\IMGUI\stb_rect_pack.h">
+      <Filter>IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\IMGUI\stb_textedit.h">
+      <Filter>IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\IMGUI\stb_truetype.h">
+      <Filter>IMGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\IMGUI\imgui_impl_sdl_gl3.h">
+      <Filter>IMGUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -590,6 +614,18 @@
     </ClCompile>
     <ClCompile Include="MPlane.cpp">
       <Filter>OpenGlTools</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\IMGUI\imgui.cpp">
+      <Filter>IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\IMGUI\imgui_demo.cpp">
+      <Filter>IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\IMGUI\imgui_draw.cpp">
+      <Filter>IMGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Libraries\IMGUI\imgui_impl_sdl_gl3.cpp">
+      <Filter>IMGUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

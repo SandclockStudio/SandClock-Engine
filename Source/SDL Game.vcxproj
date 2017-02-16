@@ -138,6 +138,13 @@
     <ClInclude Include="..\Libraries\Geometry\Sphere.h" />
     <ClInclude Include="..\Libraries\Geometry\Triangle.h" />
     <ClInclude Include="..\Libraries\Geometry\TriangleMesh.h" />
+    <ClInclude Include="..\Libraries\IMGUI\imconfig.h" />
+    <ClInclude Include="..\Libraries\IMGUI\imgui.h" />
+    <ClInclude Include="..\Libraries\IMGUI\imgui_impl_sdl_gl3.h" />
+    <ClInclude Include="..\Libraries\IMGUI\imgui_internal.h" />
+    <ClInclude Include="..\Libraries\IMGUI\stb_rect_pack.h" />
+    <ClInclude Include="..\Libraries\IMGUI\stb_textedit.h" />
+    <ClInclude Include="..\Libraries\IMGUI\stb_truetype.h" />
     <ClInclude Include="..\Libraries\MathBuildConfig.h" />
     <ClInclude Include="..\Libraries\MathGeoLib.h" />
     <ClInclude Include="..\Libraries\MathGeoLibFwd.h" />
@@ -222,6 +229,10 @@
     <ClCompile Include="..\Libraries\Geometry\Sphere.cpp" />
     <ClCompile Include="..\Libraries\Geometry\Triangle.cpp" />
     <ClCompile Include="..\Libraries\Geometry\TriangleMesh.cpp" />
+    <ClCompile Include="..\Libraries\IMGUI\imgui.cpp" />
+    <ClCompile Include="..\Libraries\IMGUI\imgui_demo.cpp" />
+    <ClCompile Include="..\Libraries\IMGUI\imgui_draw.cpp" />
+    <ClCompile Include="..\Libraries\IMGUI\imgui_impl_sdl_gl3.cpp" />
     <ClCompile Include="..\Libraries\Math\BitOps.cpp" />
     <ClCompile Include="..\Libraries\Math\float2.cpp" />
     <ClCompile Include="..\Libraries\Math\float3.cpp" />
