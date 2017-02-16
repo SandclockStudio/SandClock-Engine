@@ -32,6 +32,8 @@ update_status ModuleEditor::PreUpdate(float dt)
 update_status ModuleEditor::Update(float dt)
 {
 	DrawConsole();
+	if(fps_log.size() != 0)
+		DrawFps();
 	return UPDATE_CONTINUE;
 }
 
@@ -44,9 +46,23 @@ update_status ModuleEditor::PostUpdate(float dt)
 
 void ModuleEditor::DrawConsole()
 {
+	ImGui::SetNextWindowSize(ImVec2(100, 100), ImGuiSetCond_FirstUseEver);
 	ImGui::Begin("Console", NULL, 0);
 	ImGui::TextUnformatted(Buf.begin());
 	ImGui::End();
+}
+
+void ModuleEditor::DrawFps()
+{
+	ImGui::SetNextWindowSize(ImVec2(300, 300), ImGuiSetCond_FirstUseEver);
+	ImGui::Begin("Histogram", NULL, 0);
+	ImGui::PlotHistogram("##framerate", &fps_log[0], fps_log.size(), 0, "Frames", 0.0f, 100.0f, ImVec2(310, 100));
+	ImGui::End();
+}
+
+void ModuleEditor::AddFps(float fps)
+{
+	fps_log.push_back(fps);
 }
 
 void ModuleEditor::AddLog(const char * fmt, ...)
@@ -64,6 +80,7 @@ bool ModuleEditor::CleanUp()
 	ImGui_ImplSdlGL3_Shutdown();
 	return true;
 }
+
 
 void ModuleEditor::InputHandler(SDL_Event* event)
 {

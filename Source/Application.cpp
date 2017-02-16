@@ -104,6 +104,7 @@ update_status Application::Update()
 		sprintf(newTitle, "%s -- %i", window->title, App->fps);
 		SDL_SetWindowTitle(window->window, newTitle);
 		mili.start();
+		App->editor->AddFps(App->fps);
 		fps = 0;
 	}
 

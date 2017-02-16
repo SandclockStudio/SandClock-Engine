@@ -5,6 +5,7 @@
 #include "../Libraries/OpenGL/include/GL/glew.h"
 #pragma comment (lib, "opengl32.lib") 
 #include "IMGUI\imgui.h"
+#include <vector>
 
 class ModuleEditor : public Module
 {
@@ -19,11 +20,14 @@ public:
 
 	void InputHandler(SDL_Event* event);
 	void DrawConsole();
+	void DrawFps();
 	void AddLog(const char* fmt, ...);
+	void AddFps(float fps);
 
 
 public:
 	ImGuiTextBuffer Buf;
+	std::vector<float> fps_log;
 
 
 private:

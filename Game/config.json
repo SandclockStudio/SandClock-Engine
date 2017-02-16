@@ -4,7 +4,7 @@
 		"Width": 384,
 		"Height": 220,
 		"Size": 3,
-		"Vsync": true,
+		"Vsync": false,
         "Fullscreen": false,
         "fps_cap": 60
 	}
