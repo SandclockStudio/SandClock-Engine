@@ -26,20 +26,20 @@ update_status ModuleEditor::PreUpdate(float dt)
 {
 	ImGui_ImplSdlGL3_NewFrame(App->window->window);
 
-	return update_status();
+	return UPDATE_CONTINUE;
 }
 
 update_status ModuleEditor::Update(float dt)
 {
 	ImGui::ShowTestWindow();
-	return update_status();
+	return UPDATE_CONTINUE;
 }
 
 update_status ModuleEditor::PostUpdate(float dt)
 {
 	//ImGui::ShowTestWindow();
 
-	return update_status();
+	return UPDATE_CONTINUE;
 }
 
 
