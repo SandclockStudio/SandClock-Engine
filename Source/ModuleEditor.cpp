@@ -34,7 +34,7 @@ update_status ModuleEditor::Update(float dt)
 	DrawConsole();
 	if(fps_log.size() != 0)
 		DrawFps();
-	return UPDATE_CONTINUE;
+	return DrawMenu();
 }
 
 update_status ModuleEditor::PostUpdate(float dt)
@@ -85,4 +85,48 @@ bool ModuleEditor::CleanUp()
 void ModuleEditor::InputHandler(SDL_Event* event)
 {
 	ImGui_ImplSdlGL3_ProcessEvent(event);
+}
+
+update_status ModuleEditor::DrawMenu()
+{
+	update_status ret = UPDATE_CONTINUE;
+	if (ImGui::BeginMainMenuBar())
+	{
+		if (ImGui::BeginMenu("File"))
+		{
+			ImGui::MenuItem("New");
+			ImGui::MenuItem("Load");
+			ImGui::MenuItem("Save");
+			if (ImGui::MenuItem("Quit"))
+			{
+				ret = UPDATE_STOP;
+			}
+			ImGui::EndMenu();
+
+		}
+
+		if (ImGui::BeginMenu("Help"))
+		{
+			if (ImGui::MenuItem("Documentation"))
+			{
+				ret = UPDATE_STOP;
+			}
+			if (ImGui::MenuItem("Wiki"))
+			{
+				ret = UPDATE_STOP;
+			}
+			if (ImGui::MenuItem("Report a bug"))
+			{
+				ret = UPDATE_STOP;
+			}
+			if (ImGui::MenuItem("About"))
+			{
+				ret = UPDATE_STOP;
+			}
+			ImGui::EndMenu();
+		}
+		ImGui::EndMainMenuBar();
+	}
+
+	return ret;
 }

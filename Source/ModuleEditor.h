@@ -21,6 +21,7 @@ public:
 	void InputHandler(SDL_Event* event);
 	void DrawConsole();
 	void DrawFps();
+	update_status DrawMenu();
 	void AddLog(const char* fmt, ...);
 	void AddFps(float fps);
 
