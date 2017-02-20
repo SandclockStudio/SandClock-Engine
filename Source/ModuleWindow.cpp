@@ -131,3 +131,8 @@ void ModuleWindow::setFullScreen(bool enable)
 		}
 	}
 }
+
+void ModuleWindow::setResizable(bool enable)
+{
+	resizable = enable;
+}

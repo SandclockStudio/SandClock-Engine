@@ -33,6 +33,7 @@ public:
 
 private:
 	bool fullscreen;
+	bool resizable;
 
 };
 

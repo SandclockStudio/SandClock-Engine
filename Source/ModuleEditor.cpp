@@ -126,10 +126,20 @@ update_status ModuleEditor::DrawMenu()
 			ImGui::EndMenu();
 		}
 
-		if (ImGui::Checkbox("Fullscreen", &fullscreen))
+		if (ImGui::BeginMenu("Configuration"))
 		{
-			App->window->setFullScreen(fullscreen);
+			if (ImGui::Checkbox("Fullscreen", &fullscreen))
+			{
+				App->window->setFullScreen(fullscreen);
+			}
+			ImGui::SameLine();
+			if (ImGui::Checkbox("Resizable", &resizable))
+			{
+				App->window->setResizable(resizable);
+			}
+			ImGui::EndMenu();
 		}
+
 
 		ImGui::EndMainMenuBar();
 	}

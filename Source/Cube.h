@@ -45,6 +45,7 @@ private:
 	float size;
 	GLuint img;
 	ILuint imgID = 0;
+	GLfloat vertices[108];
 };
 
 #endif // __CUBE_H__

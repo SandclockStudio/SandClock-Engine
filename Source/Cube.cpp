@@ -223,11 +223,12 @@ void Cube::Draw()
 
 	};
 
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	/*glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnable(GL_TEXTURE_COORD_ARRAY_EXT);
 
+	
 	glBindTexture(GL_TEXTURE_2D, img);
 	glBindBuffer(GL_ARRAY_BUFFER, index);
 	glVertexPointer(3, GL_FLOAT, 0, NULL);
@@ -236,7 +237,52 @@ void Cube::Draw()
 
 	//glBindTexture(GL_TEXTURE_2D, 0);
 	glDisableClientState(GL_VERTEX_ARRAY);
-	glDisable(GL_TEXTURE_COORD_ARRAY_EXT);
+	glDisable(GL_TEXTURE_COORD_ARRAY_EXT);*/
+
+
+	/////////////////////////////////////
+
+	
+
+	GLuint vertexbuffer;
+	glGenBuffers(1, &vertexbuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+	glBufferData(GL_ARRAY_BUFFER, 108 * sizeof(GLfloat), &vertices[0], GL_STATIC_DRAW);
+
+	GLuint uvbuffer;
+	glGenBuffers(1, &uvbuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, uvbuffer);
+	glBufferData(GL_ARRAY_BUFFER, 72 * sizeof(GLfloat), &texCoords[0], GL_STATIC_DRAW);
+
+	glEnableVertexAttribArray(0);
+
+	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+	glVertexAttribPointer(
+		0,                  // attribute
+		3,                  // size
+		GL_FLOAT,           // type
+		GL_FALSE,           // normalized?
+		0,                  // stride
+		(void*)0            // array buffer offset
+	);
+
+	// 2nd attribute buffer : UVs
+	glEnableVertexAttribArray(1);
+	glBindBuffer(GL_ARRAY_BUFFER, uvbuffer);
+	glVertexAttribPointer(
+		1,                                // attribute
+		2,                                // size
+		GL_FLOAT,                         // type
+		GL_FALSE,                         // normalized?
+		0,                                // stride
+		(void*)0                          // array buffer offset
+	);
+
+	// Draw the triangle !
+	glDrawArrays(GL_TRIANGLES, 0, 108);
+
+	glDisableVertexAttribArray(0);
+	glDisableVertexAttribArray(1);
 	
 }
 
@@ -410,13 +456,15 @@ void Cube::Start()
 							size,0,-size,		0,0,-size,		0,size,-size		//v6-v5-v4
 	};
 
+	vertices[0] = vertices1[0];
+
 
 
 	
 	
 	glGenBuffers(1, (GLuint*) &(index));
 	glBindBuffer(GL_ARRAY_BUFFER, index);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float)*108, vertices1, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float)*108, vertices, GL_STATIC_DRAW);
 
 	ilInit();
 	iluInit();

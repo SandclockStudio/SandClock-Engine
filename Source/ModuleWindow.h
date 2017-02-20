@@ -25,7 +25,7 @@ public:
 	update_status Update(float dt);
 
 	void setFullScreen(bool enable);
-
+	void setResizable(bool enable);
 
 public:
 	//The window we'll be rendering to
@@ -40,6 +40,7 @@ public:
 	int screenHeight = 0;
 	int screenSize = 0;
 	bool fullScreen = false;
+	bool resizable = false;
 
 private:
 	bool LoadConfig();
