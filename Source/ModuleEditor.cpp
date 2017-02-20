@@ -125,6 +125,12 @@ update_status ModuleEditor::DrawMenu()
 			}
 			ImGui::EndMenu();
 		}
+
+		if (ImGui::Checkbox("Fullscreen", &fullscreen))
+		{
+			App->window->setFullScreen(fullscreen);
+		}
+
 		ImGui::EndMainMenuBar();
 	}
 

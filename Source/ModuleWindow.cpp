@@ -3,7 +3,8 @@
 #include "ModuleWindow.h"
 #include "SDL/include/SDL.h"
 #include "JsonParser.h"
-#include "SDL/include/SDL_opengl.h"
+//#include "SDL/include/SDL_opengl.h"
+#include "ModuleEditor.h"
 
 ModuleWindow::ModuleWindow()
 {
@@ -109,4 +110,24 @@ update_status ModuleWindow::Update(float dt)
 	
 
 	return UPDATE_CONTINUE;
+}
+
+void ModuleWindow::setFullScreen(bool enable)
+{
+	if (enable != fullScreen)
+	{
+		fullScreen = enable;
+		if (fullScreen == true)
+		{
+			if (SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN) != 0)
+				App->editor->AddLog("Could not switch to fullscreen: %s\n", SDL_GetError());
+			//fullscreen_desktop = false;
+			SDL_Log("this is a test");
+		}
+		else
+		{
+			if (SDL_SetWindowFullscreen(window, 0) != 0)
+				App->editor->AddLog("Could not switch to windowed: %s\n", SDL_GetError());
+		}
+	}
 }

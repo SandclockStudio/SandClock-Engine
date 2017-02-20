@@ -32,7 +32,7 @@ public:
 
 
 private:
-	
+	bool fullscreen;
 
 };
 

@@ -24,6 +24,8 @@ public:
 
 	update_status Update(float dt);
 
+	void setFullScreen(bool enable);
+
 
 public:
 	//The window we'll be rendering to
@@ -41,6 +43,7 @@ public:
 
 private:
 	bool LoadConfig();
+
 };
 
 #endif // __MODULEWINDOW_H__
