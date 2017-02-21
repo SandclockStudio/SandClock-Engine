@@ -50,7 +50,7 @@ update_status ModuleSceneIntro::Update(float dt)
 {
 	//batman->Draw();
 	p->DrawDirect();
-	c->Draw2();
+	c->Draw();
 	g->DrawDirect();
 	//ImGui::ShowTestWindow();
 
