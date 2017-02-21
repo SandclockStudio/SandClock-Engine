@@ -151,10 +151,10 @@ void Cube::Draw()
 
 	
 
-	//glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
+	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
 
 
-	//ImageLoad("lena.png"); 
+	ImageLoad("lena.png"); 
 
 							//front
 	GLfloat texVertices[] = { 0,0, 1,0, 1,1, 
@@ -227,10 +227,8 @@ void Cube::Draw()
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY_EXT);
-
-	
+	glEnableClientState(GL_VERTEX_ARRAY);
 
 
 	glBindBuffer(GL_ARRAY_BUFFER, index);
@@ -238,13 +236,12 @@ void Cube::Draw()
 
 	//glBindBuffer(GL_TEXTURE_COORD_ARRAY, texCoords);
 	glTexCoordPointer(2, GL_FLOAT, 0, NULL);
-
+	glDrawElements(GL_TRIANGLES, 72, GL_UNSIGNED_INT, texCoords);
 	glDrawArrays(GL_TRIANGLES, 0, 36); //4 puntos por 9 caras
 
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY_EXT);
-
 
 	
 }
