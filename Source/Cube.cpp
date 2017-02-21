@@ -154,30 +154,29 @@ void Cube::Draw()
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
 
 
-	ImageLoad("lena.png"); 
-
-							//front
-	GLfloat texVertices[] = { 0,0, 1,0, 1,1, 
-							  0,0, 1,1, 0,1, 
-							//
-							0,0, 1,0, 1,1,
-							0,0, 1,1, 0,1,
-							//
-							0,0, 1,0, 1,1,
-							0,0, 1,1, 0,1,
-							//
-							0,0, 1,0, 1,1,
-							0,0, 1,1, 0,1,
-							//
-							0,0, 1,0, 1,1,
-							0,0, 1,1, 0,1,
-							//
-							0,0, 1,0, 1,1,
-							0,0, 1,1, 0,1,
 	
+
+	GLfloat vertices1[] = { 0,0,0,				size,0,0,		size,size,0,		//v0-v1-v2
+							size,size,0,		0,size,0,		0,0,0,				//V2-V3-V0
+																					//right
+							0,0,0,				0,size,0,		0,size,-size,		//v0-v3-v4
+							0,size,-size,		0,0,-size,		0,0,0,				//v4-v5-v0
+																					//up
+							0,0,0,				0,0,-size,		size,0,-size,		//v0-v5-v6
+							size,0,-size,		size,0,0,		0,0,0,				//v6-v1-v0
+																					//left
+							size,0,0,			size,0,-size,	size,size,-size,	//v1,v6,v7	
+							size,size,-size,	size,size,0,	size,0,0,			//v7,v2,v1		
+																					//down
+							size,size,-size,	0,size,-size,	0,size,0,			//v7-v4-v3
+							0,size,0,			size,size,0,	size,size,-size,	//v3-v2-v7
+																					//back
+							0,size,-size,		size,size,-size, size,0,-size,		//v4-v7-v6
+							size,0,-size,		0,0,-size,		0,size,-size		//v6-v5-v4
 	};
 
 	GLfloat texCoords[] = {
+
 		0.0, 0.0,   // texture  face
 		1.0, 1.0,
 		0.0, 1.0,
@@ -185,13 +184,12 @@ void Cube::Draw()
 		0.0, 0.0,
 		1.0, 0.0,
 
-
-		0.0, 0.0,   // texture  face
+		0.0, 0.0,   // 
 		1.0, 1.0,
-		1.0, 0.0,
-		1.0, 0.0,
 		0.0, 1.0,
 		1.0, 1.0,
+		0.0, 0.0,
+		1.0, 0.0,
 
 		0.0, 0.0,   // texture  face
 		1.0, 1.0,
@@ -223,6 +221,7 @@ void Cube::Draw()
 
 	};
 
+	ImageLoad("lena.png");
 
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -230,15 +229,14 @@ void Cube::Draw()
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY_EXT);
 	glEnableClientState(GL_VERTEX_ARRAY);
 
-
 	glBindBuffer(GL_ARRAY_BUFFER, index);
-	glVertexPointer(3, GL_FLOAT, 0, NULL);
 
-	//glBindBuffer(GL_TEXTURE_COORD_ARRAY, texCoords);
-	glTexCoordPointer(2, GL_FLOAT, 0, NULL);
-	glDrawElements(GL_TRIANGLES, 72, GL_UNSIGNED_INT, texCoords);
+	glVertexPointer(3, GL_FLOAT, sizeof(float) * 5,NULL);
+	glTexCoordPointer(2, GL_FLOAT, sizeof(float) * 5, (GLvoid*)(sizeof(float)*3));
+	
+	
 	glDrawArrays(GL_TRIANGLES, 0, 36); //4 puntos por 9 caras
-
+	
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY_EXT);
@@ -248,36 +246,7 @@ void Cube::Draw()
 
 void Cube::Draw2()
 {
-	/*GLfloat v0[] = { 0,0,0 };
-	GLfloat v1[] = { size,0,0 };
-	GLfloat v2[] = { size,size,0 };
-	GLfloat v3[] = { 0,size,0 };
-	GLfloat v4[] = { 0,size,-size };
-	GLfloat v5[] = { 0,0,-size };
-	GLfloat v6[] = { size,0,-size };
-	GLfloat v7[] = { size,size,-size };*/
 
-
-	/*GLubyte checkImage[CHECKERS_HEIGHT][CHECKERS_WIDTH][4];
-	for (int i = 0; i < CHECKERS_HEIGHT; i++) {
-		for (int j = 0; j < CHECKERS_WIDTH; j++) {
-			int c = ((((i & 0x8) == 0) ^ (((j & 0x8)) == 0))) * 255;
-			checkImage[i][j][0] = (GLubyte)c;
-			checkImage[i][j][1] = (GLubyte)c;
-			checkImage[i][j][2] = (GLubyte)c;
-			checkImage[i][j][3] = (GLubyte)255;
-		}
-	}
-
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-	glGenTextures(1, &index);
-	glBindTexture(GL_TEXTURE_2D, index);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, CHECKERS_WIDTH, CHECKERS_HEIGHT,
-		0, GL_RGBA, GL_UNSIGNED_BYTE, checkImage);*/
 
 	loadImages("lena.png");
 
@@ -397,11 +366,11 @@ void Cube::Start()
 
 
 							//front
-	GLfloat vertices1[] = {	0,0,0,				size,0,0,		size,size,0,		//v0-v1-v2
+	/*GLfloat vertices1[] = {	0,0,0,				size,0,0,		size,size,0,		//v0-v1-v2
 							size,size,0,		0,size,0,		0,0,0,				//V2-V3-V0
 							//right
 							0,0,0,				0,size,0,		0,size,-size,		//v0-v3-v4
-							0,size,-size,		0,0,-size,		0,0,0,				//v4-v5-v0	cre3o que mal v5
+							0,size,-size,		0,0,-size,		0,0,0,				//v4-v5-v0
 							//up
 							0,0,0,				0,0,-size,		size,0,-size,		//v0-v5-v6
 							size,0,-size,		size,0,0,		0,0,0,				//v6-v1-v0
@@ -414,9 +383,29 @@ void Cube::Start()
 							//back
 							0,size,-size,		size,size,-size, size,0,-size,		//v4-v7-v6
 							size,0,-size,		0,0,-size,		0,size,-size		//v6-v5-v4
+	};*/
+
+
+	GLfloat vertices1[] = { 0,0,0,0.0,0.0,				size,0,0,1.0,1.0,		size,size,0,0.0, 1.0,		//v0-v1-v2
+							size,size,0,1.0, 1.0,		0,size,0,0.0, 0.0,		0,0,0,1.0, 0.0,				//V2-V3-V0
+																					//right
+							0,0,0,0.0,0.0,				0,size,0,1.0, 1.0,		0,size,-size,0.0, 1.0,		//v0-v3-v4
+							0,size,-size,1.0, 1.0,		0,0,-size,0.0, 0.0,		0,0,0,1.0, 0.0,				//v4-v5-v0
+																					//up
+							0,0,0,0.0, 0.0,				0,0,-size,1.0, 1.0,		size,0,-size,0.0, 1.0,		//v0-v5-v6
+							size,0,-size,1.0, 1.0,		size,0,0,0.0, 0.0,		0,0,0,1.0, 0.0,				//v6-v1-v0
+																					//left
+							size,0,0,0.0, 0.0,			size,0,-size,1.0, 1.0,	size,size,-size,0.0, 1.0,	//v1,v6,v7	
+							size,size,-size,1.0, 1.0,	size,size,0,0.0, 0.0,	size,0,0,1.0, 0.0,			//v7,v2,v1		
+																					//down
+							size,size,-size,0.0, 0.0,	0,size,-size,1.0, 1.0,	0,size,0,0.0, 1.0,			//v7-v4-v3
+							0,size,0,1.0, 1.0,			size,size,0,0.0, 0.0,	size,size,-size,1.0, 0.0,	//v3-v2-v7
+																					//back
+							0,size,-size,0.0, 0.0,		size,size,-size,1.0, 1.0, size,0,-size,0.0, 1.0,		//v4-v7-v6
+							size,0,-size,1.0, 1.0,		0,0,-size,0.0, 0.0,		0,size,-size,1.0, 0.0		//v6-v5-v4
 	};
 
-	//vertices[0] = vertices1[0];
+
 
 
 
@@ -424,7 +413,8 @@ void Cube::Start()
 	
 	glGenBuffers(1, (GLuint*) &(index));
 	glBindBuffer(GL_ARRAY_BUFFER, index);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float)*108, vertices1, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float)*108+sizeof(float)*72, vertices1, GL_STATIC_DRAW);
+	
 
 	ilInit();
 	iluInit();
