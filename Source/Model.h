@@ -3,7 +3,8 @@
 
 #include <assimp/include/assimp/scene.h>
 #include <vector>
-#include <MathGeoLib.h>
+#include "Devil\include\IL\ilut.h"
+
 class Model
 {
 
@@ -17,12 +18,10 @@ public:
 	void Load(const char* file);
 	void Clear();
 	void Draw();
-	void Draw2();
-	//void LoadGLTextures(const aiScene* scene, const char* pModelPath);
-	void LoadAssimp(const char * path,std::vector<unsigned short> & indices,std::vector<math::vec> & vertices,std::vector<math::float2> & uvs,	std::vector<math::vec> & normals);
+	GLuint loadTexture(const char * theFileName);
 
 private:
-
+	std::vector<GLuint> textureIndex;
 };
 
 #endif /* _MODEL_H_ */
