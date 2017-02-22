@@ -40,9 +40,9 @@ void Model::Draw()
 {
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-	
 	for (int i = 0; i < scene->mNumMeshes; i++)
 	{
+		glBindTexture(GL_TEXTURE_2D, textureIndex[i]);
 		glBegin(GL_TRIANGLES);
 		for (int j = 0; j < scene->mMeshes[i]->mNumVertices; j++)
 		{
@@ -55,7 +55,7 @@ void Model::Draw()
 		}
 		glEnd();
 
-		glBindTexture(GL_TEXTURE_2D,textureIndex[i]);
+		glBindTexture(GL_TEXTURE_2D, 0);	
 	}
 }
 
