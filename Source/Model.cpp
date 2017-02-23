@@ -45,20 +45,13 @@ void Model::Clear()
 
 void Model::Draw()
 {
-	
-
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	glEnable(GL_TEXTURE_2D);
 
 	for (int i = 0; i < scene->mNumMeshes; i++)
-
 	{
 		glBindTexture(GL_TEXTURE_2D, textureIndex[i]);
-
 		glBegin(GL_TRIANGLES);
-	
-		
-	
 		for (int j = 0; j < scene->mMeshes[i]->mNumVertices; j++)
 		{
 			if ((scene->mMeshes[i]->HasNormals()))
@@ -71,8 +64,6 @@ void Model::Draw()
 		glEnd();
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
-
-	
 }
 
 // Function load a image, turn it into a texture, and return the texture ID as a GLuint for use
@@ -123,8 +114,8 @@ GLuint Model::loadTexture( char* theFileName)
 		glBindTexture(GL_TEXTURE_2D, textureID);
 
 		// Set texture clamping method
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
 		// Set texture interpolation method to use linear interpolation (no MIPMAPS)
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
