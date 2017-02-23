@@ -16,13 +16,20 @@ void Model::Load(const char * file)
 {
 	scene = aiImportFile(file, aiProcess_TransformUVCoords | aiProcess_PreTransformVertices);
 
+	ilInit();
+	iluInit();
+	ilutInit();
+	ilClearColour(255, 255, 255, 000);
+	ilutRenderer(ILUT_OPENGL);
+	ilutEnable(ILUT_OPENGL_CONV);
+
 	
-	for (int i = 0; i < scene->mNumMaterials; i++)
+	for (int i = 0; i < scene->mNumMeshes; i++)
 	{
 		aiString string;
-		if (scene->mMaterials[i]->GetTexture(aiTextureType_DIFFUSE, 0, &string) == AI_SUCCESS)
+		if (scene->mMaterials[scene->mMeshes[i]->mMaterialIndex]->GetTexture(aiTextureType_DIFFUSE, 0, &string, NULL, NULL, NULL, NULL, NULL) == AI_SUCCESS)
 		{
-			const char* FullPath = string.data;
+			 char* FullPath = string.data;
 			GLfloat aux = loadTexture(FullPath);
 			textureIndex.push_back(aux);
 			LOGCHAR("ESTO ES EL PATH: %s",FullPath);
@@ -38,30 +45,40 @@ void Model::Clear()
 
 void Model::Draw()
 {
+	
+
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	glEnable(GL_TEXTURE_2D);
 
 	for (int i = 0; i < scene->mNumMeshes; i++)
+
 	{
 		glBindTexture(GL_TEXTURE_2D, textureIndex[i]);
+
 		glBegin(GL_TRIANGLES);
+	
+		
+	
 		for (int j = 0; j < scene->mMeshes[i]->mNumVertices; j++)
 		{
-			if ((scene->mMeshes[i]->HasTextureCoords(j)))
-				glTexCoord2f(scene->mMeshes[i]->mTextureCoords[j]->x, scene->mMeshes[i]->mTextureCoords[j]->y);
 			if ((scene->mMeshes[i]->HasNormals()))
 				glNormal3f(scene->mMeshes[i]->mNormals[j].x, scene->mMeshes[i]->mNormals[j].y, scene->mMeshes[i]->mNormals[j].z);
+			if ((scene->mMeshes[i]->HasTextureCoords(0)))
+				glTexCoord2f((scene->mMeshes[i]->mTextureCoords[0][j].x), (scene->mMeshes[i]->mTextureCoords[0][j].y));
 
 			glVertex3f(scene->mMeshes[i]->mVertices[j].x, scene->mMeshes[i]->mVertices[j].y, scene->mMeshes[i]->mVertices[j].z);
 		}
 		glEnd();
-
-		glBindTexture(GL_TEXTURE_2D, 0);	
+		glBindTexture(GL_TEXTURE_2D, 0);
 	}
+
+	
 }
 
 // Function load a image, turn it into a texture, and return the texture ID as a GLuint for use
-GLuint Model::loadTexture(const char* theFileName)
+GLuint Model::loadTexture( char* theFileName)
 {
+	
 	ILuint imageID;				// Create a image ID as a ULuint
 
 	GLuint textureID;			// Create a texture ID as a GLuint
@@ -137,4 +154,7 @@ GLuint Model::loadTexture(const char* theFileName)
 
 	return textureID; // Return the GLuint to the texture so you can use it!
 }
+
+
+
 

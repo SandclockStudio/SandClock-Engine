@@ -35,7 +35,6 @@ public:
 
 	void Start();
 
-	void ImageLoad(char * imgName);
 	GLuint loadImages(const char*);
 
 private:

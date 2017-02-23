@@ -18,10 +18,13 @@ public:
 	void Load(const char* file);
 	void Clear();
 	void Draw();
-	GLuint loadTexture(const char * theFileName);
+	GLuint loadTexture(char * theFileName);
+
+
+	GLuint img;
 
 private:
-	std::vector<GLuint> textureIndex;
+	std::vector<int> textureIndex;
 };
 
 #endif /* _MODEL_H_ */

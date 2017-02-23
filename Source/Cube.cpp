@@ -221,7 +221,6 @@ void Cube::Draw()
 
 	};
 
-	ImageLoad("lena.png");
 
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -248,7 +247,7 @@ void Cube::Draw2()
 {
 
 
-	loadImages("lena.png");
+	loadImages("Batman_Mask_D.tga");
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	glBegin(GL_TRIANGLES);
@@ -427,44 +426,11 @@ void Cube::Start()
 
 
 	//ImageLoad("lena.png");
-	img = Cube::loadImages("lena.png");
 
 }
 
 
-void Cube::ImageLoad(char * imgName)
-{
-	ilGenImages(1, &imgID); 		// Generate the image ID
 
-	ilBindImage(imgID); 			// Bind the image
-
-	img = ilutGLLoadImage(imgName);
-
-	// Generate a new texture
-	glGenTextures(1, &img);
-
-	// Bind the texture to a name
-	glBindTexture(GL_TEXTURE_2D, img);
-
-	// Set texture clamping method
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
-
-	// Set texture interpolation method to use linear interpolation (no MIPMAPS)
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-
-	// Specify the texture specification
-	glTexImage2D(GL_TEXTURE_2D, 				// Type of texture
-		0,				// Pyramid level (for mip-mapping) - 0 is the top level
-		ilGetInteger(IL_IMAGE_FORMAT),	// Internal pixel format to use. Can be a generic type like GL_RGB or GL_RGBA, or a sized type
-		ilGetInteger(IL_IMAGE_WIDTH),	// Image width
-		ilGetInteger(IL_IMAGE_HEIGHT),	// Image height
-		0,				// Border width in pixels (can either be 1 or 0)
-		ilGetInteger(IL_IMAGE_FORMAT),	// Format of image pixel data
-		GL_UNSIGNED_BYTE,		// Image data type
-		ilGetData());			// The actual image data itself
-}
 
 // Function load a image, turn it into a texture, and return the texture ID as a GLuint for use
 GLuint Cube::loadImages(const char* theFileName)
