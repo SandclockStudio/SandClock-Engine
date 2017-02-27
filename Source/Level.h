@@ -7,15 +7,15 @@
 
 struct Node
 {
-	std::string name;
+	aiString name;
 	aiVector3D position = aiVector3D(0, 0, 0);
 	aiQuaternion rotation = aiQuaternion(1, 0, 0, 0);
 	std::vector<unsigned> meshes;
 	Node* parent = nullptr;
 	std::vector<Node*> childs;
 
-	Node(std::string name, aiVector3D position, aiQuaternion rotation, std::vector<unsigned> meshes, Node* parent, std::vector<Node*> childs) 
-		: name(name), position(position), rotation(rotation),meshes(meshes),parent(parent),childs(childs)
+	Node(aiString name, aiVector3D position, aiQuaternion rotation, std::vector<unsigned> meshes, Node* parent = nullptr)
+		: name(name), position(position), rotation(rotation),meshes(meshes),parent(parent)
 	{}
 };
 
