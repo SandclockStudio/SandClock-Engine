@@ -460,6 +460,9 @@
     <ClInclude Include="ModuleEditor.h">
       <Filter>Core Modules</Filter>
     </ClInclude>
+    <ClInclude Include="Level.h">
+      <Filter>OpenGlTools</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -632,6 +635,9 @@
     </ClCompile>
     <ClCompile Include="ModuleEditor.cpp">
       <Filter>Core Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="Level.cpp">
+      <Filter>OpenGlTools</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

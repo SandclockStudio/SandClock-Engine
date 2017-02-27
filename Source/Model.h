@@ -17,6 +17,7 @@ public:
 
 	void Load(const char* file);
 	void Clear();
+	void DrawDirect();
 	void Draw();
 	GLuint loadTexture(char * theFileName);
 
@@ -24,6 +25,7 @@ public:
 	GLuint img;
 
 private:
+	unsigned int** index;
 	std::vector<int> textureIndex;
 };
 

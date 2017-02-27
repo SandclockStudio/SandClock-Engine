@@ -23,13 +23,29 @@ void Model::Load(const char * file)
 	ilutRenderer(ILUT_OPENGL);
 	ilutEnable(ILUT_OPENGL_CONV);
 
-	
+	index = new unsigned int *[scene->mNumMeshes];
 	for (int i = 0; i < scene->mNumMeshes; i++)
 	{
+		aiMesh* mesh = scene->mMeshes[i];
+		index[i] = new unsigned int[mesh->mNumFaces * 3];
+		for (int j = 0; j < mesh->mNumFaces; j++)
+		{
+			if (mesh->mFaces[j].mNumIndices != 3)
+				LOGCHAR("WARNING, geometry face with %d indices, all should be have 3!", mesh->mFaces[j].mNumIndices);
+			unsigned int c = 0;
+			for (int k = 0; k < 3; ++k, c++)
+			{
+				//LOGCHAR("mesh->mFaces[%i].mIndices[%i] = %i", j, k, mesh->mFaces[j].mIndices[k]);
+				index[i][c] = mesh->mFaces[j].mIndices[k];
+				//LOGCHAR("index[%i][%i] = %i ", i,c, index[i][c]);
+				
+			}
+		}
+
 		aiString string;
 		if (scene->mMaterials[scene->mMeshes[i]->mMaterialIndex]->GetTexture(aiTextureType_DIFFUSE, 0, &string, NULL, NULL, NULL, NULL, NULL) == AI_SUCCESS)
 		{
-			 char* FullPath = string.data;
+			char* FullPath = string.data;
 			GLfloat aux = loadTexture(FullPath);
 			textureIndex.push_back(aux);
 			LOGCHAR("ESTO ES EL PATH: %s",FullPath);
@@ -43,7 +59,7 @@ void Model::Clear()
 	delete(scene);
 }
 
-void Model::Draw()
+void Model::DrawDirect()
 {
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	glEnable(GL_TEXTURE_2D);
@@ -65,6 +81,35 @@ void Model::Draw()
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 }
+
+
+void Model::Draw()
+{
+	for (unsigned i = 0; i < scene->mNumMeshes; ++i)
+	{
+		glEnableClientState(GL_VERTEX_ARRAY);
+		glEnableClientState(GL_NORMAL_ARRAY);
+		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+
+
+		aiMesh* mesh = scene->mMeshes[i];
+
+		glBindTexture(GL_TEXTURE_2D, textureIndex[i]);
+
+		glVertexPointer(3, GL_FLOAT, 0, &mesh->mVertices[0]);
+		glNormalPointer(GL_FLOAT, 0, &mesh->mNormals[0]);
+		glTexCoordPointer(2, GL_FLOAT, sizeof(aiVector3D), &mesh->mTextureCoords[0]);
+		glDrawElements(GL_TRIANGLES, mesh->mNumFaces * 3, GL_UNSIGNED_INT, index[i]);
+
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+
+		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+		glDisableClientState(GL_NORMAL_ARRAY);
+		glDisableClientState(GL_VERTEX_ARRAY);
+	}
+}
+
 
 // Function load a image, turn it into a texture, and return the texture ID as a GLuint for use
 GLuint Model::loadTexture( char* theFileName)
