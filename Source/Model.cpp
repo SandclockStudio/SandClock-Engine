@@ -14,7 +14,7 @@ Model::~Model()
 
 void Model::Load(const char * file)
 {
-	scene = aiImportFile(file, aiProcess_TransformUVCoords | aiProcess_PreTransformVertices);
+	scene = aiImportFile(file, aiProcess_PreTransformVertices | aiProcess_Triangulate);
 
 	ilInit();
 	iluInit();
@@ -27,12 +27,12 @@ void Model::Load(const char * file)
 	for (int i = 0; i < scene->mNumMeshes; i++)
 	{
 		aiMesh* mesh = scene->mMeshes[i];
-		index[i] = new unsigned int[mesh->mNumFaces * 3];
+		index[i] = new unsigned int[3*mesh->mNumFaces];
+		unsigned int c = 0;
 		for (int j = 0; j < mesh->mNumFaces; j++)
 		{
 			if (mesh->mFaces[j].mNumIndices != 3)
 				LOGCHAR("WARNING, geometry face with %d indices, all should be have 3!", mesh->mFaces[j].mNumIndices);
-			unsigned int c = 0;
 			for (int k = 0; k < 3; ++k, c++)
 			{
 				//LOGCHAR("mesh->mFaces[%i].mIndices[%i] = %i", j, k, mesh->mFaces[j].mIndices[k]);
@@ -41,16 +41,17 @@ void Model::Load(const char * file)
 				
 			}
 		}
-
 		aiString string;
 		if (scene->mMaterials[scene->mMeshes[i]->mMaterialIndex]->GetTexture(aiTextureType_DIFFUSE, 0, &string, NULL, NULL, NULL, NULL, NULL) == AI_SUCCESS)
 		{
 			char* FullPath = string.data;
 			GLfloat aux = loadTexture(FullPath);
 			textureIndex.push_back(aux);
-			LOGCHAR("ESTO ES EL PATH: %s",FullPath);
+			LOGCHAR("ESTO ES EL PATH: %s", FullPath);
 			LOGCHAR("Index %i: %f", i, aux);
 		}
+
+		
 	}
 }
 
@@ -85,21 +86,24 @@ void Model::DrawDirect()
 
 void Model::Draw()
 {
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	for (unsigned i = 0; i < scene->mNumMeshes; ++i)
 	{
+		aiMesh* mesh = scene->mMeshes[i];
+		glEnable(GL_TEXTURE_2D);
+
 		glEnableClientState(GL_VERTEX_ARRAY);
 		glEnableClientState(GL_NORMAL_ARRAY);
 		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
 
-		aiMesh* mesh = scene->mMeshes[i];
-
+		
+		glVertexPointer(3, GL_FLOAT, 0, mesh->mVertices);
+		glNormalPointer(GL_FLOAT, 0, mesh->mNormals);
 		glBindTexture(GL_TEXTURE_2D, textureIndex[i]);
+		glTexCoordPointer(2, GL_FLOAT, sizeof(aiVector3D), mesh->mTextureCoords[0]);
 
-		glVertexPointer(3, GL_FLOAT, 0, &mesh->mVertices[0]);
-		glNormalPointer(GL_FLOAT, 0, &mesh->mNormals[0]);
-		glTexCoordPointer(2, GL_FLOAT, sizeof(aiVector3D), &mesh->mTextureCoords[0]);
-		glDrawElements(GL_TRIANGLES, mesh->mNumFaces * 3, GL_UNSIGNED_INT, index[i]);
+		glDrawElements(GL_TRIANGLES,3* mesh->mNumFaces , GL_UNSIGNED_INT, index[i]);
 
 		glBindTexture(GL_TEXTURE_2D, 0);
 

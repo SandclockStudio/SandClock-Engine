@@ -25,7 +25,7 @@ bool ModuleSceneIntro::Start()
 
 	p->Start();
 	c->Start();
-	g->Start();
+	//g->Start();
 	batman = new Model();
 	batman->Load("Batman.obj");
 
@@ -50,7 +50,7 @@ update_status ModuleSceneIntro::Update(float dt)
 {
 	
 	p->DrawDirect();
-	//c->Draw2();
+	c->Draw2();
 	batman->Draw();
 	//g->DrawDirect();
 	//ImGui::ShowTestWindow();
