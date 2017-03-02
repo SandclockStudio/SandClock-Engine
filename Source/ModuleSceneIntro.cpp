@@ -28,7 +28,9 @@ bool ModuleSceneIntro::Start()
 	g->Start();
 	batman = new Model();
 	batman->Load("Batman.obj");
-
+	
+	l = new Level();
+	l->Load("Street.obj");
 
 	return true;
 }
@@ -50,9 +52,10 @@ update_status ModuleSceneIntro::Update(float dt)
 {
 	
 	p->DrawDirect();
-	//c->Draw2();
-	batman->DrawDirect();
-	//g->DrawDirect();
+	c->Draw2();
+	//batman->Draw();
+	l->Draw();
+	g->DrawDirect();
 	//ImGui::ShowTestWindow();
 
 	/*

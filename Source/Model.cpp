@@ -37,7 +37,7 @@ void Model::Load(const char * file)
 			{
 				//LOGCHAR("mesh->mFaces[%i].mIndices[%i] = %i", j, k, mesh->mFaces[j].mIndices[k]);
 				index[i][c] = mesh->mFaces[j].mIndices[k];
-				//LOGCHAR("index[%i][%i] = %i ", i,c, index[i][c]);
+				//LOGCHAR(" HOLAAAA index[%i][%i] = %i ", i,c, index[i][c]);
 				
 			}
 		}

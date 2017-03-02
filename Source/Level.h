@@ -10,27 +10,33 @@ struct Node
 	aiString name;
 	aiVector3D position = aiVector3D(0, 0, 0);
 	aiQuaternion rotation = aiQuaternion(1, 0, 0, 0);
-	std::vector<unsigned> meshes;
+	unsigned int* meshes;
 	Node* parent = nullptr;
 	std::vector<Node*> childs;
 
-	Node(aiString name, aiVector3D position, aiQuaternion rotation, std::vector<unsigned> meshes, Node* parent = nullptr)
+	Node(aiString name, aiVector3D position, aiQuaternion rotation, unsigned int* meshes, Node* parent = nullptr)
 		: name(name), position(position), rotation(rotation),meshes(meshes),parent(parent)
 	{}
+
+	Node(aiString name, aiVector3D position, aiQuaternion rotation, Node* parent = nullptr)
+		: name(name), position(position), rotation(rotation), parent(parent)
+	{
+		meshes = nullptr;
+	}
 };
 
 
 struct My_Mesh
 {
 	unsigned material = 0;
-	aiVector3D * vertices = nullptr;
-	aiVector2D * tex_coords = nullptr;
-	aiVector3D * normals = nullptr;
+	std::vector<aiVector3D>  vertices;
+	std::vector<aiVector2D> tex_coords;
+	std::vector<aiVector3D> normals;
 	unsigned num_vertices = 0;
 	unsigned* indices;
 	unsigned num_indices = 0;
 
-	My_Mesh(unsigned material, aiVector3D * vertices, aiVector2D * tex_coords, aiVector3D * normals, unsigned num_vertices, unsigned* indices, unsigned num_indices) :
+	My_Mesh(unsigned material, std::vector<aiVector3D>  vertices, std::vector<aiVector2D>  tex_coords, std::vector<aiVector3D> normals, unsigned num_vertices, unsigned* indices, unsigned num_indices) :
 		material(material),vertices(vertices),tex_coords(tex_coords),normals(normals),num_vertices(num_vertices), indices(indices),num_indices(num_indices)
 	{}
 };
@@ -42,6 +48,7 @@ struct Material
 	aiColor4D specular = aiColor4D(1.0f, 1.0f, 1.0f, 1.0f);
 	float shiness = 0.0f;
 	unsigned texture = 0;
+	Material(unsigned texture) : texture(texture) {};
 };
 
 class Level
@@ -71,6 +78,11 @@ public:
 
 	Node* FindNode(const char* node);
 	void LinkNode(Node* node, Node* destination);
+
+	Node* LoadNode(aiNode * node,Node * root);
+
+	GLuint loadTexture(char * theFileName);
+
 
 private:
 

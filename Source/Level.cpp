@@ -15,56 +15,7 @@ void Level::Load(const char * file)
 {
 	scene = aiImportFile(file, aiProcess_TransformUVCoords | aiProcess_PreTransformVertices);
 
-	aiMatrix4x4 mat = scene->mRootNode->mTransformation;
-	
-	aiVector3D pos = aiVector3D(mat.d2, mat.d3, mat.d4);
-
-	aiQuaternion quat = aiQuaternion();
-	quat.w = sqrt(1 + mat.a1 + mat.b2 + mat.c3) / 2;
-	quat.x = (mat.c2 - mat.b3) / (4 * quat.w);
-	quat.y = (mat.a3 - mat.c1) / (4 * quat.w);
-	quat.z = (mat.b1 - mat.a2) / (4 * quat.w);
-
-	/*qw = √(1 + m00 + m11 + m22) / 2
-		qx = (m21 - m12) / (4 * qw)
-		qy = (m02 - m20) / (4 * qw)
-		qz = (m10 - m01) / (4 * qw)*/
-
-	std::vector<unsigned> mMeshes;
-	for (int i = 0; i < scene->mRootNode->mNumMeshes;i++)
-	{
-		mMeshes[i] = scene->mRootNode->mMeshes[i];
-	}
-
-	root = new Node(scene->mRootNode->mName, pos, quat, mMeshes, nullptr);
-
-
-	for (int i = 0; i < scene->mRootNode->mNumChildren; i++)
-	{
-		
-		aiNode* child = scene->mRootNode->mChildren[i];
-
-		aiMatrix4x4 mat = child->mTransformation;
-
-		aiVector3D pos = aiVector3D(mat.d2, mat.d3, mat.d4);
-
-		aiQuaternion quat = aiQuaternion();
-		quat.w = sqrt(1 + mat.a1 + mat.b2 + mat.c3) / 2;
-		quat.x = (mat.c2 - mat.b3) / (4 * quat.w);
-		quat.y = (mat.a3 - mat.c1) / (4 * quat.w);
-		quat.z = (mat.b1 - mat.a2) / (4 * quat.w);
-
-		std::vector<unsigned> mMeshes;
-		for (int i = 0; i < scene->mRootNode->mNumMeshes; i++)
-		{
-			mMeshes[i] = scene->mRootNode->mMeshes[i];
-		}
-
-		Node* nodo = new Node(child->mName, pos, quat, mMeshes, root);
-		root->childs.push_back(nodo);
-		
-		
-	}
+	root = LoadNode(scene->mRootNode, nullptr);
 
 
 
@@ -110,6 +61,31 @@ void Level::Clear()
 void Level::Draw()
 {
 
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	for (unsigned i = 0; i < meshes.size(); ++i)
+	{
+		glEnable(GL_TEXTURE_2D);
+
+		glEnableClientState(GL_VERTEX_ARRAY);
+		glEnableClientState(GL_NORMAL_ARRAY);
+		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+
+
+
+		glVertexPointer(3, GL_FLOAT, 0, &(meshes[i].vertices));
+		glNormalPointer(GL_FLOAT, 0, &(meshes[i].normals));
+		glBindTexture(GL_TEXTURE_2D, meshes[i].material);
+		glTexCoordPointer(2, GL_FLOAT, sizeof(aiVector3D),&(meshes[i].tex_coords));
+
+		glDrawElements(GL_TRIANGLES, meshes[i].num_indices, GL_UNSIGNED_INT, meshes[i].indices);
+
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+
+		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+		glDisableClientState(GL_NORMAL_ARRAY);
+		glDisableClientState(GL_VERTEX_ARRAY);
+	}
 }
 
 Node * Level::FindNode(const char * node)
@@ -119,5 +95,167 @@ Node * Level::FindNode(const char * node)
 
 void Level::LinkNode(Node * node, Node * destination)
 {
+	destination->childs.push_back(node);
+}
 
+Node* Level::LoadNode(aiNode * node,Node * root)
+{
+
+	aiMatrix4x4 mat = node->mTransformation;
+
+	aiVector3D pos = aiVector3D(mat.d2, mat.d3, mat.d4);
+
+	aiQuaternion quat = aiQuaternion();
+	quat.w = sqrt(1 + mat.a1 + mat.b2 + mat.c3) / 2;
+	quat.x = (mat.c2 - mat.b3) / (4 * quat.w);
+	quat.y = (mat.a3 - mat.c1) / (4 * quat.w);
+	quat.z = (mat.b1 - mat.a2) / (4 * quat.w);
+
+
+	Node* nodo;
+
+
+	GLfloat aux = 0;
+	if (node->mMeshes > 0)
+	{
+		
+		aiString string;
+		if (scene->mMaterials[scene->mMeshes[node->mMeshes[0]]->mMaterialIndex]->GetTexture(aiTextureType_DIFFUSE, 0, &string, NULL, NULL, NULL, NULL, NULL) == AI_SUCCESS)
+		{
+			char* FullPath = string.data;
+			aux = loadTexture(FullPath);
+			Material mat = Material((int)aux);
+			materials.push_back(mat);
+		}
+
+		unsigned int* mMeshes = new unsigned int[node->mNumMeshes];
+		mMeshes[0] = node->mMeshes[0];
+
+		aiMesh * mesh = scene->mMeshes[node->mMeshes[0]];
+
+		std::vector<aiVector3D> auxVertex;
+		std::vector<aiVector3D> auxNormals;
+		std::vector<aiVector2D> auxTextCoord;
+
+		unsigned int * index = new unsigned int[mesh->mNumVertices];
+	
+
+		for (int j = 0; j < mesh->mNumVertices; j++)
+		{
+			auxVertex.push_back(aiVector3D(mesh->mVertices[j].x, mesh->mVertices[j].y, mesh->mVertices[j].z));
+			
+			if (mesh->HasTextureCoords(0))
+				auxTextCoord.push_back( aiVector2D(mesh->mTextureCoords[0][j].x, mesh->mTextureCoords[0][j].y));
+			if (mesh->HasNormals())
+				auxNormals.push_back(aiVector3D(mesh->mNormals[j].x, mesh->mNormals[j].y, mesh->mNormals[j].z));
+		}
+		unsigned int c = 0;
+		for (int k = 0; k < mesh->mNumFaces; k++)
+		{
+			for (int m = 0; m < 3; m++, c++)
+			{
+				index[c] = mesh->mFaces[k].mIndices[m];
+
+				//Aqui esta el problema.
+				LOGCHAR(" HOLAAAA index[%i] = %i ", c, index[c]);
+			}
+		}
+
+		meshes.push_back(My_Mesh((int)aux, auxVertex, auxTextCoord, auxNormals, mesh->mNumVertices, index, sizeof(index)));
+		nodo = new Node(node->mName, pos, quat, mMeshes, root);
+	}
+	else
+		nodo = new Node(node->mName, pos, quat, root);
+
+	if (node->mNumChildren > 0)
+	{
+		for (int i = 0; i < node->mNumChildren; i++)
+		{
+			LinkNode(nodo, LoadNode(node->mChildren[i],nodo));
+			
+		}
+	}
+
+	return nodo;
+}
+
+
+// Function load a image, turn it into a texture, and return the texture ID as a GLuint for use
+GLuint Level::loadTexture(char* theFileName)
+{
+
+	ILuint imageID;				// Create a image ID as a ULuint
+
+	GLuint textureID;			// Create a texture ID as a GLuint
+
+	ILboolean success;			// Create a flag to keep track of success/failure
+
+	ILenum error;				// Create a flag to keep track of the IL error state
+
+	ilGenImages(1, &imageID); 		// Generate the image ID
+
+	ilBindImage(imageID); 			// Bind the image
+
+	success = ilLoadImage(theFileName); 	// Load the image file
+
+											// If we managed to load the image, then we can start to do things with it...
+	if (success)
+	{
+		// If the image is flipped (i.e. upside-down and mirrored, flip it the right way up!)
+		ILinfo ImageInfo;
+		iluGetImageInfo(&ImageInfo);
+		if (ImageInfo.Origin == IL_ORIGIN_UPPER_LEFT)
+		{
+			iluFlipImage();
+		}
+
+		// ... then attempt to conver it.
+		// NOTE: If your image contains alpha channel you can replace IL_RGB with IL_RGBA
+		success = ilConvertImage(IL_RGB, IL_UNSIGNED_BYTE);
+
+		// Quit out if we failed the conversion
+		if (!success)
+		{
+			error = ilGetError();
+			//cout << "Image conversion failed - IL reports error: " << error << endl;
+			exit(-1);
+		}
+
+		// Generate a new texture
+		glGenTextures(1, &textureID);
+
+		// Bind the texture to a name
+		glBindTexture(GL_TEXTURE_2D, textureID);
+
+		// Set texture clamping method
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+
+		// Set texture interpolation method to use linear interpolation (no MIPMAPS)
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+		// Specify the texture specification
+		glTexImage2D(GL_TEXTURE_2D, 				// Type of texture
+			0,				// Pyramid level (for mip-mapping) - 0 is the top level
+			ilGetInteger(IL_IMAGE_BPP),	// Image colour depth
+			ilGetInteger(IL_IMAGE_WIDTH),	// Image width
+			ilGetInteger(IL_IMAGE_HEIGHT),	// Image height
+			0,				// Border width in pixels (can either be 1 or 0)
+			ilGetInteger(IL_IMAGE_FORMAT),	// Image format (i.e. RGB, RGBA, BGR etc.)
+			GL_UNSIGNED_BYTE,		// Image data type
+			ilGetData());			// The actual image data itself
+	}
+	else // If we failed to open the image file in the first place...
+	{
+		error = ilGetError();
+		//cout << "Image load failed - IL reports error: " << error << endl;
+		exit(-1);
+	}
+
+	ilDeleteImages(1, &imageID); // Because we have already copied image data into texture data we can release memory used by image.
+
+								 //cout << "Texture creation successful." << endl;
+
+	return textureID; // Return the GLuint to the texture so you can use it!
 }

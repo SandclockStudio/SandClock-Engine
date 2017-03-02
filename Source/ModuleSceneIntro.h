@@ -6,6 +6,7 @@
 #include "MPlane.h"
 #include "Gizmo.h"
 #include "Model.h"
+#include "Level.h"
 
 
 
@@ -28,6 +29,7 @@ public:
 	Cube* c;
 	Gizmo* g;
 	MPlane* p;
+	Level* l;
 	MY::Uint index = 0;
 	float angle = 0;
 	Model* batman;
