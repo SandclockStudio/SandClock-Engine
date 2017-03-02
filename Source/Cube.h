@@ -27,8 +27,6 @@ public:
 
 	void Rotate(float angle, GLfloat vector[]);
 
-	void DrawDirect();
-
 	void Draw();
 
 	void Draw2();

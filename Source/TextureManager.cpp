@@ -1,10 +1,8 @@
-#include "stdafx.h"
-
+#include "../Libraries/OpenGL/include/GL/glew.h"
 #include "TextureManager.h"
-
 #include <IL/il.h>
-#include <GL/freeglut.h>
 #include <cassert>
+#pragma comment (lib, "opengl32.lib") 
 
 std::auto_ptr<TextureManager> TextureManager::instance;
 

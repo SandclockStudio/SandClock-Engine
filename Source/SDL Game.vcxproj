@@ -213,6 +213,7 @@
     <ClInclude Include="Primitive.h" />
     <ClInclude Include="SimpleTimer.h" />
     <ClInclude Include="SOIL.h" />
+    <ClInclude Include="TextureManager.h" />
     <ClInclude Include="Timer.h" />
   </ItemGroup>
   <ItemGroup>

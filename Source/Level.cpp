@@ -66,6 +66,9 @@ void Level::Load(const char * file)
 		
 	}
 
+
+
+
 	/*
 	for (int i = 0; i < scene->mNumMeshes; i++)
 	{

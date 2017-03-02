@@ -463,6 +463,9 @@
     <ClInclude Include="Level.h">
       <Filter>OpenGlTools</Filter>
     </ClInclude>
+    <ClInclude Include="TextureManager.h">
+      <Filter>Core Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
