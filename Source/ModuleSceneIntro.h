@@ -30,6 +30,7 @@ public:
 	Gizmo* g;
 	MPlane* p;
 	Level* l;
+	Level* l2;
 	MY::Uint index = 0;
 	float angle = 0;
 	Model* batman;

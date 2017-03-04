@@ -13,12 +13,9 @@ Level::~Level()
 
 void Level::Load(const char * file)
 {
-	scene = aiImportFile(file, aiProcess_TransformUVCoords | aiProcess_PreTransformVertices);
+	scene = aiImportFile(file, aiProcess_TransformUVCoords | aiProcess_PreTransformVertices| aiProcess_Triangulate);
 
 	root = LoadNode(scene->mRootNode, nullptr);
-
-
-
 
 	/*
 	for (int i = 0; i < scene->mNumMeshes; i++)
@@ -53,6 +50,88 @@ void Level::Load(const char * file)
 	}*/
 }
 
+Node* Level::LoadNode(aiNode * node, Node * root)
+{
+
+	aiMatrix4x4 mat = node->mTransformation;
+
+	aiVector3D pos = aiVector3D(mat.d2, mat.d3, mat.d4);
+
+	aiQuaternion quat = aiQuaternion();
+	quat.w = sqrt(1 + mat.a1 + mat.b2 + mat.c3) / 2;
+	quat.x = (mat.c2 - mat.b3) / (4 * quat.w);
+	quat.y = (mat.a3 - mat.c1) / (4 * quat.w);
+	quat.z = (mat.b1 - mat.a2) / (4 * quat.w);
+
+
+	Node* nodo;
+
+
+	
+	GLfloat aux = 0;
+	if (node->mMeshes>0 )
+	{
+
+		aiString string;
+		if (scene->mMaterials[scene->mMeshes[node->mMeshes[0]]->mMaterialIndex]->GetTexture(aiTextureType_DIFFUSE, 0, &string, NULL, NULL, NULL, NULL, NULL) == AI_SUCCESS)
+		{
+			char* FullPath = string.data;
+			aux = loadTexture(FullPath);
+			Material mat = Material((int)aux);
+			materials.push_back(mat);
+		}
+
+		unsigned int* mMeshes = new unsigned int[node->mNumMeshes];
+		mMeshes[0] = node->mMeshes[0];
+
+		aiMesh * mesh = scene->mMeshes[node->mMeshes[0]];
+
+		unsigned int * index = new unsigned int[mesh->mNumFaces * 3];
+		aiVector3D* auxVertex = new aiVector3D[3*mesh->mNumVertices];
+		aiVector3D* auxNormals = new aiVector3D[2 * mesh->mNumVertices];
+		aiVector3D* auxTextCoord = new aiVector3D[2 * mesh->mNumVertices];
+		
+		for (int j = 0; j < mesh->mNumVertices; j++)
+		{
+
+			if (mesh->HasTextureCoords(0))
+				auxTextCoord[j] = aiVector3D(mesh->mTextureCoords[0][j].x, mesh->mTextureCoords[0][j].y, mesh->mTextureCoords[0][j].z);
+			if (mesh->HasNormals())
+				auxNormals[j] = aiVector3D(mesh->mNormals[j].x, mesh->mNormals[j].y, mesh->mNormals[j].z);
+
+			auxVertex[j] = aiVector3D(mesh->mVertices[j].x, mesh->mVertices[j].y, mesh->mVertices[j].z);
+
+		}
+		unsigned int c = 0;
+
+		for (int k = 0; k < mesh->mNumFaces; k++)
+		{
+			for (int m = 0; m < 3; ++m, c++)
+			{
+				index[c] = mesh->mFaces[k].mIndices[m];
+			}
+		}
+
+		meshes.push_back(My_Mesh((int)aux, auxVertex, auxTextCoord, auxNormals, mesh->mNumVertices, index, mesh->mNumFaces * 3, mesh->mNumFaces));
+		nodo = new Node(node->mName, pos, quat, mMeshes, root);
+	}
+
+	else
+		nodo = new Node(node->mName, pos, quat, root);
+
+	if (node->mNumChildren > 0)
+	{
+		for (int i = 0; i < node->mNumChildren; i++)
+		{
+			LinkNode(nodo, LoadNode(node->mChildren[i], nodo));
+
+		}
+	}
+
+	return nodo;
+}
+
+
 void Level::Clear()
 {
 	aiReleaseImport(scene);
@@ -61,7 +140,6 @@ void Level::Clear()
 void Level::Draw()
 {
 
-	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	for (unsigned i = 0; i < meshes.size(); ++i)
 	{
 		glEnable(GL_TEXTURE_2D);
@@ -72,13 +150,12 @@ void Level::Draw()
 
 
 
-		glVertexPointer(3, GL_FLOAT, 0, &(meshes[i].vertices));
-		glNormalPointer(GL_FLOAT, 0, &(meshes[i].normals));
+		glNormalPointer(GL_FLOAT, 0, meshes[i].normals);
 		glBindTexture(GL_TEXTURE_2D, meshes[i].material);
-		glTexCoordPointer(2, GL_FLOAT, sizeof(aiVector3D),&(meshes[i].tex_coords));
+		glTexCoordPointer(2, GL_FLOAT, sizeof(aiVector3D), meshes[i].tex_coords);
 
-		glDrawElements(GL_TRIANGLES, meshes[i].num_faces*3, GL_UNSIGNED_INT, meshes[i].indices);
-
+		glVertexPointer(3, GL_FLOAT, 0, meshes[i].vertices);
+		glDrawElements(GL_TRIANGLES, meshes[i].num_indices, GL_UNSIGNED_INT, meshes[i].indices);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
 
@@ -96,87 +173,6 @@ Node * Level::FindNode(const char * node)
 void Level::LinkNode(Node * node, Node * destination)
 {
 	destination->childs.push_back(node);
-}
-
-Node* Level::LoadNode(aiNode * node,Node * root)
-{
-
-	aiMatrix4x4 mat = node->mTransformation;
-
-	aiVector3D pos = aiVector3D(mat.d2, mat.d3, mat.d4);
-
-	aiQuaternion quat = aiQuaternion();
-	quat.w = sqrt(1 + mat.a1 + mat.b2 + mat.c3) / 2;
-	quat.x = (mat.c2 - mat.b3) / (4 * quat.w);
-	quat.y = (mat.a3 - mat.c1) / (4 * quat.w);
-	quat.z = (mat.b1 - mat.a2) / (4 * quat.w);
-
-
-	Node* nodo;
-
-
-	GLfloat aux = 0;
-	if (node->mMeshes > 0)
-	{
-		
-		aiString string;
-		if (scene->mMaterials[scene->mMeshes[node->mMeshes[0]]->mMaterialIndex]->GetTexture(aiTextureType_DIFFUSE, 0, &string, NULL, NULL, NULL, NULL, NULL) == AI_SUCCESS)
-		{
-			char* FullPath = string.data;
-			aux = loadTexture(FullPath);
-			Material mat = Material((int)aux);
-			materials.push_back(mat);
-		}
-
-		unsigned int* mMeshes = new unsigned int[node->mNumMeshes];
-		mMeshes[0] = node->mMeshes[0];
-
-		aiMesh * mesh = scene->mMeshes[node->mMeshes[0]];
-
-		std::vector<aiVector3D> auxVertex;
-		std::vector<aiVector3D> auxNormals;
-		std::vector<aiVector2D> auxTextCoord;
-
-		unsigned int * index = new unsigned int[mesh->mNumVertices];
-	
-
-		for (int j = 0; j < mesh->mNumVertices; j++)
-		{
-			auxVertex.push_back(aiVector3D(mesh->mVertices[j].x, mesh->mVertices[j].y, mesh->mVertices[j].z));
-			
-			if (mesh->HasTextureCoords(0))
-				auxTextCoord.push_back( aiVector2D(mesh->mTextureCoords[0][j].x, mesh->mTextureCoords[0][j].y));
-			if (mesh->HasNormals())
-				auxNormals.push_back(aiVector3D(mesh->mNormals[j].x, mesh->mNormals[j].y, mesh->mNormals[j].z));
-		}
-		unsigned int c = 0;
-		for (int k = 0; k < mesh->mNumFaces; k++)
-		{
-			for (int m = 0; m < 3; ++m, c++)
-			{
-				index[c] = mesh->mFaces[k].mIndices[m];
-
-				//Aqui esta el problema.
-				//LOGCHAR(" HOLAAAA index[%i] = %i ", c, index[c]);
-			}
-		}
-
-		meshes.push_back(My_Mesh((int)aux, auxVertex, auxTextCoord, auxNormals, mesh->mNumVertices, index, sizeof(index), mesh->mNumFaces));
-		nodo = new Node(node->mName, pos, quat, mMeshes, root);
-	}
-	else
-		nodo = new Node(node->mName, pos, quat, root);
-
-	if (node->mNumChildren > 0)
-	{
-		for (int i = 0; i < node->mNumChildren; i++)
-		{
-			LinkNode(nodo, LoadNode(node->mChildren[i],nodo));
-			
-		}
-	}
-
-	return nodo;
 }
 
 
@@ -228,8 +224,8 @@ GLuint Level::loadTexture(char* theFileName)
 		glBindTexture(GL_TEXTURE_2D, textureID);
 
 		// Set texture clamping method
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_LINEAR);
 
 		// Set texture interpolation method to use linear interpolation (no MIPMAPS)
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
