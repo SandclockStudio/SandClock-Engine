@@ -44,10 +44,12 @@ struct My_Mesh
 
 struct Material
 {
-	aiColor4D ambient = aiColor4D(1.0f, 1.0f, 1.0f, 1.0f);
-	aiColor4D diffuse = aiColor4D(1.0f, 1.0f, 1.0f, 1.0f);
-	aiColor4D specular = aiColor4D(1.0f, 1.0f, 1.0f, 1.0f);
+	float ambient[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	float diffuse[4] = {1.0f, 1.0f, 1.0f, 1.0f};
+	float specular[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
 	float shiness = 0.0f;
+
+public:
 	unsigned texture = 0;
 	Material(unsigned texture) : texture(texture) {};
 };

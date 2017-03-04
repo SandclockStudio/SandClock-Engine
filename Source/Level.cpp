@@ -66,20 +66,48 @@ Node* Level::LoadNode(aiNode * node, Node * root)
 
 	Node* nodo;
 
-
+	bool materialFlag = false;
 	
 	GLfloat aux = 0;
+	Material mate = Material((int)aux);
+
 	if (node->mMeshes>0 )
 	{
-
 		aiString string;
 		if (scene->mMaterials[scene->mMeshes[node->mMeshes[0]]->mMaterialIndex]->GetTexture(aiTextureType_DIFFUSE, 0, &string, NULL, NULL, NULL, NULL, NULL) == AI_SUCCESS)
 		{
 			char* FullPath = string.data;
 			aux = loadTexture(FullPath);
-			Material mat = Material((int)aux);
-			materials.push_back(mat);
+			mate.texture = aux;
+	
 		}
+
+
+		aiColor4D ambient;
+		aiColor4D diffuse;
+		aiColor4D specular;
+		aiMaterial* material = scene->mMaterials[scene->mMeshes[0]->mMaterialIndex];
+
+		material->Get(AI_MATKEY_COLOR_AMBIENT, ambient);
+		material->Get(AI_MATKEY_COLOR_DIFFUSE, diffuse);
+		material->Get(AI_MATKEY_COLOR_SPECULAR, specular);
+
+		if (material->Get(AI_MATKEY_SHININESS, mate.shiness) == AI_SUCCESS)
+			mate.shiness *= 128.0f;
+
+		float shine_strength = 1.0f;
+
+		if (material->Get(AI_MATKEY_SHININESS_STRENGTH, shine_strength) == AI_SUCCESS)
+			specular *= shine_strength;
+
+		for (int i = 0; i < 3; i++)
+		{
+			mate.ambient[i] = ambient[i];
+			mate.diffuse[i] = diffuse[i];
+			mate.specular[i] = specular[i];
+		}
+
+		materials.push_back(mate);
 
 		unsigned int* mMeshes = new unsigned int[node->mNumMeshes];
 		mMeshes[0] = node->mMeshes[0];
@@ -95,7 +123,14 @@ Node* Level::LoadNode(aiNode * node, Node * root)
 		{
 
 			if (mesh->HasTextureCoords(0))
+			{
 				auxTextCoord[j] = aiVector3D(mesh->mTextureCoords[0][j].x, mesh->mTextureCoords[0][j].y, mesh->mTextureCoords[0][j].z);
+			}
+			else
+			{
+				materialFlag = false;
+
+			}
 			if (mesh->HasNormals())
 				auxNormals[j] = aiVector3D(mesh->mNormals[j].x, mesh->mNormals[j].y, mesh->mNormals[j].z);
 
@@ -148,14 +183,18 @@ void Level::Draw()
 		glEnableClientState(GL_NORMAL_ARRAY);
 		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
-
-
 		glNormalPointer(GL_FLOAT, 0, meshes[i].normals);
 		glBindTexture(GL_TEXTURE_2D, meshes[i].material);
 		glTexCoordPointer(2, GL_FLOAT, sizeof(aiVector3D), meshes[i].tex_coords);
 
 		glVertexPointer(3, GL_FLOAT, 0, meshes[i].vertices);
 		glDrawElements(GL_TRIANGLES, meshes[i].num_indices, GL_UNSIGNED_INT, meshes[i].indices);
+
+		glMaterialfv(GL_FRONT, GL_AMBIENT, materials[i].ambient);
+		glMaterialfv(GL_FRONT, GL_DIFFUSE, materials[i].diffuse);
+		glMaterialfv(GL_FRONT, GL_SPECULAR, materials[i].specular);
+		glMaterialf(GL_FRONT, GL_SHININESS, materials[i].shiness);
+
 		glBindTexture(GL_TEXTURE_2D, 0);
 
 

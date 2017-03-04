@@ -30,7 +30,7 @@ bool ModuleSceneIntro::Start()
 	batman->Load("Batman.obj");
 	
 	l = new Level();
-	l->Load("Street.obj");
+	l->Load("Batman.obj");
 
 	return true;
 }
