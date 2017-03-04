@@ -77,7 +77,7 @@ void Level::Draw()
 		glBindTexture(GL_TEXTURE_2D, meshes[i].material);
 		glTexCoordPointer(2, GL_FLOAT, sizeof(aiVector3D),&(meshes[i].tex_coords));
 
-		glDrawElements(GL_TRIANGLES, meshes[i].num_indices, GL_UNSIGNED_INT, meshes[i].indices);
+		glDrawElements(GL_TRIANGLES, meshes[i].num_faces*3, GL_UNSIGNED_INT, meshes[i].indices);
 
 		glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -152,16 +152,16 @@ Node* Level::LoadNode(aiNode * node,Node * root)
 		unsigned int c = 0;
 		for (int k = 0; k < mesh->mNumFaces; k++)
 		{
-			for (int m = 0; m < 3; m++, c++)
+			for (int m = 0; m < 3; ++m, c++)
 			{
 				index[c] = mesh->mFaces[k].mIndices[m];
 
 				//Aqui esta el problema.
-				LOGCHAR(" HOLAAAA index[%i] = %i ", c, index[c]);
+				//LOGCHAR(" HOLAAAA index[%i] = %i ", c, index[c]);
 			}
 		}
 
-		meshes.push_back(My_Mesh((int)aux, auxVertex, auxTextCoord, auxNormals, mesh->mNumVertices, index, sizeof(index)));
+		meshes.push_back(My_Mesh((int)aux, auxVertex, auxTextCoord, auxNormals, mesh->mNumVertices, index, sizeof(index), mesh->mNumFaces));
 		nodo = new Node(node->mName, pos, quat, mMeshes, root);
 	}
 	else

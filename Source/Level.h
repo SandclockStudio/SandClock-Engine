@@ -35,9 +35,10 @@ struct My_Mesh
 	unsigned num_vertices = 0;
 	unsigned* indices;
 	unsigned num_indices = 0;
+	unsigned num_faces = 0;
 
-	My_Mesh(unsigned material, std::vector<aiVector3D>  vertices, std::vector<aiVector2D>  tex_coords, std::vector<aiVector3D> normals, unsigned num_vertices, unsigned* indices, unsigned num_indices) :
-		material(material),vertices(vertices),tex_coords(tex_coords),normals(normals),num_vertices(num_vertices), indices(indices),num_indices(num_indices)
+	My_Mesh(unsigned material, std::vector<aiVector3D>  vertices, std::vector<aiVector2D>  tex_coords, std::vector<aiVector3D> normals, unsigned num_vertices, unsigned* indices, unsigned num_indices, unsigned num_faces) :
+		material(material),vertices(vertices),tex_coords(tex_coords),normals(normals),num_vertices(num_vertices), indices(indices),num_indices(num_indices), num_faces(num_faces)
 	{}
 };
 
