@@ -15,7 +15,7 @@ struct Node
 	std::vector<Node*> childs;
 
 	Node(aiString name, aiVector3D position, aiQuaternion rotation, unsigned int* meshes, Node* parent = nullptr)
-		: name(name), position(position), rotation(rotation),meshes(meshes),parent(parent)
+		: name(name), position(position), rotation(rotation), meshes(meshes), parent(parent)
 	{}
 
 	Node(aiString name, aiVector3D position, aiQuaternion rotation, Node* parent = nullptr)
@@ -37,15 +37,15 @@ struct My_Mesh
 	unsigned num_indices = 0;
 	unsigned num_faces = 0;
 
-	My_Mesh(unsigned material, aiVector3D*  vertices,aiVector3D*  tex_coords, aiVector3D* normals, unsigned num_vertices, unsigned* indices, unsigned num_indices, unsigned num_faces) :
-		material(material),vertices(vertices),tex_coords(tex_coords),normals(normals),num_vertices(num_vertices), indices(indices),num_indices(num_indices), num_faces(num_faces)
+	My_Mesh(unsigned material, aiVector3D*  vertices, aiVector3D*  tex_coords, aiVector3D* normals, unsigned num_vertices, unsigned* indices, unsigned num_indices, unsigned num_faces) :
+		material(material), vertices(vertices), tex_coords(tex_coords), normals(normals), num_vertices(num_vertices), indices(indices), num_indices(num_indices), num_faces(num_faces)
 	{}
 };
 
 struct Material
 {
 	float ambient[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
-	float diffuse[4] = {1.0f, 1.0f, 1.0f, 1.0f};
+	float diffuse[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
 	float specular[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
 	float shiness = 0.0f;
 
@@ -82,7 +82,7 @@ public:
 	Node* FindNode(const char* node);
 	void LinkNode(Node* node, Node* destination);
 
-	Node* LoadNode(aiNode * node,Node * root);
+	Node* LoadNode(aiNode * node, Node * root);
 
 	GLuint loadTexture(char * theFileName);
 

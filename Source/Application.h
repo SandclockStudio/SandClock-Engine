@@ -26,7 +26,7 @@ class JsonParser;
 // Game modules ---
 class ModulePlayer;
 class ModuleEnemy;
-class ModuleSceneIntro;
+class ModuleScene;
 class ModuleSceneLevel;
 
 class Application
@@ -60,7 +60,7 @@ public:
 	// Game modules --
 	ModuleUI* ui;
 	ModulePlayer* player;
-	ModuleSceneIntro* scene_intro;
+	ModuleScene* scene_intro;
 	ModuleSceneLevel* scene_level;
 	ModuleEnemy* enemies;
 	ModuleCamera* camera;

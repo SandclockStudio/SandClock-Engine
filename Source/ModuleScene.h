@@ -1,5 +1,5 @@
-#ifndef __MODULESCENEINTRO_H__
-#define __MODULESCENEINTRO_H__
+#ifndef __MODULESCENE_H__
+#define __MODULESCENE_H__
 
 #include "Module.h"
 #include "Cube.h"
@@ -7,24 +7,26 @@
 #include "Gizmo.h"
 #include "Model.h"
 #include "Level.h"
+#include "GameObject.h"
 
 
 
 struct SDL_Texture;
 
-class ModuleSceneIntro : public Module
+class ModuleScene : public Module
 {
 public:
-	ModuleSceneIntro(bool active = true);
-	~ModuleSceneIntro();
+	ModuleScene(bool active = true);
+	~ModuleScene();
 
 	bool Start();
 	update_status Update(float dt);
 	bool CleanUp();
 
+	GameObject* CreateGameObject(aiNode* node);
+
 public:
 	
-	SDL_Texture* background = nullptr;
 	uint fx = 0;
 	Cube* c;
 	Gizmo* g;
@@ -34,6 +36,10 @@ public:
 	MY::Uint index = 0;
 	float angle = 0;
 	Model* batman;
+	const aiScene* scene;
+
+private:
+	std::vector<GameObject*> gameObject;
 };
 
-#endif // __MODULESCENEINTRO_H__
+#endif // __MODULESCENE_H__

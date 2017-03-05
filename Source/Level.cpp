@@ -13,40 +13,35 @@ Level::~Level()
 
 void Level::Load(const char * file)
 {
-	scene = aiImportFile(file, aiProcess_TransformUVCoords | aiProcess_PreTransformVertices| aiProcess_Triangulate);
+	scene = aiImportFile(file, aiProcess_TransformUVCoords | aiProcess_PreTransformVertices | aiProcess_Triangulate);
 
 	root = LoadNode(scene->mRootNode, nullptr);
 
 	/*
 	for (int i = 0; i < scene->mNumMeshes; i++)
 	{
-		aiMesh * mesh = scene->mMeshes[i];
-		aiVector3D* auxVertex;
-		aiVector3D* auxNormals;
-		aiVector2D* auxTextCoord;
+	aiMesh * mesh = scene->mMeshes[i];
+	aiVector3D* auxVertex;
+	aiVector3D* auxNormals;
+	aiVector2D* auxTextCoord;
+	unsigned int * index;
+	unsigned int aux = 0;
+	for (int j = 0; j < mesh->mNumVertices; j++)
+	{
+	auxVertex = new aiVector3D(mesh->mVertices[j].x, mesh->mVertices[j].y, mesh->mVertices[j].z);
+	auxTextCoord = new aiVector2D(mesh->mTextureCoords[0][j].x, mesh->mTextureCoords[0][j].y);
+	auxNormals = new aiVector3D(mesh->mNormals[j].x, mesh->mNormals[j].y, mesh->mNormals[j].z);
+	}
+	for (int k = 0; k < mesh->mNumFaces; k++)
+	{
+	unsigned int c = 0;
+	for (int m = 0; m < 3; m++,c++)
+	{
+	index[c] = mesh->mFaces[k].mIndices[m];
+	}
+	}
 
-		unsigned int * index;
-		unsigned int aux = 0;
-
-		for (int j = 0; j < mesh->mNumVertices; j++)
-		{
-			auxVertex = new aiVector3D(mesh->mVertices[j].x, mesh->mVertices[j].y, mesh->mVertices[j].z);
-			auxTextCoord = new aiVector2D(mesh->mTextureCoords[0][j].x, mesh->mTextureCoords[0][j].y);
-			auxNormals = new aiVector3D(mesh->mNormals[j].x, mesh->mNormals[j].y, mesh->mNormals[j].z);
-		}
-		for (int k = 0; k < mesh->mNumFaces; k++)
-		{	
-			unsigned int c = 0;
-			for (int m = 0; m < 3; m++,c++)
-			{
-				index[c] = mesh->mFaces[k].mIndices[m];
-
-			}
-		}
-		
-		meshes.push_back(My_Mesh(mesh->mMaterialIndex, auxVertex, auxTextCoord,auxNormals, mesh->mNumVertices,index,sizeof(index)));
-
-
+	meshes.push_back(My_Mesh(mesh->mMaterialIndex, auxVertex, auxTextCoord,auxNormals, mesh->mNumVertices,index,sizeof(index)));
 	}*/
 }
 
@@ -67,11 +62,11 @@ Node* Level::LoadNode(aiNode * node, Node * root)
 	Node* nodo;
 
 	bool materialFlag = false;
-	
+
 	GLfloat aux = 0;
 	Material mate = Material((int)aux);
 
-	if (node->mMeshes>0 )
+	if (node->mMeshes>0)
 	{
 		aiString string;
 		if (scene->mMaterials[scene->mMeshes[node->mMeshes[0]]->mMaterialIndex]->GetTexture(aiTextureType_DIFFUSE, 0, &string, NULL, NULL, NULL, NULL, NULL) == AI_SUCCESS)
@@ -79,7 +74,7 @@ Node* Level::LoadNode(aiNode * node, Node * root)
 			char* FullPath = string.data;
 			aux = loadTexture(FullPath);
 			mate.texture = aux;
-	
+
 		}
 
 
@@ -115,10 +110,10 @@ Node* Level::LoadNode(aiNode * node, Node * root)
 		aiMesh * mesh = scene->mMeshes[node->mMeshes[0]];
 
 		unsigned int * index = new unsigned int[mesh->mNumFaces * 3];
-		aiVector3D* auxVertex = new aiVector3D[3*mesh->mNumVertices];
+		aiVector3D* auxVertex = new aiVector3D[3 * mesh->mNumVertices];
 		aiVector3D* auxNormals = new aiVector3D[2 * mesh->mNumVertices];
 		aiVector3D* auxTextCoord = new aiVector3D[2 * mesh->mNumVertices];
-		
+
 		for (int j = 0; j < mesh->mNumVertices; j++)
 		{
 

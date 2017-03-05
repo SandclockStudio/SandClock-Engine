@@ -7,7 +7,7 @@
 #include "ModuleFadeToBlack.h"
 #include "ModuleCollision.h"
 #include "ModuleParticles.h"
-#include "ModuleSceneIntro.h"
+#include "ModuleScene.h"
 #include "ModuleSceneLevel.h"
 #include "ModulePlayer.h"
 #include "ModuleUI.h"
@@ -32,7 +32,7 @@ Application::Application()
 	modules.push_back(audio = new ModuleAudio());
 
 	// Game Modules
-	modules.push_back(scene_intro = new ModuleSceneIntro(false));
+	modules.push_back(scene_intro = new ModuleScene(false));
 	modules.push_back(scene_level = new ModuleSceneLevel(false));
 	modules.push_back(ui = new ModuleUI());
 	modules.push_back(player = new ModulePlayer(false));
