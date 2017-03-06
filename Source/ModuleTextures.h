@@ -3,7 +3,7 @@
 
 #include<list>
 #include "Module.h"
-#include "Globals.h"
+#include "Devil\include\IL\ilut.h"
 
 struct SDL_Texture;
 
@@ -16,8 +16,9 @@ public:
 	bool Init();
 	bool CleanUp();
 
-	SDL_Texture* const Load(const char* path);
 	void Unload(SDL_Texture* texture);
+
+	GLuint loadTexture(char * theFileName);
 
 private:
 	std::list<SDL_Texture*> textures;

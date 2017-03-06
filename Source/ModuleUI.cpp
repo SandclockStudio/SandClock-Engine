@@ -19,7 +19,6 @@ bool ModuleUI::Start()
 {
 	LOGCHAR("Loading fonts");
 
-	ui = App->textures->Load("");
 
 	return true;
 }

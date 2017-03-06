@@ -177,11 +177,10 @@ void Level::Draw()
 		glEnableClientState(GL_VERTEX_ARRAY);
 		glEnableClientState(GL_NORMAL_ARRAY);
 		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-
-		glNormalPointer(GL_FLOAT, 0, meshes[i].normals);
+		
 		glBindTexture(GL_TEXTURE_2D, meshes[i].material);
+		glNormalPointer(GL_FLOAT, 0, meshes[i].normals);
 		glTexCoordPointer(2, GL_FLOAT, sizeof(aiVector3D), meshes[i].tex_coords);
-
 		glVertexPointer(3, GL_FLOAT, 0, meshes[i].vertices);
 		glDrawElements(GL_TRIANGLES, meshes[i].num_indices, GL_UNSIGNED_INT, meshes[i].indices);
 

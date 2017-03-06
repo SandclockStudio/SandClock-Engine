@@ -2,12 +2,7 @@
 #define __COMPONENT_H
 
 class GameObject;
-#include <assimp/include/assimp/scene.h>
-#include <vector>
-#include "Devil\include\IL\ilut.h"
-#include "assimp\include\assimp\cimport.h"
-#include <assimp\include\assimp\postprocess.h>
-#include "Globals.h"
+
 
 enum type {
 	TRANSFORM,

@@ -2,7 +2,12 @@
 #define __COMPONENTMESH_H_
 
 #include "Component.h"
-
+#include <vector>
+#include "Devil\include\IL\ilut.h"
+#include "assimp\include\assimp\cimport.h"
+#include <assimp\include\assimp\postprocess.h>
+#include "Globals.h"
+#include <assimp/include/assimp/scene.h>
 
 
 class ComponentMesh : public Component
@@ -15,7 +20,7 @@ public:
 	
 	bool Update();
 
-	void LoadMesh(aiMesh* mesh);
+	void LoadMesh(aiMesh * mesh, const aiScene * scene);
 
 private:
 	aiVector3D*  vertices;
@@ -25,6 +30,7 @@ private:
 	unsigned* indices;
 	unsigned num_indices = 0;
 	unsigned num_faces = 0;
+	unsigned texture = 0;
 };
 
 #endif // __COMPONENTMESH_

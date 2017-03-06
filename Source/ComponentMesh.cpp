@@ -1,5 +1,9 @@
 #include "ComponentMesh.h"
+#include "Application.h"
 
+
+
+#include "ModuleTextures.h"
 
 ComponentMesh::ComponentMesh(bool start_enabled)
 {
@@ -12,6 +16,8 @@ ComponentMesh::~ComponentMesh()
 bool ComponentMesh::Update()
 {
 	glEnable(GL_TEXTURE_2D);
+
+	glBindTexture(GL_TEXTURE_2D, texture);
 
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_NORMAL_ARRAY);
@@ -29,8 +35,18 @@ bool ComponentMesh::Update()
 	return true;
 }
 
-void ComponentMesh::LoadMesh(aiMesh* mesh)
+void ComponentMesh::LoadMesh(aiMesh* mesh, const aiScene* scene)
 {
+
+		GLfloat aux = 0;
+		aiString string;
+		if (scene->mMaterials[mesh->mMaterialIndex]->GetTexture(aiTextureType_DIFFUSE, 0, &string, NULL, NULL, NULL, NULL, NULL) == AI_SUCCESS)
+		{
+			char* FullPath = string.data;
+			aux = App->textures->loadTexture(FullPath);
+			texture = aux;
+		}
+
 
 		indices = new unsigned int[mesh->mNumFaces * 3];
 		vertices = new aiVector3D[3 * mesh->mNumVertices];

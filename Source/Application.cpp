@@ -1,7 +1,6 @@
 #include "Application.h"
 #include "ModuleWindow.h"
 #include "ModuleRender.h"
-#include "ModuleTextures.h"
 #include "ModuleInput.h"
 #include "ModuleAudio.h"
 #include "ModuleFadeToBlack.h"
@@ -14,6 +13,7 @@
 #include "JsonParser.h"
 #include "ModuleCamera.h"
 #include "ModuleEditor.h"
+#include "ModuleTextures.h"
 
 
 using namespace std;
@@ -28,7 +28,6 @@ Application::Application()
 	modules.push_back(window = new ModuleWindow());
 	modules.push_back(renderer = new ModuleRender());
 	modules.push_back(editor = new ModuleEditor());
-	modules.push_back(textures = new ModuleTextures());
 	modules.push_back(audio = new ModuleAudio());
 
 	// Game Modules
@@ -36,6 +35,7 @@ Application::Application()
 	modules.push_back(scene_level = new ModuleSceneLevel(false));
 	modules.push_back(ui = new ModuleUI());
 	modules.push_back(player = new ModulePlayer(false));
+	modules.push_back(textures = new ModuleTextures());
 
 	// Modules to draw on top of game LOGCHARic
 

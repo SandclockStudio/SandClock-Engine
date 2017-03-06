@@ -2,7 +2,12 @@
 #define __COMPONENTTRANSFORM_H_
 
 #include "Component.h"
-
+#include <vector>
+#include "Devil\include\IL\ilut.h"
+#include "assimp\include\assimp\cimport.h"
+#include <assimp\include\assimp\postprocess.h>
+#include "Globals.h"
+#include <assimp/include/assimp/scene.h>
 
 
 class ComponentTransform : public Component

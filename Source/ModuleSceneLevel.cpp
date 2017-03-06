@@ -23,7 +23,6 @@ bool ModuleSceneLevel::Start()
 {
 	LOGCHAR("Loading space scene");
 
-	background = App->textures->Load("");
 	App->audio->PlayMusic("", 1.0f);
 	App->player->Enable();
 	App->particles->Enable();

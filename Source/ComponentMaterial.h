@@ -2,6 +2,11 @@
 #define __COMPONENTMATERIAL_H_
 
 #include "Component.h"
+#include "Devil\include\IL\ilut.h"
+#include "assimp\include\assimp\cimport.h"
+#include <assimp\include\assimp\postprocess.h>
+#include "Globals.h"
+#include <assimp/include/assimp/scene.h>
 
 
 
@@ -17,7 +22,6 @@ public:
 
 	void LoadMaterial(aiMaterial* material);
 
-	GLuint loadTexture(char * theFileName);
 
 private:
 	float ambient[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
@@ -25,8 +29,7 @@ private:
 	float specular[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
 	float shiness = 0.0f;
 
-	public:
-	unsigned texture = 0;
+
 
 	
 };

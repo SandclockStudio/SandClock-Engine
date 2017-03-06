@@ -23,7 +23,7 @@ bool ModulePlayer::Start()
 {
 	LOGCHAR("Loading player");
 
-	graphics = App->textures->Load("");
+
 	return true;
 }
 

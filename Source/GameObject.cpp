@@ -56,7 +56,7 @@ GameObject* GameObject::LoadGameObject(aiNode * node, const aiScene* scene)
 	if (node->mNumMeshes > 0)
 	{
 		ComponentMesh* mesh = new ComponentMesh(true);
-		mesh->LoadMesh(scene->mMeshes[node->mMeshes[0]]);
+		mesh->LoadMesh(scene->mMeshes[node->mMeshes[0]],scene);
 		go->AddComponent(mesh);
 
 		ComponentMaterial* material = new ComponentMaterial(true);
