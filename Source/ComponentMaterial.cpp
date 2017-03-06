@@ -1,6 +1,7 @@
 #include "ComponentMaterial.h"
 #include <vector>
-
+#include "ModuleTextures.h"
+#include "Application.h"
 
 ComponentMaterial::ComponentMaterial(bool start_enabled)
 {
@@ -12,6 +13,8 @@ ComponentMaterial::~ComponentMaterial()
 
 bool ComponentMaterial::Update()
 {
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, texture);
 	glMaterialfv(GL_FRONT, GL_AMBIENT, ambient);
 	glMaterialfv(GL_FRONT, GL_DIFFUSE,diffuse);
 	glMaterialfv(GL_FRONT, GL_SPECULAR, specular);
@@ -40,13 +43,21 @@ void ComponentMaterial::LoadMaterial(aiMaterial * material)
 		specular[3] *= shine_strength;
 
 	}
-		
 
 	for (int i = 0; i < 3; i++)
 	{
 		ambient[i] = ambient[i];
 		diffuse[i] = diffuse[i];
 		specular[i] = specular[i];
+	}
+
+	GLfloat aux = 0;
+	aiString string;
+	if (material->GetTexture(aiTextureType_DIFFUSE, 0, &string, NULL, NULL, NULL, NULL, NULL) == AI_SUCCESS)
+	{
+		char* FullPath = string.data;
+		aux = App->textures->loadTexture(FullPath);
+		texture = aux;
 	}
 }
 

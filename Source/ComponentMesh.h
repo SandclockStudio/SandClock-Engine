@@ -9,7 +9,6 @@
 #include "Globals.h"
 #include <assimp/include/assimp/scene.h>
 
-
 class ComponentMesh : public Component
 {
 public:
@@ -19,10 +18,10 @@ public:
 
 	
 	bool Update();
-
 	void LoadMesh(aiMesh * mesh, const aiScene * scene);
 
 private:
+
 	aiVector3D*  vertices;
 	aiVector3D* tex_coords;
 	aiVector3D* normals;
@@ -30,7 +29,7 @@ private:
 	unsigned* indices;
 	unsigned num_indices = 0;
 	unsigned num_faces = 0;
-	unsigned texture = 0;
+
 };
 
 #endif // __COMPONENTMESH_

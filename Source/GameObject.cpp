@@ -47,7 +47,6 @@ GameObject* GameObject::LoadGameObject(aiNode * node, const aiScene* scene)
 {
 	GameObject * go = new GameObject(node->mName);
 
-
 	ComponentTransform* transform = new ComponentTransform(true);
 	transform->LoadTransform(node);
 	go->AddComponent(transform);
@@ -55,13 +54,13 @@ GameObject* GameObject::LoadGameObject(aiNode * node, const aiScene* scene)
 	//Si hay mesh, entonces añadimos componente mesh y material
 	if (node->mNumMeshes > 0)
 	{
-		ComponentMesh* mesh = new ComponentMesh(true);
-		mesh->LoadMesh(scene->mMeshes[node->mMeshes[0]],scene);
-		go->AddComponent(mesh);
-
 		ComponentMaterial* material = new ComponentMaterial(true);
 		material->LoadMaterial(scene->mMaterials[scene->mMeshes[node->mMeshes[0]]->mMaterialIndex]);
 		go->AddComponent(material);
+
+		ComponentMesh* mesh = new ComponentMesh(true);
+		mesh->LoadMesh(scene->mMeshes[node->mMeshes[0]], scene);
+		go->AddComponent(mesh);
 	}
 	 
 	//Si tiene hijos entonces le añadimos hijos recursivamente
@@ -69,14 +68,11 @@ GameObject* GameObject::LoadGameObject(aiNode * node, const aiScene* scene)
 	{
 		for (int i = 0; i < node->mNumChildren; i++)
 		{
-
 			GameObject * child = LoadGameObject(node->mChildren[i], scene);
 			go->AddChild(child, go);
 			child->SetRootNode(go);
 		}
 	}
-
-	
 
 	return go;
 }

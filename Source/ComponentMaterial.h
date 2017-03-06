@@ -28,7 +28,7 @@ private:
 	float diffuse[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
 	float specular[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
 	float shiness = 0.0f;
-
+	unsigned texture = 0;
 
 
 	
