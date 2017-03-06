@@ -154,7 +154,6 @@ Node* Level::LoadNode(aiNode * node, Node * root)
 		for (int i = 0; i < node->mNumChildren; i++)
 		{
 			LinkNode(nodo, LoadNode(node->mChildren[i], nodo));
-
 		}
 	}
 

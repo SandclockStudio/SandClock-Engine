@@ -34,7 +34,8 @@ void ComponentMesh::LoadMesh(aiMesh* mesh, const aiScene* scene)
 		normals = new aiVector3D[2 * mesh->mNumVertices];
 		tex_coords = new aiVector3D[2 * mesh->mNumVertices];
 		num_indices = mesh->mNumFaces * 3;
-
+		num_vertices = mesh->mNumVertices;
+		componentType = MESH;
 		for (int j = 0; j < mesh->mNumVertices; j++)
 		{
 			if (mesh->HasTextureCoords(0))

@@ -33,7 +33,7 @@ class GameObject
 			bool Update();
 			GameObject* FindGameObject(const char* node);
 			void AddChild(GameObject* node, GameObject* destination);
-			
+			static GameObject* LoadGameObjectMesh(aiNode * node, aiMesh* mesh,const aiScene* scene);
 			static GameObject* LoadGameObject(aiNode * node,const aiScene* scene);
 };
 #endif //__GAMEOBJECT_H_

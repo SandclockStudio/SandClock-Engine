@@ -26,6 +26,7 @@ private:
 	aiMatrix4x4 mat;
 	aiVector3D pos;
 	aiQuaternion quat;
+	aiVector3D scale;
 };
 
 #endif // __COMPONENTTRANSFORM_H_

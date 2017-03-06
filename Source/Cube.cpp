@@ -124,7 +124,7 @@ void Cube::Draw2()
 {
 
 
-	loadImages("Batman_Mask_D.tga");
+	//loadImages("Batman_Mask_D.tga");
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	glBegin(GL_TRIANGLES);
