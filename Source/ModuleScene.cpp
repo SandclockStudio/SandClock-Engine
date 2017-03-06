@@ -21,7 +21,7 @@ ModuleScene::~ModuleScene()
 // Load assets
 bool ModuleScene::Start()
 {
-	scene = aiImportFile("Street.obj", aiProcess_TransformUVCoords | aiProcess_PreTransformVertices | aiProcess_Triangulate);
+	scene = aiImportFile("street/Street.obj", aiProcess_TransformUVCoords | aiProcess_PreTransformVertices | aiProcess_Triangulate);
 
 	LOGCHAR("Loading space intro");
 	c = new Cube(0.5f,index);
@@ -35,7 +35,9 @@ bool ModuleScene::Start()
 	batman->Load("Batman.obj");
 	
 	l = new Level();
-	l->Load("Street.obj");
+	l->Load("street/Street.obj");
+
+	CreateGameObject(scene->mRootNode);
 
 	return true;
 }
@@ -55,15 +57,19 @@ GameObject * ModuleScene::CreateGameObject(aiNode * node)
 {
 	GameObject* myGo;
 
-	if (node->mMeshes>0)
-		myGo = new GameObject(node->mName);
+	//if (node->mMeshes>0)
+	myGo = new GameObject(node->mName);
+	gameObject.push_back(myGo);
 
 	if (node->mNumChildren > 0)
 	{
 		for (int i = 0; i < node->mNumChildren; i++)
 		{
-			gameObject.push_back(myGo);
-			myGo->AddChild(myGo, myGo->LoadGameObject(node->mChildren[i], scene));
+			//gameObject.push_back(myGo);
+			GameObject* child = GameObject::LoadGameObject(node->mChildren[i], scene);
+
+			myGo->AddChild(child, myGo);
+			gameObject.push_back(child);
 		}
 	}
 	return myGo;
@@ -81,7 +87,7 @@ update_status ModuleScene::Update(float dt)
 	p->DrawDirect();
 	c->Draw2();
 	//batman->Draw();
-	//l->Draw();
+	l->Draw();
 	//g->DrawDirect();
 	//ImGui::ShowTestWindow();
 

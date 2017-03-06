@@ -32,6 +32,9 @@ bool GameObject::Update()
 
 GameObject * GameObject::FindGameObject(const char * node)
 {
+	for (int i = 0; i<childs.size(); i++)
+		if (strcmp(childs[i]->GetName().C_Str(), node) == 0)
+			return childs[i];
 	return nullptr;
 }
 
@@ -42,14 +45,37 @@ void GameObject::AddChild(GameObject * node, GameObject * destination)
 
 GameObject* GameObject::LoadGameObject(aiNode * node, const aiScene* scene)
 {
+	GameObject * go = new GameObject(node->mName);
 
-	ComponentMaterial* material =  new ComponentMaterial(true);
-	ComponentMesh* mesh = new ComponentMesh(true);
+
 	ComponentTransform* transform = new ComponentTransform(true);
-
-	material->LoadMaterial(scene->mMaterials[scene->mMeshes[node->mMeshes[0]]->mMaterialIndex]);
-	mesh->LoadMesh(scene->mMeshes[node->mMeshes[0]]);
 	transform->LoadTransform(node);
+	go->AddComponent(transform);
 
-	return this;
+	//Si hay mesh, entonces añadimos componente mesh y material
+	if (node->mNumMeshes > 0)
+	{
+		ComponentMesh* mesh = new ComponentMesh(true);
+		mesh->LoadMesh(scene->mMeshes[node->mMeshes[0]]);
+		go->AddComponent(mesh);
+
+		ComponentMaterial* material = new ComponentMaterial(true);
+		material->LoadMaterial(scene->mMaterials[scene->mMeshes[node->mMeshes[0]]->mMaterialIndex]);
+		go->AddComponent(material);
+	}
+	 
+	//Si tiene hijos entonces le añadimos hijos recursivamente
+	if (node->mNumChildren > 0)
+	{
+		for (int i = 0; i < node->mNumChildren; i++)
+		{
+
+			GameObject * child = LoadGameObject(node->mChildren[i], scene);
+			go->AddChild(child, go);
+		}
+	}
+
+	
+
+	return go;
 }

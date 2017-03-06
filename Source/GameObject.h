@@ -33,6 +33,6 @@ class GameObject
 			GameObject* FindGameObject(const char* node);
 			void AddChild(GameObject* node, GameObject* destination);
 			
-			GameObject* LoadGameObject(aiNode * node,const aiScene* scene);
+			static GameObject* LoadGameObject(aiNode * node,const aiScene* scene);
 };
 #endif //__GAMEOBJECT_H_
