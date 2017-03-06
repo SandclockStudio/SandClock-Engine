@@ -72,6 +72,7 @@ GameObject* GameObject::LoadGameObject(aiNode * node, const aiScene* scene)
 
 			GameObject * child = LoadGameObject(node->mChildren[i], scene);
 			go->AddChild(child, go);
+			child->SetRootNode(go);
 		}
 	}
 

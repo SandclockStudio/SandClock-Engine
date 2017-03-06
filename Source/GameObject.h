@@ -23,6 +23,7 @@ class GameObject
 	public:
 			GameObject*  GetRootNode() { return root; }
 			const GameObject* GetRootNode()const { return root; }
+			void SetRootNode(GameObject * gameObject) { root = gameObject; }
 			aiString GetName(){ return name; }
 			void AddComponent(Component* component);
 			void DeleteComponent(Component* component);

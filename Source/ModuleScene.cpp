@@ -69,6 +69,7 @@ GameObject * ModuleScene::CreateGameObject(aiNode * node)
 			GameObject* child = GameObject::LoadGameObject(node->mChildren[i], scene);
 
 			myGo->AddChild(child, myGo);
+			child->SetRootNode(myGo);
 			gameObject.push_back(child);
 		}
 	}
