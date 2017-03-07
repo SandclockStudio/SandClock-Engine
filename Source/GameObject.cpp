@@ -95,16 +95,6 @@ GameObject* GameObject::LoadGameObject(aiNode * node, const aiScene* scene)
 
 	}
 	 
-	//Si tiene hijos entonces le añadimos hijos recursivamente
-	if (node->mNumChildren > 0)
-	{
-		for (int i = 0; i < node->mNumChildren; i++)
-		{
-			GameObject * child = LoadGameObject(node->mChildren[i], scene);
-			go->AddChild(child, go);
-			child->SetRootNode(go);
-		}
-	}
 
 	return go;
 }

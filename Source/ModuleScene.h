@@ -23,7 +23,7 @@ public:
 	update_status Update(float dt);
 	bool CleanUp();
 
-	GameObject* CreateGameObject(aiNode* node);
+	void LoadGameObjects(aiNode* node, GameObject* parent);
 
 public:
 	
@@ -37,6 +37,7 @@ public:
 	float angle = 0;
 	Model* batman;
 	const aiScene* scene;
+	GameObject* root;
 
 private:
 	std::vector<GameObject*> gameObject;

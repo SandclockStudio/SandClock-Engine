@@ -32,11 +32,11 @@ bool ModuleScene::Start()
 	g->Start();
 	batman = new Model();
 	batman->Load("Batman.obj");
-	
+	root = new GameObject(scene->mRootNode->mName,nullptr);
 	l = new Level();
 	l->Load("street/Street.obj");
 
-	CreateGameObject(scene->mRootNode);
+	LoadGameObjects(scene->mRootNode, root);
 
 	return true;
 }
@@ -52,40 +52,33 @@ bool ModuleScene::CleanUp()
 	return true;
 }
 
-GameObject * ModuleScene::CreateGameObject(aiNode * node)
+void  ModuleScene::LoadGameObjects(aiNode * node,GameObject* parent)
 {
-	GameObject* myGo;
+	GameObject* object = new GameObject(node->mName,parent);
 
-	//if (node->mMeshes>0)
-	//myGo = new GameObject(node->mName);
-
-	myGo = GameObject::LoadGameObject(node, scene);
-	gameObject.push_back(myGo);
 
 	if (node->mNumMeshes > 1)
 	{
 		for (int i = 0; i < node->mNumMeshes; i++)
 		{
-			//gameObject.push_back(myGo);
-			GameObject* child = GameObject::LoadGameObjectMesh(node,scene->mMeshes[i],scene);
-
-			myGo->AddChild(child, myGo);
-			child->SetRootNode(myGo);
-			gameObject.push_back(child);
+			GameObject* meshObject = GameObject::LoadGameObjectMesh(node,scene->mMeshes[i],scene);
+			gameObject.push_back(meshObject);
 		}
+	}
+	else if (node->mNumMeshes == 1)
+	{
+		GameObject* newGameObject = GameObject::LoadGameObjectMesh(node, scene->mMeshes[node->mMeshes[0]], scene);
+		gameObject.push_back(newGameObject);
 	}
 
 	for (int i = 0; i < node->mNumChildren; i++)
 	{
-		//gameObject.push_back(myGo);
 		GameObject* child = GameObject::LoadGameObject(node->mChildren[i], scene);
-
-		myGo->AddChild(child, myGo);
-		child->SetRootNode(myGo);
+		LoadGameObjects(node->mChildren[i], object);
+		parent->AddChild(child, parent);
+		child->SetRootNode(parent);
 		gameObject.push_back(child);
 	}
-
-	return myGo;
 }
 
 // Update: draw background
