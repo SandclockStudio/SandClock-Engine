@@ -83,16 +83,13 @@ GameObject* GameObject::LoadGameObject(aiNode * node, const aiScene* scene)
 	//Si hay mesh, entonces añadimos componente mesh y material
 	if (node->mNumMeshes > 0)
 	{
-
-		ComponentMaterial* material = new ComponentMaterial(true);
-		material->LoadMaterial(scene->mMaterials[scene->mMeshes[node->mMeshes[0]]->mMaterialIndex]);
-		go->AddComponent(material);
-
-
 		ComponentMesh* mesh = new ComponentMesh(true);
 		mesh->LoadMesh(scene->mMeshes[node->mMeshes[0]], scene);
 		go->AddComponent(mesh);
 
+		ComponentMaterial* material = new ComponentMaterial(true);
+		material->LoadMaterial(scene->mMaterials[scene->mMeshes[node->mMeshes[0]]->mMaterialIndex]);
+		go->AddComponent(material);
 	}
 	 
 

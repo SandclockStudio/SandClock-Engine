@@ -11,12 +11,13 @@ ComponentMesh::~ComponentMesh()
 
 bool ComponentMesh::Update()
 {
+	glScalef(0.005f, 0.005f, 0.005f);
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_NORMAL_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
 	glNormalPointer(GL_FLOAT, 0, normals);
-	glTexCoordPointer(2, GL_FLOAT, sizeof(aiVector3D),tex_coords);
+	glTexCoordPointer(3, GL_FLOAT, sizeof(aiVector3D),tex_coords);
 	glVertexPointer(3, GL_FLOAT, 0, vertices);
 	glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_INT, indices);
 	glBindTexture(GL_TEXTURE_2D,0);

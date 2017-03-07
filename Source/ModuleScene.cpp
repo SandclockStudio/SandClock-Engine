@@ -56,29 +56,26 @@ void  ModuleScene::LoadGameObjects(aiNode * node,GameObject* parent)
 {
 	GameObject* object = new GameObject(node->mName,parent);
 
-
 	if (node->mNumMeshes > 1)
 	{
 		for (int i = 0; i < node->mNumMeshes; i++)
 		{
-			GameObject* meshObject = GameObject::LoadGameObjectMesh(node,scene->mMeshes[i],scene);
-			gameObject.push_back(meshObject);
+			GameObject* my_go = GameObject::LoadGameObjectMesh(node,scene->mMeshes[i],scene);
+			parent->AddChild(my_go, parent);
+			my_go->SetRootNode(parent);
+			gameObject.push_back(my_go);
 		}
 	}
 	else if (node->mNumMeshes == 1)
 	{
-		GameObject* newGameObject = GameObject::LoadGameObjectMesh(node, scene->mMeshes[node->mMeshes[0]], scene);
-		gameObject.push_back(newGameObject);
+		GameObject* my_go = GameObject::LoadGameObjectMesh(node, scene->mMeshes[node->mMeshes[0]], scene);
+		parent->AddChild(my_go, parent);
+		my_go->SetRootNode(parent);
+		gameObject.push_back(my_go);
 	}
 
 	for (int i = 0; i < node->mNumChildren; i++)
-	{
-		GameObject* child = GameObject::LoadGameObject(node->mChildren[i], scene);
 		LoadGameObjects(node->mChildren[i], object);
-		parent->AddChild(child, parent);
-		child->SetRootNode(parent);
-		gameObject.push_back(child);
-	}
 }
 
 // Update: draw background
@@ -87,7 +84,9 @@ update_status ModuleScene::Update(float dt)
 	std::vector<Component*>::iterator it;
 	for (int i = 0; i < gameObject.size(); i++)
 	{
+		glPushMatrix();
 		gameObject[i]->Update();
+		glPopMatrix();
 	}
 
 	p->DrawDirect();
