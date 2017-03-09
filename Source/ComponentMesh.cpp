@@ -1,8 +1,12 @@
 #include "ComponentMesh.h"
-
+#include "MathGeoLib.h"
+#include "GameObject.h"
 
 ComponentMesh::ComponentMesh(bool start_enabled)
 {
+
+
+
 }
 
 ComponentMesh::~ComponentMesh()
@@ -11,7 +15,6 @@ ComponentMesh::~ComponentMesh()
 
 bool ComponentMesh::Update()
 {
-	glScalef(0.005f, 0.005f, 0.005f);
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_NORMAL_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -25,6 +28,15 @@ bool ComponentMesh::Update()
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);
 	glDisableClientState(GL_VERTEX_ARRAY);
+	return true;
+}
+
+bool ComponentMesh::CleanUp()
+{
+	RELEASE_ARRAY(vertices);
+	RELEASE_ARRAY(normals);
+	RELEASE_ARRAY(tex_coords);
+	RELEASE_ARRAY(indices);
 	return true;
 }
 
@@ -56,6 +68,8 @@ void ComponentMesh::LoadMesh(aiMesh* mesh, const aiScene* scene)
 				indices[c] = mesh->mFaces[k].mIndices[m];
 			}
 		}
+
+		myGo->boundingBox.Enclose((float3*) vertices, num_vertices);
 }
 
 

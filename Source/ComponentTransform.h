@@ -27,6 +27,8 @@ private:
 	aiVector3D pos;
 	aiQuaternion quat;
 	aiVector3D scale;
+
+
 };
 
 #endif // __COMPONENTTRANSFORM_H_

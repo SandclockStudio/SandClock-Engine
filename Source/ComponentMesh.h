@@ -18,6 +18,7 @@ public:
 
 	
 	bool Update();
+	bool CleanUp();
 	void LoadMesh(aiMesh * mesh, const aiScene * scene);
 
 private:
