@@ -174,20 +174,45 @@ void ModuleEditor::DrawTree()
 			int tama = App->scene_intro->root->getChilds().size();
 			for (int i = 0; i < tama; ++i)
 			{
+
+				GameObject * go = App->scene_intro->root->getChilds()[i];
+
 				ImGuiTreeNodeFlags node_flags =( ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick);
-				bool node_open = ImGui::TreeNodeEx((void*)(intptr_t)id, node_flags, App->scene_intro->root->getChilds()[i]->GetName().C_Str());
-				if (ImGui::IsItemClicked())
+				ImGuiTreeNodeFlags node_flags_leaf = (ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_NoTreePushOnOpen | ImGuiTreeNodeFlags_Leaf);
+
+				if (go->getChilds().size() == 0) 
 				{
-					node_clicked = id;
-					go = App->scene_intro->root->getChilds()[i];
+					bool node_open = ImGui::TreeNodeEx((void*)(intptr_t)id, node_flags_leaf, go->GetName().C_Str());
+					if (ImGui::IsItemClicked())
+					{
+						node_clicked = id;
+						go = App->scene_intro->root->getChilds()[i];
+					}
+					id++;
+					//ImGui::TreePop();
 				}
-				id++;
-				if (App->scene_intro->root->getChilds()[i]->getChilds().size() > 0)
+				else
 				{
-					Children(App->scene_intro->root->getChilds()[i], id);
+					bool node_open = ImGui::TreeNodeEx((void*)(intptr_t)id, node_flags, go->GetName().C_Str());
+					if (ImGui::IsItemClicked())
+					{
+						node_clicked = id;
+						go = App->scene_intro->root->getChilds()[i];
+					}
+					id++;
+
+
+					if (node_open)
+					{
+						Children(App->scene_intro->root->getChilds()[i], id);
+						ImGui::TreePop();
+					}
+					
+					
 				}
 				
-				ImGui::TreePop();
+				
+				
 			}
 		}
 
@@ -207,18 +232,39 @@ void ModuleEditor::Children(GameObject * go, int &ptr_id)
 	for (int i = 0; i < go->getChilds().size(); i++)
 	{
 		ImGuiTreeNodeFlags node_flags = (ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick);
-		node_open = ImGui::TreeNodeEx((void*)(intptr_t)ptr_id, node_flags, go->getChilds()[i]->GetName().C_Str());
-		if (ImGui::IsItemClicked())
+		ImGuiTreeNodeFlags node_flags_leaf = (ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_NoTreePushOnOpen | ImGuiTreeNodeFlags_Leaf);
+		GameObject * child = go->getChilds()[i];
+
+		if (child->getChilds().size() == 0) 
 		{
-			node_clicked = ptr_id;
-			go = go->getChilds()[i];
+			node_open = ImGui::TreeNodeEx((void*)(intptr_t)ptr_id, node_flags_leaf, child->GetName().C_Str());
+			if (ImGui::IsItemClicked())
+			{
+				node_clicked = ptr_id;
+				go = child;
+			}
+			ptr_id++;
 		}
-		ptr_id++;
-		if (go->getChilds()[i]->getChilds().size() > 0)
+		else
 		{
-			Children(go->getChilds()[i], ptr_id);
+			node_open = ImGui::TreeNodeEx((void*)(intptr_t)ptr_id, node_flags, child->GetName().C_Str());
+			if (ImGui::IsItemClicked())
+			{
+				node_clicked = ptr_id;
+				go = child;
+			}
+			ptr_id++;
+
+			if (node_open)
+			{
+				Children(child, ptr_id);
+				ImGui::TreePop();
+			}
+			
 		}
-		ImGui::TreePop();
+		
+		
+
 
 	}
 }
