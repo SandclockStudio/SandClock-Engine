@@ -29,7 +29,7 @@ Application::Application()
 	modules.push_back(audio = new ModuleAudio());
 
 	// Game Modules
-	modules.push_back(scene_intro = new ModuleScene(false));
+	modules.push_back(scene_intro = new ModuleScene(true));
 	modules.push_back(scene_level = new ModuleSceneLevel(false));
 	modules.push_back(ui = new ModuleUI());
 	modules.push_back(player = new ModulePlayer(false));
@@ -63,7 +63,6 @@ bool Application::Init()
 			ret = (*it)->Start();
 	}
 	// Start the first scene --
-	fade->FadeToBlack(scene_intro, nullptr, 3.0f);
 	mili.start();
 	return ret;
 	

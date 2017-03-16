@@ -6,6 +6,7 @@
 #include "../Libraries/OpenGL/include/GL/glew.h"
 #pragma comment (lib, "opengl32.lib") 
 #include "ModuleWindow.h"
+#include "ModuleScene.h"
 
 
 ModuleEditor::ModuleEditor()
@@ -32,6 +33,7 @@ update_status ModuleEditor::PreUpdate(float dt)
 update_status ModuleEditor::Update(float dt)
 {
 	DrawConsole();
+	DrawTree();
 	if(fps_log.size() != 0)
 		DrawFps();
 	return DrawMenu();
@@ -146,3 +148,79 @@ update_status ModuleEditor::DrawMenu()
 
 	return ret;
 }
+
+
+void ModuleEditor::DrawTree()
+{
+	int id = 0;
+	bool begin = true;
+	int node_clicked = -1;
+
+	GameObject * go = nullptr;
+
+	ImGui::SetNextWindowPos(ImVec2(0, 20));
+	ImGui::SetNextWindowSize(ImVec2(App->window->screenWidth / 2, App->window->screenHeight - App->window->screenHeight / 3 - 20));
+
+	ImGui::Begin("Hierarchy", &begin, ImVec2(App->window->screenWidth / 3, App->window->screenHeight / 1.58f), -1.0f, ImGuiWindowFlags_ChildWindowAutoFitX | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_ChildWindowAutoFitY | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
+
+	ImGui::Unindent(15.0f);
+
+	ImGui::PushStyleVar(ImGuiStyleVar_IndentSpacing, ImGui::GetFontSize() * 3); // Increase spacing to differentiate leaves from expanded contents.
+
+	if (App->scene_intro != nullptr)
+	{
+		if (App->scene_intro->root != nullptr)
+		{
+			int tama = App->scene_intro->root->getChilds().size();
+			for (int i = 0; i < tama; ++i)
+			{
+				ImGuiTreeNodeFlags node_flags =( ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick);
+				bool node_open = ImGui::TreeNodeEx((void*)(intptr_t)id, node_flags, App->scene_intro->root->getChilds()[i]->GetName().C_Str());
+				if (ImGui::IsItemClicked())
+				{
+					node_clicked = id;
+					go = App->scene_intro->root->getChilds()[i];
+				}
+				id++;
+				if (App->scene_intro->root->getChilds()[i]->getChilds().size() > 0)
+				{
+					Children(App->scene_intro->root->getChilds()[i], id);
+				}
+				
+				ImGui::TreePop();
+			}
+		}
+
+	}
+
+	ImGui::PopStyleVar();
+	ImGui::Indent(15.0f);
+	ImGui::End();
+
+}
+
+void ModuleEditor::Children(GameObject * go, int &ptr_id)
+{
+	bool node_open;
+	int node_clicked = -1;
+
+	for (int i = 0; i < go->getChilds().size(); i++)
+	{
+		ImGuiTreeNodeFlags node_flags = (ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick);
+		node_open = ImGui::TreeNodeEx((void*)(intptr_t)ptr_id, node_flags, go->getChilds()[i]->GetName().C_Str());
+		if (ImGui::IsItemClicked())
+		{
+			node_clicked = ptr_id;
+			go = go->getChilds()[i];
+		}
+		ptr_id++;
+		if (go->getChilds()[i]->getChilds().size() > 0)
+		{
+			Children(go->getChilds()[i], ptr_id);
+		}
+		ImGui::TreePop();
+
+	}
+}
+
+

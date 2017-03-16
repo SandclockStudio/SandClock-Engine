@@ -24,6 +24,7 @@ class GameObject
 	public:
 			GameObject*  GetRootNode() { return root; }
 			const GameObject* GetRootNode()const { return root; }
+			std::vector<GameObject*> getChilds() { return childs; }
 			void SetRootNode(GameObject * gameObject) { root = gameObject; }
 			aiString GetName(){ return name; }
 			void CleanUp();
@@ -38,6 +39,8 @@ class GameObject
 			void AddChild(GameObject* node, GameObject* destination);
 			static GameObject* LoadGameObjectMesh(aiNode * node, aiMesh* mesh,const aiScene* scene);
 			static GameObject* LoadGameObject(aiNode * node,const aiScene* scene);
+
+
 			AABB boundingBox;
 			float3* corners = new float3[8];
 };
