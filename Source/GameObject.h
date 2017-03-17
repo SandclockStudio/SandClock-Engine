@@ -17,9 +17,10 @@ class GameObject
 			aiString name;
 			GameObject* root = nullptr;
 			std::vector<GameObject*> childs;
-			std::vector<Component*> components;
 
-		
+			static aiVector3D position;
+			static aiQuaternion rotation;
+			static aiVector3D scale;
 
 	public:
 			GameObject*  GetRootNode() { return root; }
@@ -39,9 +40,15 @@ class GameObject
 			void AddChild(GameObject* node, GameObject* destination);
 			static GameObject* LoadGameObjectMesh(aiNode * node, aiMesh* mesh,const aiScene* scene);
 			static GameObject* LoadGameObject(aiNode * node,const aiScene* scene);
+			aiVector3D getPosition();
+			aiQuaternion getRotation();
+			aiVector3D getScale();
 
 
 			AABB boundingBox;
 			float3* corners = new float3[8];
+			
+			std::vector<Component*> components;
+			
 };
 #endif //__GAMEOBJECT_H_

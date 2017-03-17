@@ -7,6 +7,7 @@
 #pragma comment (lib, "opengl32.lib") 
 #include "ModuleWindow.h"
 #include "ModuleScene.h"
+#include "ComponentTransform.h"
 
 
 ModuleEditor::ModuleEditor()
@@ -145,7 +146,6 @@ update_status ModuleEditor::DrawMenu()
 			ImGui::EndMenu();
 		}
 
-
 		ImGui::EndMainMenuBar();
 	}
 
@@ -190,6 +190,8 @@ void ModuleEditor::DrawTree()
 					{
 						node_clicked = id;
 						go = App->scene_intro->root->getChilds()[i];
+						selected = go;
+
 					}
 					id++;
 					//ImGui::TreePop();
@@ -201,6 +203,8 @@ void ModuleEditor::DrawTree()
 					{
 						node_clicked = id;
 						go = App->scene_intro->root->getChilds()[i];
+						selected = go;
+
 					}
 					id++;
 
@@ -209,13 +213,8 @@ void ModuleEditor::DrawTree()
 					{
 						Children(App->scene_intro->root->getChilds()[i], id);
 						ImGui::TreePop();
-					}
-					
-					
-				}
-				
-				
-				
+					}	
+				}		
 			}
 		}
 
@@ -245,6 +244,8 @@ void ModuleEditor::Children(GameObject * go, int &ptr_id)
 			{
 				node_clicked = ptr_id;
 				go = child;
+				selected = go;
+
 			}
 			ptr_id++;
 		}
@@ -255,6 +256,7 @@ void ModuleEditor::Children(GameObject * go, int &ptr_id)
 			{
 				node_clicked = ptr_id;
 				go = child;
+				selected = go;
 			}
 			ptr_id++;
 
@@ -262,14 +264,45 @@ void ModuleEditor::Children(GameObject * go, int &ptr_id)
 			{
 				Children(child, ptr_id);
 				ImGui::TreePop();
-			}
-			
+			}		
 		}
-		
-		
-
-
 	}
 }
 
+void ModuleEditor::DrawProperties()
+{
+	bool begin = true;
+	ImGui::SetNextWindowPos(ImVec2(0, 20));
+	ImGui::SetNextWindowSize(ImVec2(App->window->screenWidth, App->window->screenHeight));
+
+	ImGui::Begin("Properties", &begin, ImVec2(App->window->screenWidth / 3, App->window->screenHeight / 1.58f), -1.0f, ImGuiWindowFlags_ChildWindowAutoFitX | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_ChildWindowAutoFitY | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
+	
+	ImGui::Unindent(15.0f);
+
+	GameObject* gOSelected = selected;
+	//Aquí falla al coger la posición y la rotación que la recoge el gameobject del componente
+	if (ImGui::CollapsingHeader("Local Transformation", ImGuiTreeNodeFlags_DefaultOpen))
+	{
+		aiVector3D pos = selected->getPosition();
+		aiQuaternion rot = selected->getRotation();
+		rot.x = fabsf(rot.x);
+		rot.y = fabsf(rot.y);
+		rot.z = fabsf(rot.z);
+		aiVector3D scale = selected->getScale;;
+		//Una vez se recoja tiene que tener el gameObject una funión para poner la posición y la rotación que se le pase
+		if (ImGui::DragFloat3("Position", (float*)&pos, 0.25f))
+			selected->
+
+			if (ImGui::SliderAngle3("Rotation", (float*)&rot))
+				selected->SetLocalRotation(rot);
+
+		if (ImGui::DragFloat3("Scale", (float*)&scale, 0.05f))
+			selected->SetLocalScale(scale);
+
+
+
+
+	}
+
+}
 

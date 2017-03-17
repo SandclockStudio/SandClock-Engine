@@ -27,11 +27,13 @@ public:
 	void AddFps(float fps);
 	void DrawTree();
 	void Children(GameObject* go, int &ptr_id);
+	void DrawProperties();
 
 
 public:
 	ImGuiTextBuffer Buf;
 	std::vector<float> fps_log;
+	GameObject* selected;
 
 
 private:

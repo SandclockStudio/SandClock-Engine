@@ -132,6 +132,10 @@ GameObject * GameObject::LoadGameObjectMesh(aiNode * node, aiMesh * mesh, const 
 	ComponentTransform* transform = new ComponentTransform(true);
 	go->AddComponent(transform);
 	transform->LoadTransform(node);
+	position = transform->pos;
+	rotation = transform->quat;
+	scale = transform->scale;
+
 
 
 	ComponentMaterial* material = new ComponentMaterial(true);
@@ -170,4 +174,19 @@ GameObject* GameObject::LoadGameObject(aiNode * node, const aiScene* scene)
 	 
 
 	return go;
+}
+
+aiVector3D GameObject::getPosition()
+{
+	return aiVector3D();
+}
+
+aiQuaternion GameObject::getRotation()
+{
+	return aiQuaternion();
+}
+
+aiVector3D GameObject::getScale()
+{
+	return aiVector3D();
 }

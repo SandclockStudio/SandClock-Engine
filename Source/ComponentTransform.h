@@ -21,12 +21,14 @@ public:
 	void Translate(aiVector3D translation);
 	void Rotate(aiVector3D rotation);
 
-private:
-
-	aiMatrix4x4 mat;
 	aiVector3D pos;
 	aiQuaternion quat;
 	aiVector3D scale;
+
+private:
+
+	aiMatrix4x4 mat;
+
 
 
 };
