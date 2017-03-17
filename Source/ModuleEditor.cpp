@@ -48,7 +48,8 @@ update_status ModuleEditor::PostUpdate(float dt)
 
 void ModuleEditor::DrawConsole()
 {
-	ImGui::SetNextWindowSize(ImVec2(100, 100), ImGuiSetCond_FirstUseEver);
+	ImGui::SetNextWindowPos(ImVec2(0, App->window->screenHeight*App->window->screenSize - 200));
+	ImGui::SetNextWindowSize(ImVec2(App->window->screenWidth*App->window->screenSize-400, 200));
 	ImGui::Begin("Console", NULL, 0);
 	ImGui::TextUnformatted(Buf.begin());
 	ImGui::End();
@@ -56,6 +57,7 @@ void ModuleEditor::DrawConsole()
 
 void ModuleEditor::DrawFps()
 {
+	ImGui::SetNextWindowPos(ImVec2(App->window->screenWidth*App->window->screenSize-350, App->window->screenHeight*App->window->screenSize - 180));
 	ImGui::SetNextWindowSize(ImVec2(300, 300), ImGuiSetCond_FirstUseEver);
 	ImGui::Begin("Histogram", NULL, 0);
 	ImGui::PlotHistogram("##framerate", &fps_log[0], fps_log.size(), 0, "Frames", 0.0f, 100.0f, ImVec2(310, 100));
@@ -91,6 +93,7 @@ void ModuleEditor::InputHandler(SDL_Event* event)
 
 update_status ModuleEditor::DrawMenu()
 {
+
 	update_status ret = UPDATE_CONTINUE;
 	if (ImGui::BeginMainMenuBar())
 	{
@@ -159,7 +162,7 @@ void ModuleEditor::DrawTree()
 	GameObject * go = nullptr;
 
 	ImGui::SetNextWindowPos(ImVec2(0, 20));
-	ImGui::SetNextWindowSize(ImVec2(App->window->screenWidth / 2, App->window->screenHeight - App->window->screenHeight / 3 - 20));
+	ImGui::SetNextWindowSize(ImVec2(App->window->screenWidth, App->window->screenHeight ));
 
 	ImGui::Begin("Hierarchy", &begin, ImVec2(App->window->screenWidth / 3, App->window->screenHeight / 1.58f), -1.0f, ImGuiWindowFlags_ChildWindowAutoFitX | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_ChildWindowAutoFitY | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
 
