@@ -178,15 +178,15 @@ GameObject* GameObject::LoadGameObject(aiNode * node, const aiScene* scene)
 
 aiVector3D GameObject::getPosition()
 {
-	return aiVector3D();
+	return position;
 }
 
 aiQuaternion GameObject::getRotation()
 {
-	return aiQuaternion();
+	return rotation;
 }
 
 aiVector3D GameObject::getScale()
 {
-	return aiVector3D();
+	return scale;
 }
