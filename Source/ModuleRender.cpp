@@ -9,6 +9,7 @@
 #include "../Libraries/OpenGL/include/GL/glew.h"
 #include "IMGUI/imgui.h"
 #include "ModuleEditor.h"
+#include "ModuleScene.h"
 
 #pragma comment (lib, "opengl32.lib") 
 
@@ -112,6 +113,14 @@ update_status ModuleRender::PreUpdate(float dt)
 	glClearColor(0, 0, 0, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+	/*
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glLoadMatrixf((GLfloat*)App->scene_intro->componentCamera->GetProjectionMatrix());
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	glLoadMatrixf((GLfloat*)(GLfloat*)App->scene_intro->componentCamera->GetViewMatrix());
+	*/
 
 	return UPDATE_CONTINUE;
 }

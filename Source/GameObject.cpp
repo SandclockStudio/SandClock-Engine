@@ -26,10 +26,6 @@ bool GameObject::Update()
 	for (int i = 0; i < components.size(); ++i)
 	{
 		glPushMatrix();
-		components[i]->PreUpdate();
-		glPopMatrix();
-
-		glPushMatrix();
 		components[i]->Update();
 		glPopMatrix();
 	}
@@ -42,7 +38,25 @@ bool GameObject::Update()
 		}
 	}
 
+	return true;
+}
 
+bool GameObject::PreUpdate()
+{
+	for (int i = 0; i < components.size(); ++i)
+	{
+		glPushMatrix();
+		components[i]->PreUpdate();
+		glPopMatrix();
+	}
+
+	if (childs.size() > 0)
+	{
+		for (int i = 0; i < childs.size(); ++i)
+		{
+			childs[i]->PreUpdate();
+		}
+	}
 
 	return true;
 }

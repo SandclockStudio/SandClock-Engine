@@ -36,6 +36,7 @@ bool ModuleScene::Start()
 	camera = new GameObject((aiString)"Camera", nullptr);
 	componentCamera = new ComponentCamera();
 	camera->AddComponent(componentCamera);
+	gameObject.push_back(camera);
 	LoadGameObjects(scene->mRootNode, root);
 
 	return true;
@@ -78,15 +79,22 @@ void  ModuleScene::LoadGameObjects(aiNode * node,GameObject* parent)
 		LoadGameObjects(node->mChildren[i], object);
 }
 
+update_status ModuleScene::PreUpdate(float dt)
+{
+	for (int i = 0; i < gameObject.size(); i++)
+	{
+		gameObject[i]->PreUpdate();
+	}
+
+	return UPDATE_CONTINUE;
+}
+
 // Update: draw background
 update_status ModuleScene::Update(float dt)
 {
-	std::vector<Component*>::iterator it;
 	for (int i = 0; i < gameObject.size(); i++)
 	{
-
 		gameObject[i]->Update();
-		glPopMatrix();
 	}
 
 	p->DrawDirect();

@@ -31,6 +31,7 @@ class GameObject
 				: name(name), root(root)
 			{}
 			bool Update();
+			bool PreUpdate();
 			GameObject* FindGameObject(const char* node);
 			void AddChild(GameObject* node, GameObject* destination);
 			static GameObject* LoadGameObjectMesh(aiNode * node, aiMesh* mesh,const aiScene* scene);
