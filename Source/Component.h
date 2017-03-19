@@ -37,6 +37,11 @@ public:
 		return active = false;
 	}
 
+	void setGameObject(GameObject* go)
+	{
+		myGo = go;
+	}
+
 	virtual bool PreUpdate()
 	{
 		return true;

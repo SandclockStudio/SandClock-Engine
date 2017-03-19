@@ -20,7 +20,7 @@ ModuleScene::~ModuleScene()
 // Load assets
 bool ModuleScene::Start()
 {
-	scene = aiImportFile("ArmyPilot.dae",  aiProcessPreset_TargetRealtime_MaxQuality);
+	scene = aiImportFile("Street/street.obj",  aiProcessPreset_TargetRealtime_MaxQuality);
 
 	LOGCHAR("Loading space intro");
 	c = new Cube(0.5f,index);
@@ -36,8 +36,8 @@ bool ModuleScene::Start()
 	camera = new GameObject((aiString)"Camera", nullptr);
 	componentCamera = new ComponentCamera();
 	camera->AddComponent(componentCamera);
+	gameObject.push_back(camera);
 	LoadGameObjects(scene->mRootNode, root);
-
 	return true;
 }
 
@@ -54,13 +54,13 @@ bool ModuleScene::CleanUp()
 
 void  ModuleScene::LoadGameObjects(aiNode * node,GameObject* parent)
 {
-	GameObject* object = new GameObject(node->mName,parent);
+	GameObject* object = new GameObject(node->mName, parent);
 
 	if (node->mNumMeshes > 1)
 	{
 		for (int i = 0; i < node->mNumMeshes; i++)
 		{
-			GameObject* my_go = GameObject::LoadGameObjectMesh(node,scene->mMeshes[i],scene);
+			GameObject* my_go = object->LoadGameObjectMesh(node, scene->mMeshes[i], scene);
 			parent->AddChild(my_go, parent);
 			my_go->SetRootNode(parent);
 			gameObject.push_back(my_go);
@@ -68,24 +68,41 @@ void  ModuleScene::LoadGameObjects(aiNode * node,GameObject* parent)
 	}
 	else if (node->mNumMeshes == 1)
 	{
-		GameObject* my_go = GameObject::LoadGameObjectMesh(node, scene->mMeshes[node->mMeshes[0]], scene);
+		GameObject* my_go = object->LoadGameObjectMesh(node, scene->mMeshes[node->mMeshes[0]], scene);
 		parent->AddChild(my_go, parent);
 		my_go->SetRootNode(parent);
 		gameObject.push_back(my_go);
 	}
+	else
+		parent->AddChild(object, parent);
 
 	for (int i = 0; i < node->mNumChildren; i++)
+	{
+
+		//object->SetRootNode(parent);
 		LoadGameObjects(node->mChildren[i], object);
+	}
+}
+
+update_status ModuleScene::PreUpdate(float dt)
+{
+	for (int i = 0; i < gameObject.size(); i++)
+	{
+		gameObject[i]->PreUpdate();
+	}
+
+	return UPDATE_CONTINUE;
 }
 
 // Update: draw background
 update_status ModuleScene::Update(float dt)
 {
-	std::vector<Component*>::iterator it;
 	for (int i = 0; i < gameObject.size(); i++)
 	{
-
 		gameObject[i]->Update();
+
+		glPushMatrix();
+		gameObject[i]->DrawBoundingBox();
 		glPopMatrix();
 	}
 

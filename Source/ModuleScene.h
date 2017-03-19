@@ -26,6 +26,8 @@ public:
 
 	void LoadGameObjects(aiNode* node, GameObject* parent);
 
+	update_status PreUpdate(float dt);
+
 public:
 	
 	uint fx = 0;

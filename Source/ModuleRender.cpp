@@ -9,6 +9,7 @@
 #include "../Libraries/OpenGL/include/GL/glew.h"
 #include "IMGUI/imgui.h"
 #include "ModuleEditor.h"
+#include "ModuleScene.h"
 
 #pragma comment (lib, "opengl32.lib") 
 
@@ -108,25 +109,12 @@ bool ModuleRender::Init()
 
 update_status ModuleRender::PreUpdate(float dt)
 {
-	//glViewport(0, 0, screenWidth*screenSize, screenHeight*screenSize);
-	glClearColor(0, 0, 0, 1);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-
 	return UPDATE_CONTINUE;
 }
 
 // Called every draw update
 update_status ModuleRender::Update(float dt)
 {
-	// debug camera
-	/*if (dt < (1000.0f / fps_cap))
-	{
-		//LOGCHAR("We wanted to wait %f ", (1000.0f/fps_cap) - dt )
-		//micro.start();
-		SDL_Delay(1000.0f / fps_cap - dt);
-		//LOGCHAR("But we waited %f ", micro.stop()*1000)
-	}*/
 
 	return UPDATE_CONTINUE;
 }
