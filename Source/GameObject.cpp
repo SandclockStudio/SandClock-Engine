@@ -25,9 +25,9 @@ bool GameObject::Update()
 {
 	for (int i = 0; i < components.size(); ++i)
 	{
-		//glPushMatrix();
+		glPushMatrix();
 		components[i]->Update();
-		//glPopMatrix();
+		glPopMatrix();
 	}
 
 	if (childs.size() > 0)
@@ -45,9 +45,7 @@ bool GameObject::PreUpdate()
 {
 	for (int i = 0; i < components.size(); ++i)
 	{
-		//glPushMatrix();
 		components[i]->PreUpdate();
-		//glPopMatrix();
 	}
 
 	if (childs.size() > 0)

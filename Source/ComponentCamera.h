@@ -1,5 +1,5 @@
-#ifndef __COMPONENTTRANSFORM_H_
-#define __COMPONENTTRANSFORM_H_
+#ifndef __COMPONENTCAMERA_H_
+#define ____COMPONENTCAMERA_H__H_
 
 #include "Component.h"
 #include <vector>
@@ -21,11 +21,11 @@ public:
 	bool PreUpdate();
 	bool Update();
 
-	void LookAt(float xRotation, float yRotation);
+	void LookAt(float dx, float dy);
 	void Position(float3 pos);
 	void SetFov(float newFOV);
 	void SetAspectRatio(float newAspectRatio);
-	void SetPlaneDistances(float near, float);
+	void SetPlaneDistances(float, float);
 	float * GetProjectionMatrix();
 	float * GetViewMatrix();
 
@@ -40,5 +40,5 @@ private:
 	
 };
 
-#endif // __COMPONENTTRANSFORM_H_
+#endif // ____COMPONENTCAMERA_H_
 
