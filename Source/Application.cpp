@@ -11,7 +11,6 @@
 #include "ModulePlayer.h"
 #include "ModuleUI.h"
 #include "JsonParser.h"
-#include "ModuleCamera.h"
 #include "ModuleEditor.h"
 #include "ModuleTextures.h"
 
@@ -30,7 +29,6 @@ Application::Application()
 
 	// Game Modules
 	modules.push_back(scene_intro = new ModuleScene(false));
-	modules.push_back(scene_level = new ModuleSceneLevel(false));
 	modules.push_back(ui = new ModuleUI());
 	modules.push_back(player = new ModulePlayer(false));
 	modules.push_back(textures = new ModuleTextures());
@@ -40,7 +38,6 @@ Application::Application()
 	modules.push_back(collision = new ModuleCollision());
 	modules.push_back(particles = new ModuleParticles());
 	modules.push_back(fade = new ModuleFadeToBlack());
-	modules.push_back(camera = new ModuleCamera());
 }
 
 Application::~Application()

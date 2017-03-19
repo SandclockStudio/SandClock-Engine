@@ -37,6 +37,11 @@ public:
 		return active = false;
 	}
 
+	virtual bool PreUpdate()
+	{
+		return true;
+	}
+
 	virtual bool Update()
 	{
 		return true;

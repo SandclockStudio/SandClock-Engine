@@ -301,9 +301,6 @@
     <ClInclude Include="MPlane.h">
       <Filter>OpenGlTools</Filter>
     </ClInclude>
-    <ClInclude Include="ModuleCamera.h">
-      <Filter>Core Modules</Filter>
-    </ClInclude>
     <ClInclude Include="SOIL.h">
       <Filter>Utils</Filter>
     </ClInclude>
@@ -481,6 +478,9 @@
     <ClInclude Include="ModuleScene.h">
       <Filter>Game Modules</Filter>
     </ClInclude>
+    <ClInclude Include="ComponentCamera.h">
+      <Filter>Game Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -627,9 +627,6 @@
     <ClCompile Include="Gizmo.cpp">
       <Filter>Main</Filter>
     </ClCompile>
-    <ClCompile Include="ModuleCamera.cpp">
-      <Filter>Core Modules</Filter>
-    </ClCompile>
     <ClCompile Include="Model.cpp">
       <Filter>OpenGlTools</Filter>
     </ClCompile>
@@ -670,6 +667,9 @@
       <Filter>Game Modules</Filter>
     </ClCompile>
     <ClCompile Include="ModuleScene.cpp">
+      <Filter>Game Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentCamera.cpp">
       <Filter>Game Modules</Filter>
     </ClCompile>
   </ItemGroup>

@@ -24,7 +24,15 @@ void GameObject::DeleteComponent(Component * component)
 bool GameObject::Update()
 {
 	for (int i = 0; i < components.size(); ++i)
+	{
+		glPushMatrix();
+		components[i]->PreUpdate();
+		glPopMatrix();
+
+		glPushMatrix();
 		components[i]->Update();
+		glPopMatrix();
+	}
 
 	if (childs.size() > 0)
 	{

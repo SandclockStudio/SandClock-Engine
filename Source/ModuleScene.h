@@ -8,6 +8,7 @@
 #include "Model.h"
 #include "Level.h"
 #include "GameObject.h"
+#include "ComponentCamera.h"
 
 
 
@@ -38,6 +39,8 @@ public:
 	Model* batman;
 	const aiScene* scene;
 	GameObject* root;
+	GameObject* camera;
+	ComponentCamera* componentCamera;
 
 private:
 	std::vector<GameObject*> gameObject;

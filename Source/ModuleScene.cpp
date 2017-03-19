@@ -33,9 +33,9 @@ bool ModuleScene::Start()
 	batman = new Model();
 	batman->Load("Batman.obj");
 	root = new GameObject(scene->mRootNode->mName,nullptr);
-	l = new Level();
-	l->Load("street/Street.obj");
-
+	camera = new GameObject((aiString)"Camera", nullptr);
+	componentCamera = new ComponentCamera();
+	camera->AddComponent(componentCamera);
 	LoadGameObjects(scene->mRootNode, root);
 
 	return true;
@@ -84,7 +84,7 @@ update_status ModuleScene::Update(float dt)
 	std::vector<Component*>::iterator it;
 	for (int i = 0; i < gameObject.size(); i++)
 	{
-		glPushMatrix();
+
 		gameObject[i]->Update();
 		glPopMatrix();
 	}

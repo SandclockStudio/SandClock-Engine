@@ -18,21 +18,25 @@ public:
 	ComponentCamera(bool start_enabled = true);
 	~ComponentCamera();
 
-	void LoadCamera(aiNode* node);
-	void Translate(aiVector3D translation);
-	void Rotate(aiVector3D rotation);
+	bool PreUpdate();
 	bool Update();
+
+	void LookAt(float xRotation, float yRotation);
+	void Position(float3 pos);
+	void SetFov(float newFOV);
+	void SetAspectRatio(float newAspectRatio);
+	void SetPlaneDistances(float near, float);
+	float * GetProjectionMatrix();
+	float * GetViewMatrix();
 
 private:
 
-	aiMatrix4x4 mat;
-	aiVector3D pos;
-	aiQuaternion quat;
-	aiVector3D scale;
-
+	float4x4 matrix;
+	Quat quaternion;
 	Frustum frustum;
-	float speed, rotation_speed, xRotation, yRotation;
+	float speed, rotation_speed;
 	float3 movement;
+	float dt;
 	
 };
 
