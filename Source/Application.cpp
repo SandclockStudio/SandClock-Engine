@@ -29,6 +29,7 @@ Application::Application()
 	modules.push_back(audio = new ModuleAudio());
 
 	// Game Modules
+	modules.push_back(camera = new ModuleCamera());
 	modules.push_back(scene_intro = new ModuleScene(false));
 	modules.push_back(scene_level = new ModuleSceneLevel(false));
 	modules.push_back(ui = new ModuleUI());
@@ -40,7 +41,7 @@ Application::Application()
 	modules.push_back(collision = new ModuleCollision());
 	modules.push_back(particles = new ModuleParticles());
 	modules.push_back(fade = new ModuleFadeToBlack());
-	modules.push_back(camera = new ModuleCamera());
+
 }
 
 Application::~Application()

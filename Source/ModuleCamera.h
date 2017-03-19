@@ -12,6 +12,7 @@ class ModuleCamera : public Module
 		ModuleCamera();
 		~ModuleCamera();
 		bool Init();
+		update_status PreUpdate(float dt);
 		update_status Update(float dt);
 		bool Start();
 		bool CleanUp();
@@ -30,6 +31,8 @@ class ModuleCamera : public Module
 
 	private:
 		Frustum f;
+		Quat q;
+		float4x4 m;
 		float speed,rotation_speed, xRotation, yRotation;
 		float3 movement;
 };

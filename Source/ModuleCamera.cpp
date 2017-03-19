@@ -6,6 +6,15 @@
 ModuleCamera::ModuleCamera()
 {
 	f.type = PerspectiveFrustum;
+	f.verticalFov = 1.0f;
+	f.horizontalFov = 1.5f;
+	Position(float3(0.0f, 0.0f, 0.0f));
+	f.front = float3::unitZ;
+	f.up = float3::unitY;
+	f.nearPlaneDistance = 0.1f;
+	f.farPlaneDistance = 1000.0f;
+	speed = 2.0f;
+	rotation_speed = 0.35f;
 }
 
 ModuleCamera::~ModuleCamera()
@@ -16,13 +25,29 @@ ModuleCamera::~ModuleCamera()
 
 bool ModuleCamera::Init()
 {
-	LoadConfig();
-	speed = 2.0f;
-	rotation_speed = 0.35f;
+
 	return true;
 }
+
+update_status ModuleCamera::PreUpdate(float dt)
+{
+
+	glClearColor(0, 0, 0, 1);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	glLoadMatrixf((GLfloat*)GetProjectionMatrix());
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	glLoadMatrixf((GLfloat*)GetViewMatrix());
+
+	return UPDATE_CONTINUE;
+}
+
 update_status ModuleCamera::Update(float dt)
 {
+
+
 
 	//Keyboard
 	movement = float3::zero;
@@ -91,7 +116,7 @@ void ModuleCamera::Orientation()
 
 void ModuleCamera::LookAt(float xRotation, float yRotation)
 {
-	Quat q = Quat::RotateY(xRotation);
+	q = Quat::RotateY(xRotation);
 	f.front = q.Mul(f.front).Normalized();
 	f.up = q.Mul(f.up).Normalized();
 
@@ -102,8 +127,6 @@ void ModuleCamera::LookAt(float xRotation, float yRotation)
 
 float * ModuleCamera::GetProjectionMatrix()
 {
-	float4x4 m;
-
 	m = f.ProjectionMatrix();
 	m.Transpose();
 
@@ -112,7 +135,7 @@ float * ModuleCamera::GetProjectionMatrix()
 
 float * ModuleCamera::GetViewMatrix()
 {
-	float4x4 m;
+
 
 	m = f.ViewMatrix();
 	m.Transpose();
@@ -128,14 +151,6 @@ bool ModuleCamera::LoadConfig()
 	{
 		/*f.verticalFov = App->json_parser->GetInt("FOVY");
 		f.horizontalFov = App->json_parser->GetInt("FOVX");*/
-		f.verticalFov = 1.0f;
-		f.horizontalFov = 1.5f;
-		Position(float3(0.0f, 0.0f, 0.0f));
-		f.front = float3::unitZ;
-		f.up = float3::unitY;
-		f.nearPlaneDistance = 0.1f;
-		f.farPlaneDistance = 1000.0f;
-
 		return_value = App->json_parser->UnloadObject();
 	}
 

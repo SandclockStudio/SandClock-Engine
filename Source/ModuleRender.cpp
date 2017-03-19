@@ -114,14 +114,7 @@ bool ModuleRender::Init()
 update_status ModuleRender::PreUpdate(float dt)
 {
 	//glViewport(0, 0, screenWidth*screenSize, screenHeight*screenSize);
-	glClearColor(0, 0, 0, 1);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	glLoadMatrixf((GLfloat*)App->camera->GetProjectionMatrix());
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
-	glLoadMatrixf((GLfloat*)App->camera->GetViewMatrix());
+
 
 	return UPDATE_CONTINUE;
 }
@@ -137,19 +130,7 @@ update_status ModuleRender::Update(float dt)
 		SDL_Delay(1000.0f / fps_cap - dt);
 		//LOGCHAR("But we waited %f ", micro.stop()*1000)
 	}*/
-	int speed = ceil(100*dt);
 
-	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-		App->renderer->camera.y += speed;
-
-	if(App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-		App->renderer->camera.y -= speed;
-
-	if(App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-		App->renderer->camera.x += speed;
-
-	if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		App->renderer->camera.x -= speed;
 
 	return UPDATE_CONTINUE;
 }
