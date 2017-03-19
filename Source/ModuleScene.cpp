@@ -38,7 +38,6 @@ bool ModuleScene::Start()
 	camera->AddComponent(componentCamera);
 	gameObject.push_back(camera);
 	LoadGameObjects(scene->mRootNode, root);
-
 	return true;
 }
 

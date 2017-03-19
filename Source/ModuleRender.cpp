@@ -109,17 +109,16 @@ bool ModuleRender::Init()
 
 update_status ModuleRender::PreUpdate(float dt)
 {
-	//glViewport(0, 0, screenWidth*screenSize, screenHeight*screenSize);
+	/*
+	glViewport(0, 0, screenWidth*screenSize, screenHeight*screenSize);
 	glClearColor(0, 0, 0, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	/*
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glLoadMatrixf((GLfloat*)App->scene_intro->componentCamera->GetProjectionMatrix());
+	glLoadMatrixf((GLfloat*)App->camera->GetProjectionMatrix());
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	glLoadMatrixf((GLfloat*)(GLfloat*)App->scene_intro->componentCamera->GetViewMatrix());
+	glLoadMatrixf((GLfloat*)(GLfloat*)App->->camera->GetViewMatrix());
 	*/
 
 	return UPDATE_CONTINUE;

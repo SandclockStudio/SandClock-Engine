@@ -8,6 +8,14 @@ ComponentCamera::ComponentCamera(bool start_enabled)
 	speed = 2.0f;
 	rotation_speed = 0.35f;
 	dt = App->dt;
+	frustum.verticalFov = 1.0f;
+	frustum.horizontalFov = 1.5f;
+	Position(float3(-10.0f, 0.0f, 0.0f));
+	frustum.front = float3::unitZ;
+	frustum.up = float3::unitY;
+	frustum.nearPlaneDistance = 0.1f;
+	frustum.farPlaneDistance = 1000.0f;
+
 }
 
 ComponentCamera::~ComponentCamera()
@@ -16,6 +24,8 @@ ComponentCamera::~ComponentCamera()
 
 bool ComponentCamera::PreUpdate()
 {
+	glClearColor(0, 0, 0, 1);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glLoadMatrixf((GLfloat*)GetProjectionMatrix());
@@ -30,12 +40,10 @@ bool ComponentCamera::Update()
 {
 	//Keyboard
 
-
 	movement = float3::zero;
 	if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT) Position(float3(frustum.pos.x, frustum.pos.y + (speed*dt), frustum.pos.z));
 	if (App->input->GetKey(SDL_SCANCODE_E) == KEY_REPEAT) Position(float3(frustum.pos.x, frustum.pos.y - (speed*dt), frustum.pos.z));
-	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) 
-		movement += frustum.front;
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) movement += frustum.front;
 	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) movement -= frustum.front;
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) movement += frustum.WorldRight();
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) movement -= frustum.WorldRight();
