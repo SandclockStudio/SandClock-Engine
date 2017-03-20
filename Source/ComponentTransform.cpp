@@ -16,8 +16,19 @@ void ComponentTransform::LoadTransform(aiNode * node)
 
 void ComponentTransform::Translate(aiVector3D translation)
 {
+	glTranslatef((GLfloat)translation.x, (GLfloat)translation.y, (GLfloat)translation.z);
+
+
 }
 
-void ComponentTransform::Rotate(aiVector3D rotation)
+void ComponentTransform::Rotate(aiQuaternion rotation)
 {
+	//glRotatef((GLfloat)translation.x, (GLfloat)translation.y, (GLfloat)translation.z);
+
+}
+
+void ComponentTransform::Scale(aiVector3D scale)
+{
+	glScalef((GLfloat)scale.x, (GLfloat)scale.y, (GLfloat)scale.z);
+
 }

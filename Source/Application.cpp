@@ -25,7 +25,6 @@ Application::Application()
 	modules.push_back(input = new ModuleInput());
 	modules.push_back(window = new ModuleWindow());
 	modules.push_back(renderer = new ModuleRender());
-	modules.push_back(editor = new ModuleEditor());
 	modules.push_back(audio = new ModuleAudio());
 
 	// Game Modules
@@ -34,6 +33,8 @@ Application::Application()
 	modules.push_back(ui = new ModuleUI());
 	modules.push_back(player = new ModulePlayer(false));
 	modules.push_back(textures = new ModuleTextures());
+	modules.push_back(editor = new ModuleEditor());
+
 
 	// Modules to draw on top of game LOGCHARic
 

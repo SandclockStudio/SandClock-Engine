@@ -35,6 +35,7 @@ update_status ModuleEditor::Update(float dt)
 {
 	DrawConsole();
 	DrawTree();
+	DrawProperties();
 	if(fps_log.size() != 0)
 		DrawFps();
 	return DrawMenu();
@@ -160,7 +161,6 @@ void ModuleEditor::DrawTree()
 	int node_clicked = -1;
 
 	GameObject * go = nullptr;
-
 	ImGui::SetNextWindowPos(ImVec2(0, 20));
 	ImGui::SetNextWindowSize(ImVec2(App->window->screenWidth, App->window->screenHeight ));
 
@@ -272,37 +272,51 @@ void ModuleEditor::Children(GameObject * go, int &ptr_id)
 void ModuleEditor::DrawProperties()
 {
 	bool begin = true;
-	ImGui::SetNextWindowPos(ImVec2(0, 20));
+	ImGui::SetNextWindowPos(ImVec2(App->window->screenWidth*App->window->screenSize-400, 20));
 	ImGui::SetNextWindowSize(ImVec2(App->window->screenWidth, App->window->screenHeight));
 
 	ImGui::Begin("Properties", &begin, ImVec2(App->window->screenWidth / 3, App->window->screenHeight / 1.58f), -1.0f, ImGuiWindowFlags_ChildWindowAutoFitX | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_ChildWindowAutoFitY | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
 	
 	ImGui::Unindent(15.0f);
-
-	GameObject* gOSelected = selected;
-	//Aquí falla al coger la posición y la rotación que la recoge el gameobject del componente
-	if (ImGui::CollapsingHeader("Local Transformation", ImGuiTreeNodeFlags_DefaultOpen))
+	if (selected != nullptr)
 	{
-		aiVector3D pos = selected->getPosition();
-		aiQuaternion rot = selected->getRotation();
-		rot.x = fabsf(rot.x);
-		rot.y = fabsf(rot.y);
-		rot.z = fabsf(rot.z);
-		aiVector3D scale = selected->getScale;;
-		//Una vez se recoja tiene que tener el gameObject una funión para poner la posición y la rotación que se le pase
-		if (ImGui::DragFloat3("Position", (float*)&pos, 0.25f))
-			selected->
+		GameObject* gOSelected = selected;
+		//Aquí falla al coger la posición y la rotación que la recoge el gameobject del componente
+		if (ImGui::CollapsingHeader("Local Transformation", ImGuiTreeNodeFlags_DefaultOpen))
+		{
+			aiVector3D pos = selected->getPosition();
+			aiQuaternion rot = selected->getRotation();
+			rot.x = fabsf(rot.x);
+			rot.y = fabsf(rot.y);
+			rot.z = fabsf(rot.z);
+			aiVector3D scale = selected->getScale();
+			//Una vez se recoja tiene que tener el gameObject una funión para poner la posición y la rotación que se le pase
+			if (ImGui::DragFloat3("Position", (float*)&pos, 0.25f))
+			{
+				selected->setPosition(pos); 
+			}
+				
 
-			if (ImGui::SliderAngle3("Rotation", (float*)&rot))
-				selected->SetLocalRotation(rot);
+				if (ImGui::SliderAngle("Rotation", (float*)&rot))
+				{//selected->SetLocalRotation(rot); 
+				}
+					
 
-		if (ImGui::DragFloat3("Scale", (float*)&scale, 0.05f))
-			selected->SetLocalScale(scale);
+					if (ImGui::DragFloat3("Scale", (float*)&scale, 0.05f))
+						
+					{
+						selected->setScale(pos);
 
+					}
+		}
+	
+
+	
 
 
 
 	}
+	ImGui::End();
 
 }
 

@@ -21,7 +21,6 @@ public:
 	bool CleanUp();
 	void LoadMesh(aiMesh * mesh, const aiScene * scene);
 
-private:
 
 	aiVector3D*  vertices;
 	aiVector3D* tex_coords;

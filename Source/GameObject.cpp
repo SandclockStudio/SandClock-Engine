@@ -39,7 +39,13 @@ bool GameObject::Update()
 {
 	for (int i = 0; i < components.size(); ++i)
 		components[i]->Update();
-
+	if (childs.size() < 0)
+	{
+		for (int i = 0; i < childs.size(); ++i)
+		{
+			childs[i]->Update();
+		}
+	}
 	return true;
 }
 
@@ -157,21 +163,11 @@ GameObject* GameObject::LoadGameObject(aiNode * node, const aiScene* scene)
 	GameObject * go = new GameObject(node->mName);
 
 	ComponentTransform* transform = new ComponentTransform(true);
-	transform->LoadTransform(node);
 	go->AddComponent(transform);
-
-	//Si hay mesh, entonces añadimos componente mesh y material
-	if (node->mNumMeshes > 0)
-	{
-		ComponentMesh* mesh = new ComponentMesh(true);
-		mesh->LoadMesh(scene->mMeshes[node->mMeshes[0]], scene);
-		go->AddComponent(mesh);
-
-		ComponentMaterial* material = new ComponentMaterial(true);
-		material->LoadMaterial(scene->mMaterials[scene->mMeshes[node->mMeshes[0]]->mMaterialIndex]);
-		go->AddComponent(material);
-	}
-	 
+	transform->LoadTransform(node);
+	position = transform->pos;
+	rotation = transform->quat;
+	scale = transform->scale;
 
 	return go;
 }
@@ -189,4 +185,31 @@ aiQuaternion GameObject::getRotation()
 aiVector3D GameObject::getScale()
 {
 	return scale;
+}
+
+void GameObject::setPosition(aiVector3D newPosition)
+{
+	
+
+	position = newPosition;
+	if (components.size() > 1)
+	{
+		dynamic_cast<ComponentTransform*>(components[0])->Translate(newPosition);
+	}
+}
+
+void GameObject::setRotation(aiQuaternion newRotation)
+{
+	//dynamic_cast<ComponentTransform*>(components[0])->quat = newRotation;
+
+}
+
+void GameObject::setScale(aiVector3D newScale)
+{
+	scale = newScale;
+	if (components.size() > 1)
+	{
+		dynamic_cast<ComponentTransform*>(components[0])->Scale(newScale);
+
+	}
 }

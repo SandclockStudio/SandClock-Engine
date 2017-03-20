@@ -33,7 +33,7 @@ public:
 public:
 	ImGuiTextBuffer Buf;
 	std::vector<float> fps_log;
-	GameObject* selected;
+	GameObject* selected = nullptr;
 
 
 private:

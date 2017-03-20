@@ -11,6 +11,8 @@
 #include "assimp\include\assimp\cimport.h"
 #include <assimp\include\assimp\postprocess.h>
 #include "Component.h"
+#include "ComponentTransform.h"
+
 ModuleScene::ModuleScene(bool active) : Module(active)
 {}
 
@@ -77,7 +79,10 @@ void  ModuleScene::LoadGameObjects(aiNode * node,GameObject* parent)
 		gameObject.push_back(my_go);
 	}
 	else
+	{
+		GameObject* my_go = object->LoadGameObject(node, scene);
 		parent->AddChild(object, parent);
+	}
 
 	for (int i = 0; i < node->mNumChildren; i++) 
 	{
@@ -95,13 +100,13 @@ update_status ModuleScene::Update(float dt)
 	
 	for (int i = 0; i < gameObject.size(); i++)
 	{
-		glPushMatrix();
-		gameObject[i]->Update();
-		glPopMatrix();
 
-		glPushMatrix();
+		gameObject[i]->Update();
+
+
+
 		gameObject[i]->DrawBoundingBox();
-		glPopMatrix();
+
 	}
 	
 	p->DrawDirect();
