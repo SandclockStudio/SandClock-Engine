@@ -28,6 +28,8 @@ bool ComponentMesh::Update()
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);
 	glDisableClientState(GL_VERTEX_ARRAY);
+	myGo->DrawBoundingBox();
+	glPopMatrix();
 	return true;
 }
 

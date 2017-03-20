@@ -23,7 +23,7 @@ ModuleScene::~ModuleScene()
 // Load assets
 bool ModuleScene::Start()
 {
-	scene = aiImportFile("ArmyPilot.dae",  aiProcessPreset_TargetRealtime_MaxQuality);
+	scene = aiImportFile("batman.obj",  aiProcessPreset_TargetRealtime_MaxQuality);
 
 	LOGCHAR("Loading space intro");
 	c = new Cube(0.5f,index);
@@ -112,11 +112,11 @@ update_status ModuleScene::Update(float dt)
 	for (int i = 0; i < gameObject.size(); i++)
 	{
 		gameObject[i]->Update();
-		gameObject[i]->DrawBoundingBox();
-	}
 
+	}
 	p->DrawDirect();
 	c->Draw2();
+
 
 	//batman->Draw();
 	//l->Draw();
