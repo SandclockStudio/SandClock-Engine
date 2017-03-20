@@ -13,6 +13,7 @@
 #include "Component.h"
 #include "ComponentTransform.h"
 
+
 ModuleScene::ModuleScene(bool active) : Module(active)
 {}
 
@@ -33,11 +34,13 @@ bool ModuleScene::Start()
 	c->Start();
 	g->Start();
 	batman = new Model();
-	//batman->Load("ArmyPilot.dae");
+	batman->Load("Batman.obj");
+	camera = new GameObject((aiString)"Camera", nullptr);
+	componentCamera = new ComponentCamera();
+	camera->AddComponent(componentCamera);
+	gameObject.push_back(camera);
 	root = new GameObject(scene->mRootNode->mName,nullptr);
-
 	LoadGameObjects(scene->mRootNode, root);
-
 	return true;
 }
 
@@ -59,13 +62,13 @@ bool ModuleScene::CleanUp()
 
 void  ModuleScene::LoadGameObjects(aiNode * node,GameObject* parent)
 {
-	GameObject* object = new GameObject(node->mName,parent);
+	GameObject* object = new GameObject(node->mName, parent);
 
 	if (node->mNumMeshes > 1)
 	{
 		for (int i = 0; i < node->mNumMeshes; i++)
 		{
-			GameObject* my_go = object->LoadGameObjectMesh(node,scene->mMeshes[i],scene);
+			GameObject* my_go = object->LoadGameObjectMesh(node, scene->mMeshes[i], scene);
 			parent->AddChild(my_go, parent);
 			my_go->SetRootNode(parent);
 			gameObject.push_back(my_go);
@@ -80,36 +83,50 @@ void  ModuleScene::LoadGameObjects(aiNode * node,GameObject* parent)
 	}
 	else
 	{
-		GameObject* my_go = object->LoadGameObject(node, scene);
+		GameObject* my_go = object->LoadGameObject(node,scene);
 		parent->AddChild(object, parent);
 	}
 
-	for (int i = 0; i < node->mNumChildren; i++) 
+	for (int i = 0; i < node->mNumChildren; i++)
 	{
-		
-		//object->SetRootNode(parent);
+
+		object->SetRootNode(parent);
 		LoadGameObjects(node->mChildren[i], object);
 	}
-		
+}
+
+update_status ModuleScene::PreUpdate(float dt)
+{
+	for (int i = 0; i < gameObject.size(); i++)
+	{
+		gameObject[i]->PreUpdate();
+	}
+
+	return UPDATE_CONTINUE;
 }
 
 // Update: draw background
 update_status ModuleScene::Update(float dt)
 {
 
-	glPushMatrix();
-	for (int i = 0; i < gameObject.size(); i++)
+
+	gameObject[0]->Update();
+
+	std::vector<GameObject*> childs = root->getChilds();
+
+
+	for (int i = 0; i < childs.size(); i++)
 	{
+		childs[i]->Update();
 
-		gameObject[i]->Update();
-		gameObject[i]->DrawBoundingBox();
-
+		glPushMatrix();
+		childs[i]->DrawBoundingBox();
+		glPopMatrix();
 	}
-	glPopMatrix();
-
-
-	p->DrawDirect();
+	
+	//p->DrawDirect();
 	c->Draw2();
+
 	//batman->Draw();
 	//l->Draw();
 	//g->DrawDirect();

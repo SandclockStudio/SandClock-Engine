@@ -42,23 +42,23 @@ bool ComponentMesh::CleanUp()
 
 void ComponentMesh::LoadMesh(aiMesh* mesh, const aiScene* scene)
 {
-		indices = new unsigned int[mesh->mNumFaces * 3];
-		vertices = new aiVector3D[3 * mesh->mNumVertices];
-		normals = new aiVector3D[2 * mesh->mNumVertices];
-		tex_coords = new aiVector3D[2 * mesh->mNumVertices];
-		num_indices = mesh->mNumFaces * 3;
-		num_vertices = mesh->mNumVertices;
-		componentType = MESH;
-		for (int j = 0; j < mesh->mNumVertices; j++)
-		{
-			if (mesh->HasTextureCoords(0))
-				tex_coords[j] = aiVector3D(mesh->mTextureCoords[0][j].x, mesh->mTextureCoords[0][j].y, mesh->mTextureCoords[0][j].z);
-			
-			if (mesh->HasNormals())
-				normals[j] = aiVector3D(mesh->mNormals[j].x, mesh->mNormals[j].y, mesh->mNormals[j].z);
+	indices = new unsigned int[mesh->mNumFaces * 3];
+	vertices = new aiVector3D[3 * mesh->mNumVertices];
+	normals = new aiVector3D[2 * mesh->mNumVertices];
+	tex_coords = new aiVector3D[2 * mesh->mNumVertices];
+	num_indices = mesh->mNumFaces * 3;
+	num_vertices = mesh->mNumVertices;
+	componentType = MESH;
+	for (int j = 0; j < mesh->mNumVertices; j++)
+	{
+		if (mesh->HasTextureCoords(0))
+			tex_coords[j] = aiVector3D(mesh->mTextureCoords[0][j].x, mesh->mTextureCoords[0][j].y, mesh->mTextureCoords[0][j].z);
 
-			vertices[j] = aiVector3D(mesh->mVertices[j].x, mesh->mVertices[j].y, mesh->mVertices[j].z);
-		}
+		if (mesh->HasNormals())
+			normals[j] = aiVector3D(mesh->mNormals[j].x, mesh->mNormals[j].y, mesh->mNormals[j].z);
+
+		vertices[j] = aiVector3D(mesh->mVertices[j].x, mesh->mVertices[j].y, mesh->mVertices[j].z);
+	}
 
 		unsigned int c = 0;
 		for (int k = 0; k < mesh->mNumFaces; k++)

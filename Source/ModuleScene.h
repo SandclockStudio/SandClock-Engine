@@ -8,6 +8,7 @@
 #include "Model.h"
 #include "Level.h"
 #include "GameObject.h"
+#include "ComponentCamera.h"
 
 
 
@@ -25,6 +26,8 @@ public:
 
 	void LoadGameObjects(aiNode* node, GameObject* parent);
 
+	update_status PreUpdate(float dt);
+
 public:
 	
 	uint fx = 0;
@@ -36,6 +39,8 @@ public:
 	Model* batman;
 	const aiScene* scene;
 	GameObject* root;
+	GameObject* camera;
+	ComponentCamera* componentCamera;
 
 private:
 	std::vector<GameObject*> gameObject;

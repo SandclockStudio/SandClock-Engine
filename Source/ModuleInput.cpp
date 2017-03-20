@@ -8,6 +8,7 @@
 #include "MathGeoLib.h"
 #include "../Libraries/OpenGL/include/GL/glew.h"
 #include "ModuleCamera.h"
+#include "ModuleScene.h"
 #pragma comment (lib, "opengl32.lib") 
 
 
@@ -107,17 +108,19 @@ update_status ModuleInput::PreUpdate(float dt)
 				{
 					case SDL_WINDOWEVENT_RESIZED:
 					{
+
+						//Habra que cambiarlo en el futuro si tenemos mas cámaras
 						App->window->screenWidth = event.window.data1;
 						App->window->screenHeight = event.window.data2;
 						float fovNew = (float)App->window->screenWidth / (float)App->window->screenHeight;
-						App->camera->SetAspectRatio(fovNew);
+						App->scene_intro->componentCamera->SetAspectRatio(fovNew);
 						glViewport(0, 0, (float)App->window->screenWidth, (float)App->window->screenHeight);
 						glMatrixMode(GL_PROJECTION);
 						glLoadIdentity();
-						glLoadMatrixf((GLfloat*)App->camera->GetProjectionMatrix());
+						glLoadMatrixf((GLfloat*)App->scene_intro->componentCamera->GetProjectionMatrix());
 						glMatrixMode(GL_MODELVIEW);
 						glLoadIdentity();
-						glLoadMatrixf((GLfloat*)App->camera->GetViewMatrix());
+						glLoadMatrixf((GLfloat*)App->scene_intro->componentCamera->GetViewMatrix());
 
 						break;
 					}

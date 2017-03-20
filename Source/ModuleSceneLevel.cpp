@@ -51,8 +51,6 @@ update_status ModuleSceneLevel::Update(float dt)
 	// Move camera forward -----------------------------
 
 
-	// Draw everything --------------------------------------
-	App->renderer->Blit(background, 0, 0, NULL);
 	
 	return UPDATE_CONTINUE;
 }

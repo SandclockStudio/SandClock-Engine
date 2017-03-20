@@ -42,6 +42,11 @@ public:
 		myGo = go;
 	}
 
+	virtual bool PreUpdate()
+	{
+		return true;
+	}
+
 	virtual bool Update()
 	{
 		return true;

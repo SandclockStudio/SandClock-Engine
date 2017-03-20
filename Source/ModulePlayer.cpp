@@ -46,7 +46,6 @@ update_status ModulePlayer::Update(float dt)
 {
 	// Draw everything --------------------------------------
 
-	App->renderer->Blit(graphics, position.x - current_animation->pivotX, position.y - current_animation->pivotY, &(current_animation->GetCurrentFrame()));
 	
 
 	return UPDATE_CONTINUE;
