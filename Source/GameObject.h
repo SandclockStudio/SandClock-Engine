@@ -18,6 +18,8 @@ private:
 	GameObject* root = nullptr;
 	std::vector<GameObject*> childs;
 
+
+
 public:
 	GameObject*  GetRootNode() { return root; }
 	const GameObject* GetRootNode()const { return root; }
@@ -35,14 +37,21 @@ public:
 	void DrawBoundingBox();
 	GameObject* FindGameObject(const char* node);
 	void AddChild(GameObject* node, GameObject* destination);
-	static GameObject* LoadGameObjectMesh(aiNode * node, aiMesh* mesh, const aiScene* scene);
-	static GameObject* LoadGameObject(aiNode * node, const aiScene* scene);
+	GameObject* LoadGameObjectMesh(aiNode * node, aiMesh* mesh, const aiScene* scene);
+	GameObject* LoadGameObject(aiNode * node, const aiScene* scene);
+	aiVector3D getPosition();
+	aiQuaternion getRotation();
+	aiVector3D getScale();
 
-
+	aiVector3D position;
+	aiQuaternion rotation;
+	aiVector3D scale;
+	
+	void DrawLines();
 	AABB boundingBox;
 	float3* corners = new float3[8];
 
 	std::vector<Component*> components;
 
 };
-#endif //__GAMEOBJECT_H
+#endif //__GAMEOBJECT_H_

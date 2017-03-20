@@ -11,6 +11,9 @@
 #include "assimp\include\assimp\cimport.h"
 #include <assimp\include\assimp\postprocess.h>
 #include "Component.h"
+#include "ComponentTransform.h"
+
+
 ModuleScene::ModuleScene(bool active) : Module(active)
 {}
 
@@ -20,7 +23,7 @@ ModuleScene::~ModuleScene()
 // Load assets
 bool ModuleScene::Start()
 {
-	scene = aiImportFile("Street/street.obj",  aiProcessPreset_TargetRealtime_MaxQuality);
+	scene = aiImportFile("ArmyPilot.dae",  aiProcessPreset_TargetRealtime_MaxQuality);
 
 	LOGCHAR("Loading space intro");
 	c = new Cube(0.5f,index);
@@ -32,11 +35,11 @@ bool ModuleScene::Start()
 	g->Start();
 	batman = new Model();
 	batman->Load("Batman.obj");
-	root = new GameObject(scene->mRootNode->mName,nullptr);
 	camera = new GameObject((aiString)"Camera", nullptr);
 	componentCamera = new ComponentCamera();
 	camera->AddComponent(componentCamera);
 	gameObject.push_back(camera);
+	root = new GameObject(scene->mRootNode->mName,nullptr);
 	LoadGameObjects(scene->mRootNode, root);
 	return true;
 }
@@ -74,12 +77,15 @@ void  ModuleScene::LoadGameObjects(aiNode * node,GameObject* parent)
 		gameObject.push_back(my_go);
 	}
 	else
+	{
+		GameObject* my_go = object->LoadGameObject(node,scene);
 		parent->AddChild(object, parent);
+	}
 
 	for (int i = 0; i < node->mNumChildren; i++)
 	{
 
-		//object->SetRootNode(parent);
+		object->SetRootNode(parent);
 		LoadGameObjects(node->mChildren[i], object);
 	}
 }
@@ -97,17 +103,25 @@ update_status ModuleScene::PreUpdate(float dt)
 // Update: draw background
 update_status ModuleScene::Update(float dt)
 {
-	for (int i = 0; i < gameObject.size(); i++)
+
+
+	gameObject[0]->Update();
+
+	std::vector<GameObject*> childs = root->getChilds();
+
+
+	for (int i = 0; i < childs.size(); i++)
 	{
-		gameObject[i]->Update();
+		childs[i]->Update();
 
 		glPushMatrix();
-		gameObject[i]->DrawBoundingBox();
+		childs[i]->DrawBoundingBox();
 		glPopMatrix();
 	}
-
-	p->DrawDirect();
+	
+	//p->DrawDirect();
 	c->Draw2();
+
 	//batman->Draw();
 	//l->Draw();
 	//g->DrawDirect();

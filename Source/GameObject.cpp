@@ -3,6 +3,25 @@
 #include "ComponentTransform.h"
 #include "ComponentMesh.h"
 
+void GameObject::CleanUp()
+{
+	delete(corners);
+
+	for (int i = 0; i < components.size();i++)
+	{
+		components[i]->CleanUp();
+		RELEASE(components[i]);
+	}
+}
+
+void GameObject::AddComponent(Component * component)
+{
+	boundingBox = AABB();
+	boundingBox.SetNegativeInfinity();
+	components.push_back(component);
+	component->setGameObject(this);
+
+}
 
 
 void GameObject::DeleteComponent(Component * component)
@@ -10,14 +29,15 @@ void GameObject::DeleteComponent(Component * component)
 	/*
 	for (int i = 0; i < components.size(); ++i)
 	{
-		if(components[i]->ID == component->ID)
-			components.erase(componentes[i]);
+	if(components[i]->ID == component->ID)
+	components.erase(componentes[i]);
 	}
 	*/
 }
 
 bool GameObject::Update()
 {
+
 	for (int i = 0; i < components.size(); ++i)
 	{
 		glPushMatrix();
@@ -29,6 +49,7 @@ bool GameObject::Update()
 	{
 		for (int i = 0; i < childs.size(); ++i)
 		{
+			DrawLines();
 			childs[i]->Update();
 		}
 	}
@@ -52,25 +73,6 @@ bool GameObject::PreUpdate()
 	}
 
 	return true;
-}
-
-void GameObject::CleanUp()
-{
-	delete(corners);
-
-	for (int i = 0; i < components.size();i++)
-	{
-		components[i]->CleanUp();
-		RELEASE(components[i]);
-	}
-}
-
-void GameObject::AddComponent(Component * component)
-{
-	boundingBox = AABB();
-	boundingBox.SetNegativeInfinity();
-	components.push_back(component);
-	component->setGameObject(this);
 }
 
 
@@ -163,15 +165,22 @@ GameObject * GameObject::LoadGameObjectMesh(aiNode * node, aiMesh * mesh, const 
 	ComponentTransform* transform = new ComponentTransform(true);
 	go->AddComponent(transform);
 	transform->LoadTransform(node);
+	position = transform->pos;
+	rotation = transform->quat;
+	scale = transform->scale;
 
-	ComponentMaterial* material = new ComponentMaterial(true);
-	go->AddComponent(material);
-	material->LoadMaterial(scene->mMaterials[mesh->mMaterialIndex]);
 
-	ComponentMesh* m = new ComponentMesh(true);
-	go->AddComponent(m);
 
-	m->LoadMesh(mesh, scene);
+	//ComponentMaterial* material = new ComponentMaterial(true);
+	//go->AddComponent(material);
+	//material->LoadMaterial(scene->mMaterials[mesh->mMaterialIndex]);
+
+
+
+	//ComponentMesh* m = new ComponentMesh(true);
+	//go->AddComponent(m);
+
+	//m->LoadMesh(mesh, scene);
 
 	return go;
 }
@@ -181,21 +190,45 @@ GameObject* GameObject::LoadGameObject(aiNode * node, const aiScene* scene)
 	GameObject * go = new GameObject(node->mName);
 
 	ComponentTransform* transform = new ComponentTransform(true);
-	transform->LoadTransform(node);
 	go->AddComponent(transform);
-
-	//Si hay mesh, entonces añadimos componente mesh y material
-	if (node->mNumMeshes > 0)
-	{
-		ComponentMesh* mesh = new ComponentMesh(true);
-		mesh->LoadMesh(scene->mMeshes[node->mMeshes[0]], scene);
-		go->AddComponent(mesh);
-
-		ComponentMaterial* material = new ComponentMaterial(true);
-		material->LoadMaterial(scene->mMaterials[scene->mMeshes[node->mMeshes[0]]->mMaterialIndex]);
-		go->AddComponent(material);
-	}
-
+	transform->LoadTransform(node);
+	position = transform->pos;
+	rotation = transform->quat;
+	scale = transform->scale;
 
 	return go;
+}
+
+aiVector3D GameObject::getPosition()
+{
+	return position;
+}
+
+aiQuaternion GameObject::getRotation()
+{
+	return rotation;
+}
+
+aiVector3D GameObject::getScale()
+{
+	return scale;
+}
+
+
+void GameObject::DrawLines()
+{
+	for (int i = 0; i < childs.size(); i++)
+	{
+			glPushMatrix();
+			glBegin(GL_LINES);
+			glColor3f(0.0f, 1.0f, 1.0f);
+			//origen
+			glVertex3f(position.x,position.y, position.z);
+			//destino
+			glVertex3f(childs[i]->position.x, childs[i]->position.y, childs[i]->position.z);
+			glLineWidth(200.0f);
+			glEnd();
+			glPopMatrix();
+	}
+
 }
