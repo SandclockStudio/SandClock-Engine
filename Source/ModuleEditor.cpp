@@ -298,14 +298,15 @@ void ModuleEditor::DrawProperties()
 				
 
 				if (ImGui::SliderAngle("Rotation", (float*)&rot))
-				{//selected->SetLocalRotation(rot); 
+				{
+					//selected->SetLocalRotation(rot); 
 				}
 					
 
 					if (ImGui::DragFloat3("Scale", (float*)&scale, 0.05f))
 						
 					{
-						selected->setScale(pos);
+						selected->setScale(scale);
 
 					}
 		}

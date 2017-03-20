@@ -1,4 +1,6 @@
 #include "ComponentTransform.h"
+#include "GameObject.h"
+#include "MathGeoLib.h"
 
 ComponentTransform::ComponentTransform(bool start_enabled)
 {
@@ -16,19 +18,27 @@ void ComponentTransform::LoadTransform(aiNode * node)
 
 void ComponentTransform::Translate(aiVector3D translation)
 {
-	glTranslatef((GLfloat)translation.x, (GLfloat)translation.y, (GLfloat)translation.z);
-
-
+	pos = translation;
 }
 
 void ComponentTransform::Rotate(aiQuaternion rotation)
 {
 	//glRotatef((GLfloat)translation.x, (GLfloat)translation.y, (GLfloat)translation.z);
-
 }
 
-void ComponentTransform::Scale(aiVector3D scale)
+void ComponentTransform::Scale(aiVector3D scal)
 {
-	glScalef((GLfloat)scale.x, (GLfloat)scale.y, (GLfloat)scale.z);
+	scale = scal;
+}
 
+bool ComponentTransform::Update()
+{
+	float3 position = float3(pos.x, pos.y, pos.z);
+	Quat quaternion = Quat(quat.x,quat.y,quat.z,quat.w);
+	float3 scal = float3(scale.x, scale.y, scale.z);
+
+	float* transform = float4x4::FromTRS(position, quaternion, scal).Transposed().ptr();
+	glMultMatrixf(transform);
+
+	return true;
 }

@@ -97,18 +97,17 @@ void  ModuleScene::LoadGameObjects(aiNode * node,GameObject* parent)
 update_status ModuleScene::Update(float dt)
 {
 
-	
+	glPushMatrix();
 	for (int i = 0; i < gameObject.size(); i++)
 	{
 
 		gameObject[i]->Update();
-
-
-
 		gameObject[i]->DrawBoundingBox();
 
 	}
-	
+	glPopMatrix();
+
+
 	p->DrawDirect();
 	c->Draw2();
 	//batman->Draw();

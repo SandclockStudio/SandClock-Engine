@@ -142,16 +142,16 @@ GameObject * GameObject::LoadGameObjectMesh(aiNode * node, aiMesh * mesh, const 
 	rotation = transform->quat;
 	scale = transform->scale;
 
-
-
 	ComponentMaterial* material = new ComponentMaterial(true);
 	go->AddComponent(material);
 	material->LoadMaterial(scene->mMaterials[mesh->mMaterialIndex]);
-	
-
 
 	ComponentMesh* m = new ComponentMesh(true);
 	go->AddComponent(m);
+
+
+
+
 
 	m->LoadMesh(mesh, scene);
 

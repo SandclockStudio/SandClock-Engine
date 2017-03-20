@@ -17,7 +17,7 @@ public:
 	ComponentTransform(bool start_enabled = true);
 	~ComponentTransform();
 
-
+	bool Update();
 	void LoadTransform(aiNode* node);
 	void Translate(aiVector3D translation);
 	void Rotate(aiQuaternion rotation);
