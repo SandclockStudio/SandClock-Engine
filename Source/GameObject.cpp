@@ -54,6 +54,22 @@ bool GameObject::Update()
 	return true;
 }
 
+bool GameObject::PreUpdate()
+{
+	for (int i = 0; i < components.size(); ++i)
+	{
+		components[i]->PreUpdate();
+	}
+	if (childs.size() < 0)
+	{
+		for (int i = 0; i < childs.size(); ++i)
+		{
+			childs[i]->PreUpdate();
+		}
+	}
+	return true;
+}
+
 void GameObject::DrawBoundingBox()
 {
 	
@@ -124,75 +140,6 @@ void GameObject::DrawBoundingBox()
 }
 
 
-void GameObject::DrawBoundingBox()
-{
-
-	boundingBox.GetCornerPoints(corners);
-
-	float3 b1 = boundingBox.minPoint;
-	float3 b2 = boundingBox.maxPoint;
-	float3 b3 = float3(b1.x, b1.y, b2.z);
-	float3 b4 = float3(b1.x, b2.y, b1.z);
-	float3 b5 = float3(b2.x, b1.y, b1.z);
-	float3 b6 = float3(b1.x, b2.y, b2.z);
-	float3 b7 = float3(b2.x, b1.y, b2.z);
-	float3 b8 = float3(b2.x, b2.y, b1.z);
-
-
-	glBegin(GL_LINES);
-
-	glColor3f(1.0f, 1.0f, 1.0f);
-	glVertex3f(b6.x, b6.y, b6.z);
-	glVertex3f(b2.x, b2.y, b2.z);
-
-	glColor3f(1.0f, 1.0f, 1.0f);
-	glVertex3f(b2.x, b2.y, b2.z);
-	glVertex3f(b8.x, b8.y, b8.z);
-
-	glColor3f(1.0f, 1.0f, 1.0f);
-	glVertex3f(b8.x, b8.y, b8.z);
-	glVertex3f(b4.x, b4.y, b4.z);
-
-	glColor3f(1.0f, 1.0f, 1.0f);
-	glVertex3f(b4.x, b4.y, b4.z);
-	glVertex3f(b6.x, b6.y, b6.z);
-
-	glColor3f(1.0f, 1.0f, 1.0f);
-	glVertex3f(b3.x, b3.y, b3.z);
-	glVertex3f(b7.x, b7.y, b7.z);
-
-	glColor3f(1.0f, 1.0f, 1.0f);
-	glVertex3f(b7.x, b7.y, b7.z);
-	glVertex3f(b5.x, b5.y, b5.z);
-
-	glColor3f(1.0f, 1.0f, 1.0f);
-	glVertex3f(b5.x, b5.y, b5.z);
-	glVertex3f(b1.x, b1.y, b1.z);
-
-	glColor3f(1.0f, 1.0f, 1.0f);
-	glVertex3f(b1.x, b1.y, b1.z);
-	glVertex3f(b3.x, b3.y, b3.z);
-
-	glColor3f(1.0f, 1.0f, 1.0f);
-	glVertex3f(b6.x, b6.y, b6.z);
-	glVertex3f(b3.x, b3.y, b3.z);
-
-	glColor3f(1.0f, 1.0f, 1.0f);
-	glVertex3f(b2.x, b2.y, b2.z);
-	glVertex3f(b7.x, b7.y, b7.z);
-
-	glColor3f(1.0f, 1.0f, 1.0f);
-	glVertex3f(b8.x, b8.y, b8.z);
-	glVertex3f(b5.x, b5.y, b5.z);
-
-	glColor3f(1.0f, 1.0f, 1.0f);
-	glVertex3f(b4.x, b4.y, b4.z);
-	glVertex3f(b1.x, b1.y, b1.z);
-
-	glLineWidth(20.0f);
-	glEnd();
-}
-
 GameObject * GameObject::FindGameObject(const char * node)
 {
 	for (int i = 0; i<childs.size(); i++)
@@ -219,16 +166,16 @@ GameObject * GameObject::LoadGameObjectMesh(aiNode * node, aiMesh * mesh, const 
 
 
 
-	//ComponentMaterial* material = new ComponentMaterial(true);
-	//go->AddComponent(material);
-	//material->LoadMaterial(scene->mMaterials[mesh->mMaterialIndex]);
+	ComponentMaterial* material = new ComponentMaterial(true);
+	go->AddComponent(material);
+	material->LoadMaterial(scene->mMaterials[mesh->mMaterialIndex]);
 
 
 
-	//ComponentMesh* m = new ComponentMesh(true);
-	//go->AddComponent(m);
+	ComponentMesh* m = new ComponentMesh(true);
+	go->AddComponent(m);
 
-	//m->LoadMesh(mesh, scene);
+	m->LoadMesh(mesh, scene);
 
 	return go;
 }
@@ -264,28 +211,12 @@ aiVector3D GameObject::getScale()
 
 void GameObject::setPosition(aiVector3D newPosition)
 {
-	
-
 	position = newPosition;
 	if (components.size() > 1)
 	{
 		dynamic_cast<ComponentTransform*>(components[0])->Translate(newPosition);
 	}
-
-
-	//Si hay mesh, entonces añadimos componente mesh y material
-	if (node->mNumMeshes > 0)
-	{
-		ComponentMesh* mesh = new ComponentMesh(true);
-		mesh->LoadMesh(scene->mMeshes[node->mMeshes[0]], scene);
-		go->AddComponent(mesh);
-	}
 }
-aiVector3D GameObject::getScale()
-{
-	return scale;
-}
-
 
 void GameObject::DrawLines()
 {
@@ -310,4 +241,5 @@ void GameObject::setScale(aiVector3D newScale)
 	if (components.size() > 1)
 	{
 		dynamic_cast<ComponentTransform*>(components[0])->Scale(newScale);
+	}
 }

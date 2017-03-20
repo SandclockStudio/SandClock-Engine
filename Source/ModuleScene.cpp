@@ -97,6 +97,7 @@ void  ModuleScene::LoadGameObjects(aiNode * node,GameObject* parent)
 
 update_status ModuleScene::PreUpdate(float dt)
 {
+
 	for (int i = 0; i < gameObject.size(); i++)
 	{
 		gameObject[i]->PreUpdate();
@@ -108,23 +109,13 @@ update_status ModuleScene::PreUpdate(float dt)
 // Update: draw background
 update_status ModuleScene::Update(float dt)
 {
-
-
-	gameObject[0]->Update();
-
-	std::vector<GameObject*> childs = root->getChilds();
-
-
-	for (int i = 0; i < childs.size(); i++)
+	for (int i = 0; i < gameObject.size(); i++)
 	{
-		childs[i]->Update();
-
-		glPushMatrix();
-		childs[i]->DrawBoundingBox();
-		glPopMatrix();
+		gameObject[i]->Update();
+		gameObject[i]->DrawBoundingBox();
 	}
-	
-	//p->DrawDirect();
+
+	p->DrawDirect();
 	c->Draw2();
 
 	//batman->Draw();

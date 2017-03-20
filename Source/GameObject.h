@@ -35,6 +35,7 @@ class GameObject
 				: name(name), root(root)
 			{}
 			bool Update();
+			bool PreUpdate();
 			void DrawBoundingBox();
 			GameObject* FindGameObject(const char* node);
 			void AddChild(GameObject* node, GameObject* destination);
@@ -43,6 +44,8 @@ class GameObject
 			aiVector3D getPosition();
 			aiQuaternion getRotation();
 			aiVector3D getScale();
+
+			void DrawLines();
 
 			void setPosition(aiVector3D newPosition);
 
