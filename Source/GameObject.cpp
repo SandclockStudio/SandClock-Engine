@@ -215,6 +215,13 @@ void GameObject::setPosition(aiVector3D newPosition)
 	{
 		dynamic_cast<ComponentTransform*>(components[0])->Translate(newPosition);
 	}
+	else
+	{
+		for (int i = 0; i < getChilds().size(); i++)
+		{
+			childs[i]->setPosition(position.SymMul(newPosition));
+		}
+	}
 }
 
 void GameObject::DrawLines()
@@ -238,5 +245,12 @@ void GameObject::setScale(aiVector3D newScale)
 	if (components.size() > 1)
 	{
 		dynamic_cast<ComponentTransform*>(components[0])->Scale(newScale);
+	}
+	else
+	{
+		for (int i = 0; i < getChilds().size(); i++)
+		{
+			childs[i]->setScale(newScale);
+		}
 	}
 }

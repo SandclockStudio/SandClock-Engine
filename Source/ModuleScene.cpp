@@ -23,7 +23,7 @@ ModuleScene::~ModuleScene()
 // Load assets
 bool ModuleScene::Start()
 {
-	scene = aiImportFile("batman.obj",  aiProcessPreset_TargetRealtime_MaxQuality);
+	scene = aiImportFile("ArmyPilot.dae",  aiProcessPreset_TargetRealtime_MaxQuality);
 
 	LOGCHAR("Loading space intro");
 	c = new Cube(0.5f,index);
@@ -40,6 +40,9 @@ bool ModuleScene::Start()
 	camera->AddComponent(componentCamera);
 	gameObject.push_back(camera);
 	root = new GameObject(scene->mRootNode->mName,nullptr);
+	ComponentTransform rootTransform;
+	rootTransform = new ComponentTransform();
+	rootTransform.LoadTransform(scene->mRootNode);
 	LoadGameObjects(scene->mRootNode, root);
 	return true;
 }
@@ -89,8 +92,9 @@ void  ModuleScene::LoadGameObjects(aiNode * node,GameObject* parent)
 
 	for (int i = 0; i < node->mNumChildren; i++)
 	{
+		if(parent->GetRootNode() != nullptr)
+			object->SetRootNode(parent);
 
-		object->SetRootNode(parent);
 		LoadGameObjects(node->mChildren[i], object);
 	}
 }
