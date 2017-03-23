@@ -15,6 +15,7 @@ ComponentMesh::~ComponentMesh()
 
 bool ComponentMesh::Update()
 {
+
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_NORMAL_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);

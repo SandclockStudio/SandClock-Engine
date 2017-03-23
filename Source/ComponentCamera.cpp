@@ -43,7 +43,8 @@ bool ComponentCamera::Update()
 	movement = float3::zero;
 	if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT) Position(float3(frustum.pos.x, frustum.pos.y + (speed* dt), frustum.pos.z));
 	if (App->input->GetKey(SDL_SCANCODE_E) == KEY_REPEAT) Position(float3(frustum.pos.x, frustum.pos.y - (speed* dt), frustum.pos.z));
-	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) movement += frustum.front;
+	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) 
+		movement += frustum.front;
 	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) movement -= frustum.front;
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) movement += frustum.WorldRight();
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) movement -= frustum.WorldRight();

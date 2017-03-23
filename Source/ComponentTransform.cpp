@@ -43,6 +43,7 @@ void ComponentTransform::Scale(aiVector3D scal)
 
 bool ComponentTransform::Update()
 {
+
 	glPushMatrix();
 	float3 position = float3(pos.x, pos.y, pos.z);
 	Quat quaternion = Quat(quat.x,quat.y,quat.z,quat.w);

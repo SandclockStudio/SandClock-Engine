@@ -22,6 +22,7 @@ public:
 
 	bool Start();
 	update_status Update(float dt);
+	bool intersectFrustumAABB(Frustum f, AABB b);
 	bool CleanUp();
 
 	void LoadGameObjects(aiNode* node, GameObject* parent);
