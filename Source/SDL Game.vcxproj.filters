@@ -172,9 +172,6 @@
     <ClInclude Include="..\Libraries\Geometry\Polyhedron.h">
       <Filter>Math\Geometry</Filter>
     </ClInclude>
-    <ClInclude Include="..\Libraries\Geometry\QuadTree.h">
-      <Filter>Math\Geometry</Filter>
-    </ClInclude>
     <ClInclude Include="..\Libraries\Geometry\Ray.h">
       <Filter>Math\Geometry</Filter>
     </ClInclude>
@@ -478,6 +475,12 @@
     <ClInclude Include="ComponentCamera.h">
       <Filter>Game Modules</Filter>
     </ClInclude>
+    <ClInclude Include="QuadTreeNode.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\Geometry\QuadTreeNode.h">
+      <Filter>Math\Geometry</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -666,6 +669,9 @@
     <ClCompile Include="ComponentCamera.cpp">
       <Filter>Game Modules</Filter>
     </ClCompile>
+    <ClCompile Include="QuadTreeNode.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="config.json">
@@ -681,9 +687,6 @@
       <Filter>Math\Geometry</Filter>
     </None>
     <None Include="..\Libraries\Geometry\KDTree.inl">
-      <Filter>Math\Geometry</Filter>
-    </None>
-    <None Include="..\Libraries\Geometry\QuadTree.inl">
       <Filter>Math\Geometry</Filter>
     </None>
     <None Include="..\Libraries\Math\Matrix.inl">
@@ -712,6 +715,9 @@
     </None>
     <None Include="..\Libraries\assimp\include\assimp\matrix4x4.inl">
       <Filter>Assimp</Filter>
+    </None>
+    <None Include="..\Libraries\Geometry\QuadTreeNode.inl">
+      <Filter>Math\Geometry</Filter>
     </None>
   </ItemGroup>
 </Project>

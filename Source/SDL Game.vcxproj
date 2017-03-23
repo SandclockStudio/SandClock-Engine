@@ -133,7 +133,7 @@
     <ClInclude Include="..\Libraries\Geometry\Plane.h" />
     <ClInclude Include="..\Libraries\Geometry\Polygon.h" />
     <ClInclude Include="..\Libraries\Geometry\Polyhedron.h" />
-    <ClInclude Include="..\Libraries\Geometry\QuadTree.h" />
+    <ClInclude Include="..\Libraries\Geometry\QuadTreeNode.h" />
     <ClInclude Include="..\Libraries\Geometry\Ray.h" />
     <ClInclude Include="..\Libraries\Geometry\Sphere.h" />
     <ClInclude Include="..\Libraries\Geometry\Triangle.h" />
@@ -215,6 +215,7 @@
     <ClInclude Include="MPlane.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="Primitive.h" />
+    <ClInclude Include="QuadTreeNode.h" />
     <ClInclude Include="SimpleTimer.h" />
     <ClInclude Include="SOIL.h" />
     <ClInclude Include="TextureManager.h" />
@@ -282,6 +283,7 @@
     <ClCompile Include="ModuleWindow.cpp" />
     <ClCompile Include="parson.c" />
     <ClCompile Include="MPlane.cpp" />
+    <ClCompile Include="QuadTreeNode.cpp" />
     <ClCompile Include="TextureManager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -294,7 +296,7 @@
     <None Include="..\Libraries\assimp\include\assimp\vector3.inl" />
     <None Include="..\Libraries\Devil\include\IL\DevIL.i" />
     <None Include="..\Libraries\Geometry\KDTree.inl" />
-    <None Include="..\Libraries\Geometry\QuadTree.inl" />
+    <None Include="..\Libraries\Geometry\QuadTreeNode.inl" />
     <None Include="..\Libraries\Geometry\TriangleMesh_IntersectRay_AVX.inl" />
     <None Include="..\Libraries\Geometry\TriangleMesh_IntersectRay_CPP.inl" />
     <None Include="..\Libraries\Geometry\TriangleMesh_IntersectRay_SSE.inl" />
