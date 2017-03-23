@@ -22,7 +22,7 @@ void ComponentTransform::Translate(aiVector3D translation)
 	for (int i = 0; myGo->getChilds().size(); i++)
 	{
 		if (myGo->getChilds()[i]->components[0] != nullptr)
-			dynamic_cast<ComponentTransform*>(myGo->getChilds()[i]->components[0])->Translate(pos.SymMul(translation));
+			dynamic_cast<ComponentTransform*>(myGo->getChilds()[i]->components[0])->Translate(translation);
 	}
 }
 

@@ -17,6 +17,8 @@ class GameObject
 			aiString name;
 			GameObject* root = nullptr;
 			std::vector<GameObject*> childs;
+			bool inFrustum;
+
 
 			aiVector3D position;
 			aiQuaternion rotation;
@@ -31,10 +33,10 @@ class GameObject
 			void CleanUp();
 			void AddComponent(Component* component);
 			void DeleteComponent(Component* component);
+			bool Update(Frustum frustum);
 			GameObject(aiString name, GameObject* root = nullptr)
 				: name(name), root(root)
-			{}
-			bool Update();
+			{};
 			bool PreUpdate();
 			void DrawBoundingBox();
 			GameObject* FindGameObject(const char* node);
@@ -52,6 +54,9 @@ class GameObject
 			void setRotation(aiQuaternion newRotation);
 
 			void setScale(aiVector3D newScale);
+
+			bool intersectFrustumAABB(Frustum f, AABB b);
+
 
 
 

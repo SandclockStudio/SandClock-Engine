@@ -12,7 +12,7 @@
 #include <assimp\include\assimp\postprocess.h>
 #include "Component.h"
 #include "ComponentTransform.h"
-
+#include "MathGeoLib.h"
 
 ModuleScene::ModuleScene(bool active) : Module(active)
 {}
@@ -115,7 +115,7 @@ update_status ModuleScene::Update(float dt)
 {
 	for (int i = 0; i < gameObject.size(); i++)
 	{
-		gameObject[i]->Update();
+		gameObject[i]->Update(componentCamera->frustum);
 
 	}
 	p->DrawDirect();
@@ -130,3 +130,4 @@ update_status ModuleScene::Update(float dt)
 
 	return UPDATE_CONTINUE;
 }
+

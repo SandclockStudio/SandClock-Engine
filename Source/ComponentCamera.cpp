@@ -1,6 +1,7 @@
 #include "ComponentCamera.h"
 #include "Application.h"
 #include "ModuleInput.h"
+#include "Devil\include\IL\ilut.h"
 
 ComponentCamera::ComponentCamera(bool start_enabled)
 {

@@ -3,11 +3,6 @@
 
 #include "Component.h"
 #include <vector>
-#include "Devil\include\IL\ilut.h"
-#include "assimp\include\assimp\cimport.h"
-#include <assimp\include\assimp\postprocess.h>
-#include "Globals.h"
-#include <assimp/include/assimp/scene.h>
 #include "MathGeoLib.h"
 
 
@@ -28,12 +23,13 @@ public:
 	void SetPlaneDistances(float, float);
 	float * GetProjectionMatrix();
 	float * GetViewMatrix();
+	Frustum frustum;
 
 private:
 
 	float4x4 matrix;
 	Quat quaternion;
-	Frustum frustum;
+
 	float speed, rotation_speed;
 	float3 movement;
 	float dt;
