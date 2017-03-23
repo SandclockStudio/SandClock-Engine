@@ -267,10 +267,10 @@ void GameObject::setScale(aiVector3D newScale)
 * @param b An axis aligned bounding box.
 * @return True if b intersects f, false otherwise.
 */
-bool GameObject::intersectFrustumAABB(Frustum f, AABB b)
+bool GameObject::intersectFrustumAABB(Frustum f, AABB box)
 {
 	// Indexed for the 'index trick' later
-	float3 box[] = { b.minPoint, b.maxPoint };
+	//float3 box[] = { b.minPoint, b.maxPoint };
 
 	// We have 6 planes defining the frustum
 	static const int NUM_PLANES = 6;
@@ -278,29 +278,51 @@ bool GameObject::intersectFrustumAABB(Frustum f, AABB b)
 	{ f.GetPlane(0), f.GetPlane(1), f.GetPlane(2), f.GetPlane(3), f.GetPlane(4), f.GetPlane(5) };
 
 	// We only need to do 6 point-plane tests
-	for (int i = 0; i < NUM_PLANES; ++i)
-	{
+	//for (int i = 0; i < NUM_PLANES; ++i)
+	//{
 		// This is the current plane
-		const Plane p = planes[i];
+	/*	const Plane p = planes[i];
 
 		// p-vertex selection (with the index trick)
 		// According to the plane normal we can know the
 		// indices of the positive vertex
-		const int px = static_cast<int>(p.normal.x > 0.0f);
-		const int py = static_cast<int>(p.normal.y > 0.0f);
-		const int pz = static_cast<int>(p.normal.z > 0.0f);
+		
+
+		
+
+
+		const int px = static_cast<int>(a > 0.0f);
+		const int py = static_cast<int>(b > 0.0f);
+		const int pz = static_cast<int>(b > 0.0f);
 
 		// Dot product
 		// project p-vertex on plane normal
 		// (How far is p-vertex from the origin)
 		const float dp =
-			(p.normal.x*box[px].x) +
-			(p.normal.y*box[py].y) +
-			(p.normal.z*box[pz].z);
+			(a*box[px].x) +
+			(b*box[py].y) +
+			(c*box[pz].z)+p.d;
 
 		// Doesn't intersect if it is behind the plane
-		if (dp < -p.d) { return false; }
+		if (dp < 0) { return false; }*/
+
+
+		for (int i = 0; i<6; i++)
+		{
+			const Plane p = planes[i];
+
+			float out = 0; 
+			out += ((p.Contains(float3(box.minPoint.x, box.minPoint.y, box.minPoint.z))) ? 1 : 0);
+			out += ((p.Contains(float3(box.maxPoint.x, box.minPoint.y, box.minPoint.z))) ? 1 : 0);
+			out += ((p.Contains(float3(box.minPoint.x, box.maxPoint.y, box.minPoint.z))) ? 1 : 0);
+			out += ((p.Contains(float3(box.maxPoint.x, box.maxPoint.y, box.minPoint.z))) ? 1 : 0);
+			out += ((p.Contains(float3(box.minPoint.x, box.minPoint.y, box.maxPoint.z))) ? 1 : 0);
+			out += ((p.Contains(float3(box.maxPoint.x, box.minPoint.y, box.maxPoint.z))) ? 1 : 0);
+			out += ((p.Contains(float3(box.minPoint.x, box.maxPoint.y, box.maxPoint.z))) ? 1 : 0);
+			out += ((p.Contains(float3(box.maxPoint.x, box.maxPoint.y, box.maxPoint.z))) ? 1 : 0);
+			if (out == 8) return false;
+			
+		}
+		return true;
 	}
 
-	return true;
-}
