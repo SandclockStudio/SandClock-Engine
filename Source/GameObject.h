@@ -33,7 +33,7 @@ class GameObject
 			void CleanUp();
 			void AddComponent(Component* component);
 			void DeleteComponent(Component* component);
-			bool Update();
+			bool Update(Frustum f);
 			GameObject(aiString name, GameObject* root = nullptr)
 				: name(name), root(root)
 			{};

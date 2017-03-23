@@ -38,22 +38,21 @@ void GameObject::DeleteComponent(Component * component)
 	*/
 }
 
-bool GameObject::Update()
+bool GameObject::Update(Frustum f)
 {
 	for (int i = 0; i < components.size(); ++i)
 	{
 		components[i]->Update();
 	}
 
-	if (!inFrustum)
+
+	if (childs.size() < 0)
 	{
-		if (childs.size() < 0)
+		for (int i = 0; i < childs.size(); ++i)
 		{
-			for (int i = 0; i < childs.size(); ++i)
-			{
-				DrawLines();
-				childs[i]->Update();
-			}
+			DrawLines();
+			if (intersectFrustumAABB(f, childs[i]->boundingBox))
+				childs[i]->Update(f);
 		}
 	}
 
@@ -262,3 +261,46 @@ void GameObject::setScale(aiVector3D newScale)
 }
 
 
+/**
+* Tells whether or not b is intersecting f.
+* @param f Viewing frustum.
+* @param b An axis aligned bounding box.
+* @return True if b intersects f, false otherwise.
+*/
+bool GameObject::intersectFrustumAABB(Frustum f, AABB b)
+{
+	// Indexed for the 'index trick' later
+	float3 box[] = { b.minPoint, b.maxPoint };
+
+	// We have 6 planes defining the frustum
+	static const int NUM_PLANES = 6;
+	const Plane planes[NUM_PLANES] =
+	{ f.GetPlane(0), f.GetPlane(1), f.GetPlane(2), f.GetPlane(3), f.GetPlane(4), f.GetPlane(5) };
+
+	// We only need to do 6 point-plane tests
+	for (int i = 0; i < NUM_PLANES; ++i)
+	{
+		// This is the current plane
+		const Plane p = planes[i];
+
+		// p-vertex selection (with the index trick)
+		// According to the plane normal we can know the
+		// indices of the positive vertex
+		const int px = static_cast<int>(p.normal.x > 0.0f);
+		const int py = static_cast<int>(p.normal.y > 0.0f);
+		const int pz = static_cast<int>(p.normal.z > 0.0f);
+
+		// Dot product
+		// project p-vertex on plane normal
+		// (How far is p-vertex from the origin)
+		const float dp =
+			(p.normal.x*box[px].x) +
+			(p.normal.y*box[py].y) +
+			(p.normal.z*box[pz].z);
+
+		// Doesn't intersect if it is behind the plane
+		if (dp < -p.d) { return false; }
+	}
+
+	return true;
+}
