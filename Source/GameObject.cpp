@@ -4,6 +4,7 @@
 #include "ComponentCamera.h"
 #include "ComponentMesh.h"
 #include "Application.h"
+#include <vector>
 //#include "ModuleScene.h"
 
 void GameObject::CleanUp()
@@ -305,24 +306,40 @@ bool GameObject::intersectFrustumAABB(Frustum f, AABB box)
 
 		// Doesn't intersect if it is behind the plane
 		if (dp < 0) { return false; }*/
+	std::vector<float3> points;
+	float3 b1 = box.minPoint;
+	points.push_back(b1);
+	float3 b2 = box.maxPoint;
+	points.push_back(b2);
+	float3 b3 = float3(b1.x, b1.y, b2.z);
+	points.push_back(b3);
+	float3 b4 = float3(b1.x, b2.y, b1.z);
+	points.push_back(b4);
+	float3 b5 = float3(b2.x, b1.y, b1.z);
+	points.push_back(b5);
+	float3 b6 = float3(b1.x, b2.y, b2.z);
+	points.push_back(b6);
+	float3 b7 = float3(b2.x, b1.y, b2.z);
+	points.push_back(b7);
+	float3 b8 = float3(b2.x, b2.y, b1.z);
+	points.push_back(b8);
+	float3 b9 = box.CenterPoint();
+	points.push_back(b9);
 
 
+	for (int j = 0; j < points.size(); j++)
+	{
+		int out = 0;
 		for (int i = 0; i<6; i++)
 		{
 			const Plane p = planes[i];
 
-			float out = 0; 
-			out += ((p.Contains(float3(box.minPoint.x, box.minPoint.y, box.minPoint.z))) ? 1 : 0);
-			out += ((p.Contains(float3(box.maxPoint.x, box.minPoint.y, box.minPoint.z))) ? 1 : 0);
-			out += ((p.Contains(float3(box.minPoint.x, box.maxPoint.y, box.minPoint.z))) ? 1 : 0);
-			out += ((p.Contains(float3(box.maxPoint.x, box.maxPoint.y, box.minPoint.z))) ? 1 : 0);
-			out += ((p.Contains(float3(box.minPoint.x, box.minPoint.y, box.maxPoint.z))) ? 1 : 0);
-			out += ((p.Contains(float3(box.maxPoint.x, box.minPoint.y, box.maxPoint.z))) ? 1 : 0);
-			out += ((p.Contains(float3(box.minPoint.x, box.maxPoint.y, box.maxPoint.z))) ? 1 : 0);
-			out += ((p.Contains(float3(box.maxPoint.x, box.maxPoint.y, box.maxPoint.z))) ? 1 : 0);
-			if (out == 8) return false;
-			
+			if (p.SignedDistance(points[j])<0)	out++;
+
 		}
-		return true;
+		if (out == 6)return true;
+	}
+		
+		return false;
 	}
 
