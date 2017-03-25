@@ -234,16 +234,23 @@ void GameObject::DrawLines()
 {
 	for (int i = 0; i < childs.size(); i++)
 	{
-			glBegin(GL_LINES);
-			glColor3f(0.0f, 1.0f, 1.0f);
-			//origen
-			glVertex3f(position.x,position.y, position.z);
-			//destino
-			glVertex3f(childs[i]->position.x, childs[i]->position.y, childs[i]->position.z);
-			glLineWidth(200.0f);
-			glEnd();
+		glPushMatrix();
+		glBegin(GL_LINES);
+		glColor3f(0.0f, 1.0f, 1.0f);
+		//origen
+		glVertex3f(position.x, position.y, position.z);
+
+		//destino
+
+		glVertex3f(childs[i]->position.x*position.x, childs[i]->position.y*position.y, childs[i]->position.z*position.z);
+
+		glLineWidth(200.0f);
+		glEnd();
+		glPopMatrix();
 	}
+
 }
+
 
 void GameObject::setScale(aiVector3D newScale)
 {

@@ -153,7 +153,44 @@ update_status ModuleScene::PreUpdate(float dt)
 
 	return UPDATE_CONTINUE;
 }
+update_status ModuleScene::Update(float dt)
+{
 
+
+	gameObject[0]->Update(componentCamera->frustum);
+
+	std::vector<GameObject*> childs = root->getChilds();
+
+
+	for (int i = 0; i < childs.size(); i++)
+	{
+		childs[i]->Update(componentCamera->frustum);
+
+		glPushMatrix();
+		childs[i]->DrawBoundingBox();
+		glPopMatrix();
+	}
+
+	p->DrawDirect();
+	c->Draw2();
+
+	//batman->Draw();
+	//l->Draw();
+	//g->DrawDirect();
+	//ImGui::ShowTestWindow();
+
+	/*
+
+	if(App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && App->fade->isFading() == false)
+	{
+	App->fade->FadeToBlack((Module*)App->scene_level, this);
+	App->audio->PlayFx(fx);
+	}
+	*/
+
+	return UPDATE_CONTINUE;
+}
+/*
 // Update: draw background
 update_status ModuleScene::Update(float dt)
 {
@@ -176,5 +213,5 @@ update_status ModuleScene::Update(float dt)
 
 
 	return UPDATE_CONTINUE;
-}
+}*/
 
