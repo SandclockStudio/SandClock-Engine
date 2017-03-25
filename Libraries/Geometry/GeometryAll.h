@@ -47,7 +47,7 @@
 #include "Plane.h"
 #include "Polygon.h"
 #include "Polyhedron.h"
-#include "QuadTree.h"
+//#include "QuadTree.h"
 #include "Ray.h"
 #include "Sphere.h"
 #include "Triangle.h"

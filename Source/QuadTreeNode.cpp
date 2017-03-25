@@ -80,7 +80,7 @@ void QuadTreeNode::Insert(GameObject* gameObject, NodeTree * parent)
 
 			for (int j = 0; j < parent->gameObjects.size(); j++)
 			{
-				Insert(parent->gameObjects[i],)
+				//Insert(parent->gameObjects[i],)
 			}
 
 
