@@ -23,7 +23,7 @@ ModuleScene::~ModuleScene()
 // Load assets
 bool ModuleScene::Start()
 {
-	scene = aiImportFile("ArmyPilot.dae",  aiProcessPreset_TargetRealtime_MaxQuality);
+	scene = aiImportFile("Batman.obj",  aiProcessPreset_TargetRealtime_MaxQuality);
 	//scene = aiImportFile("ArmyPilot.dae", aiProcessPreset_TargetRealtime_MaxQuality);
 
 	LOGCHAR("Loading space intro");
@@ -178,9 +178,7 @@ update_status ModuleScene::Update(float dt)
 		glPopMatrix();
 	}
 
-	p->DrawDirect();
-	c->Draw2();
-	quadTree->root->DebugDraw();
+	//quadTree->root->DebugDraw();
 
 	//batman->Draw();
 	//l->Draw();

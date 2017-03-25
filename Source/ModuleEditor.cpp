@@ -280,20 +280,21 @@ void ModuleEditor::DrawProperties()
 	ImGui::Unindent(15.0f);
 	if (selected != nullptr)
 	{
-		GameObject* gOSelected = selected;
+		GameObject gOSelected = *selected;
 		//Aquí falla al coger la posición y la rotación que la recoge el gameobject del componente
 		if (ImGui::CollapsingHeader("Local Transformation", ImGuiTreeNodeFlags_DefaultOpen))
 		{
-			aiVector3D pos = selected->getPosition();
-			aiQuaternion rot = selected->getRotation();
+			aiVector3D pos = gOSelected.getPosition();
+			aiQuaternion rot = gOSelected.getRotation();
 			rot.x = fabsf(rot.x);
 			rot.y = fabsf(rot.y);
 			rot.z = fabsf(rot.z);
-			aiVector3D scale = selected->getScale();
+			aiVector3D scale = gOSelected.getScale();
 			//Una vez se recoja tiene que tener el gameObject una funión para poner la posición y la rotación que se le pase
 			if (ImGui::DragFloat3("Position", (float*)&pos, 0.01f))
 			{
-				selected->setPosition(pos); 
+
+				gOSelected.setPosition(pos);
 			}
 				
 			if (ImGui::SliderAngle("Rotation", (float*)&rot))
@@ -303,7 +304,7 @@ void ModuleEditor::DrawProperties()
 
 			if (ImGui::DragFloat3("Scale", (float*)&scale, 0.05f))		
 			{
-				selected->setScale(scale);
+				gOSelected.setScale(scale);
 			}
 		}
 	}

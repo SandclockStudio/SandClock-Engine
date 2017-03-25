@@ -18,14 +18,11 @@ void ComponentTransform::LoadTransform(aiNode * node)
 
 void ComponentTransform::Translate(aiVector3D translation)
 {
-	
+	glPushMatrix();
 	pos = translation;
-	/*for (int i = 0; myGo->getChilds().size(); i++)
-	{
-		if (myGo->getChilds()[i]->components[0] != nullptr)
-			dynamic_cast<ComponentTransform*>(myGo->getChilds()[i]->components[0])->Translate(translation);
-	}*/
-
+	Update();
+	glPopMatrix();
+	
 }
 
 void ComponentTransform::Rotate(aiQuaternion rotation)
@@ -35,7 +32,10 @@ void ComponentTransform::Rotate(aiQuaternion rotation)
 
 void ComponentTransform::Scale(aiVector3D scal)
 {
+	glPushMatrix();
 	scale = scal;
+	Update();
+	glPopMatrix();
 	/*for (int i = 0; myGo->getChilds().size(); i++)
 	{
 		if (myGo->getChilds()[i]->components[0] != nullptr)
