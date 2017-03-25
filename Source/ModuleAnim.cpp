@@ -94,7 +94,7 @@ void myAnimation::Update(double dt)
 		channels[i].currentTime += dt;
 
 		//Interpolation
-		for (int j = 0; i < sizeof(channels[i].position); j++)
+		for (int j = 0; i < channels[i].size; j++)
 		{
 			if (channels[i].position[j].mTime < channels[i].currentTime)
 			{
