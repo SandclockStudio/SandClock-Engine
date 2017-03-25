@@ -23,7 +23,7 @@ ModuleScene::~ModuleScene()
 // Load assets
 bool ModuleScene::Start()
 {
-	scene = aiImportFile("Street/street.obj",  aiProcessPreset_TargetRealtime_MaxQuality);
+	scene = aiImportFile("ArmyPilot.dae",  aiProcessPreset_TargetRealtime_MaxQuality);
 	//scene = aiImportFile("ArmyPilot.dae", aiProcessPreset_TargetRealtime_MaxQuality);
 
 	LOGCHAR("Loading space intro");
@@ -41,9 +41,10 @@ bool ModuleScene::Start()
 	camera->AddComponent(componentCamera);
 	gameObject.push_back(camera);
 	root = new GameObject(scene->mRootNode->mName,nullptr);
-	ComponentTransform rootTransform;
+	ComponentTransform* rootTransform;
 	rootTransform = new ComponentTransform();
-	rootTransform.LoadTransform(scene->mRootNode);
+	rootTransform->LoadTransform(scene->mRootNode);
+	root->AddComponent(rootTransform);
 	LoadGameObjects(scene->mRootNode, root);
 	return true;
 }
@@ -67,28 +68,30 @@ bool ModuleScene::CleanUp()
 void  ModuleScene::LoadGameObjects(aiNode * node,GameObject* parent)
 {
 	GameObject* object = new GameObject(node->mName, parent);
-
+	GameObject* my_go;
 	if (node->mNumMeshes > 1)
 	{
 		for (int i = 0; i < node->mNumMeshes; i++)
 		{
-			GameObject* my_go = object->LoadGameObjectMesh(node, scene->mMeshes[i], scene);
-			parent->AddChild(my_go, parent);
+			my_go = object->LoadGameObjectMesh(node, scene->mMeshes[i], scene);
+			parent->AddChild(my_go);
 			my_go->SetRootNode(parent);
 			gameObject.push_back(my_go);
 		}
 	}
 	else if (node->mNumMeshes == 1)
 	{
-		GameObject* my_go = object->LoadGameObjectMesh(node, scene->mMeshes[node->mMeshes[0]], scene);
-		parent->AddChild(my_go, parent);
+		 my_go = object->LoadGameObjectMesh(node, scene->mMeshes[node->mMeshes[0]], scene);
+		parent->AddChild(my_go);
 		my_go->SetRootNode(parent);
 		gameObject.push_back(my_go);
 	}
 	else
 	{
-		GameObject* my_go = object->LoadGameObject(node,scene);
-		parent->AddChild(object, parent);
+		my_go = object->LoadGameObject(node);
+		parent->AddChild(my_go);
+		my_go->SetRootNode(parent);
+
 	}
 
 	for (int i = 0; i < node->mNumChildren; i++)
@@ -96,32 +99,36 @@ void  ModuleScene::LoadGameObjects(aiNode * node,GameObject* parent)
 		if(parent->GetRootNode() != nullptr)
 			object->SetRootNode(parent);
 
-		LoadGameObjects(node->mChildren[i], object);
+		LoadGameObjects(node->mChildren[i], my_go);
 	}
 }
 
 update_status ModuleScene::PreUpdate(float dt)
 {
+	gameObject[0]->PreUpdate();
+	std::vector<GameObject*> childs = root->getChilds();
 
-	for (int i = 0; i < gameObject.size(); i++)
+	for (int i = 0; i < childs.size(); i++)
 	{
 		
-			gameObject[i]->PreUpdate();
+		childs[i]->PreUpdate();
 	}
 
 	return UPDATE_CONTINUE;
 }
+
 update_status ModuleScene::Update(float dt)
 {
 
-
+	p->DrawDirect();
+	c->Draw2();
 	gameObject[0]->Update(componentCamera->frustum);
-
 	std::vector<GameObject*> childs = root->getChilds();
-
 
 	for (int i = 0; i < childs.size(); i++)
 	{
+		childs[i]->DrawLines();
+
 		childs[i]->Update(componentCamera->frustum);
 
 		glPushMatrix();
@@ -129,8 +136,7 @@ update_status ModuleScene::Update(float dt)
 		glPopMatrix();
 	}
 
-	p->DrawDirect();
-	c->Draw2();
+
 
 	//batman->Draw();
 	//l->Draw();
@@ -148,8 +154,8 @@ update_status ModuleScene::Update(float dt)
 
 	return UPDATE_CONTINUE;
 }
-/*
 // Update: draw background
+/*
 update_status ModuleScene::Update(float dt)
 {
 	gameObject[0]->Update(componentCamera->frustum);
