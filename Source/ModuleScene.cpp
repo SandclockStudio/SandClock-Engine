@@ -46,8 +46,49 @@ bool ModuleScene::Start()
 	rootTransform->LoadTransform(scene->mRootNode);
 	root->AddComponent(rootTransform);
 	LoadGameObjects(scene->mRootNode, root);
+
+	quadTree = new QuadTreeNode();
+	quadTree->Create(AABB(float3(-10, 1, -10), float3(10, 1, 10)));
+
+	
+	GameObject * aaaa = new GameObject(aiString("AAAA"));
+	aaaa->boundingBox = AABB(float3(-8, 1, -8), float3(-6, 1, -6));
+
+	GameObject * bbbb = new GameObject(aiString("BBBB"));
+	bbbb->boundingBox = AABB(float3(-6, 1, -6), float3(-4, 1, -4));
+
+	GameObject * cccc = new GameObject(aiString("CCCC"));
+	cccc->boundingBox = AABB(float3(8, 1, 8), float3(6, 1, 6));
+
+	GameObject * dddd = new GameObject(aiString("DDDD"));
+	dddd->boundingBox = AABB(float3(6, 1, 6), float3(4, 1, 4));
+
+	GameObject * eeee = new GameObject(aiString("EEEE"));
+	eeee->boundingBox = AABB(float3(-8, 1, 8), float3(-6, 1, 6));
+
+	
+	quadTree->Insert(aaaa);
+	quadTree->Insert(bbbb);
+	quadTree->Insert(cccc);
+	quadTree->Insert(dddd);
+	//quadTree->Insert(eeee);
+	
+	/*for (int i = 0; i < root->getChilds().size(); i++) 
+	{
+		
+		quadTree->Insert(root->getChilds()[i]);
+	}*/
+
+	
+
 	return true;
 }
+
+/*vector<GameObject*> ModuleScene::CreateTestGameObjects()
+{
+
+	GameObject* object = new GameObject(, parent);
+}*/
 
 // UnLoad assets
 bool ModuleScene::CleanUp()
@@ -61,6 +102,7 @@ bool ModuleScene::CleanUp()
 		gameObject[i]->CleanUp();
 		RELEASE(gameObject[i]);
 	}
+	delete(quadTree);
 
 	return true;
 }
@@ -136,7 +178,9 @@ update_status ModuleScene::Update(float dt)
 		glPopMatrix();
 	}
 
-
+	p->DrawDirect();
+	c->Draw2();
+	quadTree->root->DebugDraw();
 
 	//batman->Draw();
 	//l->Draw();
@@ -168,6 +212,7 @@ update_status ModuleScene::Update(float dt)
 	p->DrawDirect();
 	c->Draw2();
 
+	quadTree->root->DebugDraw();
 
 	//batman->Draw();
 	//l->Draw();

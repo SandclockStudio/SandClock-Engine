@@ -9,6 +9,7 @@
 #include "Level.h"
 #include "GameObject.h"
 #include "ComponentCamera.h"
+#include "QuadTreeNode.h"
 
 
 
@@ -42,6 +43,8 @@ public:
 	GameObject* root;
 	GameObject* camera;
 	ComponentCamera* componentCamera;
+
+	QuadTreeNode* quadTree;
 
 private:
 	std::vector<GameObject*> gameObject;
