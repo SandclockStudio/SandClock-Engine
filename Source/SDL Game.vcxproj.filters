@@ -481,6 +481,9 @@
     <ClInclude Include="..\Libraries\Geometry\QuadTreeNode.h">
       <Filter>Math\Geometry</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleAnim.h">
+      <Filter>Game Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -671,6 +674,9 @@
     </ClCompile>
     <ClCompile Include="QuadTreeNode.cpp">
       <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleAnim.cpp">
+      <Filter>Game Modules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
