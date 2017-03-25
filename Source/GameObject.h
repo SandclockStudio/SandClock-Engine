@@ -57,7 +57,7 @@ class GameObject
 
 			bool intersectFrustumAABB(Frustum f, AABB b);
 
-
+			bool frustrumCulling = false;
 
 
 			AABB boundingBox;
