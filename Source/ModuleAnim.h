@@ -7,25 +7,33 @@
 #include <assimp/include/assimp/scene.h>
 #include "Module.h"
 #include <vector>
+#include <map>
+
 
 
 struct myChannel
 {
-	myChannel(aiString name, aiVectorKey*, aiQuatKey*)
+	myChannel(aiString name, aiVectorKey* position, aiQuatKey* rotations,aiVectorKey* scale) : name(name), position(position), rotations(rotations), scale(scale)
 	{};
+
 	aiVectorKey* position;
 	aiQuatKey* rotations;
+	aiVectorKey* scale;
 	aiString name;
 };
 
 
 struct myAnimation
 {
-	myAnimation(float, std::vector<myChannel>,double)
+	myAnimation(float id, std::vector<myChannel> channels,double duration) : id(id), channels(channels), duration(duration)
 	{};
+
+	void Update(double dt);
+	bool playing = false;
 	float id;
 	std::vector<myChannel> channels;
 	double duration;
+	double currentTime = 0;
 };
 
 class ModuleAnim:Module
@@ -33,9 +41,14 @@ class ModuleAnim:Module
 public:
 
 	void Load(aiString * name, aiScene * scene);
-	void Play();
+	void PlayAnimation(float index);
+	void PlayAll();
 	void Stop();
-	void Draw();
+	update_status Update(float dt);
+
+	aiVector3D InterpolateV3(const aiVector3D previous, const aiVector3D next, float lambda);
+
+	aiQuaternion InterpolateQuat(const aiQuaternion previous, const aiQuaternion next, float lambda);
 
 public:
 

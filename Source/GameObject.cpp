@@ -147,10 +147,10 @@ void GameObject::DrawBoundingBox()
 }
 
 
-GameObject * GameObject::FindGameObject(const char * node)
+GameObject * GameObject::FindGameObject(aiString node)
 {
 	for (int i = 0; i<childs.size(); i++)
-		if (strcmp(childs[i]->GetName().C_Str(), node) == 0)
+		if (childs[i]->GetName() == node)
 			return childs[i];
 	return nullptr;
 }

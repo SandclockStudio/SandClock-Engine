@@ -39,7 +39,7 @@ class GameObject
 			{};
 			bool PreUpdate();
 			void DrawBoundingBox();
-			GameObject* FindGameObject(const char* node);
+			GameObject * FindGameObject(aiString node);
 			void AddChild(GameObject* node, GameObject* destination);
 			GameObject* LoadGameObjectMesh(aiNode * node, aiMesh* mesh,const aiScene* scene);
 			GameObject* LoadGameObject(aiNode * node,const aiScene* scene);
