@@ -13,10 +13,12 @@ struct NodeTree
 	GameObject * gameObject;
 	//my parent
 	NodeTree * parent;
-	//
+	
 	AABB nodeBoundingBox;
-	//coger la de gameobject y dibujar
+
 	float3 nodeBoundingBoxSize;
+
+	int bucketSpace = 4;
 
 	std::vector<NodeTree*> childs;
 	
@@ -24,6 +26,10 @@ struct NodeTree
 
 	std::string name;
 	int capacity;
+
+	bool Insert(GameObject *, int indice);
+	NodeTree* Create(int indice, NodeTree* parent);
+	void DebugDraw();
 };
 
 class QuadTreeNode
@@ -31,13 +37,12 @@ class QuadTreeNode
 	public:
 		void Create(AABB limits);
 		void Clear();
-		void Insert(GameObject*, NodeTree*);
-		void DebugDraw();
+		void Insert(GameObject*);
 
 	public:
 		//std::vector<NodeTree*> objects;
 		NodeTree * root;
-		int bucketSpace = 4;
+		
 		
 };
 #endif
