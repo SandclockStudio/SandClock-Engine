@@ -70,7 +70,7 @@ bool ModuleScene::Start()
 	quadTree->Insert(bbbb);
 	quadTree->Insert(cccc);
 	quadTree->Insert(dddd);
-	quadTree->Insert(eeee);
+	//quadTree->Insert(eeee);
 	
 	/*for (int i = 0; i < root->getChilds().size(); i++) 
 	{
@@ -173,6 +173,7 @@ update_status ModuleScene::Update(float dt)
 
 	p->DrawDirect();
 	c->Draw2();
+	quadTree->root->DebugDraw();
 
 	//batman->Draw();
 	//l->Draw();
