@@ -36,7 +36,6 @@ void ModuleAnim::Stop()
 	for (int i = 0; i < loadAnimations.size(); i++)
 	{
 		loadAnimations[i].playing = false;
-		loadAnimations[i].currentTime = 0;
 	}
 }
 
@@ -47,14 +46,16 @@ update_status ModuleAnim::Update(float dt)
 		if (loadAnimations[i].playing)
 			loadAnimations[i].Update((double) dt);
 	}
+
+	return UPDATE_CONTINUE;
 }
 
-aiVector3D ModuleAnim::InterpolateV3(const aiVector3D previous, const aiVector3D next, float lambda) 
+aiVector3D myAnimation::InterpolateV3(const aiVector3D previous, const aiVector3D next, float lambda)
 {
 	return previous * (1.0f - lambda) + next * lambda;
 }
 
-aiQuaternion ModuleAnim::InterpolateQuat(const aiQuaternion previous, const aiQuaternion next, float lambda)
+aiQuaternion myAnimation::InterpolateQuat(const aiQuaternion previous, const aiQuaternion next, float lambda)
 {
 	aiQuaternion result;
 	float dot = previous.x * next.x + previous.y * next.y + previous.z * next.z + previous.w * next.w;
@@ -82,17 +83,40 @@ aiQuaternion ModuleAnim::InterpolateQuat(const aiQuaternion previous, const aiQu
 
 void myAnimation::Update(double dt)
 {
-	currentTime += dt;
+	
 	GameObject* goToChange;
+	aiVector3D position, scale;
+	aiQuaternion rotation;
 	for (int i = 0; i < channels.size(); i++)
 	{
 		//Cambiar FindGameObject para que no solo busque en los hijos.
 		goToChange = goToChange->FindGameObject(channels[i].name);
-		//Crear metodo que devuelva el componentTransform del gameObject encontrado.
+		channels[i].currentTime += dt;
+
+		//Interpolation
 		for (int j = 0; i < sizeof(channels[i].position); j++)
 		{
-			
+			if (channels[i].position[j].mTime < channels[i].currentTime)
+			{
+				if(j != channels[i].size)
+				{
+					position = InterpolateV3(channels[i].position[j].mValue, channels[i].position[j + 1].mValue, channels[i].currentTime);
+					scale = InterpolateV3(channels[i].scale[j].mValue, channels[i].scale[j + 1].mValue, channels[i].currentTime);
+					rotation = InterpolateQuat(channels[i].rotations[j].mValue, channels[i].rotations[j + 1].mValue, channels[i].currentTime);
+				}
+				else
+				{
+					position = InterpolateV3(channels[i].position[j].mValue, channels[i].position[1].mValue, channels[i].currentTime);
+					scale = InterpolateV3(channels[i].scale[j].mValue, channels[i].scale[1].mValue, channels[i].currentTime);
+					rotation = InterpolateQuat(channels[i].rotations[j].mValue, channels[i].rotations[1].mValue, channels[i].currentTime);
+					channels[i].currentTime = 0;
+				}
+
+				break;
+			}
 		}
 
+		//Crear metodo que cambie la transformación del gameObject
+		//goToChange->setTransform(position,rotation,scale);
 	}
 }
