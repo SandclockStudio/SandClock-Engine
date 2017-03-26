@@ -29,10 +29,9 @@ void ComponentTransform::Rotate(aiQuaternion rotation)
 
 void ComponentTransform::Scale(aiVector3D scal)
 {
-	glPushMatrix();
+	
 	scale = scal;
-	Update();
-	glPopMatrix();
+
 	/*for (int i = 0; myGo->getChilds().size(); i++)
 	{
 		if (myGo->getChilds()[i]->components[0] != nullptr)
@@ -56,7 +55,8 @@ bool ComponentTransform::Update()
 		glRotatef(euler.x, 1, 0, 0);
 		glRotatef(euler.y, 0, 1, 0);
 		glRotatef(euler.z, 0, 0, 1);
-		glScalef(scal.x, scal.y, scal.z);
+		glScalef(scale.x, scale.y, scale.z);
+		glPopMatrix();
 		//float* transform = float4x4::FromTRS(position, quaternion, scal).Transposed().ptr();
 	}
 
@@ -65,10 +65,8 @@ bool ComponentTransform::Update()
 }
 bool ComponentTransform::Update2()
 {
-	aiString camera = aiString("Camera");
 
-	if (myGo->GetName() != camera)
-	{
+	
 		float3 position = float3(pos.x, pos.y, pos.z);
 		Quat quaternion = Quat(quat.x, quat.y, quat.z, quat.w);
 		float3 scal = float3(scale.x, scale.y, scale.z);
@@ -79,9 +77,7 @@ bool ComponentTransform::Update2()
 		glRotatef(euler.y, 0, 1, 0);
 		glRotatef(euler.z, 0, 0, 1);
 		glScalef(scal.x, scal.y, scal.z);
-		//float* transform = float4x4::FromTRS(position, quaternion, scal).Transposed().ptr();
-	}
-
+		//float* transform = float4x4::FromTRS(position, quaternion, scal).Transposed().ptr()
 
 	return true;
 }

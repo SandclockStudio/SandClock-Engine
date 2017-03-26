@@ -24,7 +24,6 @@ ComponentCamera::~ComponentCamera()
 
 bool ComponentCamera::PreUpdate()
 {
-	glPushMatrix();
 	glClearColor(0, 0, 0, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_PROJECTION);
@@ -58,7 +57,6 @@ bool ComponentCamera::Update()
 		float dy = (float)-motion.y * rotation_speed *dt;
 		LookAt(dx, dy);
 	}
-	glPopMatrix();
 	return true;
 }
 

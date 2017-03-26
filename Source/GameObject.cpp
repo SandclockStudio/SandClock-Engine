@@ -232,9 +232,7 @@ void GameObject::setPosition(aiVector3D newPosition)
 
 void GameObject::DrawLines()
 {
-	aiString camera = aiString("Camera");
-	if (name != camera)
-	{
+
 		if (components.size()>0)
 		{
 
@@ -243,8 +241,8 @@ void GameObject::DrawLines()
 			glLineWidth(2.0f);
 			glDisable(GL_LIGHTING);
 			glEnable(GL_COLOR_MATERIAL);
-
 			glPushMatrix();
+
 			dynamic_cast<ComponentTransform*>(components[0])->Update2();
 
 			for (int i = 0; i < childs.size(); i++)
@@ -260,9 +258,8 @@ void GameObject::DrawLines()
 
 			}
 			glPopMatrix();
-		}
 
-	}
+		}
 	
 }
 	

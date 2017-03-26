@@ -23,7 +23,7 @@ ModuleScene::~ModuleScene()
 // Load assets
 bool ModuleScene::Start()
 {
-	scene = aiImportFile("Batman.obj",  aiProcessPreset_TargetRealtime_MaxQuality);
+	scene = aiImportFile("ArmyPilot.dae",  aiProcessPreset_TargetRealtime_MaxQuality);
 	//scene = aiImportFile("ArmyPilot.dae", aiProcessPreset_TargetRealtime_MaxQuality);
 
 	LOGCHAR("Loading space intro");
@@ -147,7 +147,6 @@ void  ModuleScene::LoadGameObjects(aiNode * node,GameObject* parent)
 
 update_status ModuleScene::PreUpdate(float dt)
 {
-	gameObject[0]->PreUpdate();
 
 	std::vector<GameObject*> childs = root->getChilds();
 
@@ -156,6 +155,7 @@ update_status ModuleScene::PreUpdate(float dt)
 		
 		childs[i]->PreUpdate();
 	}
+	gameObject[0]->PreUpdate();
 
 	return UPDATE_CONTINUE;
 }
@@ -163,19 +163,22 @@ update_status ModuleScene::PreUpdate(float dt)
 update_status ModuleScene::Update(float dt)
 {
 	gameObject[0]->Update(componentCamera->frustum);
+
 	std::vector<GameObject*> childs = root->getChilds();
 
 	for (int i = 0; i < childs.size(); i++)
 	{
+		childs[i]->Update(componentCamera->frustum);
 		childs[i]->DrawLines();
 
-		childs[i]->Update(componentCamera->frustum);
+
 		glPushMatrix();
 		childs[i]->DrawBoundingBox();
 		glPopMatrix();
 	}
 	p->DrawDirect();
 	c->Draw2();
+
 	//quadTree->root->DebugDraw();
 
 	//batman->Draw();
