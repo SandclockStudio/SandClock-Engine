@@ -42,7 +42,7 @@ struct myAnimation
 	double duration;
 };
 
-class ModuleAnim:Module
+class ModuleAnim : public Module
 {
 public:
 

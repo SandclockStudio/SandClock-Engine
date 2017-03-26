@@ -106,9 +106,9 @@ void myAnimation::Update(double dt)
 				}
 				else
 				{
-					position = InterpolateV3(channels[i].position[j].mValue, channels[i].position[1].mValue, channels[i].currentTime);
-					scale = InterpolateV3(channels[i].scale[j].mValue, channels[i].scale[1].mValue, channels[i].currentTime);
-					rotation = InterpolateQuat(channels[i].rotations[j].mValue, channels[i].rotations[1].mValue, channels[i].currentTime);
+					position = InterpolateV3(channels[i].position[j].mValue, channels[i].position[0].mValue, channels[i].currentTime);
+					scale = InterpolateV3(channels[i].scale[j].mValue, channels[i].scale[0].mValue, channels[i].currentTime);
+					rotation = InterpolateQuat(channels[i].rotations[j].mValue, channels[i].rotations[0].mValue, channels[i].currentTime);
 					channels[i].currentTime = 0;
 				}
 
@@ -116,7 +116,8 @@ void myAnimation::Update(double dt)
 			}
 		}
 
-		//Crear metodo que cambie la transformación del gameObject
-		//goToChange->setTransform(position,rotation,scale);
+		//Faltaria una posible rotación (?)
+
+		goToChange->setTransformAnimation(scale, position);
 	}
 }

@@ -17,6 +17,7 @@ class ModuleCollision;
 class ModuleParticles;
 class ModuleUI;
 class ModuleEditor;
+class ModuleAnim;
 
 //JSON Parser
 class JsonParser;
@@ -49,6 +50,7 @@ public:
 	ModuleCollision* collision;
 	ModuleParticles* particles;
 	ModuleEditor* editor;
+	ModuleAnim* animations;
 
 	JsonParser* json_parser;
 	SimpleTimer mili;

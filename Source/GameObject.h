@@ -39,7 +39,7 @@ class GameObject
 			{};
 			bool PreUpdate();
 			void DrawBoundingBox();
-			GameObject* FindGameObject(const char* node);
+			GameObject * FindGameObject(aiString node);
 			void AddChild(GameObject* node);
 			GameObject* LoadGameObjectMesh(aiNode * node, aiMesh* mesh,const aiScene* scene);
 			GameObject* LoadGameObject(aiNode * node);
@@ -57,6 +57,7 @@ class GameObject
 			void setScale(aiVector3D newScale);
 
 			bool intersectFrustumAABB(Frustum f, AABB b);
+			void setTransformAnimation(aiVector3D scale, aiVector3D position);
 			bool frustumCulling = false;
 
 
