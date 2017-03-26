@@ -18,6 +18,8 @@ public:
 	~ComponentTransform();
 
 	bool Update();
+	bool Update2();
+
 	void LoadTransform(aiNode* node);
 	void Translate(aiVector3D translation);
 	void Rotate(aiQuaternion rotation);

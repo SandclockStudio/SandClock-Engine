@@ -27,12 +27,9 @@ bool ComponentCamera::PreUpdate()
 	glClearColor(0, 0, 0, 1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
 	glLoadMatrixf((GLfloat*)GetProjectionMatrix());
 	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
 	glLoadMatrixf((GLfloat*)GetViewMatrix());
-
 	return true;
 }
 
@@ -60,7 +57,6 @@ bool ComponentCamera::Update()
 		float dy = (float)-motion.y * rotation_speed *dt;
 		LookAt(dx, dy);
 	}
-
 	return true;
 }
 

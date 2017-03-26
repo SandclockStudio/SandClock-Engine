@@ -41,12 +41,54 @@ bool ModuleScene::Start()
 	camera->AddComponent(componentCamera);
 	gameObject.push_back(camera);
 	root = new GameObject(scene->mRootNode->mName,nullptr);
-	ComponentTransform rootTransform;
+	ComponentTransform* rootTransform;
 	rootTransform = new ComponentTransform();
-	rootTransform.LoadTransform(scene->mRootNode);
+	rootTransform->LoadTransform(scene->mRootNode);
+	root->AddComponent(rootTransform);
 	LoadGameObjects(scene->mRootNode, root);
+
+	quadTree = new QuadTreeNode();
+	quadTree->Create(AABB(float3(-10, 1, -10), float3(10, 1, 10)));
+
+	
+	GameObject * aaaa = new GameObject(aiString("AAAA"));
+	aaaa->boundingBox = AABB(float3(-8, 1, -8), float3(-6, 1, -6));
+
+	GameObject * bbbb = new GameObject(aiString("BBBB"));
+	bbbb->boundingBox = AABB(float3(-6, 1, -6), float3(-4, 1, -4));
+
+	GameObject * cccc = new GameObject(aiString("CCCC"));
+	cccc->boundingBox = AABB(float3(8, 1, 8), float3(6, 1, 6));
+
+	GameObject * dddd = new GameObject(aiString("DDDD"));
+	dddd->boundingBox = AABB(float3(6, 1, 6), float3(4, 1, 4));
+
+	GameObject * eeee = new GameObject(aiString("EEEE"));
+	eeee->boundingBox = AABB(float3(-8, 1, 8), float3(-6, 1, 6));
+
+	
+	quadTree->Insert(aaaa);
+	quadTree->Insert(bbbb);
+	quadTree->Insert(cccc);
+	quadTree->Insert(dddd);
+	//quadTree->Insert(eeee);
+	
+	/*for (int i = 0; i < root->getChilds().size(); i++) 
+	{
+		
+		quadTree->Insert(root->getChilds()[i]);
+	}*/
+
+	
+
 	return true;
 }
+
+/*vector<GameObject*> ModuleScene::CreateTestGameObjects()
+{
+
+	GameObject* object = new GameObject(, parent);
+}*/
 
 // UnLoad assets
 bool ModuleScene::CleanUp()
@@ -60,6 +102,7 @@ bool ModuleScene::CleanUp()
 		gameObject[i]->CleanUp();
 		RELEASE(gameObject[i]);
 	}
+	delete(quadTree);
 
 	return true;
 }
@@ -67,28 +110,30 @@ bool ModuleScene::CleanUp()
 void  ModuleScene::LoadGameObjects(aiNode * node,GameObject* parent)
 {
 	GameObject* object = new GameObject(node->mName, parent);
-
+	GameObject* my_go;
 	if (node->mNumMeshes > 1)
 	{
 		for (int i = 0; i < node->mNumMeshes; i++)
 		{
-			GameObject* my_go = object->LoadGameObjectMesh(node, scene->mMeshes[i], scene);
-			parent->AddChild(my_go, parent);
+			my_go = object->LoadGameObjectMesh(node, scene->mMeshes[i], scene);
+			parent->AddChild(my_go);
 			my_go->SetRootNode(parent);
 			gameObject.push_back(my_go);
 		}
 	}
 	else if (node->mNumMeshes == 1)
 	{
-		GameObject* my_go = object->LoadGameObjectMesh(node, scene->mMeshes[node->mMeshes[0]], scene);
-		parent->AddChild(my_go, parent);
+		 my_go = object->LoadGameObjectMesh(node, scene->mMeshes[node->mMeshes[0]], scene);
+		parent->AddChild(my_go);
 		my_go->SetRootNode(parent);
 		gameObject.push_back(my_go);
 	}
 	else
 	{
-		GameObject* my_go = object->LoadGameObject(node,scene);
-		parent->AddChild(object, parent);
+		my_go = object->LoadGameObject(node);
+		parent->AddChild(my_go);
+		my_go->SetRootNode(parent);
+
 	}
 
 	for (int i = 0; i < node->mNumChildren; i++)
@@ -96,23 +141,64 @@ void  ModuleScene::LoadGameObjects(aiNode * node,GameObject* parent)
 		if(parent->GetRootNode() != nullptr)
 			object->SetRootNode(parent);
 
-		LoadGameObjects(node->mChildren[i], object);
+		LoadGameObjects(node->mChildren[i], my_go);
 	}
 }
 
 update_status ModuleScene::PreUpdate(float dt)
 {
 
-	for (int i = 0; i < gameObject.size(); i++)
+	std::vector<GameObject*> childs = root->getChilds();
+
+	for (int i = 0; i < childs.size(); i++)
 	{
 		
-			gameObject[i]->PreUpdate();
+		childs[i]->PreUpdate();
 	}
+	gameObject[0]->PreUpdate();
 
 	return UPDATE_CONTINUE;
 }
 
+update_status ModuleScene::Update(float dt)
+{
+	gameObject[0]->Update(componentCamera->frustum);
+
+	std::vector<GameObject*> childs = root->getChilds();
+
+	for (int i = 0; i < childs.size(); i++)
+	{
+		childs[i]->Update(componentCamera->frustum);
+		childs[i]->DrawLines();
+
+
+		glPushMatrix();
+		childs[i]->DrawBoundingBox();
+		glPopMatrix();
+	}
+	p->DrawDirect();
+	c->Draw2();
+
+	//quadTree->root->DebugDraw();
+
+	//batman->Draw();
+	//l->Draw();
+	//g->DrawDirect();
+	//ImGui::ShowTestWindow();
+
+	/*
+
+	if(App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && App->fade->isFading() == false)
+	{
+	App->fade->FadeToBlack((Module*)App->scene_level, this);
+	App->audio->PlayFx(fx);
+	}
+	*/
+
+	return UPDATE_CONTINUE;
+}
 // Update: draw background
+/*
 update_status ModuleScene::Update(float dt)
 {
 	gameObject[0]->Update(componentCamera->frustum);
@@ -125,6 +211,7 @@ update_status ModuleScene::Update(float dt)
 	p->DrawDirect();
 	c->Draw2();
 
+	quadTree->root->DebugDraw();
 
 	//batman->Draw();
 	//l->Draw();
@@ -133,5 +220,5 @@ update_status ModuleScene::Update(float dt)
 
 
 	return UPDATE_CONTINUE;
-}
+}*/
 

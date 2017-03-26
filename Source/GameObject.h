@@ -39,25 +39,26 @@ class GameObject
 			{};
 			bool PreUpdate();
 			void DrawBoundingBox();
-			GameObject * FindGameObject(aiString node);
-			void AddChild(GameObject* node, GameObject* destination);
+			GameObject* FindGameObject(const char* node);
+			void AddChild(GameObject* node);
 			GameObject* LoadGameObjectMesh(aiNode * node, aiMesh* mesh,const aiScene* scene);
-			GameObject* LoadGameObject(aiNode * node,const aiScene* scene);
+			GameObject* LoadGameObject(aiNode * node);
 			aiVector3D getPosition();
 			aiQuaternion getRotation();
 			aiVector3D getScale();
 
 			void DrawLines();
 
+
 			void setPosition(aiVector3D newPosition);
 
-			void setRotation(aiQuaternion newRotation);
+			void setRotation(Quat newRotation);
 
 			void setScale(aiVector3D newScale);
 
 			bool intersectFrustumAABB(Frustum f, AABB b);
+			bool frustumCulling = false;
 
-			bool frustrumCulling = false;
 
 
 			AABB boundingBox;

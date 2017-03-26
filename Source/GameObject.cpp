@@ -41,10 +41,11 @@ void GameObject::DeleteComponent(Component * component)
 
 bool GameObject::Update(Frustum f)
 {
-	
 	for (int i = 0; i < components.size(); ++i)
 	{
+		
 		components[i]->Update();
+
 	}
 
 
@@ -52,7 +53,7 @@ bool GameObject::Update(Frustum f)
 	{
 		for (int i = 0; i < childs.size(); ++i)
 		{
-			DrawLines();
+
 			if (intersectFrustumAABB(f, childs[i]->boundingBox))
 				childs[i]->Update(f);
 		}
@@ -67,11 +68,11 @@ bool GameObject::PreUpdate()
 	{
 		components[i]->PreUpdate();
 	}
-	if (childs.size() < 0)
+	if (childs.size() > 0)
 	{
 		for (int i = 0; i < childs.size(); ++i)
 		{
-			childs[i]->PreUpdate();
+				childs[i]->PreUpdate();
 		}
 	}
 	return true;
@@ -147,17 +148,17 @@ void GameObject::DrawBoundingBox()
 }
 
 
-GameObject * GameObject::FindGameObject(aiString node)
+GameObject * GameObject::FindGameObject(const char * node)
 {
 	for (int i = 0; i<childs.size(); i++)
-		if (childs[i]->GetName() == node)
+		if (strcmp(childs[i]->GetName().C_Str(), node) == 0)
 			return childs[i];
 	return nullptr;
 }
 
-void GameObject::AddChild(GameObject * node, GameObject * destination)
+void GameObject::AddChild(GameObject * node)
 {
-	destination->childs.push_back(node);
+	childs.push_back(node);
 }
 
 GameObject * GameObject::LoadGameObjectMesh(aiNode * node, aiMesh * mesh, const aiScene * scene)
@@ -165,38 +166,42 @@ GameObject * GameObject::LoadGameObjectMesh(aiNode * node, aiMesh * mesh, const 
 	GameObject * go = new GameObject(node->mName);
 
 	ComponentTransform* transform = new ComponentTransform(true);
-	go->AddComponent(transform);
+	
 	transform->LoadTransform(node);
-	position = transform->pos;
-	rotation = transform->quat;
-	scale = transform->scale;
-
+	go->position = transform->pos;
+	go->rotation = transform->quat;
+	go->scale = transform->scale;
+	go->AddComponent(transform);
 
 
 	ComponentMaterial* material = new ComponentMaterial(true);
-	go->AddComponent(material);
+
 	material->LoadMaterial(scene->mMaterials[mesh->mMaterialIndex]);
+	go->AddComponent(material);
 
 
 
-	//ComponentMesh* m = new ComponentMesh(true);
-	//go->AddComponent(m);
 
-	//m->LoadMesh(mesh, scene);
+	ComponentMesh* m = new ComponentMesh(true);
+	go->AddComponent(m);
+
+	m->LoadMesh(mesh, scene);
 
 	return go;
 }
 
-GameObject* GameObject::LoadGameObject(aiNode * node, const aiScene* scene)
+GameObject* GameObject::LoadGameObject(aiNode * node)
 {
 	GameObject * go = new GameObject(node->mName);
 
 	ComponentTransform* transform = new ComponentTransform(true);
-	go->AddComponent(transform);
+
 	transform->LoadTransform(node);
-	position = transform->pos;
-	rotation = transform->quat;
-	scale = transform->scale;
+	go->position = transform->pos;
+	go->rotation = transform->quat;
+	go->scale = transform->scale;
+	go->AddComponent(transform);
+
 	return go;
 }
 
@@ -212,64 +217,90 @@ aiQuaternion GameObject::getRotation()
 
 aiVector3D GameObject::getScale()
 {
-	return scale;
+	return (dynamic_cast<ComponentTransform*>(components[0])->scale);
 }
 
 void GameObject::setPosition(aiVector3D newPosition)
 {
 	position = newPosition;
-	if (components.size() > 1)
+	if (components.size() > 0)
 	{
 		dynamic_cast<ComponentTransform*>(components[0])->Translate(newPosition);
 	}
-	else
+}
+
+void GameObject::setRotation(Quat newRotation)
+{
+	rotation = aiQuaternion(newRotation.x, newRotation.y, newRotation.z);
+	if (components.size() > 0)
 	{
-		for (int i = 0; i < getChilds().size(); i++)
-		{
-			childs[i]->setPosition(position.SymMul(newPosition));
-		}
+		dynamic_cast<ComponentTransform*>(components[0])->Rotate(rotation);
 	}
 }
+	
 
 void GameObject::DrawLines()
 {
-	for (int i = 0; i < childs.size(); i++)
-	{
-			glBegin(GL_LINES);
+
+		if (components.size()>0)
+		{
+
 			glColor3f(0.0f, 1.0f, 1.0f);
-			//origen
-			glVertex3f(position.x,position.y, position.z);
-			//destino
-			glVertex3f(childs[i]->position.x*position.x, childs[i]->position.y*position.y, childs[i]->position.z*position.z);
-			glLineWidth(200.0f);
-			glEnd();
-	}
+			glDepthRange(0.0, 0.01);
+			glLineWidth(2.0f);
+			glDisable(GL_LIGHTING);
+			glEnable(GL_COLOR_MATERIAL);
+			glPushMatrix();
+
+			dynamic_cast<ComponentTransform*>(components[0])->Update2();
+
+			for (int i = 0; i < childs.size(); i++)
+			{
+				glDisable(GL_LIGHTING);
+				
+				glBegin(GL_LINES);
+				glVertex3f(0.0f, 0.0f, 0.0f);
+				glVertex3f(childs[i]->position.x, childs[i]->position.y, childs[i]->position.z);
+				glEnd();
+				childs[i]->DrawLines();
+				glEnable(GL_LIGHTING);
+
+			}
+			glPopMatrix();
+
+		}
+	
 }
+	
+
+
+
 
 void GameObject::setScale(aiVector3D newScale)
 {
 	scale = newScale;
-	if (components.size() > 1)
+	if (components.size() > 0)
 	{
 		dynamic_cast<ComponentTransform*>(components[0])->Scale(newScale);
 	}
-	else
-	{
-		for (int i = 0; i < getChilds().size(); i++)
-		{
-			childs[i]->setScale(newScale);
-		}
-	}
+
 }
 
 
+/**
+* Tells whether or not b is intersecting f.
+* @param f Viewing frustum.
+* @param b An axis aligned bounding box.
+* @return True if b intersects f, false otherwise.
+*/
 bool GameObject::intersectFrustumAABB(Frustum f, AABB box)
 {
-	if (frustrumCulling)
+	if (frustumCulling)
 	{
 		static const int NUM_PLANES = 6;
 		const Plane planes[NUM_PLANES] =
 		{ f.GetPlane(0), f.GetPlane(1), f.GetPlane(2), f.GetPlane(3), f.GetPlane(4), f.GetPlane(5) };
+
 
 		std::vector<float3> points;
 		float3 b1 = box.minPoint;
