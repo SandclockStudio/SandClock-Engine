@@ -13,6 +13,8 @@
 #include "Component.h"
 #include "ComponentTransform.h"
 #include "MathGeoLib.h"
+#include "ModuleAnim.h"
+#include "Application.h"
 
 ModuleScene::ModuleScene(bool active) : Module(active)
 {}
@@ -43,13 +45,14 @@ bool ModuleScene::Start()
 	root = new GameObject(scene->mRootNode->mName,nullptr);
 	ComponentTransform* rootTransform;
 	rootTransform = new ComponentTransform();
+	App->animations->Load("ArmyPilot.dae");
+	App->animations->PlayAll();
 	rootTransform->LoadTransform(scene->mRootNode);
 	root->AddComponent(rootTransform);
 	LoadGameObjects(scene->mRootNode, root);
 
 	quadTree = new QuadTreeNode();
 	quadTree->Create(AABB(float3(-10, 1, -10), float3(10, 1, 10)));
-
 	
 	GameObject * aaaa = new GameObject(aiString("AAAA"));
 	aaaa->boundingBox = AABB(float3(-8, 1, -8), float3(-6, 1, -6));
@@ -132,6 +135,7 @@ void  ModuleScene::LoadGameObjects(aiNode * node,GameObject* parent)
 	{
 		my_go = object->LoadGameObject(node);
 		parent->AddChild(my_go);
+		gameObject.push_back(my_go);
 		my_go->SetRootNode(parent);
 
 	}
@@ -197,28 +201,4 @@ update_status ModuleScene::Update(float dt)
 
 	return UPDATE_CONTINUE;
 }
-// Update: draw background
-/*
-update_status ModuleScene::Update(float dt)
-{
-	gameObject[0]->Update(componentCamera->frustum);
-	for (int i = 1; i < gameObject.size(); i++)
-	{
-		if (gameObject[i]->intersectFrustumAABB(componentCamera->frustum, gameObject[i]->boundingBox))
-			gameObject[i]->Update(componentCamera->frustum);
-
-	}
-	p->DrawDirect();
-	c->Draw2();
-
-	quadTree->root->DebugDraw();
-
-	//batman->Draw();
-	//l->Draw();
-	//g->DrawDirect();
-	//ImGui::ShowTestWindow();
-
-
-	return UPDATE_CONTINUE;
-}*/
 

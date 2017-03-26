@@ -1,8 +1,11 @@
 #include "ModuleAnim.h"
-#include "GameObject.h"
+#include "Application.h"
+#include  "ModuleScene.h"
 
-void ModuleAnim::Load(aiString* name, aiScene* scene)
+
+void ModuleAnim::Load(const char* name)
 {
+	const aiScene* scene = aiImportFile(name, aiProcessPreset_TargetRealtime_MaxQuality);
 	
 	for (int i = 0; i < scene->mNumAnimations; i++)
 	{
@@ -84,40 +87,49 @@ aiQuaternion myAnimation::InterpolateQuat(const aiQuaternion previous, const aiQ
 void myAnimation::Update(double dt)
 {
 	
-	GameObject* goToChange;
+	GameObject* goToChange = nullptr;
 	aiVector3D position, scale;
 	aiQuaternion rotation;
 	for (int i = 0; i < channels.size(); i++)
 	{
-		//Cambiar FindGameObject para que no solo busque en los hijos.
-		goToChange = goToChange->FindGameObject(channels[i].name);
-		channels[i].currentTime += dt;
-
-		//Interpolation
-		for (int j = 0; i < channels[i].size; j++)
+		for (int k = 0; k < App->scene_intro->gameObject.size();k++)
 		{
-			if (channels[i].position[j].mTime < channels[i].currentTime)
+			if (channels[i].name == App->scene_intro->gameObject[k]->GetName())
 			{
-				if(j != channels[i].size)
-				{
-					position = InterpolateV3(channels[i].position[j].mValue, channels[i].position[j + 1].mValue, channels[i].currentTime);
-					scale = InterpolateV3(channels[i].scale[j].mValue, channels[i].scale[j + 1].mValue, channels[i].currentTime);
-					rotation = InterpolateQuat(channels[i].rotations[j].mValue, channels[i].rotations[j + 1].mValue, channels[i].currentTime);
-				}
-				else
-				{
-					position = InterpolateV3(channels[i].position[j].mValue, channels[i].position[0].mValue, channels[i].currentTime);
-					scale = InterpolateV3(channels[i].scale[j].mValue, channels[i].scale[0].mValue, channels[i].currentTime);
-					rotation = InterpolateQuat(channels[i].rotations[j].mValue, channels[i].rotations[0].mValue, channels[i].currentTime);
-					channels[i].currentTime = 0;
-				}
-
+				goToChange = App->scene_intro->gameObject[k];
 				break;
 			}
 		}
 
-		//Faltaria una posible rotación (?)
+		if(goToChange != nullptr)
+		{ 
+			channels[i].currentTime += 1.0f;
 
-		goToChange->setTransformAnimation(scale, position);
+			//Interpolation
+			for (int j = 0; i < channels[i].size; j++)
+			{
+				if (channels[i].position[j].mTime < channels[i].currentTime)
+				{
+					if(j != channels[i].size)
+					{
+						position = InterpolateV3(channels[i].position[j].mValue, channels[i].position[j + 1].mValue, channels[i].currentTime);
+						scale = InterpolateV3(channels[i].scale[j].mValue, channels[i].scale[j + 1].mValue, channels[i].currentTime);
+						rotation = InterpolateQuat(channels[i].rotations[j].mValue, channels[i].rotations[j + 1].mValue, channels[i].currentTime);
+					}
+					else
+					{
+						position = InterpolateV3(channels[i].position[j].mValue, channels[i].position[0].mValue, channels[i].currentTime);
+						scale = InterpolateV3(channels[i].scale[j].mValue, channels[i].scale[0].mValue, channels[i].currentTime);
+						rotation = InterpolateQuat(channels[i].rotations[j].mValue, channels[i].rotations[0].mValue, channels[i].currentTime);
+						channels[i].currentTime = 0;
+					}
+
+					break;
+				}
+			}
+		
+			//Faltaria una posible rotación (?)
+			goToChange->setTransformAnimation(scale, position);
+		}
 	}
 }

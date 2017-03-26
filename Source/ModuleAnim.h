@@ -45,8 +45,7 @@ struct myAnimation
 class ModuleAnim : public Module
 {
 public:
-
-	void Load(aiString * name, aiScene * scene);
+	void Load(const char * name);
 	void PlayAnimation(float index);
 	void PlayAll();
 	void Stop();

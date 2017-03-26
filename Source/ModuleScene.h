@@ -12,7 +12,6 @@
 #include "QuadTreeNode.h"
 
 
-
 struct SDL_Texture;
 
 class ModuleScene : public Module
@@ -23,7 +22,6 @@ public:
 
 	bool Start();
 	update_status Update(float dt);
-	bool intersectFrustumAABB(Frustum f, AABB b);
 	bool CleanUp();
 
 	void LoadGameObjects(aiNode* node, GameObject* parent);
@@ -45,9 +43,9 @@ public:
 	ComponentCamera* componentCamera;
 
 	QuadTreeNode* quadTree;
-
-private:
 	std::vector<GameObject*> gameObject;
+
+	
 };
 
 #endif // __MODULESCENE_H__
