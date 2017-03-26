@@ -13,17 +13,16 @@
 
 struct myChannel
 {
-	myChannel(aiString name, aiVectorKey* position, aiQuatKey* rotations,aiVectorKey* scale) : name(name), position(position), rotations(rotations), scale(scale)
+	myChannel(aiString name, aiVectorKey* position, aiQuatKey* rotations,aiVectorKey* scale,float size) : name(name), position(position), rotations(rotations), scale(scale),size(size)
 	{
-		size = sizeof(position);
 	};
 
 	aiVectorKey* position;
 	aiQuatKey* rotations;
 	aiVectorKey* scale;
 	aiString name;
-	int size;
-	double currentTime = 0;
+	unsigned int size;
+	float currentTime = 0;
 };
 
 
@@ -35,7 +34,7 @@ struct myAnimation
 	aiVector3D InterpolateV3(const aiVector3D previous, const aiVector3D next, float lambda);
 	aiQuaternion InterpolateQuat(const aiQuaternion previous, const aiQuaternion next, float lambda);
 
-	void Update(double dt);
+	void Update(float dt);
 	bool playing = false;
 	float id;
 	std::vector<myChannel> channels;

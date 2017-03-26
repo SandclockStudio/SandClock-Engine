@@ -13,7 +13,7 @@ void ModuleAnim::Load(const char* name)
 		
 		for (int j = 0; j < scene->mAnimations[i][0].mNumChannels; j++)
 		{
-			channels.push_back(myChannel(scene->mAnimations[i][0].mChannels[j]->mNodeName, scene->mAnimations[i][0].mChannels[j]->mPositionKeys, scene->mAnimations[i][0].mChannels[j]->mRotationKeys, scene->mAnimations[i][0].mChannels[j]->mScalingKeys));
+			channels.push_back(myChannel(scene->mAnimations[i][0].mChannels[j]->mNodeName, scene->mAnimations[i][0].mChannels[j]->mPositionKeys, scene->mAnimations[i][0].mChannels[j]->mRotationKeys, scene->mAnimations[i][0].mChannels[j]->mScalingKeys, scene->mAnimations[i][0].mChannels[j]->mNumPositionKeys));
 		}
 
 		myAnimation aux = myAnimation(i, channels,scene->mAnimations[i][0].mDuration);
@@ -47,7 +47,7 @@ update_status ModuleAnim::Update(float dt)
 	for (int i = 0; i < loadAnimations.size(); i++)
 	{
 		if (loadAnimations[i].playing)
-			loadAnimations[i].Update((double) dt);
+			loadAnimations[i].Update(dt);
 	}
 
 	return UPDATE_CONTINUE;
@@ -84,14 +84,15 @@ aiQuaternion myAnimation::InterpolateQuat(const aiQuaternion previous, const aiQ
 	return result;
 }
 
-void myAnimation::Update(double dt)
+void myAnimation::Update(float dt)
 {
-	
 	GameObject* goToChange = nullptr;
 	aiVector3D position, scale;
 	aiQuaternion rotation;
+
 	for (int i = 0; i < channels.size(); i++)
 	{
+		//Buscar el gameObject con el nombre que toca
 		for (int k = 0; k < App->scene_intro->gameObject.size();k++)
 		{
 			if (channels[i].name == App->scene_intro->gameObject[k]->GetName())
@@ -101,35 +102,33 @@ void myAnimation::Update(double dt)
 			}
 		}
 
-		if(goToChange != nullptr)
-		{ 
-			channels[i].currentTime += 1.0f;
+		//Si no se ha devuelto ninguno no se hace nada
+		if (goToChange != nullptr)
+		{
+			channels[i].currentTime += 0.01f;
 
 			//Interpolation
-			for (int j = 0; i < channels[i].size; j++)
+			for (int j = 0; j < channels[i].size; j++)
 			{
-				if (channels[i].position[j].mTime < channels[i].currentTime)
+				//Si estas en la ultima iteración se pone el tiempo de la animación a cero.
+				if (j + 1 == channels[i].size)
 				{
-					if(j != channels[i].size)
-					{
-						position = InterpolateV3(channels[i].position[j].mValue, channels[i].position[j + 1].mValue, channels[i].currentTime);
-						scale = InterpolateV3(channels[i].scale[j].mValue, channels[i].scale[j + 1].mValue, channels[i].currentTime);
-						rotation = InterpolateQuat(channels[i].rotations[j].mValue, channels[i].rotations[j + 1].mValue, channels[i].currentTime);
-					}
-					else
-					{
-						position = InterpolateV3(channels[i].position[j].mValue, channels[i].position[0].mValue, channels[i].currentTime);
-						scale = InterpolateV3(channels[i].scale[j].mValue, channels[i].scale[0].mValue, channels[i].currentTime);
-						rotation = InterpolateQuat(channels[i].rotations[j].mValue, channels[i].rotations[0].mValue, channels[i].currentTime);
-						channels[i].currentTime = 0;
-					}
+					channels[i].currentTime = 0;
+					break;
+				}
 
+				//Si el tiempo actual es mayor que el de la iteración y menor que el siguiente se calcula
+				if (channels[i].position[j].mTime < channels[i].currentTime && channels[i].position[j + 1].mTime > channels[i].currentTime)
+				{
+					position = InterpolateV3(channels[i].position[j].mValue, channels[i].position[j + 1].mValue, channels[i].currentTime);
+					scale = InterpolateV3(channels[i].scale[j].mValue, channels[i].scale[j + 1].mValue, channels[i].currentTime);
+					rotation = InterpolateQuat(channels[i].rotations[j].mValue, channels[i].rotations[j + 1].mValue, channels[i].currentTime);
+
+					//Faltaria una posible rotación (?)
+					goToChange->setTransformAnimation(scale, position);
 					break;
 				}
 			}
-		
-			//Faltaria una posible rotación (?)
-			goToChange->setTransformAnimation(scale, position);
 		}
 	}
 }
