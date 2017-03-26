@@ -148,6 +148,7 @@ void  ModuleScene::LoadGameObjects(aiNode * node,GameObject* parent)
 update_status ModuleScene::PreUpdate(float dt)
 {
 	gameObject[0]->PreUpdate();
+
 	std::vector<GameObject*> childs = root->getChilds();
 
 	for (int i = 0; i < childs.size(); i++)
@@ -161,9 +162,6 @@ update_status ModuleScene::PreUpdate(float dt)
 
 update_status ModuleScene::Update(float dt)
 {
-
-	p->DrawDirect();
-	c->Draw2();
 	gameObject[0]->Update(componentCamera->frustum);
 	std::vector<GameObject*> childs = root->getChilds();
 
@@ -172,12 +170,12 @@ update_status ModuleScene::Update(float dt)
 		childs[i]->DrawLines();
 
 		childs[i]->Update(componentCamera->frustum);
-
 		glPushMatrix();
 		childs[i]->DrawBoundingBox();
 		glPopMatrix();
 	}
-
+	p->DrawDirect();
+	c->Draw2();
 	//quadTree->root->DebugDraw();
 
 	//batman->Draw();

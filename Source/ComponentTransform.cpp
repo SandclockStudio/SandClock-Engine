@@ -18,10 +18,7 @@ void ComponentTransform::LoadTransform(aiNode * node)
 
 void ComponentTransform::Translate(aiVector3D translation)
 {
-	glPushMatrix();
 	pos = translation;
-	Update();
-	glPopMatrix();
 	
 }
 
@@ -49,12 +46,13 @@ bool ComponentTransform::Update()
 
 	if (myGo->GetName() != camera)
 	{
+		glPushMatrix();
 		float3 position = float3(pos.x, pos.y, pos.z);
 		Quat quaternion = Quat(quat.x, quat.y, quat.z, quat.w);
 		float3 scal = float3(scale.x, scale.y, scale.z);
 		float3 euler = quaternion.ToEulerXYZ() * 180.0f / pi;
 
-		glTranslatef(pos.x, pos.y, pos.z);
+		glTranslatef(position.x, position.y, position.z);
 		glRotatef(euler.x, 1, 0, 0);
 		glRotatef(euler.y, 0, 1, 0);
 		glRotatef(euler.z, 0, 0, 1);
@@ -65,3 +63,26 @@ bool ComponentTransform::Update()
 
 	return true;
 }
+bool ComponentTransform::Update2()
+{
+	aiString camera = aiString("Camera");
+
+	if (myGo->GetName() != camera)
+	{
+		float3 position = float3(pos.x, pos.y, pos.z);
+		Quat quaternion = Quat(quat.x, quat.y, quat.z, quat.w);
+		float3 scal = float3(scale.x, scale.y, scale.z);
+		float3 euler = quaternion.ToEulerXYZ() * 180.0f / pi;
+
+		glTranslatef(position.x, position.y, position.z);
+		glRotatef(euler.x, 1, 0, 0);
+		glRotatef(euler.y, 0, 1, 0);
+		glRotatef(euler.z, 0, 0, 1);
+		glScalef(scal.x, scal.y, scal.z);
+		//float* transform = float4x4::FromTRS(position, quaternion, scal).Transposed().ptr();
+	}
+
+
+	return true;
+}
+

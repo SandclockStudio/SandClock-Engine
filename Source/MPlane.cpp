@@ -10,14 +10,14 @@ MPlane::~MPlane()
 
 void MPlane::Translate(GLfloat translation[])
 {
-	glTranslatef(translation[0], translation[1], translation[2]);
-	glPushMatrix();
+	//glTranslatef(translation[0], translation[1], translation[2]);
+	//glPushMatrix();
 }
 
 void MPlane::Rotate(float angle, GLfloat vector[])
 {
-	glRotatef(angle, vector[0], vector[1], vector[2]);
-	glPushMatrix();
+	//glRotatef(angle, vector[0], vector[1], vector[2]);
+	//glPushMatrix();
 }
 
 void MPlane::DrawDirect()

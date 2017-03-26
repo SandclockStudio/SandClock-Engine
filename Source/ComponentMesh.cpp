@@ -12,7 +12,6 @@ ComponentMesh::~ComponentMesh()
 
 bool ComponentMesh::Update()
 {
-
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_NORMAL_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -26,8 +25,8 @@ bool ComponentMesh::Update()
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);
 	glDisableClientState(GL_VERTEX_ARRAY);
-	//myGo->DrawBoundingBox();
 	glPopMatrix();
+	//myGo->DrawBoundingBox();
 	return true;
 }
 

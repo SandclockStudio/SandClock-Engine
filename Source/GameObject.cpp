@@ -43,13 +43,14 @@ bool GameObject::Update(Frustum f)
 {
 	for (int i = 0; i < components.size(); ++i)
 	{
+		
 		components[i]->Update();
+
 	}
 
 
 	if (childs.size() > 0)
 	{
-
 		for (int i = 0; i < childs.size(); ++i)
 		{
 
@@ -206,7 +207,7 @@ GameObject* GameObject::LoadGameObject(aiNode * node)
 
 aiVector3D GameObject::getPosition()
 {
-	return (dynamic_cast<ComponentTransform*>(components[0])->pos);
+	return position;
 }
 
 aiQuaternion GameObject::getRotation()
@@ -244,7 +245,7 @@ void GameObject::DrawLines()
 			glEnable(GL_COLOR_MATERIAL);
 
 			glPushMatrix();
-			dynamic_cast<ComponentTransform*>(components[0])->Update();
+			dynamic_cast<ComponentTransform*>(components[0])->Update2();
 
 			for (int i = 0; i < childs.size(); i++)
 			{
