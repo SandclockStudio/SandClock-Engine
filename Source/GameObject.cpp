@@ -228,6 +228,15 @@ void GameObject::setPosition(aiVector3D newPosition)
 		dynamic_cast<ComponentTransform*>(components[0])->Translate(newPosition);
 	}
 }
+
+void GameObject::setRotation(Quat newRotation)
+{
+	rotation = aiQuaternion(newRotation.x, newRotation.y, newRotation.z);
+	if (components.size() > 0)
+	{
+		dynamic_cast<ComponentTransform*>(components[0])->Rotate(rotation);
+	}
+}
 	
 
 void GameObject::DrawLines()

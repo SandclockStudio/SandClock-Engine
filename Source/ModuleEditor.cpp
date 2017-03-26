@@ -286,9 +286,8 @@ void ModuleEditor::DrawProperties()
 		{
 			aiVector3D pos = gOSelected->getPosition();
 			aiQuaternion rot = gOSelected->getRotation();
-			rot.x = fabsf(rot.x);
-			rot.y = fabsf(rot.y);
-			rot.z = fabsf(rot.z);
+			Quat rotation = Quat(rot.x, rot.y, rot.z, rot.w);
+			float3 rota = rotation.ToEulerXYZ() * 180.0f / pi;
 			aiVector3D scale = gOSelected->getScale();
 			//Una vez se recoja tiene que tener el gameObject una funión para poner la posición y la rotación que se le pase
 			if (ImGui::DragFloat3("Position", (float*)&pos, 0.01f))
@@ -298,9 +297,9 @@ void ModuleEditor::DrawProperties()
 
 			}
 				
-			if (ImGui::SliderAngle("Rotation", (float*)&rot))
+			if (ImGui::DragFloat3("Rotation", (float*)&rota,0.6f))
 			{
-				//selected->SetLocalRotation(rot); 
+				gOSelected->setRotation(Quat::FromEulerXYZ(rota.x*pi / 180.0f, rota.y*pi / 180.0f, rota.z*pi / 180.0f));
 			}
 
 			if (ImGui::DragFloat3("Scale", (float*)&scale, 0.05f))		

@@ -24,7 +24,7 @@ void ComponentTransform::Translate(aiVector3D translation)
 
 void ComponentTransform::Rotate(aiQuaternion rotation)
 {
-	//glRotatef((GLfloat)translation.x, (GLfloat)translation.y, (GLfloat)translation.z);
+	quat = rotation;
 }
 
 void ComponentTransform::Scale(aiVector3D scal)

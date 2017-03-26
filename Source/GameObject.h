@@ -52,7 +52,7 @@ class GameObject
 
 			void setPosition(aiVector3D newPosition);
 
-			void setRotation(aiQuaternion newRotation);
+			void setRotation(Quat newRotation);
 
 			void setScale(aiVector3D newScale);
 
