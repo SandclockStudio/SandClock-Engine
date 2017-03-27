@@ -169,19 +169,19 @@ update_status ModuleScene::Update(float dt)
 	gameObject[0]->Update(componentCamera->frustum);
 
 	std::vector<GameObject*> childs = root->getChilds();
-
-	for (int i = 0; i < childs.size(); i++)
-	{
-		childs[i]->Update(componentCamera->frustum);
-		childs[i]->DrawLines();
-
-
-		glPushMatrix();
-		childs[i]->DrawBoundingBox();
-		glPopMatrix();
-	}
 	p->DrawDirect();
 	c->Draw2();
+	for (int i = 0; i < childs.size(); i++)
+	{
+		childs[i]->DrawLines();
+		childs[i]->Update(componentCamera->frustum);
+
+		//glPushMatrix();
+		//childs[i]->DrawBoundingBox();
+		//glPopMatrix();
+	}
+
+
 
 	//quadTree->root->DebugDraw();
 
