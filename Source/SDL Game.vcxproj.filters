@@ -91,9 +91,6 @@
     <ClInclude Include="ModuleCollision.h">
       <Filter>Core Modules</Filter>
     </ClInclude>
-    <ClInclude Include="ModuleSceneLevel.h">
-      <Filter>Game Modules</Filter>
-    </ClInclude>
     <ClInclude Include="Timer.h">
       <Filter>Utils</Filter>
     </ClInclude>
@@ -173,9 +170,6 @@
       <Filter>Math\Geometry</Filter>
     </ClInclude>
     <ClInclude Include="..\Libraries\Geometry\Polyhedron.h">
-      <Filter>Math\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\Geometry\QuadTree.h">
       <Filter>Math\Geometry</Filter>
     </ClInclude>
     <ClInclude Include="..\Libraries\Geometry\Ray.h">
@@ -300,9 +294,6 @@
     </ClInclude>
     <ClInclude Include="MPlane.h">
       <Filter>OpenGlTools</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleCamera.h">
-      <Filter>Core Modules</Filter>
     </ClInclude>
     <ClInclude Include="SOIL.h">
       <Filter>Utils</Filter>
@@ -481,6 +472,21 @@
     <ClInclude Include="ModuleScene.h">
       <Filter>Game Modules</Filter>
     </ClInclude>
+    <ClInclude Include="ComponentCamera.h">
+      <Filter>Game Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="QuadTreeNode.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\Geometry\QuadTreeNode.h">
+      <Filter>Math\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleAnim.h">
+      <Filter>Game Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Billboard.h">
+      <Filter>Game Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -518,9 +524,6 @@
     </ClCompile>
     <ClCompile Include="ModuleCollision.cpp">
       <Filter>Core Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleSceneLevel.cpp">
-      <Filter>Game Modules</Filter>
     </ClCompile>
     <ClCompile Include="ModuleUI.cpp">
       <Filter>Game Modules</Filter>
@@ -627,9 +630,6 @@
     <ClCompile Include="Gizmo.cpp">
       <Filter>Main</Filter>
     </ClCompile>
-    <ClCompile Include="ModuleCamera.cpp">
-      <Filter>Core Modules</Filter>
-    </ClCompile>
     <ClCompile Include="Model.cpp">
       <Filter>OpenGlTools</Filter>
     </ClCompile>
@@ -672,6 +672,18 @@
     <ClCompile Include="ModuleScene.cpp">
       <Filter>Game Modules</Filter>
     </ClCompile>
+    <ClCompile Include="ComponentCamera.cpp">
+      <Filter>Game Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="QuadTreeNode.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleAnim.cpp">
+      <Filter>Game Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="Billboard.cpp">
+      <Filter>Game Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="config.json">
@@ -687,9 +699,6 @@
       <Filter>Math\Geometry</Filter>
     </None>
     <None Include="..\Libraries\Geometry\KDTree.inl">
-      <Filter>Math\Geometry</Filter>
-    </None>
-    <None Include="..\Libraries\Geometry\QuadTree.inl">
       <Filter>Math\Geometry</Filter>
     </None>
     <None Include="..\Libraries\Math\Matrix.inl">
@@ -718,6 +727,9 @@
     </None>
     <None Include="..\Libraries\assimp\include\assimp\matrix4x4.inl">
       <Filter>Assimp</Filter>
+    </None>
+    <None Include="..\Libraries\Geometry\QuadTreeNode.inl">
+      <Filter>Math\Geometry</Filter>
     </None>
   </ItemGroup>
 </Project>

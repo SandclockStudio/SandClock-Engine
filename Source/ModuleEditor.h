@@ -6,6 +6,7 @@
 #pragma comment (lib, "opengl32.lib") 
 #include "IMGUI\imgui.h"
 #include <vector>
+#include "GameObject.h"
 
 class ModuleEditor : public Module
 {
@@ -24,11 +25,15 @@ public:
 	update_status DrawMenu();
 	void AddLog(const char* fmt, ...);
 	void AddFps(float fps);
+	void DrawTree();
+	void Children(GameObject* go, int &ptr_id);
+	void DrawProperties();
 
 
 public:
 	ImGuiTextBuffer Buf;
 	std::vector<float> fps_log;
+	GameObject* selected = nullptr;
 
 
 private:

@@ -8,7 +8,9 @@
 #include "Model.h"
 #include "Level.h"
 #include "GameObject.h"
-
+#include "ComponentCamera.h"
+#include "QuadTreeNode.h"
+#include "Billboard.h"
 
 
 struct SDL_Texture;
@@ -25,22 +27,28 @@ public:
 
 	void LoadGameObjects(aiNode* node, GameObject* parent);
 
+	update_status PreUpdate(float dt);
+
 public:
 	
 	uint fx = 0;
 	Cube* c;
 	Gizmo* g;
 	MPlane* p;
-	Level* l;
-	Level* l2;
 	MY::Uint index = 0;
 	float angle = 0;
 	Model* batman;
 	const aiScene* scene;
 	GameObject* root;
+	GameObject* camera;
+	ComponentCamera* componentCamera;
 
-private:
+	QuadTreeNode* quadTree;
 	std::vector<GameObject*> gameObject;
+
+	Billboard * billboard;
+
+	
 };
 
 #endif // __MODULESCENE_H__

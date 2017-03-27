@@ -17,16 +17,24 @@ public:
 	ComponentTransform(bool start_enabled = true);
 	~ComponentTransform();
 
+	bool Update();
+	bool Update2();
+
 	void LoadTransform(aiNode* node);
 	void Translate(aiVector3D translation);
-	void Rotate(aiVector3D rotation);
+	void Rotate(aiQuaternion rotation);
+	void Scale(aiVector3D scale);
+
+	aiVector3D pos;
+	aiQuaternion quat;
+	aiVector3D scale;
 
 private:
 
 	aiMatrix4x4 mat;
-	aiVector3D pos;
-	aiQuaternion quat;
-	aiVector3D scale;
+
+
+
 };
 
 #endif // __COMPONENTTRANSFORM_H_

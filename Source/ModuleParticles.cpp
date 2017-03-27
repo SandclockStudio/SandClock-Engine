@@ -66,7 +66,6 @@ update_status ModuleParticles::Update(float dt)
 		}
 		else
 		{
-			App->renderer->Blit(graphics, p->position.x, p->position.y, &(p->animation.GetCurrentFrame()));
 			++it;
 		}
 	}

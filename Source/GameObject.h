@@ -5,6 +5,7 @@
 #include <vector>
 #include "Devil\include\IL\ilut.h"
 #include "Component.h"
+#include "MathGeoLib.h"
 
 class ComponentMesh;
 class ComponentMaterial;
@@ -16,24 +17,55 @@ class GameObject
 			aiString name;
 			GameObject* root = nullptr;
 			std::vector<GameObject*> childs;
-			std::vector<Component*> components;
+			bool inFrustum;
 
-		
+
+			aiVector3D position;
+			aiQuaternion rotation;
+			aiVector3D scale;
 
 	public:
 			GameObject*  GetRootNode() { return root; }
 			const GameObject* GetRootNode()const { return root; }
+			std::vector<GameObject*> getChilds() { return childs; }
 			void SetRootNode(GameObject * gameObject) { root = gameObject; }
 			aiString GetName(){ return name; }
+			void CleanUp();
 			void AddComponent(Component* component);
 			void DeleteComponent(Component* component);
+			bool Update(Frustum f);
 			GameObject(aiString name, GameObject* root = nullptr)
 				: name(name), root(root)
-			{}
-			bool Update();
-			GameObject* FindGameObject(const char* node);
-			void AddChild(GameObject* node, GameObject* destination);
-			static GameObject* LoadGameObjectMesh(aiNode * node, aiMesh* mesh,const aiScene* scene);
-			static GameObject* LoadGameObject(aiNode * node,const aiScene* scene);
+			{};
+			bool PreUpdate();
+			void DrawBoundingBox();
+			GameObject * FindGameObject(aiString node);
+			void AddChild(GameObject* node);
+			GameObject* LoadGameObjectMesh(aiNode * node, aiMesh* mesh,const aiScene* scene);
+			GameObject* LoadGameObject(aiNode * node);
+			aiVector3D getPosition();
+			aiQuaternion getRotation();
+			aiVector3D getScale();
+
+			void DrawLines();
+
+
+			void setPosition(aiVector3D newPosition);
+
+			void setRotation(Quat newRotation);
+
+			void setScale(aiVector3D newScale);
+
+			bool intersectFrustumAABB(Frustum f, AABB b);
+			void setTransformAnimation(aiVector3D scale, aiVector3D position, Quat rotation);
+			bool frustumCulling = false;
+
+
+
+			AABB boundingBox;
+			float3* corners = new float3[8];
+			
+			std::vector<Component*> components;
+			
 };
 #endif //__GAMEOBJECT_H_

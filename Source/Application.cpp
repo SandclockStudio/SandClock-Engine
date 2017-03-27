@@ -7,14 +7,12 @@
 #include "ModuleCollision.h"
 #include "ModuleParticles.h"
 #include "ModuleScene.h"
-#include "ModuleSceneLevel.h"
 #include "ModulePlayer.h"
 #include "ModuleUI.h"
 #include "JsonParser.h"
-#include "ModuleCamera.h"
 #include "ModuleEditor.h"
 #include "ModuleTextures.h"
-
+#include "ModuleAnim.h"
 
 using namespace std;
 
@@ -25,23 +23,24 @@ Application::Application()
 	modules.push_back(input = new ModuleInput());
 	modules.push_back(window = new ModuleWindow());
 	modules.push_back(renderer = new ModuleRender());
-	modules.push_back(editor = new ModuleEditor());
 	modules.push_back(audio = new ModuleAudio());
 
+
+
 	// Game Modules
-	modules.push_back(camera = new ModuleCamera());
-	modules.push_back(scene_intro = new ModuleScene(false));
-	modules.push_back(scene_level = new ModuleSceneLevel(false));
+	modules.push_back(editor = new ModuleEditor());
+	modules.push_back(animations = new ModuleAnim());
+	modules.push_back(scene_intro = new ModuleScene(true));
 	modules.push_back(ui = new ModuleUI());
 	modules.push_back(player = new ModulePlayer(false));
 	modules.push_back(textures = new ModuleTextures());
+
 
 	// Modules to draw on top of game LOGCHARic
 
 	modules.push_back(collision = new ModuleCollision());
 	modules.push_back(particles = new ModuleParticles());
 	modules.push_back(fade = new ModuleFadeToBlack());
-
 }
 
 Application::~Application()
@@ -64,7 +63,6 @@ bool Application::Init()
 			ret = (*it)->Start();
 	}
 	// Start the first scene --
-	fade->FadeToBlack(scene_intro, nullptr, 3.0f);
 	mili.start();
 	return ret;
 	

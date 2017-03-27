@@ -133,7 +133,7 @@
     <ClInclude Include="..\Libraries\Geometry\Plane.h" />
     <ClInclude Include="..\Libraries\Geometry\Polygon.h" />
     <ClInclude Include="..\Libraries\Geometry\Polyhedron.h" />
-    <ClInclude Include="..\Libraries\Geometry\QuadTree.h" />
+    <ClInclude Include="..\Libraries\Geometry\QuadTreeNode.h" />
     <ClInclude Include="..\Libraries\Geometry\Ray.h" />
     <ClInclude Include="..\Libraries\Geometry\Sphere.h" />
     <ClInclude Include="..\Libraries\Geometry\Triangle.h" />
@@ -183,7 +183,9 @@
     <ClInclude Include="..\Libraries\Time\Clock.h" />
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Application.h" />
+    <ClInclude Include="Billboard.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="ComponentCamera.h" />
     <ClInclude Include="ComponentMaterial.h" />
     <ClInclude Include="ComponentMesh.h" />
     <ClInclude Include="ComponentTransform.h" />
@@ -197,8 +199,8 @@
     <ClInclude Include="MemLeaks.h" />
     <ClInclude Include="Model.h" />
     <ClInclude Include="Module.h" />
+    <ClInclude Include="ModuleAnim.h" />
     <ClInclude Include="ModuleAudio.h" />
-    <ClInclude Include="ModuleCamera.h" />
     <ClInclude Include="ModuleCollision.h" />
     <ClInclude Include="ModuleEditor.h" />
     <ClInclude Include="ModuleFadeToBlack.h" />
@@ -207,7 +209,6 @@
     <ClInclude Include="ModulePlayer.h" />
     <ClInclude Include="ModuleRender.h" />
     <ClInclude Include="ModuleScene.h" />
-    <ClInclude Include="ModuleSceneLevel.h" />
     <ClInclude Include="ModuleTextures.h" />
     <ClInclude Include="ModuleUI.h" />
     <ClInclude Include="ModuleWindow.h" />
@@ -216,6 +217,7 @@
     <ClInclude Include="MPlane.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="Primitive.h" />
+    <ClInclude Include="QuadTreeNode.h" />
     <ClInclude Include="SimpleTimer.h" />
     <ClInclude Include="SOIL.h" />
     <ClInclude Include="TextureManager.h" />
@@ -257,6 +259,8 @@
     <ClCompile Include="..\Libraries\Math\TransformOps.cpp" />
     <ClCompile Include="..\Libraries\Time\Clock.cpp" />
     <ClCompile Include="Application.cpp" />
+    <ClCompile Include="Billboard.cpp" />
+    <ClCompile Include="ComponentCamera.cpp" />
     <ClCompile Include="ComponentMaterial.cpp" />
     <ClCompile Include="ComponentMesh.cpp" />
     <ClCompile Include="ComponentTransform.cpp" />
@@ -268,7 +272,7 @@
     <ClCompile Include="Log.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Model.cpp" />
-    <ClCompile Include="ModuleCamera.cpp" />
+    <ClCompile Include="ModuleAnim.cpp" />
     <ClCompile Include="ModuleEditor.cpp" />
     <ClCompile Include="ModuleUI.cpp" />
     <ClCompile Include="ModuleAudio.cpp" />
@@ -279,11 +283,11 @@
     <ClCompile Include="ModulePlayer.cpp" />
     <ClCompile Include="ModuleRender.cpp" />
     <ClCompile Include="ModuleScene.cpp" />
-    <ClCompile Include="ModuleSceneLevel.cpp" />
     <ClCompile Include="ModuleTextures.cpp" />
     <ClCompile Include="ModuleWindow.cpp" />
     <ClCompile Include="parson.c" />
     <ClCompile Include="MPlane.cpp" />
+    <ClCompile Include="QuadTreeNode.cpp" />
     <ClCompile Include="TextureManager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -296,7 +300,7 @@
     <None Include="..\Libraries\assimp\include\assimp\vector3.inl" />
     <None Include="..\Libraries\Devil\include\IL\DevIL.i" />
     <None Include="..\Libraries\Geometry\KDTree.inl" />
-    <None Include="..\Libraries\Geometry\QuadTree.inl" />
+    <None Include="..\Libraries\Geometry\QuadTreeNode.inl" />
     <None Include="..\Libraries\Geometry\TriangleMesh_IntersectRay_AVX.inl" />
     <None Include="..\Libraries\Geometry\TriangleMesh_IntersectRay_CPP.inl" />
     <None Include="..\Libraries\Geometry\TriangleMesh_IntersectRay_SSE.inl" />

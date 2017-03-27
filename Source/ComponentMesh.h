@@ -3,11 +3,26 @@
 
 #include "Component.h"
 #include <vector>
+#include "Globals.h"
 #include "Devil\include\IL\ilut.h"
 #include "assimp\include\assimp\cimport.h"
 #include <assimp\include\assimp\postprocess.h>
-#include "Globals.h"
 #include <assimp/include/assimp/scene.h>
+#include "MathGeoLib.h"
+
+struct Weight
+{
+	unsigned vertex = 0;
+	float weight = 0.0f;
+};
+
+struct Bone
+{
+	aiString name;
+	Weight* weights = nullptr;
+	unsigned num_weights = 0;
+	float4x4 bind;
+};
 
 class ComponentMesh : public Component
 {
@@ -18,9 +33,9 @@ public:
 
 	
 	bool Update();
+	bool CleanUp();
 	void LoadMesh(aiMesh * mesh, const aiScene * scene);
 
-private:
 
 	aiVector3D*  vertices;
 	aiVector3D* tex_coords;
@@ -29,6 +44,8 @@ private:
 	unsigned* indices;
 	unsigned num_indices = 0;
 	unsigned num_faces = 0;
+	bool has_bones = false;
+	std::vector<Bone*> bones;
 
 };
 

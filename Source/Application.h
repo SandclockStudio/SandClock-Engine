@@ -16,8 +16,8 @@ class ModuleFadeToBlack;
 class ModuleCollision;
 class ModuleParticles;
 class ModuleUI;
-class ModuleCamera;
 class ModuleEditor;
+class ModuleAnim;
 
 //JSON Parser
 class JsonParser;
@@ -50,6 +50,7 @@ public:
 	ModuleCollision* collision;
 	ModuleParticles* particles;
 	ModuleEditor* editor;
+	ModuleAnim* animations;
 
 	JsonParser* json_parser;
 	SimpleTimer mili;
@@ -61,9 +62,7 @@ public:
 	ModuleUI* ui;
 	ModulePlayer* player;
 	ModuleScene* scene_intro;
-	ModuleSceneLevel* scene_level;
 	ModuleEnemy* enemies;
-	ModuleCamera* camera;
 
 
 private:
