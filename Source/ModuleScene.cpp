@@ -185,7 +185,7 @@ update_status ModuleScene::Update(float dt)
 
 	p->DrawDirect();
 	c->Draw2();
-	billboard->Update();
+	billboard->Update(componentCamera->frustum);
 
 	//quadTree->root->DebugDraw();
 

@@ -49,7 +49,8 @@ private:
 
 	//○ Normal coincide con el vector entre la posición de la cámara y la posición central del billboard
 	//○ Up es fija para el billboard y coincide con el up vector del mundo
-	//○ Right es el producto vectorial entre N x R
+	//○ Right es el producto vectorial entre N x R
+
 	float3 normal;
 	float3 up;
 	float3 right;
