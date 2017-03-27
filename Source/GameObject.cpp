@@ -6,6 +6,7 @@
 #include "Application.h"
 #include <vector>
 //#include "ModuleScene.h"
+#include "ComponentBone.h"
 
 void GameObject::CleanUp()
 {
@@ -191,6 +192,8 @@ GameObject * GameObject::LoadGameObjectMesh(aiNode * node, aiMesh * mesh, const 
 	go->AddComponent(m);
 
 	m->LoadMesh(mesh, scene);
+
+
 
 	return go;
 }

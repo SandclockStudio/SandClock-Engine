@@ -1,6 +1,7 @@
 #include "ComponentMesh.h"
 #include "MathGeoLib.h"
-#include "GameObject.h"
+#include "Application.h"
+#include "ModuleScene.h"
 #include "ComponentTransform.h"
 
 ComponentMesh::ComponentMesh(bool start_enabled)
@@ -92,5 +93,6 @@ void ComponentMesh::LoadMesh(aiMesh* mesh, const aiScene* scene)
 
 		myGo->boundingBox.Enclose((float3*) vertices, num_vertices);
 }
+
 
 

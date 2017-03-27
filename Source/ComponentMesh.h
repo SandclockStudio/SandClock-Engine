@@ -24,6 +24,21 @@ struct Bone
 	float4x4 bind;
 };
 
+
+struct Weight
+{
+	unsigned vertex = 0;
+	float weight = 0.0f;
+};
+
+struct Bone
+{
+	aiString name;
+	Weight* weights = nullptr;
+	unsigned num_weights = 0;
+	float4x4 bind;
+};
+
 class ComponentMesh : public Component
 {
 public:
@@ -35,6 +50,8 @@ public:
 	bool Update();
 	bool CleanUp();
 	void LoadMesh(aiMesh * mesh, const aiScene * scene);
+
+	void LoadBones();
 
 
 	aiVector3D*  vertices;
