@@ -1,6 +1,7 @@
 #include "ComponentMesh.h"
 #include "MathGeoLib.h"
-#include "GameObject.h"
+#include "Application.h"
+#include "ModuleScene.h"
 #include "ComponentTransform.h"
 
 ComponentMesh::ComponentMesh(bool start_enabled)
@@ -68,7 +69,30 @@ void ComponentMesh::LoadMesh(aiMesh* mesh, const aiScene* scene)
 			}
 		}
 
+		if (mesh->HasBones())
+		{
+			has_bones = true;
+			for (int i = 0; i < mesh->mNumBones; i++)
+			{
+				aiBone* scene_bone = mesh->mBones[i];
+				Bone* bone = new Bone;
+				bone->name = scene_bone->mName;
+
+				memcpy(bone->bind.v, &scene_bone->mOffsetMatrix.a1, 16 * sizeof(float));
+
+				bone->num_weights = scene_bone->mNumWeights;
+				bone->weights = new Weight[bone->num_weights];
+				for (int j = 0; j < bone->num_weights; j++)
+				{
+					bone->weights[j].weight = scene_bone->mWeights[j].mWeight;
+					bone->weights[j].vertex = scene_bone->mWeights[j].mVertexId;
+				}
+				bones.push_back(bone);
+			}
+		}
+
 		myGo->boundingBox.Enclose((float3*) vertices, num_vertices);
 }
+
 
 
