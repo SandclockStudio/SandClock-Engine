@@ -57,7 +57,7 @@ class GameObject
 			void setScale(aiVector3D newScale);
 
 			bool intersectFrustumAABB(Frustum f, AABB b);
-			void setTransformAnimation(aiVector3D scale, aiVector3D position);
+			void setTransformAnimation(aiVector3D scale, aiVector3D position, Quat rotation);
 			bool frustumCulling = false;
 
 

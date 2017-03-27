@@ -1,7 +1,7 @@
 #include "ModuleAnim.h"
 #include "Application.h"
 #include  "ModuleScene.h"
-
+#include "ComponentTransform.h"
 
 void ModuleAnim::Load(const char* name)
 {
@@ -58,7 +58,7 @@ aiVector3D myAnimation::InterpolateV3(const aiVector3D previous, const aiVector3
 	return previous * (1.0f - lambda) + next * lambda;
 }
 
-aiQuaternion myAnimation::InterpolateQuat(const aiQuaternion previous, const aiQuaternion next, float lambda)
+aiQuaternion myAnimation::InterpolateQuat(const aiQuaternion& previous, const aiQuaternion& next, float lambda)
 {
 	aiQuaternion result;
 	float dot = previous.x * next.x + previous.y * next.y + previous.z * next.z + previous.w * next.w;
@@ -77,7 +77,6 @@ aiQuaternion myAnimation::InterpolateQuat(const aiQuaternion previous, const aiQ
 		result.z = previous.z * (1.0f - lambda) + next.z * -lambda;
 		result.w = previous.w * (1.0f - lambda) + next.w * -lambda;
 	}
-	result.Normalize();
 
 	result.Normalize();
 
@@ -105,7 +104,7 @@ void myAnimation::Update(float dt)
 		//Si no se ha devuelto ninguno no se hace nada
 		if (goToChange != nullptr)
 		{
-			channels[i].currentTime += 0.01f;
+			channels[i].currentTime += 0.9f;
 
 			//Interpolation
 			for (int j = 0; j < channels[i].size; j++)
@@ -120,12 +119,24 @@ void myAnimation::Update(float dt)
 				//Si el tiempo actual es mayor que el de la iteración y menor que el siguiente se calcula
 				if (channels[i].position[j].mTime < channels[i].currentTime && channels[i].position[j + 1].mTime > channels[i].currentTime)
 				{
-					position = InterpolateV3(channels[i].position[j].mValue, channels[i].position[j + 1].mValue, channels[i].currentTime);
-					scale = InterpolateV3(channels[i].scale[j].mValue, channels[i].scale[j + 1].mValue, channels[i].currentTime);
-					rotation = InterpolateQuat(channels[i].rotations[j].mValue, channels[i].rotations[j + 1].mValue, channels[i].currentTime);
 
-					//Faltaria una posible rotación (?)
-					goToChange->setTransformAnimation(scale, position);
+					float pos_key = float(channels[i].currentTime * (channels[i].size - 1)) / float(duration);
+					float rot_key = float(channels[i].currentTime * (channels[i].size - 1)) / float(duration);
+
+					float pos_lambda = pos_key - j;
+					float rot_lambda = rot_key - j;
+
+					
+					scale = InterpolateV3(channels[i].scale[j].mValue, channels[i].scale[j + 1].mValue, 1);
+					position = InterpolateV3(channels[i].position[j].mValue, channels[i].position[j + 1].mValue, pos_lambda);
+					rotation = InterpolateQuat(channels[i].rotations[j].mValue, channels[i].rotations[j + 1].mValue, rot_lambda);
+					glPushMatrix();
+					Quat rotationQuat = Quat(rotation.x, rotation.y, rotation.z, rotation.w);
+					goToChange->setTransformAnimation(scale, position, rotationQuat);
+					dynamic_cast<ComponentTransform*>(goToChange->components[0])->Update2();
+					glPopMatrix();
+
+
 					break;
 				}
 			}

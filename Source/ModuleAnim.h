@@ -32,7 +32,7 @@ struct myAnimation
 	{};
 
 	aiVector3D InterpolateV3(const aiVector3D previous, const aiVector3D next, float lambda);
-	aiQuaternion InterpolateQuat(const aiQuaternion previous, const aiQuaternion next, float lambda);
+	aiQuaternion InterpolateQuat(const aiQuaternion & previous, const aiQuaternion & next, float lambda);
 
 	void Update(float dt);
 	bool playing = false;

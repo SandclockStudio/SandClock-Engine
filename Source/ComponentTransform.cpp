@@ -51,11 +51,12 @@ bool ComponentTransform::Update()
 		float3 scal = float3(scale.x, scale.y, scale.z);
 		float3 euler = quaternion.ToEulerXYZ() * 180.0f / pi;
 
-		glTranslatef(position.x, position.y, position.z);
 		glRotatef(euler.x, 1, 0, 0);
 		glRotatef(euler.y, 0, 1, 0);
 		glRotatef(euler.z, 0, 0, 1);
 		glScalef(scale.x, scale.y, scale.z);
+		glTranslatef(position.x, position.y, position.z);
+
 		glPopMatrix();
 		//float* transform = float4x4::FromTRS(position, quaternion, scal).Transposed().ptr();
 	}

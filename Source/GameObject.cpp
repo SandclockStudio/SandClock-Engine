@@ -343,8 +343,9 @@ bool GameObject::intersectFrustumAABB(Frustum f, AABB box)
 	
 	}
 
-void GameObject::setTransformAnimation(aiVector3D scale, aiVector3D position)
+void GameObject::setTransformAnimation(aiVector3D scale, aiVector3D position, Quat rotation)
 {
 	setPosition(position);
 	setScale(scale);
+	setRotation(rotation);
 }
