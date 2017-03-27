@@ -3,27 +3,12 @@
 
 #include "Component.h"
 #include <vector>
+#include "Globals.h"
 #include "Devil\include\IL\ilut.h"
 #include "assimp\include\assimp\cimport.h"
 #include <assimp\include\assimp\postprocess.h>
-#include "Globals.h"
 #include <assimp/include/assimp/scene.h>
 #include "MathGeoLib.h"
-
-struct Weight
-{
-	unsigned vertex = 0;
-	float weight = 0.0f;
-};
-
-struct Bone
-{
-	aiString name;
-	Weight* weights = nullptr;
-	unsigned num_weights = 0;
-	float4x4 bind;
-};
-
 
 struct Weight
 {
@@ -50,8 +35,6 @@ public:
 	bool Update();
 	bool CleanUp();
 	void LoadMesh(aiMesh * mesh, const aiScene * scene);
-
-	void LoadBones();
 
 
 	aiVector3D*  vertices;

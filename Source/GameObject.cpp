@@ -6,7 +6,6 @@
 #include "Application.h"
 #include <vector>
 //#include "ModuleScene.h"
-#include "ComponentBone.h"
 
 void GameObject::CleanUp()
 {

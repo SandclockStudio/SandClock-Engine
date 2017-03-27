@@ -1,8 +1,5 @@
 #include "ComponentMesh.h"
-#include "MathGeoLib.h"
-#include "Application.h"
-#include "ModuleScene.h"
-#include "ComponentTransform.h"
+#include "GameObject.h"
 
 ComponentMesh::ComponentMesh(bool start_enabled)
 {}
