@@ -45,7 +45,7 @@ bool ModuleScene::Start()
 	root = new GameObject(scene->mRootNode->mName,nullptr);
 	ComponentTransform* rootTransform;
 	rootTransform = new ComponentTransform();
-	App->animations->Load("ArmyPilot_Aim Running.fbx");
+	App->animations->Load("ArmyPilot_Run_Forwards.fbx");
 	App->animations->PlayAll();
 	rootTransform->LoadTransform(scene->mRootNode);
 	root->AddComponent(rootTransform);
@@ -169,19 +169,20 @@ update_status ModuleScene::Update(float dt)
 	gameObject[0]->Update(componentCamera->frustum);
 
 	std::vector<GameObject*> childs = root->getChilds();
-	p->DrawDirect();
-	c->Draw2();
+	
 	for (int i = 0; i < childs.size(); i++)
 	{
-		childs[i]->DrawLines();
+
 		childs[i]->Update(componentCamera->frustum);
+		childs[i]->DrawLines();
 
 		//glPushMatrix();
 		//childs[i]->DrawBoundingBox();
 		//glPopMatrix();
 	}
 
-
+	p->DrawDirect();
+	c->Draw2();
 
 	//quadTree->root->DebugDraw();
 

@@ -43,6 +43,7 @@ void ComponentTransform::Scale(aiVector3D scal)
 
 bool ComponentTransform::Update()
 {
+
 		float3 position = float3(pos.x, pos.y, pos.z);
 		Quat quaternion = Quat(quat.x, quat.y, quat.z, quat.w);
 		float3 scal = float3(scale.x, scale.y, scale.z);
@@ -52,6 +53,7 @@ bool ComponentTransform::Update()
 		glRotatef(euler.y, 0, 1, 0);
 		glRotatef(euler.z, 0, 0, 1);
 		glScalef(scale.x, scale.y, scale.z);
+		
 		
 		//float* transform = float4x4::FromTRS(position, quaternion, scal).Transposed().ptr();
 

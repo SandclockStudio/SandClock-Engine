@@ -12,7 +12,7 @@ Billboard::~Billboard()
 
 bool Billboard::Init()
 {
-
+	return true;
 }
 
 bool Billboard::Draw()
@@ -33,10 +33,13 @@ bool Billboard::Draw()
 	glVertex3f(0.0f, size, 0.0f);
 	glEnd();
 	glBindTexture(GL_TEXTURE_2D, 0);
+	return true;
+
 }
 
 bool Billboard::Update()
 {
+	return true;
 
 }
 
