@@ -484,6 +484,9 @@
     <ClInclude Include="ModuleAnim.h">
       <Filter>Game Modules</Filter>
     </ClInclude>
+    <ClInclude Include="Billboard.h">
+      <Filter>Game Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -676,6 +679,9 @@
       <Filter>Utils</Filter>
     </ClCompile>
     <ClCompile Include="ModuleAnim.cpp">
+      <Filter>Game Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="Billboard.cpp">
       <Filter>Game Modules</Filter>
     </ClCompile>
   </ItemGroup>

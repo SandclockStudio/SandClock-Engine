@@ -45,7 +45,7 @@ bool ModuleScene::Start()
 	root = new GameObject(scene->mRootNode->mName,nullptr);
 	ComponentTransform* rootTransform;
 	rootTransform = new ComponentTransform();
-	App->animations->Load("ArmyPilot_Run_Forwards.fbx");
+	App->animations->Load("ArmyPilot_Aim Running.fbx");
 	App->animations->PlayAll();
 	rootTransform->LoadTransform(scene->mRootNode);
 	root->AddComponent(rootTransform);
