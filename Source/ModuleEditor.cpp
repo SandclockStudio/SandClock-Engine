@@ -292,9 +292,7 @@ void ModuleEditor::DrawProperties()
 			//Una vez se recoja tiene que tener el gameObject una funión para poner la posición y la rotación que se le pase
 			if (ImGui::DragFloat3("Position", (float*)&pos, 0.01f))
 			{
-
 				gOSelected->setPosition(pos);
-
 			}
 				
 			if (ImGui::DragFloat3("Rotation", (float*)&rota,0.6f))

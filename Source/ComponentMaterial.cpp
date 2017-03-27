@@ -20,7 +20,6 @@ bool ComponentMaterial::Update()
 	glMaterialfv(GL_FRONT, GL_SPECULAR, specular);
 	glMaterialf(GL_FRONT, GL_SHININESS, shiness);
 
-
 	return true;
 }
 
