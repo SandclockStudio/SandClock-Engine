@@ -104,7 +104,7 @@ void myAnimation::Update(float dt)
 		//Si no se ha devuelto ninguno no se hace nada
 		if (goToChange != nullptr)
 		{
-			channels[i].currentTime += 0.9f;
+			channels[i].currentTime += 1.5f;
 
 			//Interpolation
 			for (int j = 0; j < channels[i].size; j++)
@@ -119,20 +119,25 @@ void myAnimation::Update(float dt)
 				//Si el tiempo actual es mayor que el de la iteración y menor que el siguiente se calcula
 				if (channels[i].position[j].mTime < channels[i].currentTime && channels[i].position[j + 1].mTime > channels[i].currentTime)
 				{
-
 					float pos_key = float(channels[i].currentTime * (channels[i].size - 1)) / float(duration);
 					float rot_key = float(channels[i].currentTime * (channels[i].size - 1)) / float(duration);
 
 					float pos_lambda = pos_key - j;
 					float rot_lambda = rot_key - j;
 
+					unsigned int pos_index = unsigned(pos_key);
+					unsigned int rot_index = unsigned(rot_key);
+					unsigned int pos_index_sec = (pos_index + 1) % channels[i].size;
+					unsigned int rot_index_sec = (rot_index + 1) % channels[i].size;
 					
+
+					position = InterpolateV3(channels[i].position[pos_index].mValue, channels[i].position[pos_index_sec].mValue, pos_lambda);
+					rotation = InterpolateQuat(channels[i].rotations[pos_index].mValue, channels[i].rotations[pos_index_sec].mValue, rot_lambda);
 					scale = InterpolateV3(channels[i].scale[j].mValue, channels[i].scale[j + 1].mValue, 1);
-					position = InterpolateV3(channels[i].position[j].mValue, channels[i].position[j + 1].mValue, pos_lambda);
-					rotation = InterpolateQuat(channels[i].rotations[j].mValue, channels[i].rotations[j + 1].mValue, rot_lambda);
+
 					Quat rotationQuat = Quat(rotation.x, rotation.y, rotation.z, rotation.w);
 					goToChange->setTransformAnimation(scale, position, rotationQuat);
-
+					goToChange = nullptr;
 					break;
 				}
 			}
