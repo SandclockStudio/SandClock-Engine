@@ -231,7 +231,7 @@ void GameObject::setPosition(aiVector3D newPosition)
 
 void GameObject::setRotation(Quat newRotation)
 {
-	rotation = aiQuaternion(newRotation.x, newRotation.y, newRotation.z);
+	rotation = aiQuaternion(newRotation.w,newRotation.x, newRotation.y, newRotation.z);
 	if (components.size() > 0)
 	{
 		dynamic_cast<ComponentTransform*>(components[0])->Rotate(rotation);

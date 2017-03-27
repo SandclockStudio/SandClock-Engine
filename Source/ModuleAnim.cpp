@@ -130,12 +130,8 @@ void myAnimation::Update(float dt)
 					scale = InterpolateV3(channels[i].scale[j].mValue, channels[i].scale[j + 1].mValue, 1);
 					position = InterpolateV3(channels[i].position[j].mValue, channels[i].position[j + 1].mValue, pos_lambda);
 					rotation = InterpolateQuat(channels[i].rotations[j].mValue, channels[i].rotations[j + 1].mValue, rot_lambda);
-					glPushMatrix();
 					Quat rotationQuat = Quat(rotation.x, rotation.y, rotation.z, rotation.w);
 					goToChange->setTransformAnimation(scale, position, rotationQuat);
-					dynamic_cast<ComponentTransform*>(goToChange->components[0])->Update2();
-					glPopMatrix();
-
 
 					break;
 				}
