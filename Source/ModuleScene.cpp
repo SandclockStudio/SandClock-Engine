@@ -83,6 +83,8 @@ bool ModuleScene::Start()
 	}*/
 
 	
+	billboard = new Billboard();
+	billboard->Init();
 
 	return true;
 }
@@ -182,6 +184,7 @@ update_status ModuleScene::Update(float dt)
 	}
 	p->DrawDirect();
 	c->Draw2();
+	billboard->Update();
 
 	//quadTree->root->DebugDraw();
 
