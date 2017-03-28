@@ -15,14 +15,14 @@ Billboard::~Billboard()
 
 bool Billboard::Init()
 {
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	texture = loadImages("billboardgrass.png");
 	return true;
 }
 
 bool Billboard::Draw()
 {
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	glBindTexture(GL_TEXTURE_2D, texture);
 	glBegin(GL_TRIANGLES);
@@ -31,16 +31,18 @@ bool Billboard::Draw()
 	glTexCoord2d(1.0, 0.0);
 	glVertex3f( positions[1].x, positions[1].y, positions[1].z);
 	glTexCoord2d(1.0, 1.0);
-	glVertex3f(positions[2].x, positions[2].y, positions[2].z);
+	glVertex3f(positions[0].x, positions[0].y, positions[0].z);
 
 	glTexCoord2d(0.0, 0.0);
 	glVertex3f(positions[3].x, positions[3].y, positions[3].z);
 	glTexCoord2d(1.0, 1.0);
-	glVertex3f(positions[2].x, positions[2].y, positions[2].z);
+	glVertex3f(positions[0].x, positions[0].y, positions[0].z);
 	glTexCoord2d(0.0, 1.0);
-	glVertex3f(positions[0].x,  positions[0].y, positions[0].z);
+	glVertex3f(positions[2].x,  positions[2].y, positions[2].z);
 	glEnd();
 	glBindTexture(GL_TEXTURE_2D, 0);
+	glDisable(GL_BLEND);
+
 
 	return true;
 }
@@ -48,9 +50,6 @@ bool Billboard::Draw()
 bool Billboard::Update(Frustum frustum)
 {
 
-
-
-	
 	ComputeQuad(frustum);
 
 	Draw();
@@ -65,15 +64,11 @@ void Billboard::ComputeQuad(Frustum frustum)
 
 	right = normal.Cross(up);
 
-	normal.Normalize();
+	right.Normalize();
 
-	// 0 pos + up + right // pos.x, pos.y, pos.z
-	// 1 pos + up - right // pos.x, pos.y+size, pos.z
-	// 2 pos - up + right // pos.x+size, pos.y, pos.z
-	// 3 pos - up - right // pos.x+size, pos.y+size, pos.z
 	positions[0] = pos + up + right;
-	positions[1] = pos + up - right;
-	positions[2] = pos - up + right;
+	positions[1] = pos - up + right;
+	positions[2] = pos + up - right;
 	positions[3] = pos - up - right;
 
 }
@@ -81,6 +76,9 @@ void Billboard::ComputeQuad(Frustum frustum)
 
 void Billboard::DrawBoundingBox()
 {
+
+	boundingBox = AABB(positions[3], positions[0]);
+
 	float3* corners = new float3[8];
 	boundingBox.GetCornerPoints(corners);
 
