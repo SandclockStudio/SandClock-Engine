@@ -16,6 +16,7 @@ void GameObject::CleanUp()
 		components[i]->CleanUp();
 		RELEASE(components[i]);
 	}
+	components.clear();
 }
 
 void GameObject::AddComponent(Component * component)

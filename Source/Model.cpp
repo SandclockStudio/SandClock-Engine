@@ -58,6 +58,11 @@ void Model::Load(const char * file)
 void Model::Clear()
 {
 	delete(scene);
+	/*for (int i = 0; i< index)
+	{
+	}*/
+	RELEASE_ARRAY(index);
+	
 }
 
 void Model::DrawDirect()

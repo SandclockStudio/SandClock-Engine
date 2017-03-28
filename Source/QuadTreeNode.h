@@ -30,6 +30,7 @@ struct NodeTree
 	bool Insert(GameObject *, int indice);
 	NodeTree* Create(int indice, NodeTree* parent);
 	void DebugDraw();
+	void CleanUp();
 };
 
 class QuadTreeNode
@@ -38,6 +39,7 @@ class QuadTreeNode
 		void Create(AABB limits);
 		void Clear();
 		void Insert(GameObject*);
+		void CleanUp();
 
 	public:
 		//std::vector<NodeTree*> objects;

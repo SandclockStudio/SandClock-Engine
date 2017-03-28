@@ -34,6 +34,21 @@ bool ComponentMesh::CleanUp()
 	RELEASE_ARRAY(normals);
 	RELEASE_ARRAY(tex_coords);
 	RELEASE_ARRAY(indices);
+
+	if (has_bones)
+	{
+		for (int i = 0; i < bones.size(); i++)
+		{
+			RELEASE_ARRAY(bones[i]->weights);
+			RELEASE_ARRAY(bones[i]);
+		}
+		bones.clear();
+		
+	}
+	
+		
+	
+
 	return true;
 }
 
