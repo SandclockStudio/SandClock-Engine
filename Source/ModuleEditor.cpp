@@ -332,12 +332,12 @@ void ModuleEditor::DrawPlayMenu()
 	ImGui::Begin("PlayMenu");
 	if (ImGui::Button("Play"))
 	{
-
+		App->realTime.start();
 	}
 	ImGui::SameLine();
 	if (ImGui::Button("Stop"))
 	{
-
+		App->realTime.stop();
 	}
 	
 	ImGui::SameLine();
