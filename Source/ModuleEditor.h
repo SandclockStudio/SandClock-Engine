@@ -28,8 +28,7 @@ public:
 	void DrawTree();
 	void Children(GameObject* go, int &ptr_id);
 	void DrawProperties();
-
-
+	void DrawPlayMenu();
 public:
 	ImGuiTextBuffer Buf;
 	std::vector<float> fps_log;
