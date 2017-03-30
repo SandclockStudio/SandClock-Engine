@@ -8,6 +8,8 @@
 #include "ModuleWindow.h"
 #include "ModuleScene.h"
 #include "ComponentTransform.h"
+#include "Module.h"
+#include <list>
 
 
 ModuleEditor::ModuleEditor()
@@ -328,19 +330,35 @@ void ModuleEditor::DrawPlayMenu()
 	//ImGui::SetNextWindowPos(ImVec2(App->window->screenWidth*App->window->screenSize, App->window->screenHeight*App->window->screenSize));
 	ImGui::SetNextWindowSize(ImVec2(500, 100), ImGuiSetCond_FirstUseEver);
 	ImGui::Begin("PlayMenu");
+	bool ret;
 	if (ImGui::Button("Play"))
 	{
 
+		for (std::list<Module*>::iterator it = App->modules.begin(); it != App->modules.end(); ++it)
+		{
+			//if ((*it)->fpsDependent)
+
+				
+		}
 	}
 	ImGui::SameLine();
 	if (ImGui::Button("Stop"))
 	{
+		for (std::list<Module*>::iterator it = App->modules.begin(); it != App->modules.end(); ++it)
+		{
+			//if ((*it)->fpsDependent)
 
+		}
 	}
 	
 	ImGui::SameLine();
-	if (ImGui::Button("Update"))
+	if (ImGui::Button("Play 1 frame"))
 	{
+		for (std::list<Module*>::iterator it = App->modules.begin(); it != App->modules.end(); ++it)
+		{
+			//if ((*it)->fpsDependent)
+
+		}
 
 	}
 	//ImGui::Text("Window title");

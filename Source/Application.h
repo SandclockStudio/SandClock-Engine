@@ -57,6 +57,7 @@ public:
 	Timer micro,dtTimer;
 	float dt = 0;
 	int fps = 0;
+	std::list<Module*> modules;
 
 	// Game modules --
 	ModuleUI* ui;
@@ -70,7 +71,7 @@ private:
 	bool start = true;
 	int frames = 0;
 	char newTitle[30];
-	std::list<Module*> modules;
+
 };
 
 extern Application* App;

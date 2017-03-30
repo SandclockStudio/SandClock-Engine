@@ -44,11 +44,12 @@ void ModuleAnim::Stop()
 
 update_status ModuleAnim::Update(float dt)
 {
-	for (int i = 0; i < loadAnimations.size(); i++)
-	{
-		if (loadAnimations[i].playing)
-			loadAnimations[i].Update(dt);
-	}
+	if(dt != 0)
+		for (int i = 0; i < loadAnimations.size(); i++)
+		{
+			if (loadAnimations[i].playing)
+				loadAnimations[i].Update(dt);
+		}
 
 	return UPDATE_CONTINUE;
 }
