@@ -22,6 +22,7 @@ struct Bone
 	Weight* weights = nullptr;
 	unsigned num_weights = 0;
 	float4x4 bind;
+	const GameObject *attached_to = nullptr;
 };
 
 class ComponentMesh : public Component
@@ -35,7 +36,7 @@ public:
 	bool Update();
 	bool CleanUp();
 	void LoadMesh(aiMesh * mesh, const aiScene * scene);
-
+	void LoadBonesFromScene(std::vector<GameObject*> gameobjects);
 
 	aiVector3D*  vertices;
 	aiVector3D* tex_coords;
@@ -46,6 +47,8 @@ public:
 	unsigned num_faces = 0;
 	bool has_bones = false;
 	std::vector<Bone*> bones;
+	//cambiar
+	bool playing = true;
 
 };
 

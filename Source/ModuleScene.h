@@ -7,7 +7,6 @@
 #include "Gizmo.h"
 #include "Model.h"
 #include "Level.h"
-#include "GameObject.h"
 #include "ComponentCamera.h"
 #include "QuadTreeNode.h"
 #include "Billboard.h"

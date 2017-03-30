@@ -15,6 +15,7 @@
 #include "MathGeoLib.h"
 #include "ModuleAnim.h"
 #include "Application.h"
+#include "GameObject.h"
 
 ModuleScene::ModuleScene(bool active) : Module(active)
 {}
@@ -47,6 +48,7 @@ bool ModuleScene::Start()
 	rootTransform = new ComponentTransform();
 	App->animations->Load("ArmyPilot_Run_Forwards.fbx");
 	App->animations->PlayAll();
+
 	rootTransform->LoadTransform(scene->mRootNode);
 	root->AddComponent(rootTransform);
 	LoadGameObjects(scene->mRootNode, root);
@@ -86,6 +88,12 @@ bool ModuleScene::Start()
 	
 	billboard = new Billboard();
 	billboard->Init();
+
+
+	for (int i = 0; i < gameObject.size(); i++)
+	{
+		gameObject[i]->LoadBones(gameObject);
+	}
 
 	return true;
 }

@@ -5,7 +5,8 @@
 #include "ComponentMesh.h"
 #include "Application.h"
 #include <vector>
-//#include "ModuleScene.h"
+
+
 
 void GameObject::CleanUp()
 {
@@ -356,4 +357,27 @@ void GameObject::setTransformAnimation(aiVector3D scale, aiVector3D position, Qu
 	setPosition(position);
 	setScale(scale);
 	setRotation(rotation);
+}
+
+void GameObject::LoadBones(std::vector<GameObject*> gameobjects)
+{
+	if (components.size() > 1)
+	{
+		dynamic_cast<ComponentMesh*>(components[3])->LoadBonesFromScene(gameobjects);
+	}
+
+}
+
+float4x4 GameObject::GetLocalTransformMatrix() const
+{
+	return float4x4::FromTRS(float3(position.x,position.y,position.z),Quat(rotation.x,rotation.y,rotation.z,rotation.w),float3(scale.x,scale.y,scale.z));
+}
+
+
+float4x4 GameObject::GetModelSpaceTransformMatrix() const
+{
+	if (root == nullptr)
+		return float4x4::identity;
+	else
+		return root->GetModelSpaceTransformMatrix() * GetLocalTransformMatrix();
 }

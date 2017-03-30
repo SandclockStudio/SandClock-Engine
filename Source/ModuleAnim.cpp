@@ -2,6 +2,7 @@
 #include "Application.h"
 #include  "ModuleScene.h"
 #include "ComponentTransform.h"
+#include "GameObject.h"
 
 void ModuleAnim::Load(const char* name)
 {

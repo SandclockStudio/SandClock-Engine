@@ -1,8 +1,10 @@
 #include "ComponentMesh.h"
+#include "Application.h"
 #include "GameObject.h"
 
 ComponentMesh::ComponentMesh(bool start_enabled)
-{}
+{
+}
 
 ComponentMesh::~ComponentMesh()
 {
@@ -15,15 +17,50 @@ bool ComponentMesh::Update()
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
 	glNormalPointer(GL_FLOAT, 0, normals);
-	glTexCoordPointer(3, GL_FLOAT, sizeof(aiVector3D),tex_coords);
-	glVertexPointer(3, GL_FLOAT, 0, vertices);
-	glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_INT, indices);
-	glBindTexture(GL_TEXTURE_2D,0);
+	glTexCoordPointer(3, GL_FLOAT, sizeof(aiVector3D), tex_coords);
+
+
+	if (has_bones && playing)
+	{
+		float4x4 mat = float4x4::identity;
+
+		aiVector3D *vertices_skinned = new aiVector3D[num_vertices];
+		memset(vertices_skinned, 0, num_vertices * sizeof(float3));
+
+		for (size_t b = 0; b < bones.size(); ++b)
+		{
+			mat = bones[b]->attached_to->GetModelSpaceTransformMatrix() * bones[b]->bind;
+			for (size_t w = 0; w < bones[b]->num_weights; ++w)
+			{
+				float3 temp = bones[b]->weights[w].weight * mat.TransformPos(float3(vertices[bones[b]->weights[w].vertex].x, vertices[bones[b]->weights[w].vertex].y, vertices[bones[b]->weights[w].vertex].z));
+				vertices_skinned[bones[b]->weights[w].vertex] +=aiVector3D(temp.x,temp.y,temp.z);
+				//	vertices_skinned[m_bones[b].weights[w].vertex] += m_bones[b].weights[w].weight * (mat * vertices[m_bones[b].weights[w].vertex].ToPos4()).Float3Part();
+			}
+		}
+
+		/*
+		glBindBuffer(GL_ARRAY_BUFFER, m_vbo[VERTEX_BUFFER]);
+		glBufferData(GL_ARRAY_BUFFER, num_vertices * sizeof(vertices_skinned[0]), &vertices_skinned[0], GL_STATIC_DRAW);
+		*/
+
+		glVertexPointer(3, GL_FLOAT, 0, vertices_skinned);
+		glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_INT, indices);
+		glBindTexture(GL_TEXTURE_2D, 0);
+	}
+
+	else
+	{
+		glVertexPointer(3, GL_FLOAT, 0, vertices);
+
+		glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_INT, indices);
+		glBindTexture(GL_TEXTURE_2D,0);
+	}
 
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glPopMatrix();
+
 	//myGo->DrawBoundingBox();
 	return true;
 }
@@ -45,9 +82,6 @@ bool ComponentMesh::CleanUp()
 		bones.clear();
 		
 	}
-	
-		
-	
 
 	return true;
 }
@@ -84,10 +118,12 @@ void ComponentMesh::LoadMesh(aiMesh* mesh, const aiScene* scene)
 		if (mesh->HasBones())
 		{
 			has_bones = true;
+			
 			for (int i = 0; i < mesh->mNumBones; i++)
 			{
 				aiBone* scene_bone = mesh->mBones[i];
 				Bone* bone = new Bone;
+
 				bone->name = scene_bone->mName;
 
 				memcpy(bone->bind.v, &scene_bone->mOffsetMatrix.a1, 16 * sizeof(float));
@@ -107,4 +143,18 @@ void ComponentMesh::LoadMesh(aiMesh* mesh, const aiScene* scene)
 }
 
 
+void ComponentMesh::LoadBonesFromScene(std::vector<GameObject*> gameobjects)
+{
 
+	for (int i = 0; i < bones.size(); i++)
+	{
+		for (int k = 0; k < gameobjects.size();k++)
+		{
+			if (bones[i]->name == gameobjects[k]->GetName())
+			{
+				bones[i]->attached_to = gameobjects[k];
+				break;
+			}
+		}
+	}
+}
