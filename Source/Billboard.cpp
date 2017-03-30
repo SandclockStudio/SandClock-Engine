@@ -3,7 +3,7 @@
 Billboard::Billboard()
 {
 	size = 1.0f;
-	pos = float3(0, 0, -4);
+	pos = float3(1, 1, -4);
 
 	boundingBox = AABB(pos, float3(pos.x + size,pos.y+size,pos.z));
 }

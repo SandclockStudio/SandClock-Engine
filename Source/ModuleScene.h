@@ -48,6 +48,10 @@ public:
 
 	Billboard * billboard;
 
+private:
+	GameObject * object;
+	GameObject * my_go;
+
 	
 };
 

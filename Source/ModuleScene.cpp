@@ -54,27 +54,28 @@ bool ModuleScene::Start()
 	quadTree = new QuadTreeNode();
 	quadTree->Create(AABB(float3(-10, 1, -10), float3(10, 1, 10)));
 	
-	GameObject * aaaa = new GameObject(aiString("AAAA"));
+	std::auto_ptr<GameObject> aaaa ( new GameObject(aiString("AAAA")));
 	aaaa->boundingBox = AABB(float3(-8, 1, -8), float3(-6, 1, -6));
 
-	GameObject * bbbb = new GameObject(aiString("BBBB"));
+	std::auto_ptr<GameObject> bbbb (new GameObject(aiString("BBBB")));
 	bbbb->boundingBox = AABB(float3(-6, 1, -6), float3(-4, 1, -4));
 
-	GameObject * cccc = new GameObject(aiString("CCCC"));
+	std::auto_ptr<GameObject> cccc ( new GameObject(aiString("CCCC")));
 	cccc->boundingBox = AABB(float3(8, 1, 8), float3(6, 1, 6));
 
-	GameObject * dddd = new GameObject(aiString("DDDD"));
+	std::auto_ptr<GameObject> dddd ( new GameObject(aiString("DDDD")));
 	dddd->boundingBox = AABB(float3(6, 1, 6), float3(4, 1, 4));
 
-	GameObject * eeee = new GameObject(aiString("EEEE"));
+
+	std::auto_ptr<GameObject> eeee (new GameObject(aiString("EEEE")));
 	eeee->boundingBox = AABB(float3(-8, 1, 8), float3(-6, 1, 6));
 
 	
-	quadTree->Insert(aaaa);
-	quadTree->Insert(bbbb);
-	quadTree->Insert(cccc);
-	quadTree->Insert(dddd);
-	//quadTree->Insert(eeee);
+	quadTree->Insert(aaaa.get());
+	quadTree->Insert(bbbb.get());
+	quadTree->Insert(cccc.get());
+	quadTree->Insert(dddd.get());
+	quadTree->Insert(eeee.get());
 	
 	/*for (int i = 0; i < root->getChilds().size(); i++) 
 	{
@@ -105,17 +106,24 @@ bool ModuleScene::CleanUp()
 	for (int i = 0; i < gameObject.size();++i)
 	{
 		gameObject[i]->CleanUp();
+		
 		RELEASE(gameObject[i]);
 	}
+	gameObject.clear();
+
+	quadTree->CleanUp();
 	delete(quadTree);
+	delete(batman);
+	delete(root);
+	delete(billboard);
 
 	return true;
 }
 
-void  ModuleScene::LoadGameObjects(aiNode * node,GameObject* parent)
+void ModuleScene::LoadGameObjects(aiNode * node,GameObject* parent)
 {
-	GameObject* object = new GameObject(node->mName, parent);
-	GameObject* my_go;
+	GameObject *object = new GameObject(node->mName, parent);
+	GameObject * my_go;
 	if (node->mNumMeshes > 1)
 	{
 		for (int i = 0; i < node->mNumMeshes; i++)

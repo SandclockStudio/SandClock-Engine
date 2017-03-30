@@ -1,5 +1,6 @@
 #include "QuadTreeNode.h"
 #include "GameObject.h"
+#include "Globals.h"
 
 void QuadTreeNode::Create(AABB limits)
 {
@@ -8,6 +9,41 @@ void QuadTreeNode::Create(AABB limits)
 	root->name = "root";	
 	root->nodeBoundingBox = AABB(limits);
 	root->nodeBoundingBoxSize = root->nodeBoundingBox.Size();
+	
+}
+
+void QuadTreeNode::CleanUp()
+{
+
+	root->CleanUp();
+	delete(root);
+}
+
+void NodeTree::CleanUp()
+{
+	//Me elimino normalmente
+	if (childs.size() != 0)
+	{
+		for (int i = 0; i < childs.size(); i++)
+		{
+			childs[i]->CleanUp();
+			delete(childs[i]);
+		}
+	}
+	childs.clear();
+
+	if (gameObjects.size() != 0)
+	{
+		for (int i = 0; i < gameObjects.size(); i++)
+		{
+			//if (gameObjects[i] != NULL)
+				//RELEASE(gameObjects[i]);
+		}
+	}
+
+	
+	gameObjects.clear();
+
 	
 }
 
