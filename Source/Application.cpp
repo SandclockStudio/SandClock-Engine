@@ -63,6 +63,7 @@ bool Application::Init()
 			ret = (*it)->Start();
 	}
 	// Start the first scene --
+	realTime.start();
 	mili.start();
 	return ret;
 	
@@ -122,6 +123,7 @@ update_status Application::Update()
 
 bool Application::CleanUp()
 {
+	realTime.stop();
 	LOGCHAR("Frames all application: %d ", frames);
 	bool ret = true;
 	for(list<Module*>::reverse_iterator it = modules.rbegin(); it != modules.rend() && ret; ++it)

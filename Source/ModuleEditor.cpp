@@ -33,6 +33,7 @@ update_status ModuleEditor::PreUpdate(float dt)
 
 update_status ModuleEditor::Update(float dt)
 {
+	myDt = dt;
 	DrawConsole();
 	DrawTree();
 	DrawProperties();
@@ -325,6 +326,7 @@ void ModuleEditor::DrawProperties()
 
 void ModuleEditor::DrawPlayMenu()
 {
+	myRealTime = App->realTime.read()/1000.0f;
 	//ImGui::SetNextWindowPos(ImVec2(App->window->screenWidth*App->window->screenSize, App->window->screenHeight*App->window->screenSize));
 	ImGui::SetNextWindowSize(ImVec2(500, 100), ImGuiSetCond_FirstUseEver);
 	ImGui::Begin("PlayMenu");
@@ -343,6 +345,24 @@ void ModuleEditor::DrawPlayMenu()
 	{
 
 	}
+	if (ImGui::DragFloat("Real dt", (float*)&myDt, 0.1f))
+	{
+		App->dt = myDt;
+	}
+	if (ImGui::DragFloat("Real time", (float*)&(myRealTime), 0.1f))
+	{
+	}
+	if (ImGui::DragFloat("Game dt", (float*)&(myRealTime), 0.1f))
+	{
+	}
+	if (ImGui::DragFloat("Game time", (float*)&(myRealTime), 0.1f))
+	{
+	}
+	if (ImGui::DragFloat("Time scale", (float*)&(myRealTime), 0.1f))
+	{
+	}
 	//ImGui::Text("Window title");
+
+	
 	ImGui::End();
 }

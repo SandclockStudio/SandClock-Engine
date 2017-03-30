@@ -54,6 +54,7 @@ public:
 
 	JsonParser* json_parser;
 	SimpleTimer mili;
+	SimpleTimer realTime;
 	Timer micro,dtTimer;
 	float dt = 0;
 	int fps = 0;

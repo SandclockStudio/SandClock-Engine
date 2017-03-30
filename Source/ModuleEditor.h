@@ -7,6 +7,8 @@
 #include "IMGUI\imgui.h"
 #include <vector>
 #include "GameObject.h"
+#include "SimpleTimer.h"
+
 
 class ModuleEditor : public Module
 {
@@ -33,6 +35,8 @@ public:
 	ImGuiTextBuffer Buf;
 	std::vector<float> fps_log;
 	GameObject* selected = nullptr;
+	float myDt;
+	float myRealTime;
 
 
 private:
