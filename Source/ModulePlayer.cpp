@@ -2,7 +2,6 @@
 #include "Application.h"
 #include "ModuleTextures.h"
 #include "ModuleInput.h"
-#include "ModuleParticles.h"
 #include "ModuleRender.h"
 #include "ModuleCollision.h"
 #include "ModuleFadeToBlack.h"

@@ -33,7 +33,7 @@ bool ComponentCamera::PreUpdate()
 	return true;
 }
 
-bool ComponentCamera::Update()
+bool ComponentCamera::Update(Frustum f)
 {
 	//Keyboard
 	dt = App->dt;

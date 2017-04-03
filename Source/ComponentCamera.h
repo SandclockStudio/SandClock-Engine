@@ -3,7 +3,6 @@
 
 #include "Component.h"
 #include <vector>
-#include "MathGeoLib.h"
 
 
 class ComponentCamera : public Component
@@ -14,7 +13,7 @@ public:
 	~ComponentCamera();
 
 	bool PreUpdate();
-	bool Update();
+	bool Update(Frustum f);
 
 	void LookAt(float dx, float dy);
 	void Position(float3 pos);

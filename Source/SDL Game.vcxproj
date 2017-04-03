@@ -188,6 +188,7 @@
     <ClInclude Include="ComponentCamera.h" />
     <ClInclude Include="ComponentMaterial.h" />
     <ClInclude Include="ComponentMesh.h" />
+    <ClInclude Include="ComponentParticle.h" />
     <ClInclude Include="ComponentTransform.h" />
     <ClInclude Include="Cube.h" />
     <ClInclude Include="GameObject.h" />
@@ -206,7 +207,6 @@
     <ClInclude Include="ModuleEditor.h" />
     <ClInclude Include="ModuleFadeToBlack.h" />
     <ClInclude Include="ModuleInput.h" />
-    <ClInclude Include="ModuleParticles.h" />
     <ClInclude Include="ModulePlayer.h" />
     <ClInclude Include="ModuleRender.h" />
     <ClInclude Include="ModuleScene.h" />
@@ -264,6 +264,7 @@
     <ClCompile Include="ComponentCamera.cpp" />
     <ClCompile Include="ComponentMaterial.cpp" />
     <ClCompile Include="ComponentMesh.cpp" />
+    <ClCompile Include="ComponentParticle.cpp" />
     <ClCompile Include="ComponentTransform.cpp" />
     <ClCompile Include="Cube.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -281,7 +282,6 @@
     <ClCompile Include="ModuleCollision.cpp" />
     <ClCompile Include="ModuleFadeToBlack.cpp" />
     <ClCompile Include="ModuleInput.cpp" />
-    <ClCompile Include="ModuleParticles.cpp" />
     <ClCompile Include="ModulePlayer.cpp" />
     <ClCompile Include="ModuleRender.cpp" />
     <ClCompile Include="ModuleScene.cpp" />

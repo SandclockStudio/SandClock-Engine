@@ -11,7 +11,7 @@ ComponentMaterial::~ComponentMaterial()
 {
 }
 
-bool ComponentMaterial::Update()
+bool ComponentMaterial::Update(Frustum f)
 {
 	glEnable(GL_TEXTURE_2D);
 	glBindTexture(GL_TEXTURE_2D, texture);

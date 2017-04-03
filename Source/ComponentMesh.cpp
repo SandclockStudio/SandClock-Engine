@@ -8,7 +8,7 @@ ComponentMesh::~ComponentMesh()
 {
 }
 
-bool ComponentMesh::Update()
+bool ComponentMesh::Update(Frustum f)
 {
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_NORMAL_ARRAY);

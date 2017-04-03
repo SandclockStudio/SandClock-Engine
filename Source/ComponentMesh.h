@@ -8,7 +8,6 @@
 #include "assimp\include\assimp\cimport.h"
 #include <assimp\include\assimp\postprocess.h>
 #include <assimp/include/assimp/scene.h>
-#include "MathGeoLib.h"
 
 struct Weight
 {
@@ -31,8 +30,7 @@ public:
 	ComponentMesh(bool start_enabled = true);
 	~ComponentMesh();
 
-	
-	bool Update();
+	bool Update(Frustum f);
 	bool CleanUp();
 	void LoadMesh(aiMesh * mesh, const aiScene * scene);
 

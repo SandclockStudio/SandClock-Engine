@@ -17,7 +17,7 @@ public:
 	ComponentTransform(bool start_enabled = true);
 	~ComponentTransform();
 
-	bool Update();
+	bool Update(Frustum f);
 	bool Update2();
 
 	void LoadTransform(aiNode* node);

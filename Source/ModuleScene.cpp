@@ -15,6 +15,7 @@
 #include "MathGeoLib.h"
 #include "ModuleAnim.h"
 #include "Application.h"
+#include "ComponentParticle.h"
 
 
 ModuleScene::ModuleScene(bool active) : Module(active)
@@ -55,7 +56,7 @@ bool ModuleScene::Start()
 	quadTree = new QuadTreeNode();
 	quadTree->Create(AABB(float3(-10, 1, -10), float3(10, 1, 10)));
 	
-	std::auto_ptr<GameObject> aaaa ( new GameObject(aiString("AAAA")));
+	aaaa=  new GameObject(aiString("AAAA"));
 	aaaa->boundingBox = AABB(float3(-8, 1, -8), float3(-6, 1, -6));
 
 	std::auto_ptr<GameObject> bbbb (new GameObject(aiString("BBBB")));
@@ -72,11 +73,18 @@ bool ModuleScene::Start()
 	eeee->boundingBox = AABB(float3(-8, 1, 8), float3(-6, 1, 6));
 
 	
-	quadTree->Insert(aaaa.get());
+	quadTree->Insert(aaaa);
 	quadTree->Insert(bbbb.get());
 	quadTree->Insert(cccc.get());
 	quadTree->Insert(dddd.get());
 	quadTree->Insert(eeee.get());
+
+	ComponentParticle * cp = new ComponentParticle();
+	cp->Init(10, "billboardgrass.png");
+
+	aaaa->AddComponent(cp);
+
+	//gameObject.push_back(aaaa.get());
 	
 	/*for (int i = 0; i < root->getChilds().size(); i++) 
 	{
@@ -85,8 +93,10 @@ bool ModuleScene::Start()
 	}*/
 
 	
-	billboard = new GrassBillboard();
-	billboard->Init();
+
+	
+	/*billboard = new GrassBillboard();
+	billboard->Init();*/
 
 	return true;
 }
@@ -116,7 +126,7 @@ bool ModuleScene::CleanUp()
 	delete(quadTree);
 	delete(batman);
 	delete(root);
-	delete(billboard);
+	//delete(billboard);
 
 	return true;
 }
@@ -193,8 +203,12 @@ update_status ModuleScene::Update(float dt)
 		//glPopMatrix();
 	}
 
+	aaaa->Update(componentCamera->frustum);
 
-	billboard->Update(componentCamera->frustum);
+
+	//billboard->Update(componentCamera->frustum);
+
+	
 
 	//quadTree->root->DebugDraw();
 

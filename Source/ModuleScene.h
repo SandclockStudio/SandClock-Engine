@@ -44,6 +44,7 @@ public:
 	ComponentCamera* componentCamera;
 
 	QuadTreeNode* quadTree;
+	GameObject* aaaa;
 	std::vector<GameObject*> gameObject;
 
 	GrassBillboard * billboard;
