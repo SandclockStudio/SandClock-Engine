@@ -55,8 +55,14 @@ public:
 	JsonParser* json_parser;
 	SimpleTimer mili;
 	SimpleTimer realTime;
-	Timer micro,dtTimer;
+	SimpleTimer gameTime;
+
+	Timer micro,dtTimer, gameDTimer;
 	float dt = 0;
+	float gameDT = 0;
+	float timeScale = 50;
+
+
 	int fps = 0;
 
 	// Game modules --

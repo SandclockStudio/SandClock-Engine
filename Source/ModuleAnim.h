@@ -47,7 +47,7 @@ public:
 	void Load(const char * name);
 	void PlayAnimation(float index);
 	void PlayAll();
-	void Stop();
+	//void Stop();
 	update_status Update(float dt);
 
 public:
