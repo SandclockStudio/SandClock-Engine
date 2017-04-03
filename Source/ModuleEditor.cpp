@@ -8,6 +8,7 @@
 #include "ModuleWindow.h"
 #include "ModuleScene.h"
 #include "ComponentTransform.h"
+#include "ModuleAnim.h"
 
 
 ModuleEditor::ModuleEditor()
@@ -34,6 +35,7 @@ update_status ModuleEditor::PreUpdate(float dt)
 update_status ModuleEditor::Update(float dt)
 {
 	myDt = dt;
+	myGameDt = App->gameDT;
 	DrawConsole();
 	DrawTree();
 	DrawProperties();
@@ -327,22 +329,34 @@ void ModuleEditor::DrawProperties()
 void ModuleEditor::DrawPlayMenu()
 {
 	myRealTime = App->realTime.read()/1000.0f;
+	myGameTime = App->gameTime.read() / 1000.0f;
+	myTimeScale = App->timeScale;
+
 	//ImGui::SetNextWindowPos(ImVec2(App->window->screenWidth*App->window->screenSize, App->window->screenHeight*App->window->screenSize));
 	ImGui::SetNextWindowSize(ImVec2(500, 100), ImGuiSetCond_FirstUseEver);
 	ImGui::Begin("PlayMenu");
 	if (ImGui::Button("Play"))
 	{
-		App->realTime.start();
+		App->animations->Continue();
+		App->gameTime.reanude();
+
+	}
+	ImGui::SameLine();
+	if (ImGui::Button("Pause"))
+	{
+		App->animations->Pause();
+		App->gameTime.pause();
 	}
 	ImGui::SameLine();
 	if (ImGui::Button("Stop"))
 	{
-		App->realTime.stop();
+		App->gameTime.stop();
 	}
-	
 	ImGui::SameLine();
 	if (ImGui::Button("Update"))
 	{
+		App->animations->oneFrame();
+		App->gameTime.pause();
 
 	}
 	if (ImGui::DragFloat("Real dt", (float*)&myDt, 0.1f))
@@ -352,14 +366,17 @@ void ModuleEditor::DrawPlayMenu()
 	if (ImGui::DragFloat("Real time", (float*)&(myRealTime), 0.1f))
 	{
 	}
-	if (ImGui::DragFloat("Game dt", (float*)&(myRealTime), 0.1f))
+	if (ImGui::DragFloat("Game dt", (float*)&(myGameDt), 0.1f))
 	{
+		App->gameDT = myGameDt;
 	}
-	if (ImGui::DragFloat("Game time", (float*)&(myRealTime), 0.1f))
+	if (ImGui::DragFloat("Game time", (float*)&(myGameTime), 0.1f))
 	{
+
 	}
-	if (ImGui::DragFloat("Time scale", (float*)&(myRealTime), 0.1f))
+	if (ImGui::DragFloat("Time scale", (float*)&(myTimeScale), 0.1f))
 	{
+		App->timeScale = myTimeScale;
 	}
 	//ImGui::Text("Window title");
 

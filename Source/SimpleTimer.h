@@ -13,12 +13,14 @@ public:
 	{
 		init = SDL_GetTicks();
 		stopTimer = false;
+		pauseTimer = false;
+
 		return init;
 	}
 
 	Uint32 read() 
 	{
-		if (stopTimer == true)
+		if (stopTimer == true || pauseTimer == true)
 			return time;
 		return SDL_GetTicks() - init;
 	}
@@ -30,6 +32,18 @@ public:
 		stopTimer = true;
 		return time;
 	}
+	Uint32 pause()
+	{
+		if (pauseTimer == false)
+			time = SDL_GetTicks() - init;
+		pauseTimer = true;
+		return time;
+	}
+	void reanude()
+	{
+		pauseTimer = false;
+		init = SDL_GetTicks()-time;
+	}
 	void reset()
 	{
 		stopTimer = false;
@@ -37,7 +51,7 @@ public:
 	}
 
 public:
-	bool stopTimer;
+	bool stopTimer, pauseTimer;
 	Uint32 time,init;
 
 };

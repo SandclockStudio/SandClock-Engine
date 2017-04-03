@@ -8,6 +8,8 @@
 #include <vector>
 #include "GameObject.h"
 #include "SimpleTimer.h"
+#include<list>
+
 
 
 class ModuleEditor : public Module
@@ -36,7 +38,13 @@ public:
 	std::vector<float> fps_log;
 	GameObject* selected = nullptr;
 	float myDt;
+	float myGameDt;
+
 	float myRealTime;
+	float myGameTime;
+	float myTimeScale;
+
+
 
 
 private:

@@ -5,6 +5,7 @@
 
 void ModuleAnim::Load(const char* name)
 {
+	gameModule = true;
 	const aiScene* scene = aiImportFile(name, aiProcessPreset_TargetRealtime_MaxQuality);
 	
 	for (int i = 0; i < scene->mNumAnimations; i++)
@@ -33,14 +34,14 @@ void ModuleAnim::PlayAll()
 		loadAnimations[i].playing = true;
 	}
 }
-
+/*
 void ModuleAnim::Stop()
 {
 	for (int i = 0; i < loadAnimations.size(); i++)
 	{
 		loadAnimations[i].playing = false;
 	}
-}
+}*/
 
 update_status ModuleAnim::Update(float dt)
 {
@@ -104,7 +105,7 @@ void myAnimation::Update(float dt)
 		//Si no se ha devuelto ninguno no se hace nada
 		if (goToChange != nullptr)
 		{
-			channels[i].currentTime += 1.5f;
+			channels[i].currentTime += App->timeScale*dt;
 
 			//Interpolation
 			for (int j = 0; j < channels[i].size; j++)
