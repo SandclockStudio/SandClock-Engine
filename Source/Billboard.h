@@ -20,7 +20,7 @@ class Billboard
 {
 public:
 
-	Billboard();
+	Billboard(int size, float3 pos);
 	~Billboard();
 
 	bool Init();

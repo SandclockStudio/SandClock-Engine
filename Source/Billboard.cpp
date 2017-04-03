@@ -1,9 +1,9 @@
 #include "Billboard.h"
 
-Billboard::Billboard()
+Billboard::Billboard(int size, float3 pos)
 {
-	size = 1.0f;
-	pos = float3(1, 1, -4);
+	this->size = size;
+	this->pos = pos;
 
 	boundingBox = AABB(pos, float3(pos.x + size,pos.y+size,pos.z));
 }
@@ -53,7 +53,7 @@ bool Billboard::Update(Frustum frustum)
 	ComputeQuad(frustum);
 
 	Draw();
-	DrawBoundingBox();
+	//DrawBoundingBox();
 	return true;
 }
 

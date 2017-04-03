@@ -194,6 +194,7 @@
     <ClInclude Include="Gizmo.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="GL\glew.h" />
+    <ClInclude Include="GrassBillboard.h" />
     <ClInclude Include="JsonParser.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="MemLeaks.h" />
@@ -267,6 +268,7 @@
     <ClCompile Include="Cube.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Gizmo.cpp" />
+    <ClCompile Include="GrassBillboard.cpp" />
     <ClCompile Include="JsonParser.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="Log.cpp" />

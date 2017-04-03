@@ -16,6 +16,7 @@
 #include "ModuleAnim.h"
 #include "Application.h"
 
+
 ModuleScene::ModuleScene(bool active) : Module(active)
 {}
 
@@ -84,7 +85,7 @@ bool ModuleScene::Start()
 	}*/
 
 	
-	billboard = new Billboard();
+	billboard = new GrassBillboard();
 	billboard->Init();
 
 	return true;
