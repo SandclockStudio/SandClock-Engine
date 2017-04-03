@@ -21,8 +21,8 @@ bool Billboard::Init()
 
 bool Billboard::Draw()
 {
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	//glEnable(GL_BLEND);
+	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	glBindTexture(GL_TEXTURE_2D, texture);
 	glBegin(GL_TRIANGLES);
@@ -41,7 +41,7 @@ bool Billboard::Draw()
 	glVertex3f(positions[2].x,  positions[2].y, positions[2].z);
 	glEnd();
 	glBindTexture(GL_TEXTURE_2D, 0);
-	glDisable(GL_BLEND);
+	//glDisable(GL_BLEND);
 
 
 	return true;
@@ -52,6 +52,8 @@ bool Billboard::Update(Frustum frustum)
 
 	ComputeQuad(frustum);
 
+	
+	distance = pos.Distance(frustum.pos);
 	Draw();
 	//DrawBoundingBox();
 	return true;

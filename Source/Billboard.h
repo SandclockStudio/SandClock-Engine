@@ -16,8 +16,12 @@
 #include "MathGeoLib.h"
 
 
+
 class Billboard
 {
+
+
+
 public:
 
 	Billboard(int size, float3 pos);
@@ -29,6 +33,16 @@ public:
 	void ComputeQuad(Frustum frustum);
 
 	void DrawBoundingBox();
+
+public:
+	float distance;
+	struct less_than_key
+	{
+		inline bool operator() (const Billboard& struct1, const Billboard& struct2)
+		{
+			return (struct1.distance > struct2.distance);
+		}
+	};
 
 private:
 	GLuint loadImages(const char*);
@@ -54,6 +68,8 @@ private:
 	float3 normal;
 	float3 up;
 	float3 right;
+
+
 };
 
 #endif

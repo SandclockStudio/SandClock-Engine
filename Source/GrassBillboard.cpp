@@ -44,6 +44,7 @@ bool GrassBillboard::Draw()
 
 bool GrassBillboard::Update(Frustum frustum)
 {
+	std::sort(billboards.begin(), billboards.end(), Billboard::less_than_key());
 	for (int i = 0; i < billboards.size(); i++)
 	{
 		billboards[i].Update(frustum);

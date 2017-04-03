@@ -180,7 +180,8 @@ update_status ModuleScene::Update(float dt)
 	gameObject[0]->Update(componentCamera->frustum);
 
 	std::vector<GameObject*> childs = root->getChilds();
-	
+	p->DrawDirect();
+	c->Draw2();
 	for (int i = 0; i < childs.size(); i++)
 	{
 
@@ -192,8 +193,7 @@ update_status ModuleScene::Update(float dt)
 		//glPopMatrix();
 	}
 
-	p->DrawDirect();
-	c->Draw2();
+
 	billboard->Update(componentCamera->frustum);
 
 	//quadTree->root->DebugDraw();
