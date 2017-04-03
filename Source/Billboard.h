@@ -35,7 +35,7 @@ public:
 	void DrawBoundingBox();
 
 public:
-	float distance;
+
 	struct less_than_key
 	{
 		inline bool operator() (const Billboard& struct1, const Billboard& struct2)
@@ -68,6 +68,8 @@ private:
 	float3 normal;
 	float3 up;
 	float3 right;
+
+	float distance;
 
 
 };
