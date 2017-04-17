@@ -16,6 +16,7 @@
 #include "ModuleAnim.h"
 #include "Application.h"
 #include "GameObject.h"
+#include "ComponentMesh.h"
 
 ModuleScene::ModuleScene(bool active) : Module(active)
 {}
@@ -90,9 +91,25 @@ bool ModuleScene::Start()
 	billboard->Init();
 
 
-	for (int i = 0; i < gameObject.size(); i++)
+	for (int i = 1; i < gameObject.size(); i++)
 	{
-		gameObject[i]->LoadBones(gameObject);
+		if (gameObject[i]->components.size() > 2)
+		{
+			ComponentMesh* caux = dynamic_cast<ComponentMesh*>(gameObject[i]->components[2]);
+			int aux = caux->bones.size();
+			for (int j = 0; j < aux ; j++)
+			{
+				for (int k = 0; k < gameObject.size(); k++)
+				{
+					if (caux->bones[j]->name == gameObject[k]->GetName())
+					{
+						caux->bones[j]->attached_to = gameObject[k];
+						break;
+					}
+				}
+			}
+		}
+
 	}
 
 	return true;

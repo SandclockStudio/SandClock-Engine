@@ -36,7 +36,6 @@ public:
 	bool Update();
 	bool CleanUp();
 	void LoadMesh(aiMesh * mesh, const aiScene * scene);
-	void LoadBonesFromScene(std::vector<GameObject*> gameobjects);
 
 	aiVector3D*  vertices;
 	aiVector3D* tex_coords;

@@ -143,18 +143,4 @@ void ComponentMesh::LoadMesh(aiMesh* mesh, const aiScene* scene)
 }
 
 
-void ComponentMesh::LoadBonesFromScene(std::vector<GameObject*> gameobjects)
-{
 
-	for (int i = 0; i < bones.size(); i++)
-	{
-		for (int k = 0; k < gameobjects.size();k++)
-		{
-			if (bones[i]->name == gameobjects[k]->GetName())
-			{
-				bones[i]->attached_to = gameobjects[k];
-				break;
-			}
-		}
-	}
-}

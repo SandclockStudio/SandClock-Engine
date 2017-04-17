@@ -7,7 +7,6 @@
 #include "Component.h"
 #include "MathGeoLib.h"
 
-
 class ComponentMesh;
 class ComponentMaterial;
 class ComponentTransform;
@@ -60,7 +59,7 @@ class GameObject
 
 			bool intersectFrustumAABB(Frustum f, AABB b);
 			void setTransformAnimation(aiVector3D scale, aiVector3D position, Quat rotation);
-			void LoadBones(std::vector<GameObject*> gameobjects);
+			void LoadBones();
 			float4x4 GetLocalTransformMatrix() const;
 			float4x4 GetModelSpaceTransformMatrix() const;
 			bool frustumCulling = false;

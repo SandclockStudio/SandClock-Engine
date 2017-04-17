@@ -359,14 +359,7 @@ void GameObject::setTransformAnimation(aiVector3D scale, aiVector3D position, Qu
 	setRotation(rotation);
 }
 
-void GameObject::LoadBones(std::vector<GameObject*> gameobjects)
-{
-	if (components.size() > 1)
-	{
-		dynamic_cast<ComponentMesh*>(components[3])->LoadBonesFromScene(gameobjects);
-	}
 
-}
 
 float4x4 GameObject::GetLocalTransformMatrix() const
 {
@@ -374,10 +367,14 @@ float4x4 GameObject::GetLocalTransformMatrix() const
 }
 
 
-float4x4 GameObject::GetModelSpaceTransformMatrix() const
+float4x4 GameObject::GetModelSpaceTransformMatrix()  const
 {
 	if (root == nullptr)
+	{
 		return float4x4::identity;
+	}
 	else
+	{
 		return root->GetModelSpaceTransformMatrix() * GetLocalTransformMatrix();
+	}
 }
