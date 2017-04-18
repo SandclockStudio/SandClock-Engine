@@ -1,6 +1,7 @@
 #include "ComponentMesh.h"
 #include "Application.h"
 #include "GameObject.h"
+#include "ModuleAnim.h"
 
 ComponentMesh::ComponentMesh(bool start_enabled)
 {
@@ -20,7 +21,7 @@ bool ComponentMesh::Update(Frustum f)
 	glTexCoordPointer(3, GL_FLOAT, sizeof(aiVector3D), tex_coords);
 
 
-	if (has_bones && playing)
+	if (has_bones && App->animations->IsEnabled())
 	{
 		float4x4 mat = float4x4::identity;
 
@@ -38,22 +39,17 @@ bool ComponentMesh::Update(Frustum f)
 			}
 		}
 
-		/*
-		glBindBuffer(GL_ARRAY_BUFFER, m_vbo[VERTEX_BUFFER]);
-		glBufferData(GL_ARRAY_BUFFER, num_vertices * sizeof(vertices_skinned[0]), &vertices_skinned[0], GL_STATIC_DRAW);
-		*/
-
 		glVertexPointer(3, GL_FLOAT, 0, vertices_skinned);
 		glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_INT, indices);
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
-
 	else
 	{
+		
 		glVertexPointer(3, GL_FLOAT, 0, vertices);
-
 		glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_INT, indices);
 		glBindTexture(GL_TEXTURE_2D,0);
+		
 	}
 
 	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -80,7 +76,6 @@ bool ComponentMesh::CleanUp()
 			RELEASE_ARRAY(bones[i]);
 		}
 		bones.clear();
-		
 	}
 
 	return true;
@@ -95,6 +90,7 @@ void ComponentMesh::LoadMesh(aiMesh* mesh, const aiScene* scene)
 	num_indices = mesh->mNumFaces * 3;
 	num_vertices = mesh->mNumVertices;
 	componentType = MESH;
+
 	for (int j = 0; j < mesh->mNumVertices; j++)
 	{
 		if (mesh->HasTextureCoords(0))
@@ -106,40 +102,40 @@ void ComponentMesh::LoadMesh(aiMesh* mesh, const aiScene* scene)
 		vertices[j] = aiVector3D(mesh->mVertices[j].x, mesh->mVertices[j].y, mesh->mVertices[j].z);
 	}
 
-		unsigned int c = 0;
-		for (int k = 0; k < mesh->mNumFaces; k++)
+	unsigned int c = 0;
+	for (int k = 0; k < mesh->mNumFaces; k++)
+	{
+		for (int m = 0; m < 3; ++m, c++)
 		{
-			for (int m = 0; m < 3; ++m, c++)
-			{
-				indices[c] = mesh->mFaces[k].mIndices[m];
-			}
+			indices[c] = mesh->mFaces[k].mIndices[m];
 		}
+	}
 
-		if (mesh->HasBones())
-		{
-			has_bones = true;
+	if (mesh->HasBones())
+	{
+		has_bones = true;
 			
-			for (int i = 0; i < mesh->mNumBones; i++)
+		for (int i = 0; i < mesh->mNumBones; i++)
+		{
+			aiBone* scene_bone = mesh->mBones[i];
+			Bone* bone = new Bone;
+
+			bone->name = scene_bone->mName;
+
+			memcpy(bone->bind.v, &scene_bone->mOffsetMatrix.a1, 16 * sizeof(float));
+
+			bone->num_weights = scene_bone->mNumWeights;
+			bone->weights = new Weight[bone->num_weights];
+			for (int j = 0; j < bone->num_weights; j++)
 			{
-				aiBone* scene_bone = mesh->mBones[i];
-				Bone* bone = new Bone;
-
-				bone->name = scene_bone->mName;
-
-				memcpy(bone->bind.v, &scene_bone->mOffsetMatrix.a1, 16 * sizeof(float));
-
-				bone->num_weights = scene_bone->mNumWeights;
-				bone->weights = new Weight[bone->num_weights];
-				for (int j = 0; j < bone->num_weights; j++)
-				{
-					bone->weights[j].weight = scene_bone->mWeights[j].mWeight;
-					bone->weights[j].vertex = scene_bone->mWeights[j].mVertexId;
-				}
-				bones.push_back(bone);
+				bone->weights[j].weight = scene_bone->mWeights[j].mWeight;
+				bone->weights[j].vertex = scene_bone->mWeights[j].mVertexId;
 			}
+			bones.push_back(bone);
 		}
+	}
 
-		myGo->boundingBox.Enclose((float3*) vertices, num_vertices);
+	myGo->boundingBox.Enclose((float3*) vertices, num_vertices);
 }
 
 

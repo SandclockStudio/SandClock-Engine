@@ -87,8 +87,8 @@ bool ModuleScene::Start()
 	}*/
 
 	
-	billboard = new Billboard();
-	billboard->Init();
+//	billboard = new Billboard();
+//	billboard->Init();
 
 
 	for (int i = 1; i < gameObject.size(); i++)
@@ -115,11 +115,6 @@ bool ModuleScene::Start()
 	return true;
 }
 
-/*vector<GameObject*> ModuleScene::CreateTestGameObjects()
-{
-
-	GameObject* object = new GameObject(, parent);
-}*/
 
 // UnLoad assets
 bool ModuleScene::CleanUp()
@@ -140,7 +135,7 @@ bool ModuleScene::CleanUp()
 	delete(quadTree);
 	delete(batman);
 	delete(root);
-	delete(billboard);
+	//delete(billboard);
 
 	return true;
 }
@@ -186,7 +181,6 @@ void ModuleScene::LoadGameObjects(aiNode * node,GameObject* parent)
 
 update_status ModuleScene::PreUpdate(float dt)
 {
-
 	std::vector<GameObject*> childs = root->getChilds();
 
 	for (int i = 0; i < childs.size(); i++)
@@ -218,7 +212,7 @@ update_status ModuleScene::Update(float dt)
 
 	p->DrawDirect();
 	c->Draw2();
-	billboard->Update(componentCamera->frustum);
+	//billboard->Update(componentCamera->frustum);
 
 	//quadTree->root->DebugDraw();
 
