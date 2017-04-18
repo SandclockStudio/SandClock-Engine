@@ -31,13 +31,13 @@ bool ModuleScene::Start()
 	//scene = aiImportFile("ArmyPilot.dae", aiProcessPreset_TargetRealtime_MaxQuality);
 
 	LOGCHAR("Loading space intro");
-	c = new Cube(0.5f,index);
-	p = new MPlane(0.2f, 50, index);
-	g = new Gizmo(0.5f, 5.0f, index);
+	//c = new Cube(0.5f,index);
+	//p = new MPlane(0.2f, 50, index);
+	//g = new Gizmo(0.5f, 5.0f, index);
 
-	p->Start();
-	c->Start();
-	g->Start();
+	//p->Start();
+	//c->Start();
+	//g->Start();
 	batman = new Model();
 	batman->Load("Batman.obj");
 	camera = new GameObject((aiString)"Camera", nullptr);
@@ -120,9 +120,9 @@ bool ModuleScene::Start()
 bool ModuleScene::CleanUp()
 {
 	LOGCHAR("Unloading space scene");
-	delete(c);
-	delete(p);
-	delete(g);
+	//delete(c);
+	//delete(p);
+	//delete(g);
 	for (int i = 0; i < gameObject.size();++i)
 	{
 		gameObject[i]->CleanUp();
@@ -210,9 +210,10 @@ update_status ModuleScene::Update(float dt)
 		//glPopMatrix();
 	}
 
-	p->DrawDirect();
-	c->Draw2();
+	//p->DrawDirect();
+	//c->Draw2();
 	billboard->Update(componentCamera->frustum);
+
 
 	//quadTree->root->DebugDraw();
 

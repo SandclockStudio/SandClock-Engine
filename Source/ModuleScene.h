@@ -2,9 +2,9 @@
 #define __MODULESCENE_H__
 
 #include "Module.h"
-#include "Cube.h"
-#include "MPlane.h"
-#include "Gizmo.h"
+//#include "Cube.h"
+//#include "MPlane.h"
+//#include "Gizmo.h"
 #include "Model.h"
 #include "Level.h"
 #include "ComponentCamera.h"
@@ -31,9 +31,9 @@ public:
 public:
 	
 	uint fx = 0;
-	Cube* c;
-	Gizmo* g;
-	MPlane* p;
+	//Cube* c;
+	//Gizmo* g;
+	//MPlane* p;
 	MY::Uint index = 0;
 	float angle = 0;
 	Model* batman;

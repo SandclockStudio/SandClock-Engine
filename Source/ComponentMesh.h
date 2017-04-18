@@ -9,6 +9,7 @@
 #include <assimp\include\assimp\postprocess.h>
 #include <assimp/include/assimp/scene.h>
 
+
 struct Weight
 {
 	unsigned vertex = 0;

@@ -6,11 +6,10 @@
 #include "JsonParser.h"
 #include "ModuleWindow.h"
 #include "MathGeoLib.h"
-#include "../Libraries/OpenGL/include/GL/glew.h"
+
 #include "ModuleCamera.h"
 #include "ModuleScene.h"
 #pragma comment (lib, "opengl32.lib") 
-
 
 
 #define MAX_KEYS 300

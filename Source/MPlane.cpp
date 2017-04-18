@@ -55,7 +55,9 @@ void MPlane::DrawDirect()
 
 	}
 	glEnd();
-
+	glBindTexture(GL_TEXTURE_2D, 0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 }
 
 void MPlane::Draw()

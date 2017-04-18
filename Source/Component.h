@@ -2,7 +2,9 @@
 #define __COMPONENT_H
 
 class GameObject;
+
 #include "MathGeoLib.h"
+
 
 enum type {
 	TRANSFORM,

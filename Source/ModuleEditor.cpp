@@ -3,7 +3,6 @@
 #include "ModuleEditor.h"
 #include "IMGUI\imgui.h"
 #include "IMGUI\imgui_impl_sdl_gl3.h"
-#include "../Libraries/OpenGL/include/GL/glew.h"
 #pragma comment (lib, "opengl32.lib") 
 #include "ModuleWindow.h"
 #include "ModuleScene.h"

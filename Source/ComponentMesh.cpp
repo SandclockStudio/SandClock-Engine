@@ -2,6 +2,8 @@
 #include "Application.h"
 #include "GameObject.h"
 #include "ModuleAnim.h"
+#include "../Libraries/OpenGL/include/GL/glew.h"
+
 
 ComponentMesh::ComponentMesh(bool start_enabled)
 {
@@ -16,7 +18,7 @@ bool ComponentMesh::Update(Frustum f)
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_NORMAL_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-
+	
 	glNormalPointer(GL_FLOAT, 0, normals);
 	glTexCoordPointer(3, GL_FLOAT, sizeof(aiVector3D), tex_coords);
 

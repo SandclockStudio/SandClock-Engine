@@ -127,7 +127,7 @@ void Cube::Draw2()
 	//loadImages("Batman_Mask_D.tga");
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	glBegin(GL_TRIANGLES);
+	/*glBegin(GL_TRIANGLES);
 
 	//front
 	glTexCoord2d(0.0, 0.0);
@@ -221,8 +221,9 @@ void Cube::Draw2()
 	glTexCoord2d(0.0, 1.0);
 	glVertex3f(0.0f, 0.0f, -size);
 	glEnd();
-	glBindTexture(GL_TEXTURE_2D, 0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	*/
+
 
 }
 
