@@ -2,7 +2,7 @@
 #define __MPLANE_H__
 
 #include "Primitive.h"
-#include "MathGeoLib.h"
+#include "MathGeoLib.h" #pragma comment (lib, "MathGeoLib.lib")
 
 class MPlane : public Primitive
 {

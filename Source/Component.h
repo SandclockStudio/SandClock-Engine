@@ -3,7 +3,7 @@
 
 class GameObject;
 
-#include "MathGeoLib.h"
+#include "MathGeoLib.h" #pragma comment (lib, "MathGeoLib.lib")
 
 
 enum type {

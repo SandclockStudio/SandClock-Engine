@@ -5,7 +5,7 @@
 #include <vector>
 #include "Devil\include\IL\ilut.h"
 #include "Component.h"
-#include "MathGeoLib.h"
+#include "MathGeoLib.h" #pragma comment (lib, "MathGeoLib.lib")
 
 class ComponentMesh;
 class ComponentMaterial;

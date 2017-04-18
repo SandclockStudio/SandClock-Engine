@@ -104,7 +104,7 @@ float * ComponentCamera::GetProjectionMatrix()
 
 float * ComponentCamera::GetViewMatrix()
 {
-	matrix = frustum.ViewMatrix();
+	matrix = (float4x4)frustum.ViewMatrix();
 	matrix.Transpose();
 
 	return (float*)matrix.v;

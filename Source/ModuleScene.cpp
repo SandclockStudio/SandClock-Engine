@@ -12,7 +12,7 @@
 #include <assimp\include\assimp\postprocess.h>
 #include "Component.h"
 #include "ComponentTransform.h"
-#include "MathGeoLib.h"
+#include "MathGeoLib.h" #pragma comment (lib, "MathGeoLib.lib")
 #include "ModuleAnim.h"
 #include "Application.h"
 #include "GameObject.h"
