@@ -87,8 +87,8 @@ bool ModuleScene::Start()
 	}*/
 
 	
-//	billboard = new Billboard();
-//	billboard->Init();
+	billboard = new GrassBillboard();
+	billboard->Init();
 
 
 	for (int i = 1; i < gameObject.size(); i++)
@@ -212,7 +212,7 @@ update_status ModuleScene::Update(float dt)
 
 	p->DrawDirect();
 	c->Draw2();
-	//billboard->Update(componentCamera->frustum);
+	billboard->Update(componentCamera->frustum);
 
 	//quadTree->root->DebugDraw();
 
