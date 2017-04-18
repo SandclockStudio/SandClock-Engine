@@ -1,9 +1,9 @@
 #include "Billboard.h"
 
-Billboard::Billboard()
+Billboard::Billboard(int size, float3 pos)
 {
-	size = 1.0f;
-	pos = float3(1, 1, -4);
+	this->size = size;
+	this->pos = pos;
 
 	boundingBox = AABB(pos, float3(pos.x + size,pos.y+size,pos.z));
 }
@@ -21,8 +21,8 @@ bool Billboard::Init()
 
 bool Billboard::Draw()
 {
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	//glEnable(GL_BLEND);
+	//glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	glBindTexture(GL_TEXTURE_2D, texture);
 	glBegin(GL_TRIANGLES);
@@ -41,7 +41,7 @@ bool Billboard::Draw()
 	glVertex3f(positions[2].x,  positions[2].y, positions[2].z);
 	glEnd();
 	glBindTexture(GL_TEXTURE_2D, 0);
-	glDisable(GL_BLEND);
+	//glDisable(GL_BLEND);
 
 
 	return true;
@@ -52,8 +52,10 @@ bool Billboard::Update(Frustum frustum)
 
 	ComputeQuad(frustum);
 
+	
+	distance = pos.Distance(frustum.pos);
 	Draw();
-	DrawBoundingBox();
+	//DrawBoundingBox();
 	return true;
 }
 

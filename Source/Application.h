@@ -14,7 +14,6 @@ class ModuleInput;
 class ModuleAudio;
 class ModuleFadeToBlack;
 class ModuleCollision;
-class ModuleParticles;
 class ModuleUI;
 class ModuleEditor;
 class ModuleAnim;
@@ -48,14 +47,20 @@ public:
 	ModuleAudio* audio;
 	ModuleFadeToBlack* fade;
 	ModuleCollision* collision;
-	ModuleParticles* particles;
 	ModuleEditor* editor;
 	ModuleAnim* animations;
 
 	JsonParser* json_parser;
 	SimpleTimer mili;
-	Timer micro,dtTimer;
+	SimpleTimer realTime;
+	SimpleTimer gameTime;
+
+	Timer micro,dtTimer, gameDTimer;
 	float dt = 0;
+	float gameDT = 0;
+	float timeScale = 50;
+
+
 	int fps = 0;
 	std::list<Module*> modules;
 

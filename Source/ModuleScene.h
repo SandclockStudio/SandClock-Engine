@@ -9,7 +9,7 @@
 #include "Level.h"
 #include "ComponentCamera.h"
 #include "QuadTreeNode.h"
-#include "Billboard.h"
+#include "GrassBillboard.h"
 
 
 struct SDL_Texture;
@@ -43,9 +43,10 @@ public:
 	ComponentCamera* componentCamera;
 
 	QuadTreeNode* quadTree;
+	GameObject* aaaa;
 	std::vector<GameObject*> gameObject;
 
-	Billboard * billboard;
+	GrassBillboard * billboard;
 
 private:
 	GameObject * object;

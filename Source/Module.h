@@ -26,7 +26,23 @@ public:
 
 		return true;
 	}
+	 bool Pause()
+	 {
+		 if (active == true)
+			return active = false;
+	 }
+	 void oneFrame()
+	 {
 
+		 oneFramePass = true;
+			
+
+	 }
+	 bool Continue()
+	 {
+		 if (active == false)
+			 return active = true;
+	 }
 	 bool Disable()
 	 {
 		 if(active == true)
@@ -70,6 +86,9 @@ public:
 	{ }
 
 	bool fpsDependent = false;
+	bool oneFramePass = false;
+
+	bool gameModule = false;
 
 private:
 	bool active = true;

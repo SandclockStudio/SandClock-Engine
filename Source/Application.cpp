@@ -5,7 +5,6 @@
 #include "ModuleAudio.h"
 #include "ModuleFadeToBlack.h"
 #include "ModuleCollision.h"
-#include "ModuleParticles.h"
 #include "ModuleScene.h"
 #include "ModulePlayer.h"
 #include "ModuleUI.h"
@@ -39,13 +38,12 @@ Application::Application()
 	// Modules to draw on top of game LOGCHARic
 
 	modules.push_back(collision = new ModuleCollision());
-	modules.push_back(particles = new ModuleParticles());
 	modules.push_back(fade = new ModuleFadeToBlack());
 }
 
 Application::~Application()
 {
-	for(list<Module*>::iterator it = modules.begin(); it != modules.end(); ++it)
+	for (list<Module*>::iterator it = modules.begin(); it != modules.end(); ++it)
 		RELEASE(*it);
 	RELEASE(json_parser);
 }
@@ -54,43 +52,65 @@ bool Application::Init()
 {
 	bool ret = true;
 
-	for(list<Module*>::iterator it = modules.begin(); it != modules.end() && ret; ++it)
+	for (list<Module*>::iterator it = modules.begin(); it != modules.end() && ret; ++it)
 		ret = (*it)->Init(); // we init everything, even if not anabled
 
-	for(list<Module*>::iterator it = modules.begin(); it != modules.end() && ret; ++it)
+	for (list<Module*>::iterator it = modules.begin(); it != modules.end() && ret; ++it)
 	{
-		if((*it)->IsEnabled() == true)
+		if ((*it)->IsEnabled() == true)
 			ret = (*it)->Start();
 	}
 	// Start the first scene --
+	realTime.start();
+	gameTime.start();
 	mili.start();
 	return ret;
-	
+
 }
 
 update_status Application::Update()
 {
 
-	
+
 
 	update_status ret = UPDATE_CONTINUE;
 
 	for (list<Module*>::iterator it = modules.begin(); it != modules.end() && ret == UPDATE_CONTINUE; ++it)
 	{
+
 		if ((*it)->IsEnabled() == true && !(*it)->fpsDependent)
 			ret = (*it)->PreUpdate(dt);
 		else
 		{
-			ret = (*it)->PreUpdate(dt);
-			dtTimer.start();
+			if ((*it)->IsEnabled() && !(*it)->gameModule)
+			{
+				ret = (*it)->PreUpdate(dt);
+				dtTimer.start();
+			}
+			else
+			{
+				ret = (*it)->PreUpdate(dt);
+				gameDTimer.start();
+			}
 		}
-	}
-		
-
+	}	
 	for (list<Module*>::iterator it = modules.begin(); it != modules.end() && ret == UPDATE_CONTINUE; ++it)
 	{
-		if ((*it)->IsEnabled() == true)
+		if ((*it)->IsEnabled() == true && !(*it)->gameModule)
 			ret = (*it)->Update(dt);
+		else
+		{
+			if((*it)->IsEnabled() == true && (*it)->oneFramePass == false)
+				ret = (*it)->Update(gameDT);
+			else
+				if ((*it)->oneFramePass == true)
+				{
+					ret = (*it)->Update(gameDT);
+
+					(*it)->Pause();
+					(*it)->oneFramePass = false;
+				}
+		}
 	}
 	
 	for (list<Module*>::iterator it = modules.begin(); it != modules.end() && ret == UPDATE_CONTINUE; ++it)
@@ -99,11 +119,19 @@ update_status Application::Update()
 			ret = (*it)->PostUpdate(dt);
 		else
 		{
+			if ((*it)->IsEnabled() == true && !(*it)->gameModule)
+			{
+				ret = (*it)->PostUpdate(dt);
+				dt = dtTimer.stop();
+				frames += 1;
+				fps += 1;
+			}
+			else
+			{
+				ret = (*it)->PostUpdate(gameDT);
+				gameDT = gameDTimer.stop();
+			}
 			
-			ret = (*it)->PostUpdate(dt);
-			dt = dtTimer.stop();
-			frames += 1;
-			fps += 1;
 		}
 			
 	}
@@ -122,6 +150,8 @@ update_status Application::Update()
 
 bool Application::CleanUp()
 {
+	realTime.stop();
+	gameTime.stop();
 	LOGCHAR("Frames all application: %d ", frames);
 	bool ret = true;
 	for(list<Module*>::reverse_iterator it = modules.rbegin(); it != modules.rend() && ret; ++it)

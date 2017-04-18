@@ -17,8 +17,8 @@ public:
 	ComponentMaterial(bool start_enabled = true);
 	~ComponentMaterial();
 
+	bool Update(Frustum f);
 
-	bool Update();
 
 	void LoadMaterial(aiMaterial* material);
 

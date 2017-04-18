@@ -1,6 +1,6 @@
 #include "ComponentTransform.h"
 #include "GameObject.h"
-#include "MathGeoLib.h"
+
 
 ComponentTransform::ComponentTransform(bool start_enabled)
 {
@@ -41,7 +41,7 @@ void ComponentTransform::Scale(aiVector3D scal)
 	}*/
 }
 
-bool ComponentTransform::Update()
+bool ComponentTransform::Update(Frustum f)
 {
 
 		float3 position = float3(pos.x, pos.y, pos.z);

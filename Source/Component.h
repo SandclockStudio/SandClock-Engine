@@ -2,7 +2,7 @@
 #define __COMPONENT_H
 
 class GameObject;
-
+#include "MathGeoLib.h"
 
 enum type {
 	TRANSFORM,
@@ -47,7 +47,7 @@ public:
 		return true;
 	}
 
-	virtual bool Update()
+	virtual bool Update(Frustum f)
 	{
 		return true;
 	}

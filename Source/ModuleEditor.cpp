@@ -8,8 +8,7 @@
 #include "ModuleWindow.h"
 #include "ModuleScene.h"
 #include "ComponentTransform.h"
-#include "Module.h"
-#include <list>
+#include "ModuleAnim.h"
 
 
 ModuleEditor::ModuleEditor()
@@ -35,6 +34,8 @@ update_status ModuleEditor::PreUpdate(float dt)
 
 update_status ModuleEditor::Update(float dt)
 {
+	myDt = dt;
+	myGameDt = App->gameDT;
 	DrawConsole();
 	DrawTree();
 	DrawProperties();
@@ -327,40 +328,58 @@ void ModuleEditor::DrawProperties()
 
 void ModuleEditor::DrawPlayMenu()
 {
+	myRealTime = App->realTime.read()/1000.0f;
+	myGameTime = App->gameTime.read() / 1000.0f;
+	myTimeScale = App->timeScale;
+
 	//ImGui::SetNextWindowPos(ImVec2(App->window->screenWidth*App->window->screenSize, App->window->screenHeight*App->window->screenSize));
 	ImGui::SetNextWindowSize(ImVec2(500, 100), ImGuiSetCond_FirstUseEver);
 	ImGui::Begin("PlayMenu");
-	bool ret;
 	if (ImGui::Button("Play"))
 	{
+		App->animations->Continue();
+		App->gameTime.reanude();
 
-		for (std::list<Module*>::iterator it = App->modules.begin(); it != App->modules.end(); ++it)
-		{
-			//if ((*it)->fpsDependent)
-
-				
-		}
+	}
+	ImGui::SameLine();
+	if (ImGui::Button("Pause"))
+	{
+		App->animations->Pause();
+		App->gameTime.pause();
 	}
 	ImGui::SameLine();
 	if (ImGui::Button("Stop"))
 	{
-		for (std::list<Module*>::iterator it = App->modules.begin(); it != App->modules.end(); ++it)
-		{
-			//if ((*it)->fpsDependent)
-
-		}
+		App->gameTime.stop();
 	}
-	
 	ImGui::SameLine();
-	if (ImGui::Button("Play 1 frame"))
+	if (ImGui::Button("Update"))
 	{
-		for (std::list<Module*>::iterator it = App->modules.begin(); it != App->modules.end(); ++it)
-		{
-			//if ((*it)->fpsDependent)
+		App->animations->oneFrame();
+		App->gameTime.pause();
 
-		}
+	}
+	if (ImGui::DragFloat("Real dt", (float*)&myDt, 0.1f))
+	{
+		App->dt = myDt;
+	}
+	if (ImGui::DragFloat("Real time", (float*)&(myRealTime), 0.1f))
+	{
+	}
+	if (ImGui::DragFloat("Game dt", (float*)&(myGameDt), 0.1f))
+	{
+		App->gameDT = myGameDt;
+	}
+	if (ImGui::DragFloat("Game time", (float*)&(myGameTime), 0.1f))
+	{
 
+	}
+	if (ImGui::DragFloat("Time scale", (float*)&(myTimeScale), 0.1f))
+	{
+		App->timeScale = myTimeScale;
 	}
 	//ImGui::Text("Window title");
+
+	
 	ImGui::End();
 }
