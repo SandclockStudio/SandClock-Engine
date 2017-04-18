@@ -21,21 +21,22 @@ bool ComponentMesh::Update(Frustum f)
 	glTexCoordPointer(3, GL_FLOAT, sizeof(aiVector3D), tex_coords);
 
 
-	if (has_bones && App->animations->IsEnabled())
+	if (has_bones)
 	{
-		float4x4 mat = float4x4::identity;
-
-		aiVector3D *vertices_skinned = new aiVector3D[num_vertices];
-		memset(vertices_skinned, 0, num_vertices * sizeof(float3));
-
-		for (size_t b = 0; b < bones.size(); ++b)
+		if(App->animations->IsEnabled())
 		{
-			mat = bones[b]->attached_to->GetModelSpaceTransformMatrix() * bones[b]->bind;
-			for (size_t w = 0; w < bones[b]->num_weights; ++w)
+			vertices_skinned = new aiVector3D[num_vertices];
+			memset(vertices_skinned, 0, num_vertices * sizeof(float3));
+			float4x4 mat = float4x4::identity;
+			for (size_t b = 0; b < bones.size(); ++b)
 			{
-				float3 temp = bones[b]->weights[w].weight * mat.TransformPos(float3(vertices[bones[b]->weights[w].vertex].x, vertices[bones[b]->weights[w].vertex].y, vertices[bones[b]->weights[w].vertex].z));
-				vertices_skinned[bones[b]->weights[w].vertex] +=aiVector3D(temp.x,temp.y,temp.z);
-				//	vertices_skinned[m_bones[b].weights[w].vertex] += m_bones[b].weights[w].weight * (mat * vertices[m_bones[b].weights[w].vertex].ToPos4()).Float3Part();
+				mat = bones[b]->attached_to->GetModelSpaceTransformMatrix() * bones[b]->bind;
+				for (size_t w = 0; w < bones[b]->num_weights; ++w)
+				{
+					float3 temp = bones[b]->weights[w].weight * mat.TransformPos(float3(vertices[bones[b]->weights[w].vertex].x, vertices[bones[b]->weights[w].vertex].y, vertices[bones[b]->weights[w].vertex].z));
+					vertices_skinned[bones[b]->weights[w].vertex] +=aiVector3D(temp.x,temp.y,temp.z);
+					//	vertices_skinned[m_bones[b].weights[w].vertex] += m_bones[b].weights[w].weight * (mat * vertices[m_bones[b].weights[w].vertex].ToPos4()).Float3Part();
+				}
 			}
 		}
 

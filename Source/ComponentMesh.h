@@ -43,6 +43,7 @@ public:
 	unsigned num_indices = 0;
 	unsigned num_faces = 0;
 	bool has_bones = false;
+	aiVector3D *vertices_skinned;
 	std::vector<Bone*> bones;
 	//cambiar
 	bool playing = true;
