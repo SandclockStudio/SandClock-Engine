@@ -71,26 +71,42 @@ bool Application::Init()
 update_status Application::Update()
 {
 
-	dtTimer.start();
+	
 
 	update_status ret = UPDATE_CONTINUE;
 
-	for(list<Module*>::iterator it = modules.begin(); it != modules.end() && ret == UPDATE_CONTINUE; ++it)
-		if((*it)->IsEnabled() == true) 
+	for (list<Module*>::iterator it = modules.begin(); it != modules.end() && ret == UPDATE_CONTINUE; ++it)
+	{
+		if ((*it)->IsEnabled() == true && !(*it)->fpsDependent)
 			ret = (*it)->PreUpdate(dt);
+		else
+		{
+			ret = (*it)->PreUpdate(dt);
+			dtTimer.start();
+		}
+	}
+		
 
-	for(list<Module*>::iterator it = modules.begin(); it != modules.end() && ret == UPDATE_CONTINUE; ++it)
-		if((*it)->IsEnabled() == true) 
+	for (list<Module*>::iterator it = modules.begin(); it != modules.end() && ret == UPDATE_CONTINUE; ++it)
+	{
+		if ((*it)->IsEnabled() == true)
 			ret = (*it)->Update(dt);
-
-	for(list<Module*>::iterator it = modules.begin(); it != modules.end() && ret == UPDATE_CONTINUE; ++it)
-		if((*it)->IsEnabled() == true) 
+	}
+	
+	for (list<Module*>::iterator it = modules.begin(); it != modules.end() && ret == UPDATE_CONTINUE; ++it)
+	{
+		if ((*it)->IsEnabled() == true && !(*it)->fpsDependent)
 			ret = (*it)->PostUpdate(dt);
-
-	dt = dtTimer.stop();
-	frames += 1;
-	fps += 1;
-
+		else
+		{
+			
+			ret = (*it)->PostUpdate(dt);
+			dt = dtTimer.stop();
+			frames += 1;
+			fps += 1;
+		}
+			
+	}
 	if (mili.read() >= 1000.0f)
 	{
 		mili.stop();

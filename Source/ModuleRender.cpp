@@ -24,6 +24,7 @@ ModuleRender::~ModuleRender()
 // Called before render is available
 bool ModuleRender::Init()
 {
+	fpsDependent = true;
 	if (App->json_parser->LoadObject("Config.App"))
 	{
 		fps_cap = App->json_parser->GetInt("fps_cap");
@@ -86,6 +87,7 @@ bool ModuleRender::Init()
 	}
 	else
 	{
+
 		//GLfloat light_diffuse[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 		//GLfloat light_position[] = { 0.25f, 1.0f, 1.0f, 0.0 };
 		glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
@@ -101,6 +103,7 @@ bool ModuleRender::Init()
 		//glLightfv(GL_LIGHT0, GL_POSITION, light_position);
 		glEnable(GL_LIGHT0);
 		glEnable(GL_LIGHTING);
+
 	}
 	
 
@@ -109,20 +112,24 @@ bool ModuleRender::Init()
 
 update_status ModuleRender::PreUpdate(float dt)
 {
+
 	return UPDATE_CONTINUE;
 }
 
 // Called every draw update
 update_status ModuleRender::Update(float dt)
 {
-
+	
 	return UPDATE_CONTINUE;
 }
 
 update_status ModuleRender::PostUpdate(float dt)
 {
+	
 	ImGui::Render();
+	
 	SDL_GL_SwapWindow(App->window->window);
+
 	return UPDATE_CONTINUE;
 }
 

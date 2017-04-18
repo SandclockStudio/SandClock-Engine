@@ -8,6 +8,8 @@
 #include "ModuleWindow.h"
 #include "ModuleScene.h"
 #include "ComponentTransform.h"
+#include "Module.h"
+#include <list>
 
 
 ModuleEditor::ModuleEditor()
@@ -36,6 +38,7 @@ update_status ModuleEditor::Update(float dt)
 	DrawConsole();
 	DrawTree();
 	DrawProperties();
+	DrawPlayMenu();
 	if(fps_log.size() != 0)
 		DrawFps();
 	return DrawMenu();
@@ -166,6 +169,8 @@ void ModuleEditor::DrawTree()
 
 	ImGui::Begin("Hierarchy", &begin, ImVec2(App->window->screenWidth / 3, App->window->screenHeight / 1.58f), -1.0f, ImGuiWindowFlags_ChildWindowAutoFitX | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_ChildWindowAutoFitY | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse);
 
+	
+
 	ImGui::Unindent(15.0f);
 
 	ImGui::PushStyleVar(ImGuiStyleVar_IndentSpacing, ImGui::GetFontSize() * 3); // Increase spacing to differentiate leaves from expanded contents.
@@ -174,14 +179,16 @@ void ModuleEditor::DrawTree()
 	{
 		if (App->scene_intro->root != nullptr)
 		{
+			int selection_mask = (1 << 2);
 			int tama = App->scene_intro->root->getChilds().size();
 			for (int i = 0; i < tama; ++i)
 			{
 
 				GameObject * go = App->scene_intro->root->getChilds()[i];
 
-				ImGuiTreeNodeFlags node_flags =( ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick);
-				ImGuiTreeNodeFlags node_flags_leaf = (ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_NoTreePushOnOpen | ImGuiTreeNodeFlags_Leaf);
+
+				ImGuiTreeNodeFlags node_flags =( ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick  );
+				ImGuiTreeNodeFlags node_flags_leaf = (ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_NoTreePushOnOpen | ImGuiTreeNodeFlags_Leaf );
 
 				if (go->getChilds().size() == 0) 
 				{
@@ -212,11 +219,13 @@ void ModuleEditor::DrawTree()
 					if (node_open)
 					{
 						Children(App->scene_intro->root->getChilds()[i], id);
-						ImGui::TreePop();
 					}	
-				}		
+				}
+
+
 			}
 		}
+		
 
 	}
 
@@ -230,12 +239,16 @@ void ModuleEditor::Children(GameObject * go, int &ptr_id)
 {
 	bool node_open;
 	int node_clicked = -1;
+	int selection_mask = (1 << 2);
+
 
 	for (int i = 0; i < go->getChilds().size(); i++)
 	{
-		ImGuiTreeNodeFlags node_flags = (ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick);
+		ImGuiTreeNodeFlags node_flags = (ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick );
 		ImGuiTreeNodeFlags node_flags_leaf = (ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_OpenOnDoubleClick | ImGuiTreeNodeFlags_NoTreePushOnOpen | ImGuiTreeNodeFlags_Leaf);
 		GameObject * child = go->getChilds()[i];
+
+
 
 		if (child->getChilds().size() == 0) 
 		{
@@ -263,10 +276,12 @@ void ModuleEditor::Children(GameObject * go, int &ptr_id)
 			if (node_open)
 			{
 				Children(child, ptr_id);
-				ImGui::TreePop();
+				
 			}		
 		}
 	}
+
+	ImGui::TreePop();
 }
 
 void ModuleEditor::DrawProperties()
@@ -310,3 +325,42 @@ void ModuleEditor::DrawProperties()
 
 }
 
+void ModuleEditor::DrawPlayMenu()
+{
+	//ImGui::SetNextWindowPos(ImVec2(App->window->screenWidth*App->window->screenSize, App->window->screenHeight*App->window->screenSize));
+	ImGui::SetNextWindowSize(ImVec2(500, 100), ImGuiSetCond_FirstUseEver);
+	ImGui::Begin("PlayMenu");
+	bool ret;
+	if (ImGui::Button("Play"))
+	{
+
+		for (std::list<Module*>::iterator it = App->modules.begin(); it != App->modules.end(); ++it)
+		{
+			//if ((*it)->fpsDependent)
+
+				
+		}
+	}
+	ImGui::SameLine();
+	if (ImGui::Button("Stop"))
+	{
+		for (std::list<Module*>::iterator it = App->modules.begin(); it != App->modules.end(); ++it)
+		{
+			//if ((*it)->fpsDependent)
+
+		}
+	}
+	
+	ImGui::SameLine();
+	if (ImGui::Button("Play 1 frame"))
+	{
+		for (std::list<Module*>::iterator it = App->modules.begin(); it != App->modules.end(); ++it)
+		{
+			//if ((*it)->fpsDependent)
+
+		}
+
+	}
+	//ImGui::Text("Window title");
+	ImGui::End();
+}

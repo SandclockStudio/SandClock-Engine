@@ -31,7 +31,6 @@ public:
 
 	
 
-
 private:
 	bool LoadConfig();
 };
