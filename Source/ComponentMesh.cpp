@@ -94,6 +94,11 @@ void ComponentMesh::LoadMesh(aiMesh* mesh, const aiScene* scene)
 	num_indices = mesh->mNumFaces * 3;
 	num_vertices = mesh->mNumVertices;
 	componentType = MESH;
+	
+	vbo[VERTEX_BUFFER] = NULL;
+	vbo[TEXCOORD_BUFFER] = NULL;
+	vbo[NORMAL_BUFFER] = NULL;
+	vbo[INDEX_BUFFER] = NULL;
 
 	for (int j = 0; j < mesh->mNumVertices; j++)
 	{
@@ -140,6 +145,10 @@ void ComponentMesh::LoadMesh(aiMesh* mesh, const aiScene* scene)
 	}
 
 	myGo->boundingBox.Enclose((float3*) vertices, num_vertices);
+
+	glGenBuffers(1, &index);
+	glBindBufferARB(GL_ARRAY_BUFFER, index);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * num_vertices + sizeof(float) * num_indices, vertices, GL_STATIC_DRAW);
 }
 
 

@@ -49,6 +49,11 @@ public:
 	//cambiar
 	bool playing = true;
 
+
+	GLuint vbo[4];
+	static enum BUFFERS {
+		VERTEX_BUFFER, TEXCOORD_BUFFER, NORMAL_BUFFER, INDEX_BUFFER
+	};
 };
 
 #endif // __COMPONENTMESH_
