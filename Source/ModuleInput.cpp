@@ -1,3 +1,4 @@
+#include "../Libraries/OpenGL/include/GL/glew.h"
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleInput.h"
@@ -6,7 +7,6 @@
 #include "JsonParser.h"
 #include "ModuleWindow.h"
 #include "MathGeoLib.h"
-
 #include "ModuleCamera.h"
 #include "ModuleScene.h"
 #pragma comment (lib, "opengl32.lib") 

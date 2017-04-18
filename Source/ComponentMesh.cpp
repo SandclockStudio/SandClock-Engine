@@ -1,8 +1,9 @@
+#include "../Libraries/OpenGL/include/GL/glew.h"
 #include "ComponentMesh.h"
 #include "Application.h"
 #include "GameObject.h"
 #include "ModuleAnim.h"
-#include "../Libraries/OpenGL/include/GL/glew.h"
+
 
 
 ComponentMesh::ComponentMesh(bool start_enabled)
@@ -21,7 +22,7 @@ bool ComponentMesh::Update(Frustum f)
 	
 	glNormalPointer(GL_FLOAT, 0, normals);
 	glTexCoordPointer(3, GL_FLOAT, sizeof(aiVector3D), tex_coords);
-
+	
 
 	if (has_bones)
 	{

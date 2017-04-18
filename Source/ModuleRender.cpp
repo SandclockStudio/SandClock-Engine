@@ -1,3 +1,4 @@
+#include "../Libraries/OpenGL/include/GL/glew.h"
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleRender.h"
@@ -6,8 +7,9 @@
 #include "SDL/include/SDL.h"
 #include "JsonParser.h"
 #include "MathGeoLib.h"
-#include "../Libraries/OpenGL/include/GL/glew.h"
+
 #include "IMGUI/imgui.h"
+
 #include "ModuleEditor.h"
 #include "ModuleScene.h"
 

@@ -2,7 +2,6 @@
 #define __MODULEEDITOR_H_
 
 #include "Module.h"
-#include "../Libraries/OpenGL/include/GL/glew.h"
 #pragma comment (lib, "opengl32.lib") 
 #include "IMGUI\imgui.h"
 #include <vector>
