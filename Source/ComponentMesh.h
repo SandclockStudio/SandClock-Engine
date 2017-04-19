@@ -33,6 +33,7 @@ public:
 	~ComponentMesh();
 
 	bool Update(Frustum f);
+	bool Update2(Frustum f);
 	bool CleanUp();
 	void LoadMesh(aiMesh * mesh, const aiScene * scene);
 
@@ -49,7 +50,7 @@ public:
 	//cambiar
 	bool playing = true;
 
-
+	GLuint vao;
 	GLuint vbo[4];
 	static enum BUFFERS {
 		VERTEX_BUFFER, TEXCOORD_BUFFER, NORMAL_BUFFER, INDEX_BUFFER

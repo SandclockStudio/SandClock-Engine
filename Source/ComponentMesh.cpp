@@ -14,6 +14,35 @@ ComponentMesh::~ComponentMesh()
 {
 }
 
+bool ComponentMesh::Update2(Frustum f)
+{
+
+	if (has_bones)
+	{
+		if (App->animations->IsEnabled())
+		{
+			float4x4 mat = float4x4::identity;
+			for (int b = 0; b < bones.size(); ++b)
+			{
+				mat = bones[b]->attached_to->GetModelSpaceTransformMatrix() * bones[b]->bind;
+				for (int w = 0; w < bones[b]->num_weights; ++w)
+				{
+					float3 temp = bones[b]->weights[w].weight * mat.TransformPos(float3(vertices[bones[b]->weights[w].vertex].x, vertices[bones[b]->weights[w].vertex].y, vertices[bones[b]->weights[w].vertex].z));
+					vertices[bones[b]->weights[w].vertex] += aiVector3D(temp.x, temp.y, temp.z);
+					//	vertices_skinned[m_bones[b].weights[w].vertex] += m_bones[b].weights[w].weight * (mat * vertices[m_bones[b].weights[w].vertex].ToPos4()).Float3Part();
+				}
+			}
+
+		}
+	}
+	glBindVertexArray(vao);
+
+	glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_INT, NULL);
+	glBindVertexArray(0);
+	glPopMatrix();
+	return true;
+}
+
 bool ComponentMesh::Update(Frustum f)
 {
 	glEnableClientState(GL_VERTEX_ARRAY);
@@ -100,25 +129,68 @@ void ComponentMesh::LoadMesh(aiMesh* mesh, const aiScene* scene)
 	vbo[NORMAL_BUFFER] = NULL;
 	vbo[INDEX_BUFFER] = NULL;
 
-	for (int j = 0; j < mesh->mNumVertices; j++)
+	glGenVertexArrays(1, &vao);
+	glBindVertexArray(vao);
+
+	if (mesh->HasPositions())
 	{
-		if (mesh->HasTextureCoords(0))
-			tex_coords[j] = aiVector3D(mesh->mTextureCoords[0][j].x, mesh->mTextureCoords[0][j].y, mesh->mTextureCoords[0][j].z);
-
-		if (mesh->HasNormals())
-			normals[j] = aiVector3D(mesh->mNormals[j].x, mesh->mNormals[j].y, mesh->mNormals[j].z);
-
-		vertices[j] = aiVector3D(mesh->mVertices[j].x, mesh->mVertices[j].y, mesh->mVertices[j].z);
-	}
-
-	unsigned int c = 0;
-	for (int k = 0; k < mesh->mNumFaces; k++)
-	{
-		for (int m = 0; m < 3; ++m, c++)
+		for (int j = 0; j < mesh->mNumVertices; j++)
 		{
-			indices[c] = mesh->mFaces[k].mIndices[m];
+			vertices[j] = aiVector3D(mesh->mVertices[j].x, mesh->mVertices[j].y, mesh->mVertices[j].z);
 		}
+
+		glGenBuffers(1, &vbo[VERTEX_BUFFER]);
+		glBindBuffer(GL_ARRAY_BUFFER, vbo[VERTEX_BUFFER]);
+		glBufferData(GL_ARRAY_BUFFER, 3 * mesh->mNumVertices * sizeof(GLfloat), vertices, GL_DYNAMIC_DRAW);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+		glEnableVertexAttribArray(0);
 	}
+
+	if (mesh->HasTextureCoords(0))
+	{
+		for (int j = 0; j < mesh->mNumVertices; j++)
+		{
+			tex_coords[j] = aiVector3D(mesh->mTextureCoords[0][j].x, mesh->mTextureCoords[0][j].y, mesh->mTextureCoords[0][j].z);
+		}
+
+		glGenBuffers(1, &vbo[TEXCOORD_BUFFER]);
+		glBindBuffer(GL_ARRAY_BUFFER, vbo[TEXCOORD_BUFFER]);
+		glBufferData(GL_ARRAY_BUFFER, 2 * mesh->mNumVertices * sizeof(GLfloat), tex_coords, GL_DYNAMIC_DRAW);
+		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+		glEnableVertexAttribArray(1);
+
+	}
+
+	if (mesh->HasNormals())
+	{
+		for (int j = 0; j < mesh->mNumVertices; j++)
+		{
+			normals[j] = aiVector3D(mesh->mNormals[j].x, mesh->mNormals[j].y, mesh->mNormals[j].z);
+		}
+		glGenBuffers(1, &vbo[NORMAL_BUFFER]);
+		glBindBuffer(GL_ARRAY_BUFFER, vbo[NORMAL_BUFFER]);
+		glBufferData(GL_ARRAY_BUFFER, 3 * mesh->mNumVertices * sizeof(GLfloat), normals, GL_DYNAMIC_DRAW);
+		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+		glEnableVertexAttribArray(2);
+	}
+
+	if (mesh->HasFaces())
+	{
+		for (int j = 0; j < mesh->mNumFaces; j++)
+		{
+			indices[j * 3] = mesh->mFaces[j].mIndices[0];
+			indices[j * 3 + 1] = mesh->mFaces[j].mIndices[1];
+			indices[j * 3 + 2] = mesh->mFaces[j].mIndices[2];
+		}
+		glGenBuffers(1, &vbo[INDEX_BUFFER]);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo[INDEX_BUFFER]);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, 3 * mesh->mNumFaces * sizeof(GLuint), indices, GL_DYNAMIC_DRAW);
+
+		glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+		glEnableVertexAttribArray(3);
+	}
+
+	
 
 	if (mesh->HasBones())
 	{
@@ -146,9 +218,9 @@ void ComponentMesh::LoadMesh(aiMesh* mesh, const aiScene* scene)
 
 	myGo->boundingBox.Enclose((float3*) vertices, num_vertices);
 
-	glGenBuffers(1, &index);
-	glBindBufferARB(GL_ARRAY_BUFFER, index);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * num_vertices + sizeof(float) * num_indices, vertices, GL_STATIC_DRAW);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
+
 }
 
 
