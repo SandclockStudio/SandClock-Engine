@@ -11,7 +11,6 @@
 #include "assimp\include\assimp\cimport.h"
 #include <assimp\include\assimp\postprocess.h>
 #include "Component.h"
-#include "ComponentTransform.h"
 #include "MathGeoLib.h"
 #include "ModuleAnim.h"
 #include "Application.h"
@@ -45,7 +44,7 @@ bool ModuleScene::Start()
 	camera->AddComponent(componentCamera);
 	gameObject.push_back(camera);
 	root = new GameObject(scene->mRootNode->mName,nullptr);
-	ComponentTransform* rootTransform;
+	
 	rootTransform = new ComponentTransform();
 	App->animations->Load("ArmyPilot_Run_Forwards.fbx");
 	App->animations->PlayAll();
@@ -135,7 +134,8 @@ bool ModuleScene::CleanUp()
 	delete(quadTree);
 	delete(batman);
 	delete(root);
-	//delete(billboard);
+	delete(billboard);
+	delete(rootTransform);
 
 	return true;
 }
@@ -177,6 +177,7 @@ void ModuleScene::LoadGameObjects(aiNode * node,GameObject* parent)
 
 		LoadGameObjects(node->mChildren[i], my_go);
 	}
+	RELEASE(object);
 }
 
 update_status ModuleScene::PreUpdate(float dt)

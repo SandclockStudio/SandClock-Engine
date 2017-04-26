@@ -10,6 +10,13 @@ Model::Model()
 
 Model::~Model()
 {
+	
+	for (int i = 0; i< scene->mNumMeshes; i++)
+	{
+		RELEASE(index[i]);
+	}
+	textureIndex.clear();
+	RELEASE_ARRAY(index);
 }
 
 void Model::Load(const char * file)
@@ -58,9 +65,10 @@ void Model::Load(const char * file)
 void Model::Clear()
 {
 	delete(scene);
-	/*for (int i = 0; i< index)
+	for (int i = 0; i< sizeof(index); i++)
 	{
-	}*/
+		RELEASE(index[i]);
+	}
 	RELEASE_ARRAY(index);
 	
 }

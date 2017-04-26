@@ -10,6 +10,7 @@
 #include "ComponentCamera.h"
 #include "QuadTreeNode.h"
 #include "GrassBillboard.h"
+#include "ComponentTransform.h"
 
 
 struct SDL_Texture;
@@ -41,6 +42,7 @@ public:
 	GameObject* root;
 	GameObject* camera;
 	ComponentCamera* componentCamera;
+	ComponentTransform* rootTransform;
 
 	QuadTreeNode* quadTree;
 	GameObject* aaaa;
