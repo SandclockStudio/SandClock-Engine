@@ -114,7 +114,7 @@ Node* Level::LoadNode(aiNode * node, Node * root)
 		aiVector3D* auxNormals = new aiVector3D[2 * mesh->mNumVertices];
 		aiVector3D* auxTextCoord = new aiVector3D[2 * mesh->mNumVertices];
 
-		for (int j = 0; j < mesh->mNumVertices; j++)
+		for (unsigned int j = 0; j < mesh->mNumVertices; j++)
 		{
 
 			if (mesh->HasTextureCoords(0))
@@ -134,7 +134,7 @@ Node* Level::LoadNode(aiNode * node, Node * root)
 		}
 		unsigned int c = 0;
 
-		for (int k = 0; k < mesh->mNumFaces; k++)
+		for (unsigned int k = 0; k < mesh->mNumFaces; k++)
 		{
 			for (int m = 0; m < 3; ++m, c++)
 			{
@@ -151,7 +151,7 @@ Node* Level::LoadNode(aiNode * node, Node * root)
 
 	if (node->mNumChildren > 0)
 	{
-		for (int i = 0; i < node->mNumChildren; i++)
+		for (unsigned int i = 0; i < node->mNumChildren; i++)
 		{
 			LinkNode(nodo, LoadNode(node->mChildren[i], nodo));
 		}

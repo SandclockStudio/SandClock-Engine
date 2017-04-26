@@ -24,7 +24,7 @@ void NodeTree::CleanUp()
 	//Me elimino normalmente
 	if (childs.size() != 0)
 	{
-		for (int i = 0; i < childs.size(); i++)
+		for (size_t i = 0; i < childs.size(); i++)
 		{
 			childs[i]->CleanUp();
 			delete(childs[i]);
@@ -34,7 +34,7 @@ void NodeTree::CleanUp()
 
 	if (gameObjects.size() != 0)
 	{
-		for (int i = 0; i < gameObjects.size(); i++)
+		for (size_t i = 0; i < gameObjects.size(); i++)
 		{
 			//if (gameObjects[i] != NULL)
 				//RELEASE(gameObjects[i]);
@@ -115,12 +115,12 @@ void NodeTree::DebugDraw()
 	glLineWidth(20.0f);
 	glEnd();
 
-	for (int i = 0; i < gameObjects.size(); i++)
+	for (size_t i = 0; i < gameObjects.size(); i++)
 	{
 		gameObjects[i]->DrawBoundingBox();
 	}
 
-	for (int j = 0; j < childs.size(); j++) 
+	for (size_t j = 0; j < childs.size(); j++) 
 	{
 		childs[j]->DebugDraw();
 	}
@@ -133,7 +133,7 @@ void QuadTreeNode::Insert(GameObject* gameObject)
 	if (gameObject->boundingBox.Intersects(root->nodeBoundingBox));
 	{
 		
-		if (root->capacity == root->bucketSpace & root->childs.size() == 0)
+		if (root->capacity == root->bucketSpace && root->childs.size() == 0)
 		{			
 
 			// tendremos que subdividir la bounding box en 8 partes
@@ -144,7 +144,7 @@ void QuadTreeNode::Insert(GameObject* gameObject)
 				NodeTree * child = root->Create(i, root);
 
 				//Añadimos los nuevos hijos al padre una vez asignados
-				for (int j = 0; j < root->gameObjects.size(); j++)
+				for (size_t j = 0; j < root->gameObjects.size(); j++)
 				{
 					// Por cada uno de los 8 nodos y cada uno de los gameobjects tenemos que hacer la comprobacion
 					// Dentro se comprueba si entra el gameObject en el hijo
@@ -174,7 +174,7 @@ void QuadTreeNode::Insert(GameObject* gameObject)
 			else
 			{
 				//Para cada hijo meter de forma recursiva
-				for (int i = 0; i < root->childs.size(); i++)
+				for (size_t i = 0; i < root->childs.size(); i++)
 				{
 					root->childs[i]->Insert(gameObject, i);
 				}
@@ -253,7 +253,7 @@ bool NodeTree::Insert(GameObject * gameObject, int indice)
 				//Añadimos los nuevos hijos al padre una vez asignados
 
 
-				for (int j = 0; j < gameObjects.size(); j++)
+				for (size_t j = 0; j < gameObjects.size(); j++)
 				{
 					// Por cada uno de los 8 nodos y cada uno de los gameobjects tenemos que hacer la comprobacion
 					// Dentro se comprueba si entra el gameObject en el hijo
@@ -287,7 +287,7 @@ bool NodeTree::Insert(GameObject * gameObject, int indice)
 			else
 			{
 				//Para cada hijo meter de forma recursiva el gameObject actual
-				for (int i = 0; i < childs.size(); i++)
+				for (size_t i = 0; i < childs.size(); i++)
 				{
 					childs[i]->Insert(gameObject, i);
 				}

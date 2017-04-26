@@ -11,7 +11,7 @@ Model::Model()
 Model::~Model()
 {
 	
-	for (int i = 0; i< scene->mNumMeshes; i++)
+	for (unsigned int i = 0; i< scene->mNumMeshes; i++)
 	{
 		RELEASE(index[i]);
 	}
@@ -31,12 +31,12 @@ void Model::Load(const char * file)
 	ilutEnable(ILUT_OPENGL_CONV);
 
 	index = new unsigned int *[scene->mNumMeshes];
-	for (int i = 0; i < scene->mNumMeshes; i++)
+	for (unsigned int i = 0; i < scene->mNumMeshes; i++)
 	{
 		aiMesh* mesh = scene->mMeshes[i];
 		index[i] = new unsigned int[3*mesh->mNumFaces];
 		unsigned int c = 0;
-		for (int j = 0; j < mesh->mNumFaces; j++)
+		for (unsigned int j = 0; j < mesh->mNumFaces; j++)
 		{
 			if (mesh->mFaces[j].mNumIndices != 3)
 				LOGCHAR("WARNING, geometry face with %d indices, all should be have 3!", mesh->mFaces[j].mNumIndices);
@@ -78,11 +78,11 @@ void Model::DrawDirect()
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	glEnable(GL_TEXTURE_2D);
 
-	for (int i = 0; i < scene->mNumMeshes; i++)
+	for (unsigned int i = 0; i < scene->mNumMeshes; i++)
 	{
 		glBindTexture(GL_TEXTURE_2D, textureIndex[i]);
 		glBegin(GL_TRIANGLES);
-		for (int j = 0; j < scene->mMeshes[i]->mNumVertices; j++)
+		for (unsigned int j = 0; j < scene->mMeshes[i]->mNumVertices; j++)
 		{
 			if ((scene->mMeshes[i]->HasNormals()))
 				glNormal3f(scene->mMeshes[i]->mNormals[j].x, scene->mMeshes[i]->mNormals[j].y, scene->mMeshes[i]->mNormals[j].z);

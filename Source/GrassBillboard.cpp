@@ -2,7 +2,7 @@
 
 GrassBillboard::GrassBillboard()
 {
-	int rand1, rand2, rand3, rand4;
+	float rand1, rand2, rand3, rand4;
 
 	billboards.clear();
 
@@ -14,7 +14,7 @@ GrassBillboard::GrassBillboard()
 		rand1 = rand() % 10 * rand3;
 		rand2 = rand() % 10 * rand4;
 
-		float3 pos = float3(rand1, 1, rand2);
+		float3 pos = float3(rand1, 1.0, rand2);
 		billboards.push_back(Billboard(1, pos));
 	}
 }
@@ -26,7 +26,7 @@ GrassBillboard::~GrassBillboard()
 
 bool GrassBillboard::Init()
 {
-	for (int i = 0; i < billboards.size(); i++)
+	for (size_t i = 0; i < billboards.size(); i++)
 	{
 		billboards[i].Init();
 	}
@@ -35,7 +35,7 @@ bool GrassBillboard::Init()
 
 bool GrassBillboard::Draw()
 {
-	for (int i = 0; i < billboards.size(); i++)
+	for (size_t i = 0; i < billboards.size(); i++)
 	{
 		billboards[i].Draw();
 	}
@@ -45,7 +45,7 @@ bool GrassBillboard::Draw()
 bool GrassBillboard::Update(Frustum frustum)
 {
 	std::sort(billboards.begin(), billboards.end(), Billboard::less_than_key());
-	for (int i = 0; i < billboards.size(); i++)
+	for (size_t i = 0; i < billboards.size(); i++)
 	{
 		billboards[i].Update(frustum);
 	}
@@ -54,7 +54,7 @@ bool GrassBillboard::Update(Frustum frustum)
 
 void GrassBillboard::ComputeQuad(Frustum frustum)
 {
-	for (int i = 0; i < billboards.size(); i++)
+	for (size_t i = 0; i < billboards.size(); i++)
 	{
 		billboards[i].ComputeQuad(frustum);
 	}

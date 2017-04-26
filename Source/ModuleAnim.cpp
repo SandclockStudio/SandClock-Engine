@@ -9,11 +9,11 @@ void ModuleAnim::Load(const char* name)
 	gameModule = true;
 	const aiScene* scene = aiImportFile(name, aiProcessPreset_TargetRealtime_MaxQuality);
 	
-	for (int i = 0; i < scene->mNumAnimations; i++)
+	for (unsigned int i = 0; i < scene->mNumAnimations; i++)
 	{
 		std::vector<myChannel> channels;
 		
-		for (int j = 0; j < scene->mAnimations[i][0].mNumChannels; j++)
+		for (unsigned int j = 0; j < scene->mAnimations[i][0].mNumChannels; j++)
 		{
 			channels.push_back(myChannel(scene->mAnimations[i][0].mChannels[j]->mNodeName, scene->mAnimations[i][0].mChannels[j]->mPositionKeys, scene->mAnimations[i][0].mChannels[j]->mRotationKeys, scene->mAnimations[i][0].mChannels[j]->mScalingKeys, scene->mAnimations[i][0].mChannels[j]->mNumPositionKeys));
 		}
@@ -30,7 +30,7 @@ void ModuleAnim::PlayAnimation(float index)
 
 void ModuleAnim::PlayAll()
 {
-	for (int i = 0; i < loadAnimations.size(); i++)
+	for (size_t i = 0; i < loadAnimations.size(); i++)
 	{
 		loadAnimations[i].playing = true;
 	}
@@ -47,7 +47,7 @@ void ModuleAnim::Stop()
 update_status ModuleAnim::Update(float dt)
 {
 	if(dt != 0)
-		for (int i = 0; i < loadAnimations.size(); i++)
+		for (size_t i = 0; i < loadAnimations.size(); i++)
 		{
 			if (loadAnimations[i].playing)
 				loadAnimations[i].Update(dt);
@@ -92,10 +92,10 @@ void myAnimation::Update(float dt)
 	aiVector3D position, scale;
 	aiQuaternion rotation;
 
-	for (int i = 0; i < channels.size(); i++)
+	for (size_t i = 0; i < channels.size(); i++)
 	{
 		//Buscar el gameObject con el nombre que toca
-		for (int k = 0; k < App->scene_intro->gameObject.size();k++)
+		for (size_t k = 0; k < App->scene_intro->gameObject.size();k++)
 		{
 			if (channels[i].name == App->scene_intro->gameObject[k]->GetName())
 			{
@@ -110,7 +110,7 @@ void myAnimation::Update(float dt)
 			channels[i].currentTime += App->timeScale*dt;
 
 			//Interpolation
-			for (int j = 0; j < channels[i].size; j++)
+			for (unsigned int j = 0; j < channels[i].size; j++)
 			{
 				//Si estas en la ultima iteración se pone el tiempo de la animación a cero.
 				if (j + 1 == channels[i].size)

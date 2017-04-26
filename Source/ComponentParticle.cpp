@@ -24,7 +24,7 @@ void ComponentParticle::Init(unsigned max_particles, const char* file)
 
 bool ComponentParticle::Update(Frustum f)
 {
-	for (int i = 0; i < particles.size(); i++) 
+	for (size_t i = 0; i < particles.size(); i++) 
 	{
 		particles[i].position += particles[i].velocity * 0.5f;
 		particles[i].lifetime += 0.5f;
@@ -50,7 +50,7 @@ bool ComponentParticle::Update(Frustum f)
 
 bool ComponentParticle::Draw()
 {
-	for (int i = 0; i < alive.size(); i++)
+	for (size_t  i = 0; i < alive.size(); i++)
 	{
 		glBindTexture(GL_TEXTURE_2D, texture);
 		glBegin(GL_TRIANGLES);
@@ -77,7 +77,7 @@ bool ComponentParticle::Draw()
 
 void ComponentParticle::ComputeQuad(Frustum f)
 {
-	for (int i = 0; i < alive.size(); i++)
+	for (size_t i = 0; i < alive.size(); i++)
 	{
 		Particle* p = &particles[alive[i]];
 		

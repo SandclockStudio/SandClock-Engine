@@ -90,7 +90,7 @@ bool ModuleScene::Start()
 	billboard->Init();
 
 
-	for (int i = 1; i < gameObject.size(); i++)
+	for (size_t i = 1; i < gameObject.size(); i++)
 	{
 		if (gameObject[i]->components.size() > 2)
 		{
@@ -98,7 +98,7 @@ bool ModuleScene::Start()
 			int aux = caux->bones.size();
 			for (int j = 0; j < aux ; j++)
 			{
-				for (int k = 0; k < gameObject.size(); k++)
+				for (size_t k = 0; k < gameObject.size(); k++)
 				{
 					if (caux->bones[j]->name == gameObject[k]->GetName())
 					{
@@ -122,7 +122,7 @@ bool ModuleScene::CleanUp()
 	//delete(c);
 	//delete(p);
 	//delete(g);
-	for (int i = 0; i < gameObject.size();++i)
+	for (size_t i = 0; i < gameObject.size();++i)
 	{
 		gameObject[i]->CleanUp();
 		
@@ -146,7 +146,7 @@ void ModuleScene::LoadGameObjects(aiNode * node,GameObject* parent)
 	GameObject * my_go;
 	if (node->mNumMeshes > 1)
 	{
-		for (int i = 0; i < node->mNumMeshes; i++)
+		for (size_t i = 0; i < node->mNumMeshes; i++)
 		{
 			my_go = object->LoadGameObjectMesh(node, scene->mMeshes[i], scene);
 			parent->AddChild(my_go);
@@ -170,7 +170,7 @@ void ModuleScene::LoadGameObjects(aiNode * node,GameObject* parent)
 
 	}
 
-	for (int i = 0; i < node->mNumChildren; i++)
+	for (size_t i = 0; i < node->mNumChildren; i++)
 	{
 		if(parent->GetRootNode() != nullptr)
 			object->SetRootNode(parent);
@@ -184,7 +184,7 @@ update_status ModuleScene::PreUpdate(float dt)
 {
 	std::vector<GameObject*> childs = root->getChilds();
 
-	for (int i = 0; i < childs.size(); i++)
+	for (size_t i = 0; i < childs.size(); i++)
 	{
 		
 		childs[i]->PreUpdate();
@@ -200,7 +200,7 @@ update_status ModuleScene::Update(float dt)
 
 	std::vector<GameObject*> childs = root->getChilds();
 	
-	for (int i = 0; i < childs.size(); i++)
+	for (size_t i = 0; i < childs.size(); i++)
 	{
 
 		childs[i]->Update(componentCamera->frustum);

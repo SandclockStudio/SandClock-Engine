@@ -12,7 +12,7 @@ void GameObject::CleanUp()
 {
 	delete(corners);
 
-	for (int i = 0; i < components.size();i++)
+	for (size_t i = 0; i < components.size();i++)
 	{
 		components[i]->CleanUp();
 		RELEASE(components[i]);
@@ -45,7 +45,7 @@ bool GameObject::Update(Frustum f)
 {
 	glPushMatrix();
 	
-	for (int i = 0; i < components.size(); ++i)
+	for (size_t i = 0; i < components.size(); ++i)
 	{
 		
 		components[i]->Update(f);
@@ -58,7 +58,7 @@ bool GameObject::Update(Frustum f)
 
 	if (childs.size() > 0)
 	{
-		for (int i = 0; i < childs.size(); ++i)
+		for (size_t i = 0; i < childs.size(); ++i)
 		{
 
 			if (intersectFrustumAABB(f, childs[i]->boundingBox))
@@ -71,13 +71,13 @@ bool GameObject::Update(Frustum f)
 
 bool GameObject::PreUpdate()
 {
-	for (int i = 0; i < components.size(); ++i)
+	for (size_t i = 0; i < components.size(); ++i)
 	{
 		components[i]->PreUpdate();
 	}
 	if (childs.size() > 0)
 	{
-		for (int i = 0; i < childs.size(); ++i)
+		for (size_t i = 0; i < childs.size(); ++i)
 		{
 				childs[i]->PreUpdate();
 		}
@@ -157,7 +157,7 @@ void GameObject::DrawBoundingBox()
 
 GameObject * GameObject::FindGameObject(aiString node)
 {
-	for (int i = 0; i<childs.size(); i++)
+	for (size_t i = 0; i<childs.size(); i++)
 		if (childs[i]->GetName() == node)
 			return childs[i];
 	return nullptr;
@@ -263,7 +263,7 @@ void GameObject::DrawLines()
 
 			dynamic_cast<ComponentTransform*>(components[0])->Update2();
 
-			for (int i = 0; i < childs.size(); i++)
+			for (size_t i = 0; i < childs.size(); i++)
 			{
 				glDisable(GL_LIGHTING);
 				
@@ -332,7 +332,7 @@ bool GameObject::intersectFrustumAABB(Frustum f, AABB box)
 		points.push_back(b9);
 
 
-		for (int j = 0; j < points.size(); j++)
+		for (size_t j = 0; j < points.size(); j++)
 		{
 			int out = 0;
 			for (int i = 0; i < 6; i++)

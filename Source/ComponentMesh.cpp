@@ -24,10 +24,10 @@ bool ComponentMesh::Update2(Frustum f)
 		if (App->animations->IsEnabled())
 		{
 			float4x4 mat = float4x4::identity;
-			for (int b = 0; b < bones.size(); ++b)
+			for (unsigned int b = 0; b < bones.size(); ++b)
 			{
 				mat = bones[b]->attached_to->GetModelSpaceTransformMatrix() * bones[b]->bind;
-				for (int w = 0; w < bones[b]->num_weights; ++w)
+				for (unsigned int w = 0; w < bones[b]->num_weights; ++w)
 				{
 					float3 temp = bones[b]->weights[w].weight * mat.TransformPos(float3(vertices[bones[b]->weights[w].vertex].x, vertices[bones[b]->weights[w].vertex].y, vertices[bones[b]->weights[w].vertex].z));
 					vertices[bones[b]->weights[w].vertex] += aiVector3D(temp.x, temp.y, temp.z);
@@ -106,7 +106,7 @@ bool ComponentMesh::CleanUp()
 
 	if (has_bones)
 	{
-		for (int i = 0; i < bones.size(); i++)
+		for (unsigned int i = 0; i < bones.size(); i++)
 		{
 			RELEASE_ARRAY(bones[i]->weights);
 			RELEASE_ARRAY(bones[i]);
@@ -137,7 +137,7 @@ void ComponentMesh::LoadMesh(aiMesh* mesh, const aiScene* scene)
 
 	if (mesh->HasPositions())
 	{
-		for (int j = 0; j < mesh->mNumVertices; j++)
+		for (unsigned int j = 0; j < mesh->mNumVertices; j++)
 		{
 			vertices[j] = aiVector3D(mesh->mVertices[j].x, mesh->mVertices[j].y, mesh->mVertices[j].z);
 		}
@@ -151,7 +151,7 @@ void ComponentMesh::LoadMesh(aiMesh* mesh, const aiScene* scene)
 
 	if (mesh->HasTextureCoords(0))
 	{
-		for (int j = 0; j < mesh->mNumVertices; j++)
+		for (unsigned int j = 0; j < mesh->mNumVertices; j++)
 		{
 			tex_coords[j] = aiVector3D(mesh->mTextureCoords[0][j].x, mesh->mTextureCoords[0][j].y, mesh->mTextureCoords[0][j].z);
 		}
@@ -166,7 +166,7 @@ void ComponentMesh::LoadMesh(aiMesh* mesh, const aiScene* scene)
 
 	if (mesh->HasNormals())
 	{
-		for (int j = 0; j < mesh->mNumVertices; j++)
+		for (unsigned int j = 0; j < mesh->mNumVertices; j++)
 		{
 			normals[j] = aiVector3D(mesh->mNormals[j].x, mesh->mNormals[j].y, mesh->mNormals[j].z);
 		}
@@ -179,7 +179,7 @@ void ComponentMesh::LoadMesh(aiMesh* mesh, const aiScene* scene)
 
 	if (mesh->HasFaces())
 	{
-		for (int j = 0; j < mesh->mNumFaces; j++)
+		for (unsigned int j = 0; j < mesh->mNumFaces; j++)
 		{
 			indices[j * 3] = mesh->mFaces[j].mIndices[0];
 			indices[j * 3 + 1] = mesh->mFaces[j].mIndices[1];
@@ -199,7 +199,7 @@ void ComponentMesh::LoadMesh(aiMesh* mesh, const aiScene* scene)
 	{
 		has_bones = true;
 			
-		for (int i = 0; i < mesh->mNumBones; i++)
+		for (unsigned int i = 0; i < mesh->mNumBones; i++)
 		{
 			aiBone* scene_bone = mesh->mBones[i];
 			Bone* bone = new Bone;
@@ -210,7 +210,7 @@ void ComponentMesh::LoadMesh(aiMesh* mesh, const aiScene* scene)
 
 			bone->num_weights = scene_bone->mNumWeights;
 			bone->weights = new Weight[bone->num_weights];
-			for (int j = 0; j < bone->num_weights; j++)
+			for (unsigned int j = 0; j < bone->num_weights; j++)
 			{
 				bone->weights[j].weight = scene_bone->mWeights[j].mWeight;
 				bone->weights[j].vertex = scene_bone->mWeights[j].mVertexId;
