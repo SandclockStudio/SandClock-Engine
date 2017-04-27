@@ -11,6 +11,7 @@
 #include "assimp\include\assimp\cimport.h"
 #include <assimp\include\assimp\postprocess.h>
 #include "Component.h"
+#pragma comment(lib, "MathGeoLib.lib")
 #include "MathGeoLib.h"
 #include "ModuleAnim.h"
 #include "Application.h"

@@ -6,6 +6,7 @@
 #include "SDL/include/SDL.h"
 #include "JsonParser.h"
 #include "ModuleWindow.h"
+#pragma comment(lib, "MathGeoLib.lib") 
 #include "MathGeoLib.h"
 #include "ModuleCamera.h"
 #include "ModuleScene.h"

@@ -81,7 +81,7 @@ void ComponentParticle::ComputeQuad(Frustum f)
 	{
 		Particle* p = &particles[alive[i]];
 		
-		p->normal = (f.pos - p->position);
+		p->normal = (f.Pos() - p->position);
 		p->up = float3(0, 1, 0);
 
 		p->right = p->normal.Cross(p->up);

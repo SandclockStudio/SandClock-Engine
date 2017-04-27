@@ -6,6 +6,7 @@
 #include "ModuleInput.h"
 #include "SDL/include/SDL.h"
 #include "JsonParser.h"
+#pragma comment(lib, "MathGeoLib.lib")
 #include "MathGeoLib.h"
 
 #include "IMGUI/imgui.h"

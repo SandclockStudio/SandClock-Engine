@@ -52,7 +52,7 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
-      <AdditionalDependencies>$(ProjectDir)../Libraries/OpenGL/lib/Release/Win32/glew32.lib;$(ProjectDir)../Libraries/Devil/lib/x86/Release/DevIL.lib;$(ProjectDir)../Libraries/Devil/lib/x86/Release/ILU.lib;$(ProjectDir)../Libraries/Devil/lib/x86/Release/ILUT.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(ProjectDir)../Libraries/OpenGL/lib/Release/Win32/glew32.lib;$(ProjectDir)../Libraries/MathGeoLib.lib;$(ProjectDir)../Libraries/Devil/lib/x86/Release/DevIL.lib;$(ProjectDir)../Libraries/Devil/lib/x86/Release/ILU.lib;$(ProjectDir)../Libraries/Devil/lib/x86/Release/ILUT.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Algorithm;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Math;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source;C:\Users\marcdc\Source\Repos\SandClock-Engine\Libraries;$(ProjectDir)../Libraries/Devil\lib\x86\Release;$(ProjectDir)../Libraries/Devil\lib\x86\unicode\Release;$(ProjectDir)../Libraries\assimp\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -71,11 +71,10 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <SubSystem>Windows</SubSystem>
-      <AdditionalDependencies>$(ProjectDir)../Libraries/OpenGL/lib/Release/Win32/glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(ProjectDir)../Libraries/OpenGL/lib/Release/Win32/glew32.lib;$(ProjectDir)../Libraries/MathGeoLib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\Libraries\Algorithm\Random\LCG.h" />
     <ClInclude Include="..\Libraries\assimp\include\assimp\ai_assert.h" />
     <ClInclude Include="..\Libraries\assimp\include\assimp\anim.h" />
     <ClInclude Include="..\Libraries\assimp\include\assimp\camera.h" />
@@ -117,27 +116,6 @@
     <ClInclude Include="..\Libraries\Devil\include\IL\ilut_config.h" />
     <ClInclude Include="..\Libraries\Devil\include\IL\ilu_region.h" />
     <ClInclude Include="..\Libraries\Devil\include\IL\il_wrap.h" />
-    <ClInclude Include="..\Libraries\Geometry\AABB.h" />
-    <ClInclude Include="..\Libraries\Geometry\AABB2D.h" />
-    <ClInclude Include="..\Libraries\Geometry\Capsule.h" />
-    <ClInclude Include="..\Libraries\Geometry\Circle.h" />
-    <ClInclude Include="..\Libraries\Geometry\Frustum.h" />
-    <ClInclude Include="..\Libraries\Geometry\GeometryAll.h" />
-    <ClInclude Include="..\Libraries\Geometry\GeomType.h" />
-    <ClInclude Include="..\Libraries\Geometry\HitInfo.h" />
-    <ClInclude Include="..\Libraries\Geometry\KDTree.h" />
-    <ClInclude Include="..\Libraries\Geometry\Line.h" />
-    <ClInclude Include="..\Libraries\Geometry\LineSegment.h" />
-    <ClInclude Include="..\Libraries\Geometry\OBB.h" />
-    <ClInclude Include="..\Libraries\Geometry\PBVolume.h" />
-    <ClInclude Include="..\Libraries\Geometry\Plane.h" />
-    <ClInclude Include="..\Libraries\Geometry\Polygon.h" />
-    <ClInclude Include="..\Libraries\Geometry\Polyhedron.h" />
-    <ClInclude Include="..\Libraries\Geometry\QuadTreeNode.h" />
-    <ClInclude Include="..\Libraries\Geometry\Ray.h" />
-    <ClInclude Include="..\Libraries\Geometry\Sphere.h" />
-    <ClInclude Include="..\Libraries\Geometry\Triangle.h" />
-    <ClInclude Include="..\Libraries\Geometry\TriangleMesh.h" />
     <ClInclude Include="..\Libraries\IMGUI\imconfig.h" />
     <ClInclude Include="..\Libraries\IMGUI\imgui.h" />
     <ClInclude Include="..\Libraries\IMGUI\imgui_impl_sdl_gl3.h" />
@@ -145,42 +123,7 @@
     <ClInclude Include="..\Libraries\IMGUI\stb_rect_pack.h" />
     <ClInclude Include="..\Libraries\IMGUI\stb_textedit.h" />
     <ClInclude Include="..\Libraries\IMGUI\stb_truetype.h" />
-    <ClInclude Include="..\Libraries\MathBuildConfig.h" />
     <ClInclude Include="..\Libraries\MathGeoLib.h" />
-    <ClInclude Include="..\Libraries\MathGeoLibFwd.h" />
-    <ClInclude Include="..\Libraries\Math\assume.h" />
-    <ClInclude Include="..\Libraries\Math\BitOps.h" />
-    <ClInclude Include="..\Libraries\Math\Complex.h" />
-    <ClInclude Include="..\Libraries\Math\CoordinateAxisConvention.h" />
-    <ClInclude Include="..\Libraries\Math\FixedPoint.h" />
-    <ClInclude Include="..\Libraries\Math\float2.h" />
-    <ClInclude Include="..\Libraries\Math\float3.h" />
-    <ClInclude Include="..\Libraries\Math\float3x3.h" />
-    <ClInclude Include="..\Libraries\Math\float3x4.h" />
-    <ClInclude Include="..\Libraries\Math\float4.h" />
-    <ClInclude Include="..\Libraries\Math\float4x4.h" />
-    <ClInclude Include="..\Libraries\Math\float4x4_neon.h" />
-    <ClInclude Include="..\Libraries\Math\float4x4_sse.h" />
-    <ClInclude Include="..\Libraries\Math\float4_neon.h" />
-    <ClInclude Include="..\Libraries\Math\float4_sse.h" />
-    <ClInclude Include="..\Libraries\Math\FloatCmp.h" />
-    <ClInclude Include="..\Libraries\Math\MathAll.h" />
-    <ClInclude Include="..\Libraries\Math\MathConstants.h" />
-    <ClInclude Include="..\Libraries\Math\MathFunc.h" />
-    <ClInclude Include="..\Libraries\Math\MathLog.h" />
-    <ClInclude Include="..\Libraries\Math\MathNamespace.h" />
-    <ClInclude Include="..\Libraries\Math\MathTypes.h" />
-    <ClInclude Include="..\Libraries\Math\MatrixProxy.h" />
-    <ClInclude Include="..\Libraries\Math\myassert.h" />
-    <ClInclude Include="..\Libraries\Math\Polynomial.h" />
-    <ClInclude Include="..\Libraries\Math\Quat.h" />
-    <ClInclude Include="..\Libraries\Math\quat_simd.h" />
-    <ClInclude Include="..\Libraries\Math\Rect.h" />
-    <ClInclude Include="..\Libraries\Math\Reinterpret.h" />
-    <ClInclude Include="..\Libraries\Math\SSEMath.h" />
-    <ClInclude Include="..\Libraries\Math\sse_mathfun.h" />
-    <ClInclude Include="..\Libraries\Math\TransformOps.h" />
-    <ClInclude Include="..\Libraries\Time\Clock.h" />
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Application.h" />
     <ClInclude Include="Billboard.h" />
@@ -225,40 +168,10 @@
     <ClInclude Include="Timer.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Libraries\Algorithm\Random\LCG.cpp" />
-    <ClCompile Include="..\Libraries\Geometry\AABB.cpp" />
-    <ClCompile Include="..\Libraries\Geometry\Capsule.cpp" />
-    <ClCompile Include="..\Libraries\Geometry\Circle.cpp" />
-    <ClCompile Include="..\Libraries\Geometry\Frustum.cpp" />
-    <ClCompile Include="..\Libraries\Geometry\Line.cpp" />
-    <ClCompile Include="..\Libraries\Geometry\LineSegment.cpp" />
-    <ClCompile Include="..\Libraries\Geometry\OBB.cpp" />
-    <ClCompile Include="..\Libraries\Geometry\Plane.cpp" />
-    <ClCompile Include="..\Libraries\Geometry\Polygon.cpp" />
-    <ClCompile Include="..\Libraries\Geometry\Polyhedron.cpp" />
-    <ClCompile Include="..\Libraries\Geometry\Ray.cpp" />
-    <ClCompile Include="..\Libraries\Geometry\Sphere.cpp" />
-    <ClCompile Include="..\Libraries\Geometry\Triangle.cpp" />
-    <ClCompile Include="..\Libraries\Geometry\TriangleMesh.cpp" />
     <ClCompile Include="..\Libraries\IMGUI\imgui.cpp" />
     <ClCompile Include="..\Libraries\IMGUI\imgui_demo.cpp" />
     <ClCompile Include="..\Libraries\IMGUI\imgui_draw.cpp" />
     <ClCompile Include="..\Libraries\IMGUI\imgui_impl_sdl_gl3.cpp" />
-    <ClCompile Include="..\Libraries\Math\BitOps.cpp" />
-    <ClCompile Include="..\Libraries\Math\float2.cpp" />
-    <ClCompile Include="..\Libraries\Math\float3.cpp" />
-    <ClCompile Include="..\Libraries\Math\float3x3.cpp" />
-    <ClCompile Include="..\Libraries\Math\float3x4.cpp" />
-    <ClCompile Include="..\Libraries\Math\float4.cpp" />
-    <ClCompile Include="..\Libraries\Math\float4x4.cpp" />
-    <ClCompile Include="..\Libraries\Math\MathFunc.cpp" />
-    <ClCompile Include="..\Libraries\Math\MathLog.cpp" />
-    <ClCompile Include="..\Libraries\Math\MathOps.cpp" />
-    <ClCompile Include="..\Libraries\Math\Polynomial.cpp" />
-    <ClCompile Include="..\Libraries\Math\Quat.cpp" />
-    <ClCompile Include="..\Libraries\Math\SSEMath.cpp" />
-    <ClCompile Include="..\Libraries\Math\TransformOps.cpp" />
-    <ClCompile Include="..\Libraries\Time\Clock.cpp" />
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Billboard.cpp" />
     <ClCompile Include="ComponentCamera.cpp" />
@@ -301,12 +214,6 @@
     <None Include="..\Libraries\assimp\include\assimp\vector2.inl" />
     <None Include="..\Libraries\assimp\include\assimp\vector3.inl" />
     <None Include="..\Libraries\Devil\include\IL\DevIL.i" />
-    <None Include="..\Libraries\Geometry\KDTree.inl" />
-    <None Include="..\Libraries\Geometry\QuadTreeNode.inl" />
-    <None Include="..\Libraries\Geometry\TriangleMesh_IntersectRay_AVX.inl" />
-    <None Include="..\Libraries\Geometry\TriangleMesh_IntersectRay_CPP.inl" />
-    <None Include="..\Libraries\Geometry\TriangleMesh_IntersectRay_SSE.inl" />
-    <None Include="..\Libraries\Math\Matrix.inl" />
     <None Include="config.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

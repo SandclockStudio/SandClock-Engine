@@ -53,7 +53,7 @@ bool Billboard::Update(Frustum frustum)
 	ComputeQuad(frustum);
 
 	
-	distance = pos.Distance(frustum.pos);
+	distance = pos.Distance(frustum.Pos());
 	Draw();
 	//DrawBoundingBox();
 	return true;
@@ -61,7 +61,7 @@ bool Billboard::Update(Frustum frustum)
 
 void Billboard::ComputeQuad(Frustum frustum)
 {
-	normal = (frustum.pos - pos);
+	normal = (frustum.Pos() - pos);
 	up = float3(0, 1, 0);
 
 	right = normal.Cross(up);

@@ -13,6 +13,7 @@
 #pragma comment (lib, "assimp-vc140-mt.lib")
 #include <assimp/include/assimp/scene.h>
 
+#pragma comment(lib, "MathGeoLib.lib") 
 #include "MathGeoLib.h"
 
 

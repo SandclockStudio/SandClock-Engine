@@ -14,24 +14,6 @@
     <Filter Include="Utils">
       <UniqueIdentifier>{ad89cf24-f35e-4d0c-90e5-820c054c274d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Math">
-      <UniqueIdentifier>{55da2e1f-1f33-4391-b548-d748cba163fc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Math\Algorithm">
-      <UniqueIdentifier>{9a3b9ba6-f497-438c-b089-1275f1bd5d34}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Math\Geometry">
-      <UniqueIdentifier>{9a101237-722a-4bce-9b8a-faef4b3e6d08}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Math\Math">
-      <UniqueIdentifier>{d3c1d3d2-d61d-4049-88f7-10f9d3ab9b7b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Math\Algorithm\Random">
-      <UniqueIdentifier>{91dcade5-a84d-42df-a174-8c857d855330}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Math\Time">
-      <UniqueIdentifier>{66f0b22e-5587-425d-abe9-14bb90e072d8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="OpenGlTools">
       <UniqueIdentifier>{35276d3c-e36f-4712-95f3-28281310ab83}</UniqueIdentifier>
     </Filter>
@@ -108,177 +90,6 @@
     </ClInclude>
     <ClInclude Include="GL\glew.h">
       <Filter>Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\Algorithm\Random\LCG.h">
-      <Filter>Math\Algorithm\Random</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\Geometry\Sphere.h">
-      <Filter>Math\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\Geometry\Triangle.h">
-      <Filter>Math\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\Geometry\TriangleMesh.h">
-      <Filter>Math\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\Geometry\AABB.h">
-      <Filter>Math\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\Geometry\AABB2D.h">
-      <Filter>Math\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\Geometry\Capsule.h">
-      <Filter>Math\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\Geometry\Circle.h">
-      <Filter>Math\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\Geometry\Frustum.h">
-      <Filter>Math\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\Geometry\GeometryAll.h">
-      <Filter>Math\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\Geometry\GeomType.h">
-      <Filter>Math\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\Geometry\HitInfo.h">
-      <Filter>Math\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\Geometry\KDTree.h">
-      <Filter>Math\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\Geometry\Line.h">
-      <Filter>Math\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\Geometry\LineSegment.h">
-      <Filter>Math\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\Geometry\OBB.h">
-      <Filter>Math\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\Geometry\PBVolume.h">
-      <Filter>Math\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\Geometry\Plane.h">
-      <Filter>Math\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\Geometry\Polygon.h">
-      <Filter>Math\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\Geometry\Polyhedron.h">
-      <Filter>Math\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\Geometry\Ray.h">
-      <Filter>Math\Geometry</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\Math\quat_simd.h">
-      <Filter>Math\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\Math\Rect.h">
-      <Filter>Math\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\Math\Reinterpret.h">
-      <Filter>Math\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\Math\sse_mathfun.h">
-      <Filter>Math\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\Math\SSEMath.h">
-      <Filter>Math\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\Math\TransformOps.h">
-      <Filter>Math\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\Math\assume.h">
-      <Filter>Math\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\Math\BitOps.h">
-      <Filter>Math\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\Math\Complex.h">
-      <Filter>Math\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\Math\CoordinateAxisConvention.h">
-      <Filter>Math\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\Math\FixedPoint.h">
-      <Filter>Math\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\Math\float2.h">
-      <Filter>Math\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\Math\float3.h">
-      <Filter>Math\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\Math\float3x3.h">
-      <Filter>Math\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\Math\float3x4.h">
-      <Filter>Math\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\Math\float4.h">
-      <Filter>Math\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\Math\float4_neon.h">
-      <Filter>Math\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\Math\float4_sse.h">
-      <Filter>Math\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\Math\float4x4.h">
-      <Filter>Math\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\Math\float4x4_neon.h">
-      <Filter>Math\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\Math\float4x4_sse.h">
-      <Filter>Math\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\Math\FloatCmp.h">
-      <Filter>Math\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\Math\MathAll.h">
-      <Filter>Math\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\Math\MathConstants.h">
-      <Filter>Math\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\Math\MathFunc.h">
-      <Filter>Math\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\Math\MathLog.h">
-      <Filter>Math\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\Math\MathNamespace.h">
-      <Filter>Math\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\Math\MathTypes.h">
-      <Filter>Math\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\Math\MatrixProxy.h">
-      <Filter>Math\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\Math\myassert.h">
-      <Filter>Math\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\Math\Polynomial.h">
-      <Filter>Math\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\Math\Quat.h">
-      <Filter>Math\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\MathBuildConfig.h">
-      <Filter>Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\MathGeoLib.h">
-      <Filter>Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\MathGeoLibFwd.h">
-      <Filter>Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Libraries\Time\Clock.h">
-      <Filter>Math\Time</Filter>
     </ClInclude>
     <ClInclude Include="Primitive.h">
       <Filter>OpenGlTools</Filter>
@@ -475,9 +286,6 @@
     <ClInclude Include="QuadTreeNode.h">
       <Filter>Utils</Filter>
     </ClInclude>
-    <ClInclude Include="..\Libraries\Geometry\QuadTreeNode.h">
-      <Filter>Math\Geometry</Filter>
-    </ClInclude>
     <ClInclude Include="ModuleAnim.h">
       <Filter>Game Modules</Filter>
     </ClInclude>
@@ -490,6 +298,7 @@
     <ClInclude Include="ComponentParticle.h">
       <Filter>Game Modules</Filter>
     </ClInclude>
+    <ClInclude Include="..\Libraries\MathGeoLib.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -533,96 +342,6 @@
     </ClCompile>
     <ClCompile Include="JsonParser.cpp">
       <Filter>Utils</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\Algorithm\Random\LCG.cpp">
-      <Filter>Math\Algorithm\Random</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\Geometry\Sphere.cpp">
-      <Filter>Math\Geometry</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\Geometry\Triangle.cpp">
-      <Filter>Math\Geometry</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\Geometry\TriangleMesh.cpp">
-      <Filter>Math\Geometry</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\Geometry\AABB.cpp">
-      <Filter>Math\Geometry</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\Geometry\Capsule.cpp">
-      <Filter>Math\Geometry</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\Geometry\Circle.cpp">
-      <Filter>Math\Geometry</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\Geometry\Frustum.cpp">
-      <Filter>Math\Geometry</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\Geometry\Line.cpp">
-      <Filter>Math\Geometry</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\Geometry\LineSegment.cpp">
-      <Filter>Math\Geometry</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\Geometry\OBB.cpp">
-      <Filter>Math\Geometry</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\Geometry\Plane.cpp">
-      <Filter>Math\Geometry</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\Geometry\Polygon.cpp">
-      <Filter>Math\Geometry</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\Geometry\Polyhedron.cpp">
-      <Filter>Math\Geometry</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\Geometry\Ray.cpp">
-      <Filter>Math\Geometry</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\Math\SSEMath.cpp">
-      <Filter>Math\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\Math\TransformOps.cpp">
-      <Filter>Math\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\Math\BitOps.cpp">
-      <Filter>Math\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\Math\float2.cpp">
-      <Filter>Math\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\Math\float3.cpp">
-      <Filter>Math\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\Math\float3x3.cpp">
-      <Filter>Math\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\Math\float3x4.cpp">
-      <Filter>Math\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\Math\float4.cpp">
-      <Filter>Math\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\Math\float4x4.cpp">
-      <Filter>Math\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\Math\MathFunc.cpp">
-      <Filter>Math\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\Math\MathLog.cpp">
-      <Filter>Math\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\Math\MathOps.cpp">
-      <Filter>Math\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\Math\Polynomial.cpp">
-      <Filter>Math\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\Math\Quat.cpp">
-      <Filter>Math\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Libraries\Time\Clock.cpp">
-      <Filter>Math\Time</Filter>
     </ClCompile>
     <ClCompile Include="Cube.cpp">
       <Filter>OpenGlTools</Filter>
@@ -695,21 +414,6 @@
     <None Include="config.json">
       <Filter>Utils</Filter>
     </None>
-    <None Include="..\Libraries\Geometry\TriangleMesh_IntersectRay_AVX.inl">
-      <Filter>Math\Geometry</Filter>
-    </None>
-    <None Include="..\Libraries\Geometry\TriangleMesh_IntersectRay_CPP.inl">
-      <Filter>Math\Geometry</Filter>
-    </None>
-    <None Include="..\Libraries\Geometry\TriangleMesh_IntersectRay_SSE.inl">
-      <Filter>Math\Geometry</Filter>
-    </None>
-    <None Include="..\Libraries\Geometry\KDTree.inl">
-      <Filter>Math\Geometry</Filter>
-    </None>
-    <None Include="..\Libraries\Math\Matrix.inl">
-      <Filter>Math\Math</Filter>
-    </None>
     <None Include="..\Libraries\Devil\include\IL\DevIL.i">
       <Filter>Devil</Filter>
     </None>
@@ -733,9 +437,6 @@
     </None>
     <None Include="..\Libraries\assimp\include\assimp\matrix4x4.inl">
       <Filter>Assimp</Filter>
-    </None>
-    <None Include="..\Libraries\Geometry\QuadTreeNode.inl">
-      <Filter>Math\Geometry</Filter>
     </None>
   </ItemGroup>
 </Project>

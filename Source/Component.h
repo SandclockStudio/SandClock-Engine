@@ -3,6 +3,7 @@
 
 class GameObject;
 
+#pragma comment(lib, "MathGeoLib.lib") 
 #include "MathGeoLib.h"
 
 

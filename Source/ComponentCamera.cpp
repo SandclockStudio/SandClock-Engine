@@ -5,16 +5,14 @@
 
 ComponentCamera::ComponentCamera(bool start_enabled)
 {
-	frustum.type = PerspectiveFrustum;
+	//frustum.Type()= PerspectiveFrustum;
 	speed = 2.0f;
 	rotation_speed = 0.35f;
-	frustum.verticalFov = 1.0f;
-	frustum.horizontalFov = 1.5f;
+	frustum.SetPerspective(1.5f, 1.0f);
 	Position(float3(0.0f, 0.0f, 0.0f));
-	frustum.front = float3::unitZ;
-	frustum.up = float3::unitY;
-	frustum.nearPlaneDistance = 0.1f;
-	frustum.farPlaneDistance = 1000.0f;
+	frustum.SetFront(float3::unitZ);
+	frustum.SetUp(float3::unitY);
+	frustum.SetViewPlaneDistances(0.1f, 1000.0f);
 
 }
 
@@ -38,11 +36,11 @@ bool ComponentCamera::Update(Frustum f)
 	//Keyboard
 	dt = App->dt;
 	movement = float3::zero;
-	if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT) Position(float3(frustum.pos.x, frustum.pos.y + (speed* dt), frustum.pos.z));
-	if (App->input->GetKey(SDL_SCANCODE_E) == KEY_REPEAT) Position(float3(frustum.pos.x, frustum.pos.y - (speed* dt), frustum.pos.z));
+	if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT) Position(float3(frustum.Pos().x, frustum.Pos().y + (speed* dt), frustum.Pos().z));
+	if (App->input->GetKey(SDL_SCANCODE_E) == KEY_REPEAT) Position(float3(frustum.Pos().x, frustum.Pos().y - (speed* dt), frustum.Pos().z));
 	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) 
-		movement += frustum.front;
-	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) movement -= frustum.front;
+		movement += frustum.Front();
+	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) movement -= frustum.Front();
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) movement += frustum.WorldRight();
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) movement -= frustum.WorldRight();
 	frustum.Translate(movement *speed * dt);
@@ -64,34 +62,33 @@ bool ComponentCamera::Update(Frustum f)
 void ComponentCamera::LookAt(float dx, float dy)
 {
 	quaternion = Quat::RotateY(dx);
-	frustum.front = quaternion.Mul(frustum.front).Normalized();
-	frustum.up = quaternion.Mul(frustum.up).Normalized();
+	frustum.SetFront(quaternion.Mul(frustum.Front()).Normalized());
+	frustum.SetUp(quaternion.Mul(frustum.Up()).Normalized());
 
 	quaternion = Quat::RotateAxisAngle(frustum.WorldRight(), dy);
-	frustum.up = quaternion.Mul(frustum.up).Normalized();
-	frustum.front = quaternion.Mul(frustum.front).Normalized();
+	frustum.SetUp(quaternion.Mul(frustum.Up()).Normalized());
+	frustum.SetFront(quaternion.Mul(frustum.Front()).Normalized());
 }
 
 void ComponentCamera::Position(float3 pos)
 {
-	frustum.pos = pos;
+	frustum.SetPos(pos); 
 }
 
 void ComponentCamera::SetFov(float newFOV)
 {
-	frustum.verticalFov = newFOV*0.0174532925199432957f;
-	SetAspectRatio(frustum.AspectRatio());
+	frustum.SetVerticalFovAndAspectRatio(newFOV*0.0174532925199432957f, frustum.AspectRatio());
+	//SetAspectRatio(frustum.AspectRatio());
 }
 
 void ComponentCamera::SetAspectRatio(float newAspectRatio)
 {
-	frustum.horizontalFov = 2.f * atanf(tanf(frustum.verticalFov *0.5) * newAspectRatio);
+	//frustum.HorizontalFov = 2.f * atanf(tanf(frustum.VerticalFov *0.5) * newAspectRatio);
 }
 
 void ComponentCamera::SetPlaneDistances(float _near, float _far)
 {
-	frustum.farPlaneDistance = _far;
-	frustum.nearPlaneDistance = _near;
+	frustum.SetViewPlaneDistances(_near, _far );
 }
 
 float * ComponentCamera::GetProjectionMatrix()

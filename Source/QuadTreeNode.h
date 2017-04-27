@@ -2,6 +2,7 @@
 #define __QUADTREE_H
 
 #include <vector>
+#pragma comment(lib, "MathGeoLib.lib") 
 #include "MathGeoLib.h"
 
 class GameObject;
