@@ -46,14 +46,14 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>false</SDLCheck>
       <ExceptionHandling>Sync</ExceptionHandling>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\Libraries;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Time;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Geometry;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Math;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Algorithm\Random;../Libraries/OpenGL/bin/Release/Win32;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source;$(ProjectDir)../Libraries/Devil/include\IL;$(ProjectDir)../Libraries/Devil/include;$ProjectDir)../Libraries/assimp/include/;$ProjectDir)../Libraries/assimp/include/assimp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\Libraries;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Time;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Geometry;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Math;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Algorithm\Random;../Libraries/OpenGL/bin/Release/Win32;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source;$(ProjectDir)../Libraries/Devil/include\IL;$(ProjectDir)../Libraries/Devil/include;$ProjectDir)../Libraries/assimp/include/;$ProjectDir)../Libraries/assimp/include/assimp;$ProjectDir)../Libraries\Bullet;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
-      <AdditionalDependencies>$(ProjectDir)../Libraries/OpenGL/lib/Release/Win32/glew32.lib;$(ProjectDir)../Libraries/Devil/lib/x86/Release/DevIL.lib;$(ProjectDir)../Libraries/Devil/lib/x86/Release/ILU.lib;$(ProjectDir)../Libraries/Devil/lib/x86/Release/ILUT.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Algorithm;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Math;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source;C:\Users\marcdc\Source\Repos\SandClock-Engine\Libraries;$(ProjectDir)../Libraries/Devil\lib\x86\Release;$(ProjectDir)../Libraries/Devil\lib\x86\unicode\Release;$(ProjectDir)../Libraries\assimp\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(ProjectDir)../Libraries/OpenGL/lib/Release/Win32/glew32.lib;$(ProjectDir)../Libraries/Devil/lib/x86/Release/DevIL.lib;$(ProjectDir)../Libraries/Devil/lib/x86/Release/ILU.lib;$(ProjectDir)../Libraries/Devil/lib/x86/Release/ILUT.lib;$(ProjectDir)../Libraries/Bullet/libx86/BulletCollision.lib;$(ProjectDir)../Libraries/Bullet/libx86/BulletCollision_debug.lib;$(ProjectDir)../Libraries/Bullet/libx86/BulletDynamics.lib;$(ProjectDir)../Libraries/Bullet/libx86/BulletDynamics_debug.lib;$(ProjectDir)../Libraries/Bullet/libx86/LinearMath.lib;$(ProjectDir)../Libraries/Bullet/libx86/LinearMath_debug.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Algorithm;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Math;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source;C:\Users\marcdc\Source\Repos\SandClock-Engine\Libraries;$(ProjectDir)../Libraries/Devil\lib\x86\Release;$(ProjectDir)../Libraries/Devil\lib\x86\unicode\Release;$(ProjectDir)../Libraries\assimp\lib;$(ProjectDir)..\Libraries\Bullet\libx86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -207,6 +207,7 @@
     <ClInclude Include="ModuleEditor.h" />
     <ClInclude Include="ModuleFadeToBlack.h" />
     <ClInclude Include="ModuleInput.h" />
+    <ClInclude Include="ModulePhysics.h" />
     <ClInclude Include="ModulePlayer.h" />
     <ClInclude Include="ModuleRender.h" />
     <ClInclude Include="ModuleScene.h" />
@@ -277,6 +278,7 @@
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="ModuleAnim.cpp" />
     <ClCompile Include="ModuleEditor.cpp" />
+    <ClCompile Include="ModulePhysics.cpp" />
     <ClCompile Include="ModuleUI.cpp" />
     <ClCompile Include="ModuleAudio.cpp" />
     <ClCompile Include="ModuleCollision.cpp" />

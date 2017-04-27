@@ -32,9 +32,6 @@
     <Filter Include="Math\Time">
       <UniqueIdentifier>{66f0b22e-5587-425d-abe9-14bb90e072d8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="OpenGlTools">
-      <UniqueIdentifier>{35276d3c-e36f-4712-95f3-28281310ab83}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Devil">
       <UniqueIdentifier>{7efe4422-876f-441f-a762-7a5668eac63a}</UniqueIdentifier>
     </Filter>
@@ -43,6 +40,9 @@
     </Filter>
     <Filter Include="IMGUI">
       <UniqueIdentifier>{b0344978-948c-47c1-91d3-19914eda28cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="OpenGlTools">
+      <UniqueIdentifier>{35276d3c-e36f-4712-95f3-28281310ab83}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -490,6 +490,9 @@
     <ClInclude Include="ComponentParticle.h">
       <Filter>Game Modules</Filter>
     </ClInclude>
+    <ClInclude Include="ModulePhysics.h">
+      <Filter>Game Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -688,6 +691,9 @@
       <Filter>Game Modules</Filter>
     </ClCompile>
     <ClCompile Include="ComponentParticle.cpp">
+      <Filter>Game Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModulePhysics.cpp">
       <Filter>Game Modules</Filter>
     </ClCompile>
   </ItemGroup>
