@@ -77,7 +77,7 @@ bool ComponentMesh::Update(Frustum f)
 		glVertexPointer(3, GL_FLOAT, 0, vertices_skinned);
 		glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_INT, indices);
 		glBindTexture(GL_TEXTURE_2D, 0);
-		RELEASE(vertices_skinned);
+		//RELEASE(vertices_skinned);
 	}
 	else
 	{
