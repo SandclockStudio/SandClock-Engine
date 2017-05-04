@@ -6,6 +6,7 @@
 ComponentCamera::ComponentCamera(bool start_enabled)
 {
 	//frustum.Type()= PerspectiveFrustum;
+	frustum.SetKind(FrustumSpaceGL, FrustumRightHanded);
 	speed = 2.0f;
 	rotation_speed = 0.35f;
 	frustum.SetPerspective(1.5f, 1.0f);
