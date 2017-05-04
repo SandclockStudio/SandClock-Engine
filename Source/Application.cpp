@@ -12,7 +12,8 @@
 #include "ModuleEditor.h"
 #include "ModuleTextures.h"
 #include "ModuleAnim.h"
-
+#pragma comment(lib, "ProfilerCore64.lib")
+#include "Brofiler.h"
 using namespace std;
 
 Application::Application()
@@ -74,10 +75,10 @@ update_status Application::Update()
 
 
 	update_status ret = UPDATE_CONTINUE;
-
+	BROFILER_FRAME("Update")
 	for (list<Module*>::iterator it = modules.begin(); it != modules.end() && ret == UPDATE_CONTINUE; ++it)
 	{
-
+		BROFILER_CATEGORY("PreUpdate", Profiler::Color::Green)
 		if ((*it)->IsEnabled() == true && !(*it)->fpsDependent)
 			ret = (*it)->PreUpdate(dt);
 		else
@@ -96,6 +97,8 @@ update_status Application::Update()
 	}	
 	for (list<Module*>::iterator it = modules.begin(); it != modules.end() && ret == UPDATE_CONTINUE; ++it)
 	{
+
+		BROFILER_CATEGORY("Update", Profiler::Color::Red)
 		if ((*it)->IsEnabled() == true && !(*it)->gameModule)
 			ret = (*it)->Update(dt);
 		else
@@ -115,6 +118,8 @@ update_status Application::Update()
 	
 	for (list<Module*>::iterator it = modules.begin(); it != modules.end() && ret == UPDATE_CONTINUE; ++it)
 	{
+
+		BROFILER_CATEGORY("PostUpdate", Profiler::Color::Blue)
 		if ((*it)->IsEnabled() == true && !(*it)->fpsDependent)
 			ret = (*it)->PostUpdate(dt);
 		else

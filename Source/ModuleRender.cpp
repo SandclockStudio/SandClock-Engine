@@ -6,6 +6,7 @@
 #include "ModuleInput.h"
 #include "SDL/include/SDL.h"
 #include "JsonParser.h"
+
 #pragma comment(lib, "MathGeoLib.lib")
 #include "MathGeoLib.h"
 
@@ -130,7 +131,7 @@ update_status ModuleRender::Update(float dt)
 
 update_status ModuleRender::PostUpdate(float dt)
 {
-	
+
 	ImGui::Render();
 	
 	SDL_GL_SwapWindow(App->window->window);

@@ -299,6 +299,7 @@
       <Filter>Game Modules</Filter>
     </ClInclude>
     <ClInclude Include="..\Libraries\MathGeoLib.h" />
+    <ClInclude Include="..\Libraries\Brofiler\Brofiler.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
