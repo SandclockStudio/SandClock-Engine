@@ -11,6 +11,7 @@ enum type {
 	TRANSFORM,
 	MATERIAL,
 	MESH,
+	UI,
 
 	NONE
 };
@@ -51,6 +52,11 @@ public:
 	}
 
 	virtual bool Update(Frustum f)
+	{
+		return true;
+	}
+
+	virtual bool UpdateUI()
 	{
 		return true;
 	}
