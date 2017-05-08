@@ -26,6 +26,9 @@
     <Filter Include="IMGUI">
       <UniqueIdentifier>{b0344978-948c-47c1-91d3-19914eda28cf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{d454ae4d-3ba5-4ad1-8958-d78b182a7fa6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ModuleRender.h">
@@ -299,6 +302,9 @@
       <Filter>Game Modules</Filter>
     </ClInclude>
     <ClInclude Include="..\Libraries\MathGeoLib.h" />
+    <ClInclude Include="ProgramManager.h">
+      <Filter>Shaders</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -408,6 +414,9 @@
     </ClCompile>
     <ClCompile Include="ComponentParticle.cpp">
       <Filter>Game Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ProgramManager.cpp">
+      <Filter>Shaders</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

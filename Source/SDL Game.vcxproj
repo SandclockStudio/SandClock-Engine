@@ -161,6 +161,7 @@
     <ClInclude Include="MPlane.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="Primitive.h" />
+    <ClInclude Include="ProgramManager.h" />
     <ClInclude Include="QuadTreeNode.h" />
     <ClInclude Include="SimpleTimer.h" />
     <ClInclude Include="SOIL.h" />
@@ -202,6 +203,7 @@
     <ClCompile Include="ModuleWindow.cpp" />
     <ClCompile Include="parson.c" />
     <ClCompile Include="MPlane.cpp" />
+    <ClCompile Include="ProgramManager.cpp" />
     <ClCompile Include="QuadTreeNode.cpp" />
     <ClCompile Include="TextureManager.cpp" />
   </ItemGroup>
