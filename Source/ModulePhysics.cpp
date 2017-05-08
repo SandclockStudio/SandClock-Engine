@@ -25,7 +25,7 @@ bool ModulePhysics::Start()
 
 update_status ModulePhysics::PreUpdate(float dt)
 {
-	world->stepSimulation(dt, 15);
+	//world->stepSimulation(dt, 15);
 	return UPDATE_CONTINUE;
 }
 
@@ -36,7 +36,7 @@ update_status ModulePhysics::Update(float dt)
 
 bool ModulePhysics::CleanUp()
 {
-	RELEASE(world);
+	//RELEASE(world);
 	return true;
 }
 
