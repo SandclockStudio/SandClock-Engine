@@ -14,6 +14,7 @@
     <ProjectGuid>{746CC4C3-787F-4B0E-AA66-E388FE3FF4F6}</ProjectGuid>
     <RootNamespace>SDLGame</RootNamespace>
     <ProjectName>SDL Game - Master 3 Handout</ProjectName>
+    <WindowsTargetPlatformVersion>10.0.14393.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -52,7 +53,7 @@
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
-      <AdditionalDependencies>$(ProjectDir)../Libraries/OpenGL/lib/Release/Win32/glew32.lib;$(ProjectDir)../Libraries/MathGeoLib.lib;$(ProjectDir)../Libraries/Devil/lib/x86/Release/DevIL.lib;$(ProjectDir)../Libraries/Devil/lib/x86/Release/ILU.lib;$(ProjectDir)../Libraries/Devil/lib/x86/Release/ILUT.lib;$(ProjectDir)../Libraries/Bullet/libx86/BulletCollision.lib;$(ProjectDir)../Libraries/Bullet/libx86/BulletDynamics.lib;$(ProjectDir)../Libraries/Bullet/libx86/LinearMath.lib;$(ProjectDir)../Libraries/Bullet/libx86/BulletCollision_debug.lib;$(ProjectDir)../Libraries/Bullet/libx86/BulletDynamics_debug.lib;$(ProjectDir)../Libraries/Bullet/libx86/LinearMath_debug.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(ProjectDir)../Libraries/OpenGL/lib/Release/Win32/glew32.lib;$(ProjectDir)../Libraries/MathGeoLib.lib;$(ProjectDir)../Libraries/Devil/lib/x86/Release/DevIL.lib;$(ProjectDir)../Libraries/Devil/lib/x86/Release/ILU.lib;$(ProjectDir)../Libraries/Devil/lib/x86/Release/ILUT.lib;$(ProjectDir)../Libraries/Bullet/libx86/BulletCollision_debug.lib;$(ProjectDir)../Libraries/Bullet/libx86/BulletDynamics_debug.lib;$(ProjectDir)../Libraries/Bullet/libx86/LinearMath_debug.lib;$(ProjectDir)../Libraries/Bullet/libx86/BulletCollision.lib;$(ProjectDir)../Libraries/Bullet/libx86/BulletDynamics.lib;$(ProjectDir)../Libraries/Bullet/libx86/LinearMath.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Algorithm;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Math;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source;C:\Users\marcdc\Source\Repos\SandClock-Engine\Libraries;$(ProjectDir)../Libraries/Devil\lib\x86\Release;$(ProjectDir)../Libraries/Devil\lib\x86\unicode\Release;$(ProjectDir)../Libraries\assimp\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>

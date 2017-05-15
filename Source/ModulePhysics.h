@@ -2,22 +2,23 @@
 #define __ModulePhysics_H__
 
 #include "Globals.h"
+#include "Bullet\include\btBulletDynamicsCommon.h"
 #include "Module.h"
 #ifdef _DEBUG
 
-#pragma comment (lib, "BulletDynamics_debug.lib")
+	#pragma comment (lib, "BulletDynamics_debug.lib")
 
-#pragma comment (lib, "BulletCollision_debug.lib")
+	#pragma comment (lib, "BulletCollision_debug.lib")
 
-#pragma comment (lib, "LinearMath_debug.lib")
+	#pragma comment (lib, "LinearMath_debug.lib")
 
 #else
 
-#pragma comment (lib, "BulletDynamics.lib")
+	#pragma comment (lib, "BulletDynamics.lib")
 
-#pragma comment (lib, "BulletCollision.lib")
+	#pragma comment (lib, "BulletCollision.lib")
 
-#pragma comment (lib, "LinearMath.lib")
+	#pragma comment (lib, "LinearMath.lib")
 
 #endif
 
