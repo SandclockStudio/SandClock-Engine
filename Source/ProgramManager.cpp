@@ -1,5 +1,9 @@
-#include "ProgramManager.h"
+
 #include "../Libraries/OpenGL/include/GL/glew.h"
+
+#include "ProgramManager.h"
+
+std::auto_ptr<ProgramManager> ProgramManager::instance;
 
 ProgramManager::ProgramManager()
 {
