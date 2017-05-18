@@ -14,7 +14,7 @@
     <ProjectGuid>{746CC4C3-787F-4B0E-AA66-E388FE3FF4F6}</ProjectGuid>
     <RootNamespace>SDLGame</RootNamespace>
     <ProjectName>SDL Game - Master 3 Handout</ProjectName>
-    <WindowsTargetPlatformVersion>10.0.14393.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -47,13 +47,13 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>false</SDLCheck>
       <ExceptionHandling>Sync</ExceptionHandling>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\Libraries;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Time;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Geometry;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Math;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Algorithm\Random;../Libraries/OpenGL/bin/Release/Win32;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source;$(ProjectDir)../Libraries/Devil/include\IL;$(ProjectDir)../Libraries/Devil/include;$ProjectDir)../Libraries/assimp/include/;$ProjectDir)../Libraries/assimp/include/assimp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\Libraries;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Time;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Geometry;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Math;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Algorithm\Random;../Libraries/OpenGL/bin/Release/Win32;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source;$(ProjectDir)../Libraries/Devil/include\IL;$(ProjectDir)../Libraries/Devil/include;$ProjectDir)../Libraries/assimp/include/;$ProjectDir)../Libraries/assimp/include/assimp;$ProjectDir)../Libraries/Brofiler;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
-      <AdditionalDependencies>$(ProjectDir)../Libraries/OpenGL/lib/Release/Win32/glew32.lib;$(ProjectDir)../Libraries/MathGeoLib.lib;$(ProjectDir)../Libraries/Devil/lib/x86/Release/DevIL.lib;$(ProjectDir)../Libraries/Devil/lib/x86/Release/ILU.lib;$(ProjectDir)../Libraries/Devil/lib/x86/Release/ILUT.lib;$(ProjectDir)../Libraries/Bullet/libx86/BulletCollision_debug.lib;$(ProjectDir)../Libraries/Bullet/libx86/BulletDynamics_debug.lib;$(ProjectDir)../Libraries/Bullet/libx86/LinearMath_debug.lib;$(ProjectDir)../Libraries/Bullet/libx86/BulletCollision.lib;$(ProjectDir)../Libraries/Bullet/libx86/BulletDynamics.lib;$(ProjectDir)../Libraries/Bullet/libx86/LinearMath.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(ProjectDir)../Libraries/OpenGL/lib/Release/Win32/glew32.lib;$(ProjectDir)../Libraries/MathGeoLib.lib;$(ProjectDir)../Libraries/Devil/lib/x86/Release/DevIL.lib;$(ProjectDir)../Libraries/Devil/lib/x86/Release/ILU.lib;$(ProjectDir)../Libraries/Devil/lib/x86/Release/ILUT.lib;$(ProjectDir)../Libraries/Bullet/libx86/BulletCollision_debug.lib;$(ProjectDir)../Libraries/Bullet/libx86/BulletDynamics_debug.lib;$(ProjectDir)../Libraries/Bullet/libx86/LinearMath_debug.lib;$(ProjectDir)../Libraries/Bullet/libx86/BulletCollision.lib;$(ProjectDir)../Libraries/Bullet/libx86/BulletDynamics.lib;$(ProjectDir)../Libraries/Bullet/libx86/LinearMath.lib;$(ProjectDir)../Libraries/Brofiler/ProfilerCore32.lib;$(ProjectDir)../Libraries/Brofiler/ProfilerCore64.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Algorithm;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source\Math;C:\Users\marcdc\Source\Repos\SandClock-Engine\Source;C:\Users\marcdc\Source\Repos\SandClock-Engine\Libraries;$(ProjectDir)../Libraries/Devil\lib\x86\Release;$(ProjectDir)../Libraries/Devil\lib\x86\unicode\Release;$(ProjectDir)../Libraries\assimp\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -109,6 +109,7 @@
     <ClInclude Include="..\Libraries\assimp\include\assimp\vector2.h" />
     <ClInclude Include="..\Libraries\assimp\include\assimp\vector3.h" />
     <ClInclude Include="..\Libraries\assimp\include\assimp\version.h" />
+    <ClInclude Include="..\Libraries\Brofiler\Brofiler.h" />
     <ClInclude Include="..\Libraries\Devil\include\IL\devil_cpp_wrapper.hpp" />
     <ClInclude Include="..\Libraries\Devil\include\IL\devil_internal_exports.h" />
     <ClInclude Include="..\Libraries\Devil\include\IL\il.h" />
@@ -155,6 +156,7 @@
     <ClInclude Include="ModulePlayer.h" />
     <ClInclude Include="ModuleRender.h" />
     <ClInclude Include="ModuleScene.h" />
+    <ClInclude Include="ModuleText.h" />
     <ClInclude Include="ModuleTextures.h" />
     <ClInclude Include="ModuleUI.h" />
     <ClInclude Include="ModuleWindow.h" />
@@ -193,6 +195,7 @@
     <ClCompile Include="ModuleAnim.cpp" />
     <ClCompile Include="ModuleEditor.cpp" />
     <ClCompile Include="ModulePhysics.cpp" />
+    <ClCompile Include="ModuleText.cpp" />
     <ClCompile Include="ModuleUI.cpp" />
     <ClCompile Include="ModuleAudio.cpp" />
     <ClCompile Include="ModuleCollision.cpp" />

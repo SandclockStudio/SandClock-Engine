@@ -302,6 +302,10 @@
     <ClInclude Include="ModulePhysics.h">
       <Filter>Game Modules</Filter>
     </ClInclude>
+    <ClInclude Include="..\Libraries\Brofiler\Brofiler.h" />
+    <ClInclude Include="ModuleText.h">
+      <Filter>Core Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -414,6 +418,9 @@
     </ClCompile>
     <ClCompile Include="ModulePhysics.cpp">
       <Filter>Game Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleText.cpp">
+      <Filter>Core Modules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

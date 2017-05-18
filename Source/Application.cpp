@@ -13,7 +13,7 @@
 #include "ModuleTextures.h"
 #include "ModuleAnim.h"
 #pragma comment(lib, "ProfilerCore64.lib")
-#include "Brofiler.h"
+#include "Brofiler\Brofiler.h"
 using namespace std;
 
 Application::Application()
