@@ -26,6 +26,9 @@
     <Filter Include="IMGUI">
       <UniqueIdentifier>{b0344978-948c-47c1-91d3-19914eda28cf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{8339eeab-4b0b-4f04-8f67-36d907036efc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ModuleRender.h">
@@ -303,8 +306,8 @@
       <Filter>Game Modules</Filter>
     </ClInclude>
     <ClInclude Include="..\Libraries\Brofiler\Brofiler.h" />
-    <ClInclude Include="ModuleText.h">
-      <Filter>Core Modules</Filter>
+    <ClInclude Include="ProgramManager.h">
+      <Filter>Shaders</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -419,8 +422,8 @@
     <ClCompile Include="ModulePhysics.cpp">
       <Filter>Game Modules</Filter>
     </ClCompile>
-    <ClCompile Include="ModuleText.cpp">
-      <Filter>Core Modules</Filter>
+    <ClCompile Include="ProgramManager.cpp">
+      <Filter>Shaders</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

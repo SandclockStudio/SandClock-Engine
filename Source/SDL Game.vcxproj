@@ -156,7 +156,6 @@
     <ClInclude Include="ModulePlayer.h" />
     <ClInclude Include="ModuleRender.h" />
     <ClInclude Include="ModuleScene.h" />
-    <ClInclude Include="ModuleText.h" />
     <ClInclude Include="ModuleTextures.h" />
     <ClInclude Include="ModuleUI.h" />
     <ClInclude Include="ModuleWindow.h" />
@@ -165,6 +164,7 @@
     <ClInclude Include="MPlane.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="Primitive.h" />
+    <ClInclude Include="ProgramManager.h" />
     <ClInclude Include="QuadTreeNode.h" />
     <ClInclude Include="SimpleTimer.h" />
     <ClInclude Include="SOIL.h" />
@@ -195,7 +195,6 @@
     <ClCompile Include="ModuleAnim.cpp" />
     <ClCompile Include="ModuleEditor.cpp" />
     <ClCompile Include="ModulePhysics.cpp" />
-    <ClCompile Include="ModuleText.cpp" />
     <ClCompile Include="ModuleUI.cpp" />
     <ClCompile Include="ModuleAudio.cpp" />
     <ClCompile Include="ModuleCollision.cpp" />
@@ -208,6 +207,7 @@
     <ClCompile Include="ModuleWindow.cpp" />
     <ClCompile Include="parson.c" />
     <ClCompile Include="MPlane.cpp" />
+    <ClCompile Include="ProgramManager.cpp" />
     <ClCompile Include="QuadTreeNode.cpp" />
     <ClCompile Include="TextureManager.cpp" />
   </ItemGroup>
