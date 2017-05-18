@@ -44,26 +44,37 @@ void GameObject::DeleteComponent(Component * component)
 bool GameObject::Update(Frustum f)
 {
 	glPushMatrix();
-	
-	for (size_t i = 0; i < components.size(); ++i)
+	if (typeRender != RenderType::UIRENDER)
 	{
-		
-		components[i]->Update(f);
-
-		if (components.size() == 1)
+		for (size_t i = 0; i < components.size(); ++i)
 		{
-			glPopMatrix();
+			components[i]->Update(f);
+
+			if (components.size() == 1)
+			{
+				glPopMatrix();
+			}
+		}
+
+		if (childs.size() > 0)
+		{
+			for (size_t i = 0; i < childs.size(); ++i)
+			{
+
+				if (intersectFrustumAABB(f, childs[i]->boundingBox))
+					childs[i]->Update(f);
+			}
 		}
 	}
 
-	if (childs.size() > 0)
-	{
-		for (size_t i = 0; i < childs.size(); ++i)
-		{
+	return true;
+}
 
-			if (intersectFrustumAABB(f, childs[i]->boundingBox))
-				childs[i]->Update(f);
-		}
+bool GameObject::UpdateUI()
+{
+	for (size_t i = 0; i < components.size(); ++i)
+	{
+		components[i]->UpdateUI();
 	}
 
 	return true;
@@ -214,17 +225,17 @@ GameObject* GameObject::LoadGameObject(aiNode * node)
 	return go;
 }
 
-aiVector3D GameObject::getPosition()
+aiVector3D GameObject::getPosition() const
 {
 	return position;
 }
 
-aiQuaternion GameObject::getRotation()
+aiQuaternion GameObject::getRotation() const
 {
 	return rotation;
 }
 
-aiVector3D GameObject::getScale()
+aiVector3D GameObject::getScale() const
 {
 	return (dynamic_cast<ComponentTransform*>(components[0])->scale);
 }
@@ -247,6 +258,11 @@ void GameObject::setRotation(Quat newRotation)
 	}
 }
 	
+
+RenderType GameObject::getRenderType() const
+{
+	return typeRender;
+}
 
 void GameObject::DrawLines()
 {
@@ -357,6 +373,11 @@ void GameObject::setTransformAnimation(aiVector3D scale, aiVector3D position, Qu
 	setPosition(position);
 	setScale(scale);
 	setRotation(rotation);
+}
+
+void GameObject::SetRenderType(RenderType type)
+{
+	typeRender = type;
 }
 
 

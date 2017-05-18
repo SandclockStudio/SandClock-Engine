@@ -6,6 +6,7 @@
 
 
 
+
 ComponentMesh::ComponentMesh(bool start_enabled)
 {
 }
@@ -47,6 +48,8 @@ bool ComponentMesh::Update2(Frustum f)
 
 bool ComponentMesh::Update(Frustum f)
 {
+
+
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_NORMAL_ARRAY);
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -54,7 +57,6 @@ bool ComponentMesh::Update(Frustum f)
 	glNormalPointer(GL_FLOAT, 0, normals);
 	glTexCoordPointer(3, GL_FLOAT, sizeof(aiVector3D), tex_coords);
 	
-
 	if (has_bones)
 	{
 		if(App->animations->IsEnabled())
@@ -119,6 +121,8 @@ bool ComponentMesh::CleanUp()
 
 void ComponentMesh::LoadMesh(aiMesh* mesh, const aiScene* scene)
 {
+
+
 	indices = new unsigned int[mesh->mNumFaces * 3];
 	vertices = new aiVector3D[3 * mesh->mNumVertices];
 	normals = new aiVector3D[2 * mesh->mNumVertices];

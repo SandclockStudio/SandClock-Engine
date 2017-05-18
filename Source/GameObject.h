@@ -13,6 +13,12 @@ class ComponentMaterial;
 class ComponentTransform;
 
 
+enum RenderType
+{
+	UIRENDER,
+	NORMALRENDER
+};
+
 class GameObject
 {
 	private:
@@ -20,7 +26,7 @@ class GameObject
 			GameObject* root = nullptr;
 			std::vector<GameObject*> childs;
 			bool inFrustum;
-
+			RenderType typeRender;
 
 			aiVector3D position;
 			aiQuaternion rotation;
@@ -36,6 +42,8 @@ class GameObject
 			void AddComponent(Component* component);
 			void DeleteComponent(Component* component);
 			bool Update(Frustum f);
+			virtual bool UpdateUI();
+	
 			GameObject(aiString name, GameObject* root = nullptr)
 				: name(name), root(root)
 			{};
@@ -45,9 +53,10 @@ class GameObject
 			void AddChild(GameObject* node);
 			GameObject* LoadGameObjectMesh(aiNode * node, aiMesh* mesh,const aiScene* scene);
 			GameObject* LoadGameObject(aiNode * node);
-			aiVector3D getPosition();
-			aiQuaternion getRotation();
-			aiVector3D getScale();
+			aiVector3D getPosition() const;
+			aiQuaternion getRotation() const;
+			aiVector3D getScale() const;
+			RenderType getRenderType() const;
 
 			void DrawLines();
 
@@ -60,7 +69,7 @@ class GameObject
 
 			bool intersectFrustumAABB(Frustum f, AABB b);
 			void setTransformAnimation(aiVector3D scale, aiVector3D position, Quat rotation);
-			void LoadBones();
+			void SetRenderType(RenderType type);
 			float4x4 GetLocalTransformMatrix() const;
 			float4x4 GetModelSpaceTransformMatrix() const;
 			bool frustumCulling = false;

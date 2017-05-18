@@ -44,10 +44,12 @@ bool ComponentCamera::Update(Frustum f)
 	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) movement -= frustum.Front();
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) movement += frustum.WorldRight();
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) movement -= frustum.WorldRight();
+	
 	frustum.Translate(movement *speed * dt);
+	frustum.SetWorldMatrix(frustum.ComputeWorldMatrix());
 	//App->editor->AddLog("Vector movimiento: (%f,%f,%f)", movement.x, movement.y, movement.z);
 	//Mouse
-
+	
 	if (App->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT)
 	{
 		iPoint motion = App->input->GetMouseMotion();
