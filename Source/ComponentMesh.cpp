@@ -3,12 +3,14 @@
 #include "Application.h"
 #include "GameObject.h"
 #include "ModuleAnim.h"
-
+#pragma comment(lib, "ProfilerCore64.lib")
+#include "Brofiler\Brofiler.h"
 
 
 
 ComponentMesh::ComponentMesh(bool start_enabled)
 {
+	BROFILER_FRAME("Component_Mesh")
 }
 
 ComponentMesh::~ComponentMesh()
@@ -19,7 +21,7 @@ ComponentMesh::~ComponentMesh()
 
 bool ComponentMesh::Update2(Frustum f)
 {
-
+	BROFILER_CATEGORY("Update Mesh 2", Profiler::Color::Black);
 	if (has_bones)
 	{
 		if (App->animations->IsEnabled())
@@ -48,7 +50,7 @@ bool ComponentMesh::Update2(Frustum f)
 
 bool ComponentMesh::Update(Frustum f)
 {
-
+	BROFILER_CATEGORY("Update Mesh1", Profiler::Color::Black);
 
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_NORMAL_ARRAY);
@@ -61,19 +63,7 @@ bool ComponentMesh::Update(Frustum f)
 	{
 		if(App->animations->IsEnabled())
 		{
-			vertices_skinned = new aiVector3D[num_vertices];
-			memset(vertices_skinned, 0, num_vertices * sizeof(float3));
-			float4x4 mat = float4x4::identity;
-			for (size_t b = 0; b < bones.size(); ++b)
-			{
-				mat = bones[b]->attached_to->GetModelSpaceTransformMatrix() * bones[b]->bind;
-				for (size_t w = 0; w < bones[b]->num_weights; ++w)
-				{
-					float3 temp = bones[b]->weights[w].weight * mat.TransformPos(float3(vertices[bones[b]->weights[w].vertex].x, vertices[bones[b]->weights[w].vertex].y, vertices[bones[b]->weights[w].vertex].z));
-					vertices_skinned[bones[b]->weights[w].vertex] +=aiVector3D(temp.x,temp.y,temp.z);
-					//	vertices_skinned[m_bones[b].weights[w].vertex] += m_bones[b].weights[w].weight * (mat * vertices[m_bones[b].weights[w].vertex].ToPos4()).Float3Part();
-				}
-			}
+			RecalculateBonesInMesh();
 		}
 
 		glVertexPointer(3, GL_FLOAT, 0, vertices_skinned);
@@ -99,6 +89,26 @@ bool ComponentMesh::Update(Frustum f)
 	return true;
 }
 
+void ComponentMesh::RecalculateBonesInMesh()
+{
+	BROFILER_CATEGORY("Recalculate Bones", Profiler::Color::Chocolate);
+	vertices_skinned = new aiVector3D[num_vertices];
+	memset(vertices_skinned, 0, num_vertices * sizeof(float3));
+	float4x4 mat = float4x4::identity;
+	for (size_t b = 0; b < bones.size(); ++b)
+	{
+		BROFILER_CATEGORY("In loop 1", Profiler::Color::Chocolate);
+		mat = bones[b]->attached_to->GetModelSpaceTransformMatrix() * bones[b]->bind;
+		for (size_t w = 0; w < bones[b]->num_weights; ++w)
+		{
+			BROFILER_CATEGORY("In loop 2", Profiler::Color::Chocolate);
+			float3 temp = bones[b]->weights[w].weight * mat.TransformPos(float3(vertices[bones[b]->weights[w].vertex].x, vertices[bones[b]->weights[w].vertex].y, vertices[bones[b]->weights[w].vertex].z));
+			vertices_skinned[bones[b]->weights[w].vertex] += aiVector3D(temp.x, temp.y, temp.z);
+			//	vertices_skinned[m_bones[b].weights[w].vertex] += m_bones[b].weights[w].weight * (mat * vertices[m_bones[b].weights[w].vertex].ToPos4()).Float3Part();
+		}
+	}
+}
+
 bool ComponentMesh::CleanUp()
 {
 	RELEASE_ARRAY(vertices);
@@ -122,7 +132,7 @@ bool ComponentMesh::CleanUp()
 void ComponentMesh::LoadMesh(aiMesh* mesh, const aiScene* scene)
 {
 
-
+	BROFILER_CATEGORY("LoadMesh", Profiler::Color::Black);
 	indices = new unsigned int[mesh->mNumFaces * 3];
 	vertices = new aiVector3D[3 * mesh->mNumVertices];
 	normals = new aiVector3D[2 * mesh->mNumVertices];

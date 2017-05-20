@@ -5,7 +5,8 @@
 #include "ComponentMesh.h"
 #include "Application.h"
 #include <vector>
-
+#include "Brofiler/Brofiler.h"
+#pragma comment(lib, "ProfilerCore64.lib")
 
 
 void GameObject::CleanUp()
@@ -43,6 +44,7 @@ void GameObject::DeleteComponent(Component * component)
 
 bool GameObject::Update(Frustum f)
 {
+	BROFILER_CATEGORY("Update", Profiler::Color::RosyBrown);
 	glPushMatrix();
 	if (typeRender != RenderType::UIRENDER)
 	{
@@ -181,6 +183,7 @@ void GameObject::AddChild(GameObject * node)
 
 GameObject * GameObject::LoadGameObjectMesh(aiNode * node, aiMesh * mesh, const aiScene * scene)
 {
+	BROFILER_FRAME("Gameobject");
 	GameObject * go = new GameObject(node->mName);
 
 	ComponentTransform* transform = new ComponentTransform(true);
@@ -212,6 +215,7 @@ GameObject * GameObject::LoadGameObjectMesh(aiNode * node, aiMesh * mesh, const 
 
 GameObject* GameObject::LoadGameObject(aiNode * node)
 {
+	BROFILER_FRAME("Gameobject");
 	GameObject * go = new GameObject(node->mName);
 
 	ComponentTransform* transform = new ComponentTransform(true);
@@ -384,12 +388,14 @@ void GameObject::SetRenderType(RenderType type)
 
 float4x4 GameObject::GetLocalTransformMatrix() const
 {
+	BROFILER_CATEGORY("GetLocal Transform Matrix", Profiler::Color::Yellow);
 	return float4x4::FromTRS(float3(position.x,position.y,position.z),Quat(rotation.x,rotation.y,rotation.z,rotation.w),float3(scale.x,scale.y,scale.z));
 }
 
 
 float4x4 GameObject::GetModelSpaceTransformMatrix()  const
 {
+	BROFILER_CATEGORY("GetModelSpace Transform Matrix", Profiler::Color::RosyBrown);
 	if (root == nullptr)
 	{
 		return float4x4::identity;

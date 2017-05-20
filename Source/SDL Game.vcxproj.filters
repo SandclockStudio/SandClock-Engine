@@ -301,13 +301,17 @@
     <ClInclude Include="ComponentParticle.h">
       <Filter>Game Modules</Filter>
     </ClInclude>
-    <ClInclude Include="..\Libraries\MathGeoLib.h" />
     <ClInclude Include="ModulePhysics.h">
       <Filter>Game Modules</Filter>
     </ClInclude>
-    <ClInclude Include="..\Libraries\Brofiler\Brofiler.h" />
     <ClInclude Include="ProgramManager.h">
       <Filter>Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\Brofiler\Brofiler.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Libraries\MathGeoLib.h">
+      <Filter>Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -36,6 +36,7 @@ public:
 	bool Update2(Frustum f);
 	bool CleanUp();
 	void LoadMesh(aiMesh * mesh, const aiScene * scene);
+	void RecalculateBonesInMesh();
 
 	aiVector3D*  vertices;
 	aiVector3D* tex_coords;
