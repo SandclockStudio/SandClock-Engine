@@ -1,12 +1,15 @@
 ﻿{"Config": {
 	"App": {
-		"Title": "Super Awesome Game",
+		"Title": "Sandclock Engine",
 		"Width": 384,
 		"Height": 220,
 		"Size": 3,
-		"Vsync": false,
-        "Fullscreen": false,
-        "fps_cap": 60
+		"Vsync": true,
+		"fps_cap": 60,
+		"Fullscreen": false,
+		"FOVY": 1,
+		"FOVX": 1,
+		"AspectRatio": 4.3
 	}
 }
 }
