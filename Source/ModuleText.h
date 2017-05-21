@@ -6,16 +6,12 @@
 
 // FreeType Headers
 
-#include <ft2build.h>
+#include <freetype/config/ft2build.h>
 #include <freetype/freetype.h>
 #include <freetype/ftglyph.h>
-#include <freetype/ftoutln.h>
-#include <freetype/fttrigon.h>
 
-// OpenGL Headers
-#include <windows.h>                                      // (The GL Headers Need It)
-#include <GL/gl.h>
-#include <GL/glu.h>
+
+#include "../Libraries/OpenGL/include/GL/glew.h"
 
 // Some STL Headers
 #include <vector>

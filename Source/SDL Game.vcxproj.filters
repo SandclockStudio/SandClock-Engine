@@ -313,6 +313,9 @@
     <ClInclude Include="..\Libraries\MathGeoLib.h">
       <Filter>Utils</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleText.h">
+      <Filter>Game Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -428,6 +431,9 @@
     </ClCompile>
     <ClCompile Include="ProgramManager.cpp">
       <Filter>Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleText.cpp">
+      <Filter>Game Modules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
