@@ -47,13 +47,13 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>false</SDLCheck>
       <ExceptionHandling>Sync</ExceptionHandling>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\Libraries;$(ProjectDir)../Libraries/Devil/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\Libraries;$(ProjectDir)../Libraries/Devil/include;C:\Users\marcdc\Source\Repos\SandClock-Engine\Libraries\freetype;C:\Users\marcdc\Source\Repos\SandClock-Engine\Libraries\freetype\config;C:\Users\marcdc\Source\Repos\SandClock-Engine\Libraries\freetype\cache;C:\Users\marcdc\Source\Repos\SandClock-Engine\Libraries\freetype\internal;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
-      <AdditionalDependencies>$(ProjectDir)../Libraries/OpenGL/lib/Release/Win32/glew32.lib;$(ProjectDir)../Libraries/MathGeoLib.lib;$(ProjectDir)../Libraries/Devil/lib/x86/Release/DevIL.lib;$(ProjectDir)../Libraries/Devil/lib/x86/Release/ILU.lib;$(ProjectDir)../Libraries/Devil/lib/x86/Release/ILUT.lib;$(ProjectDir)../Libraries/Bullet/libx86/BulletCollision_debug.lib;$(ProjectDir)../Libraries/Bullet/libx86/BulletDynamics_debug.lib;$(ProjectDir)../Libraries/Bullet/libx86/LinearMath_debug.lib;$(ProjectDir)../Libraries/Bullet/libx86/BulletCollision.lib;$(ProjectDir)../Libraries/Bullet/libx86/BulletDynamics.lib;$(ProjectDir)../Libraries/Bullet/libx86/LinearMath.lib;$(ProjectDir)../Libraries/Brofiler/ProfilerCore32.lib;$(ProjectDir)../Libraries/Brofiler/ProfilerCore64.lib;$(ProjectDir)../Libraries/assimp/lib/assimp-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(ProjectDir)../Libraries/OpenGL/lib/Release/Win32/glew32.lib;$(ProjectDir)../Libraries/MathGeoLib.lib;$(ProjectDir)../Libraries/Devil/lib/x86/Release/DevIL.lib;$(ProjectDir)../Libraries/Devil/lib/x86/Release/ILU.lib;$(ProjectDir)../Libraries/Devil/lib/x86/Release/ILUT.lib;$(ProjectDir)../Libraries/Bullet/libx86/BulletCollision_debug.lib;$(ProjectDir)../Libraries/Bullet/libx86/BulletDynamics_debug.lib;$(ProjectDir)../Libraries/Bullet/libx86/LinearMath_debug.lib;$(ProjectDir)../Libraries/Bullet/libx86/BulletCollision.lib;$(ProjectDir)../Libraries/Bullet/libx86/BulletDynamics.lib;$(ProjectDir)../Libraries/Bullet/libx86/LinearMath.lib;$(ProjectDir)../Libraries/Brofiler/ProfilerCore32.lib;$(ProjectDir)../Libraries/Brofiler/ProfilerCore64.lib;$(ProjectDir)../Libraries/assimp/lib/assimp-vc140-mt.lib;$(ProjectDir)../Libraries/freetype/freetype/lib/freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -118,6 +118,58 @@
     <ClInclude Include="..\Libraries\Devil\include\IL\ilut_config.h" />
     <ClInclude Include="..\Libraries\Devil\include\IL\ilu_region.h" />
     <ClInclude Include="..\Libraries\Devil\include\IL\il_wrap.h" />
+    <ClInclude Include="..\Libraries\freetype\freetype\config\ftconfig.h" />
+    <ClInclude Include="..\Libraries\freetype\freetype\config\ftheader.h" />
+    <ClInclude Include="..\Libraries\freetype\freetype\config\ftmodule.h" />
+    <ClInclude Include="..\Libraries\freetype\freetype\config\ftoption.h" />
+    <ClInclude Include="..\Libraries\freetype\freetype\config\ftstdlib.h" />
+    <ClInclude Include="..\Libraries\freetype\freetype\freetype.h" />
+    <ClInclude Include="..\Libraries\freetype\freetype\ftadvanc.h" />
+    <ClInclude Include="..\Libraries\freetype\freetype\ftautoh.h" />
+    <ClInclude Include="..\Libraries\freetype\freetype\ftbbox.h" />
+    <ClInclude Include="..\Libraries\freetype\freetype\ftbdf.h" />
+    <ClInclude Include="..\Libraries\freetype\freetype\ftbitmap.h" />
+    <ClInclude Include="..\Libraries\freetype\freetype\ftbzip2.h" />
+    <ClInclude Include="..\Libraries\freetype\freetype\ftcache.h" />
+    <ClInclude Include="..\Libraries\freetype\freetype\ftcffdrv.h" />
+    <ClInclude Include="..\Libraries\freetype\freetype\ftchapters.h" />
+    <ClInclude Include="..\Libraries\freetype\freetype\ftcid.h" />
+    <ClInclude Include="..\Libraries\freetype\freetype\fterrdef.h" />
+    <ClInclude Include="..\Libraries\freetype\freetype\fterrors.h" />
+    <ClInclude Include="..\Libraries\freetype\freetype\ftfntfmt.h" />
+    <ClInclude Include="..\Libraries\freetype\freetype\ftgasp.h" />
+    <ClInclude Include="..\Libraries\freetype\freetype\ftglyph.h" />
+    <ClInclude Include="..\Libraries\freetype\freetype\ftgxval.h" />
+    <ClInclude Include="..\Libraries\freetype\freetype\ftgzip.h" />
+    <ClInclude Include="..\Libraries\freetype\freetype\ftimage.h" />
+    <ClInclude Include="..\Libraries\freetype\freetype\ftincrem.h" />
+    <ClInclude Include="..\Libraries\freetype\freetype\ftlcdfil.h" />
+    <ClInclude Include="..\Libraries\freetype\freetype\ftlist.h" />
+    <ClInclude Include="..\Libraries\freetype\freetype\ftlzw.h" />
+    <ClInclude Include="..\Libraries\freetype\freetype\ftmac.h" />
+    <ClInclude Include="..\Libraries\freetype\freetype\ftmm.h" />
+    <ClInclude Include="..\Libraries\freetype\freetype\ftmodapi.h" />
+    <ClInclude Include="..\Libraries\freetype\freetype\ftmoderr.h" />
+    <ClInclude Include="..\Libraries\freetype\freetype\ftotval.h" />
+    <ClInclude Include="..\Libraries\freetype\freetype\ftoutln.h" />
+    <ClInclude Include="..\Libraries\freetype\freetype\ftpcfdrv.h" />
+    <ClInclude Include="..\Libraries\freetype\freetype\ftpfr.h" />
+    <ClInclude Include="..\Libraries\freetype\freetype\ftrender.h" />
+    <ClInclude Include="..\Libraries\freetype\freetype\ftsizes.h" />
+    <ClInclude Include="..\Libraries\freetype\freetype\ftsnames.h" />
+    <ClInclude Include="..\Libraries\freetype\freetype\ftstroke.h" />
+    <ClInclude Include="..\Libraries\freetype\freetype\ftsynth.h" />
+    <ClInclude Include="..\Libraries\freetype\freetype\ftsystem.h" />
+    <ClInclude Include="..\Libraries\freetype\freetype\fttrigon.h" />
+    <ClInclude Include="..\Libraries\freetype\freetype\ftttdrv.h" />
+    <ClInclude Include="..\Libraries\freetype\freetype\fttypes.h" />
+    <ClInclude Include="..\Libraries\freetype\freetype\ftwinfnt.h" />
+    <ClInclude Include="..\Libraries\freetype\freetype\t1tables.h" />
+    <ClInclude Include="..\Libraries\freetype\freetype\ttnameid.h" />
+    <ClInclude Include="..\Libraries\freetype\freetype\tttables.h" />
+    <ClInclude Include="..\Libraries\freetype\freetype\tttags.h" />
+    <ClInclude Include="..\Libraries\freetype\freetype\ttunpat.h" />
+    <ClInclude Include="..\Libraries\freetype\ft2build.h" />
     <ClInclude Include="..\Libraries\IMGUI\imconfig.h" />
     <ClInclude Include="..\Libraries\IMGUI\imgui.h" />
     <ClInclude Include="..\Libraries\IMGUI\imgui_impl_sdl_gl3.h" />

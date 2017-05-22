@@ -12,6 +12,7 @@
 #include "ModuleEditor.h"
 #include "ModuleTextures.h"
 #include "ModuleAnim.h"
+//#include "ModuleText.h"
 #pragma comment(lib, "ProfilerCore64.lib")
 #include "Brofiler\Brofiler.h"
 using namespace std;
@@ -32,6 +33,7 @@ Application::Application()
 	modules.push_back(animations = new ModuleAnim());
 	modules.push_back(scene_intro = new ModuleScene(true));
 	modules.push_back(ui = new ModuleUI());
+	//modules.push_back(text = new ModuleText());
 	modules.push_back(player = new ModulePlayer(false));
 	modules.push_back(textures = new ModuleTextures());
 

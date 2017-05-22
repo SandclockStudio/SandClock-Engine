@@ -27,6 +27,8 @@ class ModulePlayer;
 class ModuleEnemy;
 class ModuleScene;
 class ModuleSceneLevel;
+//class ModuleText;
+
 
 class Application
 {
@@ -49,6 +51,7 @@ public:
 	ModuleCollision* collision;
 	ModuleEditor* editor;
 	ModuleAnim* animations;
+	//ModuleText* text;
 
 	JsonParser* json_parser;
 	SimpleTimer mili;
