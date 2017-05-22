@@ -9,6 +9,7 @@
 #include "ModuleScene.h"
 #include "ComponentTransform.h"
 #include "ModuleAnim.h"
+#include "ModulePhysics.h"
 
 
 
@@ -339,6 +340,7 @@ void ModuleEditor::DrawPlayMenu()
 	ImGui::Begin("PlayMenu");
 	if (ImGui::Button("Play"))
 	{
+		App->physics->Continue();
 		App->animations->Continue();
 		App->gameTime.reanude();
 
@@ -346,6 +348,7 @@ void ModuleEditor::DrawPlayMenu()
 	ImGui::SameLine();
 	if (ImGui::Button("Pause"))
 	{
+		App->physics->Pause();
 		App->animations->Pause();
 		App->gameTime.pause();
 	}
@@ -357,6 +360,7 @@ void ModuleEditor::DrawPlayMenu()
 	ImGui::SameLine();
 	if (ImGui::Button("Update"))
 	{
+		App->physics->oneFrame();
 		App->animations->oneFrame();
 		App->gameTime.pause();
 

@@ -186,8 +186,10 @@
     <ClInclude Include="ComponentMaterial.h" />
     <ClInclude Include="ComponentMesh.h" />
     <ClInclude Include="ComponentParticle.h" />
+    <ClInclude Include="ComponentRigidbody.h" />
     <ClInclude Include="ComponentTransform.h" />
     <ClInclude Include="Cube.h" />
+    <ClInclude Include="DebugDrawer.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="Gizmo.h" />
     <ClInclude Include="Globals.h" />
@@ -208,7 +210,6 @@
     <ClInclude Include="ModulePlayer.h" />
     <ClInclude Include="ModuleRender.h" />
     <ClInclude Include="ModuleScene.h" />
-    <ClInclude Include="ModuleText.h" />
     <ClInclude Include="ModuleTextures.h" />
     <ClInclude Include="ModuleUI.h" />
     <ClInclude Include="ModuleWindow.h" />
@@ -235,8 +236,10 @@
     <ClCompile Include="ComponentMaterial.cpp" />
     <ClCompile Include="ComponentMesh.cpp" />
     <ClCompile Include="ComponentParticle.cpp" />
+    <ClCompile Include="ComponentRigidbody.cpp" />
     <ClCompile Include="ComponentTransform.cpp" />
     <ClCompile Include="Cube.cpp" />
+    <ClCompile Include="DebugDrawer.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Gizmo.cpp" />
     <ClCompile Include="GrassBillboard.cpp" />
@@ -248,7 +251,6 @@
     <ClCompile Include="ModuleAnim.cpp" />
     <ClCompile Include="ModuleEditor.cpp" />
     <ClCompile Include="ModulePhysics.cpp" />
-    <ClCompile Include="ModuleText.cpp" />
     <ClCompile Include="ModuleUI.cpp" />
     <ClCompile Include="ModuleAudio.cpp" />
     <ClCompile Include="ModuleCollision.cpp" />
