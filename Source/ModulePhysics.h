@@ -4,6 +4,10 @@
 #include "Globals.h"
 #include "Bullet\include\btBulletDynamicsCommon.h"
 #include "Module.h"
+#include "DebugDrawer.h"
+#include <vector>
+#include "ComponentRigidbody.h"
+
 #ifdef _DEBUG
 
 	#pragma comment (lib, "BulletDynamics_debug.lib")
@@ -39,6 +43,7 @@ public:
 	bool Start();
 	update_status PreUpdate(float dt);
 	update_status Update(float dt);
+	btRigidBody * AddCubeBody(ComponentRigidbody * component);
 	bool CleanUp();
 
 
@@ -49,6 +54,8 @@ public:
 	btBroadphaseInterface* broad_phase = nullptr;
 	btSequentialImpulseConstraintSolver* solver = nullptr;
 	btDiscreteDynamicsWorld* world = nullptr;
+	DebugDrawer* debug_draw;
+	std::vector<btCollisionShape*> shapes;
 
 };
 

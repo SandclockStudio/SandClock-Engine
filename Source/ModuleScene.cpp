@@ -112,8 +112,6 @@ bool ModuleScene::Start()
 
 	}
 
-
-
 	return true;
 }
 

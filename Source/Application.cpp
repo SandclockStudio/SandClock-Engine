@@ -12,6 +12,7 @@
 #include "ModuleEditor.h"
 #include "ModuleTextures.h"
 #include "ModuleAnim.h"
+#include "ModulePhysics.h"
 #pragma comment(lib, "ProfilerCore64.lib")
 #include "Brofiler\Brofiler.h"
 using namespace std;
@@ -34,7 +35,7 @@ Application::Application()
 	modules.push_back(ui = new ModuleUI());
 	modules.push_back(player = new ModulePlayer(false));
 	modules.push_back(textures = new ModuleTextures());
-
+	modules.push_back(physics = new ModulePhysics());
 
 	// Modules to draw on top of game LOGCHARic
 
