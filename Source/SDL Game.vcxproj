@@ -47,13 +47,13 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>false</SDLCheck>
       <ExceptionHandling>Sync</ExceptionHandling>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\Libraries;$(ProjectDir)../Libraries/Devil/include;C:\Users\marcdc\Source\Repos\SandClock-Engine\Libraries\freetype;C:\Users\marcdc\Source\Repos\SandClock-Engine\Libraries\freetype\config;C:\Users\marcdc\Source\Repos\SandClock-Engine\Libraries\freetype\cache;C:\Users\marcdc\Source\Repos\SandClock-Engine\Libraries\freetype\internal;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\Libraries;$(ProjectDir)../Libraries/Devil/include;C:\Users\marcdc\Source\Repos\SandClock-Engine\Libraries\freetype\config;C:\Users\marcdc\Source\Repos\SandClock-Engine\Libraries\freetype\cache;C:\Users\marcdc\Source\Repos\SandClock-Engine\Libraries\freetype\internal;$(ProjectDir)..\Libraries/freetype\config;$(ProjectDir)..\Libraries/freetype;$(ProjectDir)..\Libraries/freetype/interntal;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
-      <AdditionalDependencies>$(ProjectDir)../Libraries/OpenGL/lib/Release/Win32/glew32.lib;$(ProjectDir)../Libraries/MathGeoLib.lib;$(ProjectDir)../Libraries/Devil/lib/x86/Release/DevIL.lib;$(ProjectDir)../Libraries/Devil/lib/x86/Release/ILU.lib;$(ProjectDir)../Libraries/Devil/lib/x86/Release/ILUT.lib;$(ProjectDir)../Libraries/Bullet/libx86/BulletCollision_debug.lib;$(ProjectDir)../Libraries/Bullet/libx86/BulletDynamics_debug.lib;$(ProjectDir)../Libraries/Bullet/libx86/LinearMath_debug.lib;$(ProjectDir)../Libraries/Bullet/libx86/BulletCollision.lib;$(ProjectDir)../Libraries/Bullet/libx86/BulletDynamics.lib;$(ProjectDir)../Libraries/Bullet/libx86/LinearMath.lib;$(ProjectDir)../Libraries/Brofiler/ProfilerCore32.lib;$(ProjectDir)../Libraries/Brofiler/ProfilerCore64.lib;$(ProjectDir)../Libraries/assimp/lib/assimp-vc140-mt.lib;$(ProjectDir)../Libraries/freetype/freetype/lib/freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(ProjectDir)../Libraries/OpenGL/lib/Release/Win32/glew32.lib;$(ProjectDir)../Libraries/MathGeoLib.lib;$(ProjectDir)../Libraries/Devil/lib/x86/Release/DevIL.lib;$(ProjectDir)../Libraries/Devil/lib/x86/Release/ILU.lib;$(ProjectDir)../Libraries/Devil/lib/x86/Release/ILUT.lib;$(ProjectDir)../Libraries/Bullet/libx86/BulletCollision_debug.lib;$(ProjectDir)../Libraries/Bullet/libx86/BulletDynamics_debug.lib;$(ProjectDir)../Libraries/Bullet/libx86/LinearMath_debug.lib;$(ProjectDir)../Libraries/Brofiler/ProfilerCore32.lib;$(ProjectDir)../Libraries/Brofiler/ProfilerCore64.lib;$(ProjectDir)../Libraries/assimp/lib/assimp-vc140-mt.lib;$(ProjectDir)../Libraries/freetype/lib/freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -210,6 +210,7 @@
     <ClInclude Include="ModulePlayer.h" />
     <ClInclude Include="ModuleRender.h" />
     <ClInclude Include="ModuleScene.h" />
+    <ClInclude Include="ModuleText.h" />
     <ClInclude Include="ModuleTextures.h" />
     <ClInclude Include="ModuleUI.h" />
     <ClInclude Include="ModuleWindow.h" />
@@ -251,6 +252,7 @@
     <ClCompile Include="ModuleAnim.cpp" />
     <ClCompile Include="ModuleEditor.cpp" />
     <ClCompile Include="ModulePhysics.cpp" />
+    <ClCompile Include="ModuleText.cpp" />
     <ClCompile Include="ModuleUI.cpp" />
     <ClCompile Include="ModuleAudio.cpp" />
     <ClCompile Include="ModuleCollision.cpp" />

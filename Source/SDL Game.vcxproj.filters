@@ -479,6 +479,9 @@
     <ClInclude Include="..\Libraries\freetype\freetype\config\ftconfig.h">
       <Filter>freetype\config</Filter>
     </ClInclude>
+    <ClInclude Include="ModuleText.h">
+      <Filter>Game Modules</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -599,6 +602,9 @@
       <Filter>Game Modules</Filter>
     </ClCompile>
     <ClCompile Include="ComponentRigidbody.cpp">
+      <Filter>Game Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleText.cpp">
       <Filter>Game Modules</Filter>
     </ClCompile>
   </ItemGroup>

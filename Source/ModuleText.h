@@ -6,15 +6,13 @@
 #include "Globals.h"
 // FreeType Headers
 
-#include "ft2build.h"
+#include "freetype/ft2build.h"
 #include "freetype/freetype.h"
 #include "freetype/ftglyph.h"
 #include "freetype/ftoutln.h"
 #include "freetype/fttrigon.h"
 
-#include <windows.h>                                      // (The GL Headers Need It)
-#include <GL/gl.h>
-#include <GL/glu.h>
+#include "../Libraries/OpenGL/include/GL/glew.h"
 
 // Some STL Headers
 #include <vector>
@@ -80,7 +78,7 @@ public:
 		glMatrixMode(GL_PROJECTION);
 		glPushMatrix();
 		glLoadIdentity();
-		gluOrtho2D(viewport[0], viewport[2], viewport[1], viewport[3]);
+		glOrtho(viewport[0], viewport[2], viewport[1], viewport[3],1.0f,-1.0f);
 		glPopAttrib();
 	}
 
