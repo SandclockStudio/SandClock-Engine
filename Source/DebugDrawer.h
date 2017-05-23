@@ -24,7 +24,7 @@
 
 
 
-class DebugDrawer : public btIDebugDraw
+class DebugDrawer 	
 {
 public:
 	DebugDrawer() {}

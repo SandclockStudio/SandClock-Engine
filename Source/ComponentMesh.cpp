@@ -93,7 +93,7 @@ void ComponentMesh::RecalculateBonesInMesh()
 {
 	BROFILER_CATEGORY("Recalculate Bones", Profiler::Color::Chocolate);
 	vertices_skinned = new aiVector3D[num_vertices];
-	memset(vertices_skinned, 0, num_vertices * sizeof(float3));
+	//memset(vertices_skinned, 0, num_vertices * sizeof(float3));
 	float4x4 mat = float4x4::identity;
 	for (size_t b = 0; b < bones.size(); ++b)
 	{

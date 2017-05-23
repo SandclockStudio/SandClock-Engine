@@ -20,7 +20,7 @@ bool ModulePhysics::Start()
 	world = new btDiscreteDynamicsWorld(dispatcher, broad_phase, solver, collision_conf);
 	world->setGravity(btVector3(0.0f, -10.0f, 0.0f));
 
-	world->setDebugDrawer(debug_draw);
+	//world->setDebugDrawer(debug_draw);
 	gameModule = true;
 	return true;
 }
@@ -28,13 +28,15 @@ bool ModulePhysics::Start()
 
 update_status ModulePhysics::PreUpdate(float dt)
 {
-	//world->stepSimulation(dt, 15);
+	if(world != nullptr)
+		world->stepSimulation(dt, 15);
 	return UPDATE_CONTINUE;
 }
 
 update_status ModulePhysics::Update(float dt)
 {
-	//world->debugDrawWorld();
+	if (world != nullptr)
+		world->debugDrawWorld();
 	return UPDATE_CONTINUE;
 }
 
