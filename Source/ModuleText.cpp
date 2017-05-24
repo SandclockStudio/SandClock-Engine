@@ -164,7 +164,7 @@ void font_data::clean()
 	delete[] textures;
 }
 
-ModuleText::ModuleText()
+ModuleText::ModuleText(bool active)
 {
 }
 
@@ -261,12 +261,30 @@ void ModuleText::print(const font_data & ft_font, float x, float y, const char *
 
 bool ModuleText::Init()
 {
-	return false;
+	font.init("arial.ttf",24);
+	return true;
 }
 
 bool ModuleText::CleanUp()
 {
-	return false;
+	return true;
+}
+
+update_status ModuleText::Update(float dt)
+{
+	print(font, 300, 300,"Sandclock");
+	return UPDATE_CONTINUE;
+}
+
+update_status ModuleText::PreUpdate(float dt)
+{
+	return UPDATE_CONTINUE;
+}
+
+update_status ModuleText::PostUpdate(float dt)
+{
+	
+	return UPDATE_CONTINUE;
 }
 
 

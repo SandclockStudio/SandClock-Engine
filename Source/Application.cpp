@@ -1,4 +1,5 @@
 #include "Application.h"
+#include "ModuleText.h"
 #include "ModuleWindow.h"
 #include "ModuleRender.h"
 #include "ModuleInput.h"
@@ -13,6 +14,8 @@
 #include "ModuleTextures.h"
 #include "ModuleAnim.h"
 #include "ModulePhysics.h"
+
+
 #pragma comment(lib, "ProfilerCore64.lib")
 #include "Brofiler\Brofiler.h"
 using namespace std;
@@ -36,6 +39,7 @@ Application::Application()
 	modules.push_back(player = new ModulePlayer(false));
 	modules.push_back(textures = new ModuleTextures());
 	modules.push_back(physics = new ModulePhysics(true));
+	modules.push_back(text = new ModuleText(true));
 
 	// Modules to draw on top of game LOGCHARic
 

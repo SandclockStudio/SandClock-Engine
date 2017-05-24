@@ -61,12 +61,20 @@ class ModuleText : public Module
 {
 public:
 
-	ModuleText();
+	ModuleText(bool active);
 	~ModuleText();
 
 	bool Init();
 	bool CleanUp();
 
+	update_status Update(float dt);
+
+	update_status PreUpdate(float dt);
+
+	update_status PostUpdate(float dt);
+
+
+	font_data font;
 
 	// A Fairly Straightforward Function That Pushes
 	// A Projection Matrix That Will Make Object World
