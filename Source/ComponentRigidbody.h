@@ -4,6 +4,7 @@
 #include "Component.h"
 #include "Bullet/include/LinearMath/btMotionState.h"
 #include "Bullet/include/LinearMath/btTransform.h"
+#include "ModulePhysics.h"
 
 class btRigidBody;
 
@@ -18,7 +19,7 @@ public:
 	};
 
 public:
-	ComponentRigidbody(bool start_enabled);
+	ComponentRigidbody(bool start_enabled, btRigidBody* rb);
 	~ComponentRigidbody();
 
 	bool Update(Frustum f);
@@ -32,7 +33,7 @@ public:
 	{
 		mass = m;
 	}
-
+	btRigidBody* rigid;
 	btMotionState* rigid_body = nullptr;
 
 private:

@@ -43,7 +43,8 @@ public:
 	bool Init();
 	update_status PreUpdate(float dt);
 	update_status Update(float dt);
-	btMotionState * AddCubeBody();
+	update_status PostUpdate(float dt);
+	btRigidBody * AddCubeBody();
 	bool CleanUp();
 
 

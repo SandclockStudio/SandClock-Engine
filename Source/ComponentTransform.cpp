@@ -48,14 +48,18 @@ bool ComponentTransform::Update(Frustum f)
 		Quat quaternion = Quat(quat.x, quat.y, quat.z, quat.w);
 		float3 scal = float3(scale.x, scale.y, scale.z);
 		float3 euler = quaternion.ToEulerXYZ() * 180.0f / pi;
-		glTranslatef(position.x, position.y, position.z);
+		float3 posAux = float3(myGo->getPosition().x, myGo->getPosition().y, myGo->getPosition().z);
+		//glTranslatef(-posAux.x, -posAux.y, -posAux.z);
 		glRotatef(euler.x, 1, 0, 0);
 		glRotatef(euler.y, 0, 1, 0);
 		glRotatef(euler.z, 0, 0, 1);
+		glTranslatef(posAux.x, posAux.y, posAux.z);
+		
+		glTranslatef(position.x, position.y, position.z);
+	
 		glScalef(scale.x, scale.y, scale.z);
 		
 		
-		//float* transform = float4x4::FromTRS(position, quaternion, scal).Transposed().ptr();
 
 	return true;
 }
@@ -71,7 +75,6 @@ bool ComponentTransform::Update2()
 		glRotatef(euler.y, 0, 1, 0);
 		glRotatef(euler.z, 0, 0, 1);
 		glScalef(scal.x, scal.y, scal.z);
-		//float* transform = float4x4::FromTRS(position, quaternion, scal).Transposed().ptr()
 
 	return true;
 }

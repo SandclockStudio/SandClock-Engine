@@ -84,7 +84,7 @@ update_status Application::Update()
 	for (list<Module*>::iterator it = modules.begin(); it != modules.end() && ret == UPDATE_CONTINUE; ++it)
 	{
 		BROFILER_CATEGORY("PreUpdate", Profiler::Color::Green)
-		if ((*it)->IsEnabled() == true && !(*it)->fpsDependent)
+		if ((*it)->IsEnabled() == true && !(*it)->fpsDependent && !(*it)->gameModule)
 			ret = (*it)->PreUpdate(dt);
 		else
 		{
@@ -95,8 +95,12 @@ update_status Application::Update()
 			}
 			else
 			{
-				ret = (*it)->PreUpdate(dt);
-				gameDTimer.start();
+				if ((*it)->IsEnabled())
+				{
+					ret = (*it)->PreUpdate(gameDT);
+					gameDTimer.start();
+				}
+					
 			}
 		}
 	}	
@@ -125,7 +129,7 @@ update_status Application::Update()
 	{
 
 		BROFILER_CATEGORY("PostUpdate", Profiler::Color::Blue)
-		if ((*it)->IsEnabled() == true && !(*it)->fpsDependent)
+		if ((*it)->IsEnabled() == true && !(*it)->fpsDependent && !(*it)->gameModule)
 			ret = (*it)->PostUpdate(dt);
 		else
 		{
@@ -138,8 +142,12 @@ update_status Application::Update()
 			}
 			else
 			{
-				ret = (*it)->PostUpdate(gameDT);
-				gameDT = gameDTimer.stop();
+				if ((*it)->IsEnabled() == true)
+				{
+					ret = (*it)->PostUpdate(gameDT);
+					gameDT = gameDTimer.stop();
+				}
+				
 			}
 			
 		}
