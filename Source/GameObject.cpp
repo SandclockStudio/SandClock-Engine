@@ -211,8 +211,11 @@ GameObject * GameObject::LoadGameObjectMesh(aiNode * node, aiMesh * mesh, const 
 	go->AddComponent(m);
 
 
-	ComponentRigidbody* rb = new ComponentRigidbody(true);
-	rb->rigid_body = App->physics->AddCubeBody();
+	
+	btRigidBody* rigidBody = App->physics->AddCubeBody();
+	ComponentRigidbody* rb = new ComponentRigidbody(true, rigidBody);
+	rb->rigid_body =rigidBody->getMotionState();
+	
 	go->AddComponent(rb);
 
 
