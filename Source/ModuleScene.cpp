@@ -17,6 +17,7 @@
 #include "Application.h"
 #include "GameObject.h"
 #include "ComponentMesh.h"
+#include "ModulePhysics.h"
 
 ModuleScene::ModuleScene(bool active) : Module(active)
 {}
@@ -27,6 +28,12 @@ ModuleScene::~ModuleScene()
 // Load assets
 bool ModuleScene::Start()
 {
+	ilInit();
+	iluInit();
+	ilutInit();
+	ilClearColour(255, 255, 255, 000);
+	ilutRenderer(ILUT_OPENGL);
+	ilutEnable(ILUT_OPENGL_CONV);
 	scene = aiImportFile("ArmyPilot.dae",  aiProcessPreset_TargetRealtime_MaxQuality);
 	//scene = aiImportFile("ArmyPilot.dae", aiProcessPreset_TargetRealtime_MaxQuality);
 
@@ -38,8 +45,8 @@ bool ModuleScene::Start()
 	//p->Start();
 	//c->Start();
 	//g->Start();
-	batman = new Model();
-	batman->Load("Batman.obj");
+	//batman = new Model();
+	//batman->Load("Batman.obj");
 	camera = new GameObject((aiString)"Camera", nullptr);
 	componentCamera = new ComponentCamera();
 	camera->AddComponent(componentCamera);
@@ -52,7 +59,16 @@ bool ModuleScene::Start()
 
 	rootTransform->LoadTransform(scene->mRootNode);
 	root->AddComponent(rootTransform);
-	LoadGameObjects(scene->mRootNode, root);
+	LoadGameObjects(scene->mRootNode, root, scene);
+
+	///////////////////////////////////////////////////////////////////////////////////////////////////
+
+	scene2 = aiImportFile("street.obj", aiProcessPreset_TargetRealtime_MaxQuality);
+	rootTransform2 = new ComponentTransform();
+	rootTransform2->LoadTransform(scene2->mRootNode);
+	root->AddComponent(rootTransform2);
+	LoadGameObjects(scene2->mRootNode, root, scene2);
+
 
 	quadTree = new QuadTreeNode();
 	quadTree->Create(AABB(float3(-10, 1, -10), float3(10, 1, 10)));
@@ -85,6 +101,7 @@ bool ModuleScene::Start()
 		
 		quadTree->Insert(root->getChilds()[i]);
 	}*/
+
 
 	
 	billboard = new GrassBillboard();
@@ -137,11 +154,12 @@ bool ModuleScene::CleanUp()
 	delete(root);
 	delete(billboard);
 	delete(rootTransform);
+	delete(rootTransform2);
 
 	return true;
 }
 
-void ModuleScene::LoadGameObjects(aiNode * node,GameObject* parent)
+void ModuleScene::LoadGameObjects(aiNode * node,GameObject* parent, const aiScene* myscene)
 {
 	GameObject *object = new GameObject(node->mName, parent);
 	GameObject * my_go;
@@ -149,15 +167,16 @@ void ModuleScene::LoadGameObjects(aiNode * node,GameObject* parent)
 	{
 		for (size_t i = 0; i < node->mNumMeshes; i++)
 		{
-			my_go = object->LoadGameObjectMesh(node, scene->mMeshes[i], scene);
+			my_go = object->LoadGameObjectMesh(node, myscene->mMeshes[i], myscene);
 			parent->AddChild(my_go);
 			my_go->SetRootNode(parent);
+
 			gameObject.push_back(my_go);
 		}
 	}
 	else if (node->mNumMeshes == 1)
 	{
-		 my_go = object->LoadGameObjectMesh(node, scene->mMeshes[node->mMeshes[0]], scene);
+		 my_go = object->LoadGameObjectMesh(node, myscene->mMeshes[node->mMeshes[0]], myscene);
 		parent->AddChild(my_go);
 		my_go->SetRootNode(parent);
 		gameObject.push_back(my_go);
@@ -176,7 +195,7 @@ void ModuleScene::LoadGameObjects(aiNode * node,GameObject* parent)
 		if(parent->GetRootNode() != nullptr)
 			object->SetRootNode(parent);
 
-		LoadGameObjects(node->mChildren[i], my_go);
+		LoadGameObjects(node->mChildren[i], my_go,myscene);
 	}
 	RELEASE(object);
 }
@@ -187,7 +206,6 @@ update_status ModuleScene::PreUpdate(float dt)
 
 	for (size_t i = 0; i < childs.size(); i++)
 	{
-		
 		childs[i]->PreUpdate();
 	}
 	gameObject[0]->PreUpdate();

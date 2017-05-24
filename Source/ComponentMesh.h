@@ -10,6 +10,13 @@
 #include <assimp/include/assimp/scene.h>
 
 
+enum primitive_type
+{
+	CUBE,
+	SPHERE,
+	CONE
+};
+
 struct Weight
 {
 	unsigned vertex = 0;
@@ -36,6 +43,7 @@ public:
 	bool Update2(Frustum f);
 	bool CleanUp();
 	void LoadMesh(aiMesh * mesh, const aiScene * scene);
+	void LoadPrimivite();
 	void RecalculateBonesInMesh();
 
 	aiVector3D*  vertices;

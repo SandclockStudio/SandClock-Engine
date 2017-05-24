@@ -7,7 +7,7 @@
 
 class btRigidBody;
 
-class ComponentRigidbody : public Component, public btMotionState
+class ComponentRigidbody : public Component
 {
 public:
 	enum MotionType
@@ -18,16 +18,22 @@ public:
 	};
 
 public:
-	ComponentRigidbody(GameObject * parent);
+	ComponentRigidbody(bool start_enabled);
 	~ComponentRigidbody();
+
+	bool Update(Frustum f);
 
 	float getMass()
 	{
-
 		return mass;
 	}
 
-	btRigidBody* rigid_body = nullptr;
+	void setMass(float m)
+	{
+		mass = m;
+	}
+
+	btMotionState* rigid_body = nullptr;
 
 private:
 

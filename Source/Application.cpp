@@ -35,7 +35,7 @@ Application::Application()
 	modules.push_back(ui = new ModuleUI());
 	modules.push_back(player = new ModulePlayer(false));
 	modules.push_back(textures = new ModuleTextures());
-	modules.push_back(physics = new ModulePhysics());
+	modules.push_back(physics = new ModulePhysics(true));
 
 	// Modules to draw on top of game LOGCHARic
 

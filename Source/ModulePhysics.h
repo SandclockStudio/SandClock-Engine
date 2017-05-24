@@ -40,10 +40,10 @@ public:
 	ModulePhysics(bool active = true);
 	~ModulePhysics();
 
-	bool Start();
+	bool Init();
 	update_status PreUpdate(float dt);
 	update_status Update(float dt);
-	btRigidBody * AddCubeBody(ComponentRigidbody * component);
+	btMotionState * AddCubeBody();
 	bool CleanUp();
 
 

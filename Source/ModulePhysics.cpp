@@ -10,7 +10,7 @@ ModulePhysics::~ModulePhysics()
 {
 }
 
-bool ModulePhysics::Start()
+bool ModulePhysics::Init()
 {
 	collision_conf = new btDefaultCollisionConfiguration();
 	dispatcher = new btCollisionDispatcher(collision_conf);
@@ -40,11 +40,11 @@ update_status ModulePhysics::Update(float dt)
 	return UPDATE_CONTINUE;
 }
 
-btRigidBody* ModulePhysics::AddCubeBody(ComponentRigidbody* component)
+btMotionState* ModulePhysics::AddCubeBody()
 {
 	btRigidBody* ret = nullptr;
 
-	float mass = 0.0f;
+	float mass = 1.0f;
 	OBB box;
 	
 	box.pos = float3::zero;
@@ -54,19 +54,22 @@ btRigidBody* ModulePhysics::AddCubeBody(ComponentRigidbody* component)
 	box.axis[2] = float3::unitZ;
 
 
-	mass = component->getMass();
 	btCollisionShape* collision_shape = new btBoxShape(btVector3(box.r.x,box.r.y,box.r.z));
 	shapes.push_back(collision_shape);
 
 	btVector3 local_inertia(0.0f, 0.0f, 0.0f);
+
 	if (mass != 0.0f)
 		collision_shape->calculateLocalInertia(mass, local_inertia);
 
-	btRigidBody::btRigidBodyConstructionInfo rigidbody_info(mass, component, collision_shape, local_inertia);
+
+	btDefaultMotionState* def = new btDefaultMotionState();
+	btRigidBody::btRigidBodyConstructionInfo rigidbody_info(mass, def, collision_shape, local_inertia);
 	ret = new btRigidBody(rigidbody_info);
 	world->addRigidBody(ret);
 
-	return ret;
+	
+	return ret->getMotionState();
 }
 
 bool ModulePhysics::CleanUp()

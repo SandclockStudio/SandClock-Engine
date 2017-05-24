@@ -7,7 +7,9 @@
 #include <vector>
 #include "Brofiler/Brofiler.h"
 #pragma comment(lib, "ProfilerCore64.lib")
-
+#include "ComponentRigidbody.h"
+#include "Application.h"
+#include "ModulePhysics.h"
 
 void GameObject::CleanUp()
 {
@@ -23,10 +25,12 @@ void GameObject::CleanUp()
 
 void GameObject::AddComponent(Component * component)
 {
-	boundingBox = AABB();
-	boundingBox.SetNegativeInfinity();
-	components.push_back(component);
-	component->setGameObject(this);
+
+		boundingBox = AABB();
+		boundingBox.SetNegativeInfinity();
+		components.push_back(component);
+		component->setGameObject(this);
+
 
 }
 
@@ -205,6 +209,12 @@ GameObject * GameObject::LoadGameObjectMesh(aiNode * node, aiMesh * mesh, const 
 
 	ComponentMesh* m = new ComponentMesh(true);
 	go->AddComponent(m);
+
+
+	ComponentRigidbody* rb = new ComponentRigidbody(true);
+	rb->rigid_body = App->physics->AddCubeBody();
+	go->AddComponent(rb);
+
 
 	m->LoadMesh(mesh, scene);
 

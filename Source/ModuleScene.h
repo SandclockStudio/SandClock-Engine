@@ -11,6 +11,8 @@
 #include "QuadTreeNode.h"
 #include "GrassBillboard.h"
 #include "ComponentTransform.h"
+#include "ComponentRigidbody.h"
+#include "ComponentMesh.h"
 
 
 struct SDL_Texture;
@@ -25,7 +27,9 @@ public:
 	update_status Update(float dt);
 	bool CleanUp();
 
-	void LoadGameObjects(aiNode* node, GameObject* parent);
+	void LoadGameObjects(aiNode * node, GameObject * parent, const aiScene * myscene);
+
+
 
 	update_status PreUpdate(float dt);
 
@@ -39,16 +43,24 @@ public:
 	float angle = 0;
 	Model* batman;
 	const aiScene* scene;
+	const aiScene* scene2;
 	GameObject* root;
+	GameObject* root2;
 	GameObject* camera;
 	ComponentCamera* componentCamera;
 	ComponentTransform* rootTransform;
+	ComponentTransform* rootTransform2;
 
 	QuadTreeNode* quadTree;
 	GameObject* aaaa;
 	std::vector<GameObject*> gameObject;
 
 	GrassBillboard * billboard;
+
+	GameObject* physicObject;
+	ComponentRigidbody* rigidBody;
+	ComponentTransform* transform;
+	ComponentMesh* mesh;
 
 private:
 	GameObject * object;
