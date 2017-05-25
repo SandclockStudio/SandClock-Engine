@@ -1,5 +1,6 @@
 #include "../Libraries/OpenGL/include/GL/glew.h"
 #include "ProgramManager.h"
+#include "Globals.h"
 
 static std::auto_ptr<ProgramManager> instance;
 
@@ -25,6 +26,7 @@ GLuint ProgramManager::Load(const char * name, const char * vertex_shader, const
 
 	if (it != programs.end())
 	{
+		LOGCHAR("SHADER::Shader encontrado en la lista");
 		return (*it).second;
 	}
 
@@ -63,10 +65,13 @@ GLuint ProgramManager::Load(const char * name, const char * vertex_shader, const
 			{
 				glAttachShader(program, vertex);
 			}
-
+			else
+				LOGCHAR("SHADER:: No se pudo compilar el vertex shader");
 			glDeleteShader(vertex);
 		}
 	}
+	else
+		LOGCHAR("SHADER:: Error al abrir el vertex shader");
 
 	if (fragment_shader != nullptr)
 	{
@@ -95,19 +100,28 @@ GLuint ProgramManager::Load(const char * name, const char * vertex_shader, const
 			{
 				glAttachShader(program, vertex);
 			}
+			else
+				LOGCHAR("SHADER:: No se pudo compilar el fragment shader");
 			glDeleteShader(vertex);
 		}
 
-		GLint programResult = 0;
-		glLinkProgram(program);
-		glGetProgramiv(program, GL_LINK_STATUS, &programResult);
-		if (programResult != GL_FALSE)
-		{
-			programs[aiString(name)] = program;
-			return program;
-		}
-		else
-			return - 1;
+		
+	}else
+		LOGCHAR("SHADER::Error al abrir el fragment shader");
+
+	GLint programResult = 0;
+	glLinkProgram(program);
+	glGetProgramiv(program, GL_LINK_STATUS, &programResult);
+	if (programResult != GL_FALSE)
+	{
+		programs[aiString(name)] = program;
+		LOGCHAR("SHADER:: Shader cargado correctamente");
+		return program;
+	}
+	else
+	{
+		LOGCHAR("SHADER:: No se pudo cargar el shader");
+		return -1;
 	}
 
 

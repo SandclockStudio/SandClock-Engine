@@ -74,8 +74,8 @@ bool Application::Init()
 	gameTime.start();
 	mili.start();
 
-	//program_id = ProgramManager::GetInstance()->Load("test", "../Shaders/vertex_shader.txt", "../Shaders/fragment_shader");
-	//glUniform4f(glGetUniformLocation(program_id,"light_position"), 0.0f, 1000.0f,0.0f, 1.0f);
+	program_id = ProgramManager::GetInstance()->Load("test", "../Shaders/vertex_shader.txt", "../Shaders/fragment_shader");
+	glUniform4f(glGetUniformLocation(program_id,"light_position"), 0.0f, 1.0f,0.0f, 1.0f);
 	return ret;
 
 }

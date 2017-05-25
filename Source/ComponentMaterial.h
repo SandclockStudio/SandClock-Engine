@@ -32,7 +32,7 @@ private:
 	unsigned texture = 0;
 
 	bool shader = false;
-	std::string shader_name = "";
+	std::string shader_name = "test";
 	bool alpha = false;
 
 	
