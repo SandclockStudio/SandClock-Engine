@@ -21,11 +21,35 @@ ComponentMesh::~ComponentMesh()
 
 bool ComponentMesh::Update2(Frustum f)
 {
+	glBindVertexArray(vao);
+
+
+	if (vbo[VERTEX_BUFFER]) {
+		glBindBuffer(GL_ARRAY_BUFFER, vbo[VERTEX_BUFFER]);
+		glEnableClientState(GL_VERTEX_ARRAY);
+		glVertexPointer(3, GL_FLOAT, 0, 0);
+	}
+
+	if (vbo[TEXCOORD_BUFFER]) {
+		glBindBuffer(GL_ARRAY_BUFFER, vbo[TEXCOORD_BUFFER]);
+		//glClientActiveTexture(GL_TEXTURE0);
+		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+		glTexCoordPointer(2, GL_FLOAT, 0, 0);
+	}
+
+	if (vbo[NORMAL_BUFFER]) {
+		glBindBuffer(GL_ARRAY_BUFFER, vbo[NORMAL_BUFFER]);
+		glEnableClientState(GL_NORMAL_ARRAY);
+		glNormalPointer(GL_FLOAT, 0, 0);
+	}
+
 	BROFILER_CATEGORY("Update Mesh 2", Profiler::Color::Black);
 	if (has_bones)
 	{
 		if (App->animations->IsEnabled())
 		{
+			vertices_skinned = new float3[num_vertices];
+			memset(vertices_skinned, 0, num_vertices * sizeof(float3));
 			float4x4 mat = float4x4::identity;
 			for (unsigned int b = 0; b < bones.size(); ++b)
 			{
@@ -33,16 +57,21 @@ bool ComponentMesh::Update2(Frustum f)
 				for (unsigned int w = 0; w < bones[b]->num_weights; ++w)
 				{
 					float3 temp = bones[b]->weights[w].weight * mat.TransformPos(float3(vertices[bones[b]->weights[w].vertex].x, vertices[bones[b]->weights[w].vertex].y, vertices[bones[b]->weights[w].vertex].z));
-					vertices[bones[b]->weights[w].vertex] += aiVector3D(temp.x, temp.y, temp.z);
+					vertices_skinned[bones[b]->weights[w].vertex] += float3(temp.x, temp.y, temp.z);
 					//	vertices_skinned[m_bones[b].weights[w].vertex] += m_bones[b].weights[w].weight * (mat * vertices[m_bones[b].weights[w].vertex].ToPos4()).Float3Part();
 				}
 			}
-
+			glBindBuffer(GL_ARRAY_BUFFER, vbo[VERTEX_BUFFER]);
+			glBufferData(GL_ARRAY_BUFFER, num_vertices * sizeof(vertices_skinned[0]), &vertices_skinned[0], GL_DYNAMIC_DRAW);
 		}
 	}
-	glBindVertexArray(vao);
 
-	glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_INT, NULL);
+
+	if (vbo[INDEX_BUFFER]) {
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo[INDEX_BUFFER]);
+		glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_INT, NULL);
+	}
+
 	glBindVertexArray(0);
 	glPopMatrix();
 	return true;
@@ -66,7 +95,7 @@ bool ComponentMesh::Update(Frustum f)
 			RecalculateBonesInMesh();
 		}
 
-		glVertexPointer(3, GL_FLOAT, 0, vertices_skinned);
+		glVertexPointer(3, GL_FLOAT, 0, &vertices_skinned[0]);
 		glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_INT, indices);
 		glBindTexture(GL_TEXTURE_2D, 0);
 		//RELEASE(vertices_skinned);
@@ -92,8 +121,8 @@ bool ComponentMesh::Update(Frustum f)
 void ComponentMesh::RecalculateBonesInMesh()
 {
 	BROFILER_CATEGORY("Recalculate Bones", Profiler::Color::Chocolate);
-	vertices_skinned = new aiVector3D[num_vertices];
-	//memset(vertices_skinned, 0, num_vertices * sizeof(float3));
+	vertices_skinned = new float3[num_vertices];
+	memset(vertices_skinned, 0, num_vertices * sizeof(float3));
 	float4x4 mat = float4x4::identity;
 	for (size_t b = 0; b < bones.size(); ++b)
 	{
@@ -102,8 +131,7 @@ void ComponentMesh::RecalculateBonesInMesh()
 		for (size_t w = 0; w < bones[b]->num_weights; ++w)
 		{
 			BROFILER_CATEGORY("In loop 2", Profiler::Color::Chocolate);
-			float3 temp = bones[b]->weights[w].weight * mat.TransformPos(float3(vertices[bones[b]->weights[w].vertex].x, vertices[bones[b]->weights[w].vertex].y, vertices[bones[b]->weights[w].vertex].z));
-			vertices_skinned[bones[b]->weights[w].vertex] += aiVector3D(temp.x, temp.y, temp.z);
+			vertices_skinned[bones[b]->weights[w].vertex] += bones[b]->weights[w].weight * mat.TransformPos(float3(vertices[bones[b]->weights[w].vertex].x, vertices[bones[b]->weights[w].vertex].y, vertices[bones[b]->weights[w].vertex].z));
 			//	vertices_skinned[m_bones[b].weights[w].vertex] += m_bones[b].weights[w].weight * (mat * vertices[m_bones[b].weights[w].vertex].ToPos4()).Float3Part();
 		}
 	}
