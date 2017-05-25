@@ -19,7 +19,7 @@ ComponentMesh::~ComponentMesh()
 		delete(vertices_skinned);
 }
 
-bool ComponentMesh::Update(Frustum f)
+bool ComponentMesh::Update2(Frustum f)
 {
 	glBindVertexArray(vao);
 	BROFILER_CATEGORY("Update Mesh 2", Profiler::Color::Black);
@@ -77,7 +77,7 @@ bool ComponentMesh::Update(Frustum f)
 	return true;
 }
 
-bool ComponentMesh::Update2(Frustum f)
+bool ComponentMesh::Update(Frustum f)
 {
 	BROFILER_CATEGORY("Update Mesh1", Profiler::Color::Black);
 
@@ -131,7 +131,8 @@ void ComponentMesh::RecalculateBonesInMesh()
 		for (size_t w = 0; w < bones[b]->num_weights; ++w)
 		{
 			BROFILER_CATEGORY("In loop 2", Profiler::Color::Chocolate);
-			vertices_skinned[bones[b]->weights[w].vertex] += bones[b]->weights[w].weight * mat.TransformPos(float3(vertices[bones[b]->weights[w].vertex].x, vertices[bones[b]->weights[w].vertex].y, vertices[bones[b]->weights[w].vertex].z));
+			float3 temp = bones[b]->weights[w].weight * mat.TransformPos(vertices[bones[b]->weights[w].vertex]);
+			vertices_skinned[bones[b]->weights[w].vertex] += temp;
 			//	vertices_skinned[m_bones[b].weights[w].vertex] += m_bones[b].weights[w].weight * (mat * vertices[m_bones[b].weights[w].vertex].ToPos4()).Float3Part();
 		}
 	}
