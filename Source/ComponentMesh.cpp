@@ -19,9 +19,9 @@ ComponentMesh::~ComponentMesh()
 		delete(vertices_skinned);
 }
 
-bool ComponentMesh::Update(Frustum f)
+bool ComponentMesh::Update2(Frustum f)
 {
-	//glBindVertexArray(vao);
+	glBindVertexArray(vao);
 	BROFILER_CATEGORY("Update Mesh 2", Profiler::Color::Black);
 	if (has_bones)
 	{
@@ -47,7 +47,6 @@ bool ComponentMesh::Update(Frustum f)
 
 	if (vbo[VERTEX_BUFFER]) {
 		//glBindBuffer(GL_ARRAY_BUFFER, vbo[VERTEX_BUFFER]);
-//		glBufferData(GL_ARRAY_BUFFER, num_vertices * sizeof(vertices_skinned[0]), &vertices_skinned[0], GL_DYNAMIC_DRAW);
 		glEnableClientState(GL_VERTEX_ARRAY);
 		glVertexPointer(3, GL_FLOAT, 0, 0);
 	}
@@ -56,7 +55,7 @@ bool ComponentMesh::Update(Frustum f)
 		glBindBuffer(GL_ARRAY_BUFFER, vbo[TEXCOORD_BUFFER]);
 		//glClientActiveTexture(GL_TEXTURE0);
 		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-		glTexCoordPointer(3, GL_FLOAT, 0, 0);
+		glTexCoordPointer(2, GL_FLOAT, 0, 0);
 	}
 
 	if (vbo[NORMAL_BUFFER]) {
@@ -72,12 +71,12 @@ bool ComponentMesh::Update(Frustum f)
 
 	}
 
-	//glBindVertexArray(0);
+	glBindVertexArray(0);
 	glPopMatrix();
 	return true;
 }
 
-bool ComponentMesh::Update2(Frustum f)
+bool ComponentMesh::Update(Frustum f)
 {
 	BROFILER_CATEGORY("Update Mesh1", Profiler::Color::Black);
 
@@ -201,7 +200,7 @@ void ComponentMesh::LoadMesh(aiMesh* mesh, const aiScene* scene)
 		glGenBuffers(1, &vbo[TEXCOORD_BUFFER]);
 		glBindBuffer(GL_ARRAY_BUFFER, vbo[TEXCOORD_BUFFER]);
 		glBufferData(GL_ARRAY_BUFFER, 2 * mesh->mNumVertices * sizeof(GLfloat), tex_coords, GL_DYNAMIC_DRAW);
-		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, NULL);
 		glEnableVertexAttribArray(1);
 
 	}
