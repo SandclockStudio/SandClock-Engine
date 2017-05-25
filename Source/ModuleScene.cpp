@@ -127,7 +127,8 @@ bool ModuleScene::Start()
 		}
 
 	}
-	gameObject[84]->setPosition(aiVector3D(0, 100, 0));
+	///gameObject[84]->setPosition(aiVector3D(0, 20, 0));
+	//(dynamic_cast<ComponentRigidbody*>(gameObject[84]->components[3])->changedWorld());
 
 	return true;
 }

@@ -214,12 +214,13 @@ GameObject * GameObject::LoadGameObjectMesh(aiNode * node, aiMesh * mesh, const 
 	
 	if (node->mName == aiString("g City_building_022"))
 	{
-		rigidBody = App->physics->AddCubeBody(1.0f);
+		rigidBody = App->physics->AddCubeBody(1.0f, go);
 	}
 	else
-		rigidBody = App->physics->AddCubeBody(0.0f);
+		rigidBody = App->physics->AddCubeBody(0.0f, go);
+
 	ComponentRigidbody* rb = new ComponentRigidbody(true, rigidBody);
-	rb->rigid_body =rigidBody->getMotionState();
+	rb->rigid_body = rigidBody->getMotionState();
 	
 	go->AddComponent(rb);
 
