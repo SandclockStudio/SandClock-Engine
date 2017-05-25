@@ -15,23 +15,33 @@ ComponentRigidbody::~ComponentRigidbody()
 
 bool ComponentRigidbody::Update(Frustum f)
 {
+	if (App->physics->IsEnabled())
+	{
 
-	
+		App->physics->world->synchronizeMotionStates();
 		btTransform transform;
 		//rigid->getWorldTransform(transform);
 		transform = rigid->getWorldTransform();
 		btVector3 newPosition = transform.getOrigin();
 		btQuaternion rotation = transform.getRotation();
 		aiVector3D position = myGo->getPosition();
-		aiVector3D aux = aiVector3D( newPosition.getX(), newPosition.getY(), newPosition.getZ());
+		aiVector3D aux = aiVector3D(newPosition.getX(), newPosition.getY(), newPosition.getZ());
 		myGo->setPosition(aux);
 		Quat auxQ = Quat(rotation.getX(), rotation.getY(), rotation.getZ(), rotation.getW());
 
+	}
+		
 	
 		
 		//myGo->setRotation(auxQ);
 	
 	return true;
+}
+
+void ComponentRigidbody::changedWorld()
+{
+	rigid->getWorldTransform().setIdentity();
+	rigid->getWorldTransform().setOrigin(btVector3(myGo->getPosition().x, myGo->getPosition().y, myGo->getPosition().z));
 }
 
 void ComponentRigidbody::setMass(float m)
@@ -44,3 +54,5 @@ void ComponentRigidbody::setMass(float m)
 	App->physics->world->addRigidBody(rigid);
 	
 }
+
+

@@ -214,7 +214,6 @@ GameObject * GameObject::LoadGameObjectMesh(aiNode * node, aiMesh * mesh, const 
 	
 	if (node->mName == aiString("g City_building_022"))
 	{
-		go->setPosition(aiVector3D(0, 20, 0));
 		rigidBody = App->physics->AddCubeBody(1.0f);
 	}
 	else

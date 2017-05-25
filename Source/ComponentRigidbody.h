@@ -28,7 +28,7 @@ public:
 	{
 		return mass;
 	}
-
+	void changedWorld();
 	void setMass(float m);
 
 	btRigidBody* rigid;

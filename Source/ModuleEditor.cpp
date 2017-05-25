@@ -312,6 +312,7 @@ void ModuleEditor::DrawProperties()
 			if (ImGui::DragFloat3("Position", (float*)&pos, 0.01f))
 			{
 				gOSelected->setPosition(pos);
+				(dynamic_cast<ComponentRigidbody*>(gOSelected->components[3])->changedWorld());
 			}
 				
 			if (ImGui::DragFloat3("Rotation", (float*)&rota,0.6f))
