@@ -29,10 +29,8 @@ public:
 		return mass;
 	}
 
-	void setMass(float m)
-	{
-		mass = m;
-	}
+	void setMass(float m);
+
 	btRigidBody* rigid;
 	btMotionState* rigid_body = nullptr;
 

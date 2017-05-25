@@ -23,12 +23,38 @@ public:
 	float * GetProjectionMatrix();
 	float * GetViewMatrix();
 	Frustum frustum;
+	float aux,aux2;
+	float getPositionX()
+	{
+		return frustum.Pos().x;
+	}
+
+	float getPositionY()
+	{
+		return frustum.Pos().y;
+	}
+
+	float getPositionZ()
+	{
+		return frustum.Pos().z;
+	}
+
+	float getRotationX()
+	{
+		return frustum.Front().x;
+	}
+
+	float getRotationY()
+	{
+		return frustum.Front().y;
+	}
+
 
 private:
 
+
 	float4x4 matrix;
 	Quat quaternion;
-
 	float speed, rotation_speed;
 	float3 movement;
 	float dt;

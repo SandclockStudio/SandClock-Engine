@@ -18,6 +18,7 @@
 #include "GameObject.h"
 #include "ComponentMesh.h"
 #include "ModulePhysics.h"
+#include "ComponentRigidbody.h"
 
 ModuleScene::ModuleScene(bool active) : Module(active)
 {}
@@ -106,7 +107,6 @@ bool ModuleScene::Start()
 	billboard = new GrassBillboard();
 	billboard->Init();
 
-
 	for (size_t i = 1; i < gameObject.size(); i++)
 	{
 		if (gameObject[i]->components.size() > 2)
@@ -127,6 +127,7 @@ bool ModuleScene::Start()
 		}
 
 	}
+	gameObject[84]->setPosition(aiVector3D(0, 10, 0));
 
 	return true;
 }
@@ -139,6 +140,7 @@ bool ModuleScene::CleanUp()
 	//delete(c);
 	//delete(p);
 	//delete(g);
+	/*
 	for (size_t i = 0; i < gameObject.size();++i)
 	{
 		gameObject[i]->CleanUp();
@@ -154,7 +156,7 @@ bool ModuleScene::CleanUp()
 	delete(billboard);
 	delete(rootTransform);
 	delete(rootTransform2);
-
+	*/
 	return true;
 }
 
@@ -215,6 +217,13 @@ update_status ModuleScene::PreUpdate(float dt)
 update_status ModuleScene::Update(float dt)
 {
 	gameObject[0]->Update(componentCamera->frustum);
+
+	positionXcamera = componentCamera->getPositionX();
+	positionYCamera = componentCamera->getPositionY();
+	positionZcamera = componentCamera->getPositionZ();
+	rotationX = componentCamera->getRotationX();
+	rotationY = componentCamera->getRotationY();
+
 
 	std::vector<GameObject*> childs = root->getChilds();
 	

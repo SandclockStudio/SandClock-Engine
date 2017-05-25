@@ -1,5 +1,6 @@
 #include "Application.h"
 #include "ModuleText.h"
+#include "ModuleScene.h"
 
 
 void font_data::init(const char * fname, unsigned int h)
@@ -228,6 +229,7 @@ void ModuleText::print(const font_data & ft_font, float x, float y, const char *
 	float modelview_matrix[16];
 	glGetFloatv(GL_MODELVIEW_MATRIX, modelview_matrix);
 
+	float positions;
 	// This Is Where The Text Display Actually Happens.
 	// For Each Line Of Text We Reset The Modelview Matrix
 	// So That The Line's Text Will Start In The Correct Position.
@@ -235,24 +237,26 @@ void ModuleText::print(const font_data & ft_font, float x, float y, const char *
 	// Down By h. This Is Because When Each Character Is
 	// Drawn It Modifies The Current Matrix So That The Next Character
 	// Will Be Drawn Immediately After It. 
-	for (int i = 0; i<lines.size(); i++) {
-		glPushMatrix();
-		glLoadIdentity();
-		glTranslatef(x, y - h*i, 0);
-		glMultMatrixf(modelview_matrix);
 
-		// The Commented Out Raster Position Stuff Can Be Useful If You Need To
-		// Know The Length Of The Text That You Are Creating.
-		// If You Decide To Use It Make Sure To Also Uncomment The glBitmap Command
-		// In make_dlist().
-		// glRasterPos2f(0,0);
-		glCallLists(lines[i].length(), GL_UNSIGNED_BYTE, lines[i].c_str());
-		// float rpos[4];
-		// glGetFloatv(GL_CURRENT_RASTER_POSITION ,rpos);
-		// float len=x-rpos[0]; (Assuming No Rotations Have Happend)
+	glPushMatrix();
+	glLoadIdentity();
+	glTranslatef(x, y - h* lines.size() - 1, App->scene_intro->positionZcamera);
+	glRotatef(180-App->scene_intro->rotationY, 0, 1, 0);
+	glRotatef(App->scene_intro->rotationX, 1, 0, 0);
+	glMultMatrixf(modelview_matrix);
 
-		glPopMatrix();
-	}
+	// The Commented Out Raster Position Stuff Can Be Useful If You Need To
+	// Know The Length Of The Text That You Are Creating.
+	// If You Decide To Use It Make Sure To Also Uncomment The glBitmap Command
+	// In make_dlist().
+	// glRasterPos2f(0,0);
+	glCallLists(lines[lines.size() - 1].length(), GL_UNSIGNED_BYTE, lines[lines.size() - 1].c_str());
+	// float rpos[4];
+	// glGetFloatv(GL_CURRENT_RASTER_POSITION ,rpos);
+	// float len=x-rpos[0]; (Assuming No Rotations Have Happend)
+
+	glPopMatrix();
+	
 
 	glPopAttrib();
 
@@ -272,7 +276,7 @@ bool ModuleText::CleanUp()
 
 update_status ModuleText::Update(float dt)
 {
-	print(font, 300, 300,"Sandclock");
+	print(font, App->scene_intro->positionXcamera, App->scene_intro->positionYCamera + 600, "Sandclockk");
 	return UPDATE_CONTINUE;
 }
 
@@ -283,7 +287,7 @@ update_status ModuleText::PreUpdate(float dt)
 
 update_status ModuleText::PostUpdate(float dt)
 {
-	
+
 	return UPDATE_CONTINUE;
 }
 

@@ -9,7 +9,6 @@
 #pragma comment(lib, "ProfilerCore64.lib")
 #include "ComponentRigidbody.h"
 #include "Application.h"
-#include "ModulePhysics.h"
 
 void GameObject::CleanUp()
 {
@@ -212,7 +211,14 @@ GameObject * GameObject::LoadGameObjectMesh(aiNode * node, aiMesh * mesh, const 
 
 
 	
-	btRigidBody* rigidBody = App->physics->AddCubeBody();
+	
+	if (node->mName == aiString("g City_building_022"))
+	{
+		go->setPosition(aiVector3D(0, 20, 0));
+		rigidBody = App->physics->AddCubeBody(1.0f);
+	}
+	else
+		rigidBody = App->physics->AddCubeBody(0.0f);
 	ComponentRigidbody* rb = new ComponentRigidbody(true, rigidBody);
 	rb->rigid_body =rigidBody->getMotionState();
 	
@@ -326,6 +332,14 @@ void GameObject::setScale(aiVector3D newScale)
 		dynamic_cast<ComponentTransform*>(components[0])->Scale(newScale);
 	}
 
+}
+
+void GameObject::setMass(float mass)
+{
+	if (components.size() > 3)
+	{
+		dynamic_cast<ComponentRigidbody*>(components[3])->setMass(mass);
+	}
 }
 
 
