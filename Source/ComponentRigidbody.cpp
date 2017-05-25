@@ -28,20 +28,26 @@ bool ComponentRigidbody::Update(Frustum f)
 		aiVector3D aux = aiVector3D(newPosition.getX(), newPosition.getY(), newPosition.getZ());
 		myGo->setPosition(aux);
 		Quat auxQ = Quat(rotation.getX(), rotation.getY(), rotation.getZ(), rotation.getW());
+		//myGo->setRotation(auxQ);
+
 
 	}
-		
-	
-		
-		//myGo->setRotation(auxQ);
+			
 	
 	return true;
 }
 
 void ComponentRigidbody::changedWorld()
 {
+	App->physics->world->removeRigidBody(rigid);
+	rigid->activate(true);
+	rigid->clearForces();
+	btVector3 zeroVector(0, 0, 0);
+	rigid->setLinearVelocity(zeroVector);
+	rigid->setAngularVelocity(zeroVector);
 	rigid->getWorldTransform().setIdentity();
 	rigid->getWorldTransform().setOrigin(btVector3(myGo->getPosition().x, myGo->getPosition().y, myGo->getPosition().z));
+	App->physics->world->addRigidBody(rigid);
 }
 
 void ComponentRigidbody::setMass(float m)

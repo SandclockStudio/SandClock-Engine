@@ -48,21 +48,21 @@ update_status ModulePhysics::PostUpdate(float dt)
 	return UPDATE_CONTINUE;
 }
 
-btRigidBody* ModulePhysics::AddCubeBody(float mass2)
+btRigidBody* ModulePhysics::AddCubeBody(float mass2, GameObject* go)
 {
 	btRigidBody* ret = nullptr;
 
 	float mass = mass2;
 	OBB box;
-	
-	box.pos = float3::zero;
+	float3 position = float3(go->getPosition().x, go->getPosition().y, go->getPosition().z);
+	box.pos = position;
 	box.r = float3::one;
 	box.axis[0] = float3::unitX;
 	box.axis[1] = float3::unitY;
 	box.axis[2] = float3::unitZ;
 
 
-	btCollisionShape* collision_shape = new btBoxShape(btVector3(box.r.x,box.r.y,box.r.z));
+	btCollisionShape* collision_shape = new btBoxShape(btVector3(box.r.x*2,box.r.y*0.1,box.r.z*2));
 	shapes.push_back(collision_shape);
 
 	btVector3 local_inertia(0.0f, 0.0f, 0.0f);

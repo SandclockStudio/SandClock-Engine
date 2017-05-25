@@ -7,6 +7,7 @@
 #include "DebugDrawer.h"
 #include <vector>
 #include "ComponentRigidbody.h"
+#include "GameObject.h"
 
 #ifdef _DEBUG
 
@@ -44,7 +45,7 @@ public:
 	update_status PreUpdate(float dt);
 	update_status Update(float dt);
 	update_status PostUpdate(float dt);
-	btRigidBody * AddCubeBody(float mass2);
+	btRigidBody * AddCubeBody(float mass2, GameObject* go);
 	bool CleanUp();
 
 
