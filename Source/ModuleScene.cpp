@@ -140,6 +140,7 @@ bool ModuleScene::CleanUp()
 	//delete(c);
 	//delete(p);
 	//delete(g);
+	/*
 	for (size_t i = 0; i < gameObject.size();++i)
 	{
 		gameObject[i]->CleanUp();
@@ -155,7 +156,7 @@ bool ModuleScene::CleanUp()
 	delete(billboard);
 	delete(rootTransform);
 	delete(rootTransform2);
-
+	*/
 	return true;
 }
 
