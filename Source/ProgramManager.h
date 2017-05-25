@@ -22,11 +22,10 @@ class ProgramManager
 
 	typedef std::map<aiString, unsigned, LessString> ProgramList;
 	ProgramList programs;
-
+	//static std::auto_ptr<ProgramManager> instance;
 
 
 public:
-
 	ProgramManager();
 	~ProgramManager();
 

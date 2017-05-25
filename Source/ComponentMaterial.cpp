@@ -22,7 +22,7 @@ bool ComponentMaterial::Update(Frustum f)
 	}
 	if (shader)
 	{
-		App->shaders->useProgram(shader_name.c_str());
+		ProgramManager::GetInstance()->useProgram(shader_name.c_str());
 	}
 
 	glMaterialfv(GL_FRONT, GL_AMBIENT, ambient);
@@ -37,7 +37,7 @@ bool ComponentMaterial::PostUpdate(Frustum f)
 {
 	glBindTexture(GL_TEXTURE_2D, 0);
 	if (shader)
-		App->shaders->UnuseProgram();
+		ProgramManager::GetInstance()->UnuseProgram();
 	return true;
 }
 

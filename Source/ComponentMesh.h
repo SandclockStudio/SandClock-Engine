@@ -46,9 +46,9 @@ public:
 	void LoadPrimivite();
 	void RecalculateBonesInMesh();
 
-	aiVector3D*  vertices;
-	aiVector3D* tex_coords;
-	aiVector3D* normals;
+	float3*  vertices;
+	float3* tex_coords;
+	float3* normals;
 	unsigned num_vertices = 0;
 	unsigned* indices;
 	unsigned num_indices = 0;

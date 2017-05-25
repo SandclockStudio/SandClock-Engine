@@ -27,7 +27,6 @@ Application::Application()
 {
 	// Order matters: they will init/start/pre/update/post in this order
 	json_parser = new JsonParser(JSONCONFIG);
-	shaders = new ProgramManager();
 	modules.push_back(input = new ModuleInput());
 	modules.push_back(window = new ModuleWindow());
 	modules.push_back(renderer = new ModuleRender());
@@ -75,8 +74,8 @@ bool Application::Init()
 	gameTime.start();
 	mili.start();
 
-	program_id = shaders->Load("test", "../Shaders/vertex_shader.txt", "../Shaders/fragment_shader");
-	glUniform4f(glGetUniformLocation(program_id,"light_position"), 0.0f, 1000.0f,0.0f, 1.0f);
+	//program_id = ProgramManager::GetInstance()->Load("test", "../Shaders/vertex_shader.txt", "../Shaders/fragment_shader");
+	//glUniform4f(glGetUniformLocation(program_id,"light_position"), 0.0f, 1000.0f,0.0f, 1.0f);
 	return ret;
 
 }
