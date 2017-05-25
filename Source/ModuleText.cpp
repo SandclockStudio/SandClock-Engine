@@ -235,24 +235,24 @@ void ModuleText::print(const font_data & ft_font, float x, float y, const char *
 	// Down By h. This Is Because When Each Character Is
 	// Drawn It Modifies The Current Matrix So That The Next Character
 	// Will Be Drawn Immediately After It. 
-	for (int i = 0; i<lines.size(); i++) {
-		glPushMatrix();
-		glLoadIdentity();
-		glTranslatef(x, y - h*i, 0);
-		glMultMatrixf(modelview_matrix);
 
-		// The Commented Out Raster Position Stuff Can Be Useful If You Need To
-		// Know The Length Of The Text That You Are Creating.
-		// If You Decide To Use It Make Sure To Also Uncomment The glBitmap Command
-		// In make_dlist().
-		// glRasterPos2f(0,0);
-		glCallLists(lines[i].length(), GL_UNSIGNED_BYTE, lines[i].c_str());
-		// float rpos[4];
-		// glGetFloatv(GL_CURRENT_RASTER_POSITION ,rpos);
-		// float len=x-rpos[0]; (Assuming No Rotations Have Happend)
+	glPushMatrix();
+	glLoadIdentity();
+	glTranslatef(x, y - h* lines.size() - 1, 0);
+	glMultMatrixf(modelview_matrix);
 
-		glPopMatrix();
-	}
+	// The Commented Out Raster Position Stuff Can Be Useful If You Need To
+	// Know The Length Of The Text That You Are Creating.
+	// If You Decide To Use It Make Sure To Also Uncomment The glBitmap Command
+	// In make_dlist().
+	// glRasterPos2f(0,0);
+	glCallLists(lines[lines.size() - 1].length(), GL_UNSIGNED_BYTE, lines[lines.size() - 1].c_str());
+	// float rpos[4];
+	// glGetFloatv(GL_CURRENT_RASTER_POSITION ,rpos);
+	// float len=x-rpos[0]; (Assuming No Rotations Have Happend)
+
+	glPopMatrix();
+	
 
 	glPopAttrib();
 
@@ -272,7 +272,7 @@ bool ModuleText::CleanUp()
 
 update_status ModuleText::Update(float dt)
 {
-	print(font, 300, 300,"Sandclock");
+	print(font, 600, 800,"Sandclockk");
 	return UPDATE_CONTINUE;
 }
 

@@ -35,7 +35,7 @@ Application::Application()
 	modules.push_back(editor = new ModuleEditor());
 	modules.push_back(animations = new ModuleAnim());
 	modules.push_back(scene_intro = new ModuleScene(true));
-	modules.push_back(ui = new ModuleUI());
+	//modules.push_back(ui = new ModuleUI());
 	modules.push_back(player = new ModulePlayer(false));
 	modules.push_back(textures = new ModuleTextures());
 	modules.push_back(physics = new ModulePhysics(true));
