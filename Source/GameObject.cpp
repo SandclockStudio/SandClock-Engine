@@ -203,16 +203,13 @@ GameObject * GameObject::LoadGameObjectMesh(aiNode * node, aiMesh * mesh, const 
 	material->LoadMaterial(scene->mMaterials[mesh->mMaterialIndex]);
 	go->AddComponent(material);
 
-
-
-
 	ComponentMesh* m = new ComponentMesh(true);
 	go->AddComponent(m);
 
 
 	
 	
-	if (node->mName == aiString("g City_building_022"))
+	if (node->mName == aiString("g City_building_022") || node->mName == aiString("g City_building_037"))
 	{
 		rigidBody = App->physics->AddCubeBody(1.0f, go);
 	}

@@ -62,7 +62,7 @@ btRigidBody* ModulePhysics::AddCubeBody(float mass2, GameObject* go)
 	box.axis[2] = float3::unitZ;
 
 
-	btCollisionShape* collision_shape = new btBoxShape(btVector3(box.r.x*2,box.r.y*0.1,box.r.z*2));
+	btCollisionShape* collision_shape = new btBoxShape(btVector3(box.r.x*100,box.r.y*0.1,box.r.z*100));
 	shapes.push_back(collision_shape);
 
 	btVector3 local_inertia(0.0f, 0.0f, 0.0f);
