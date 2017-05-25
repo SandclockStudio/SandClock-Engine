@@ -51,6 +51,8 @@ public:
 	ComponentTransform* rootTransform;
 	ComponentTransform* rootTransform2;
 
+	float positionXcamera, positionYCamera,positionZcamera, rotationX, rotationY;
+
 	QuadTreeNode* quadTree;
 	GameObject* aaaa;
 	std::vector<GameObject*> gameObject;
