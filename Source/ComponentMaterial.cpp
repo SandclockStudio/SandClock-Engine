@@ -2,6 +2,7 @@
 #include <vector>
 #include "ModuleTextures.h"
 #include "Application.h"
+#include "ProgramManager.h"
 
 ComponentMaterial::ComponentMaterial(bool start_enabled)
 {
@@ -14,12 +15,29 @@ ComponentMaterial::~ComponentMaterial()
 bool ComponentMaterial::Update(Frustum f)
 {
 	glEnable(GL_TEXTURE_2D);
-	glBindTexture(GL_TEXTURE_2D, texture);
+
+	if (texture != 0)
+	{
+		glBindTexture(GL_TEXTURE_2D, texture);
+	}
+	if (shader)
+	{
+		App->shaders->useProgram(shader_name.c_str());
+	}
+
 	glMaterialfv(GL_FRONT, GL_AMBIENT, ambient);
 	glMaterialfv(GL_FRONT, GL_DIFFUSE,diffuse);
 	glMaterialfv(GL_FRONT, GL_SPECULAR, specular);
 	glMaterialf(GL_FRONT, GL_SHININESS, shiness);
 
+	return true;
+}
+
+bool ComponentMaterial::PostUpdate(Frustum f)
+{
+	glBindTexture(GL_TEXTURE_2D, 0);
+	if (shader)
+		App->shaders->UnuseProgram();
 	return true;
 }
 
@@ -58,6 +76,20 @@ void ComponentMaterial::LoadMaterial(aiMaterial * material)
 		char* FullPath = string.data;
 		aux = App->textures->loadTexture(FullPath);
 		texture = aux;
+	}
+}
+
+
+void ComponentMaterial::SetShader( char* new_shader)
+{
+	if (strcmp("", new_shader) != 0)
+	{
+		shader_name = new_shader;
+		shader = true;
+	}
+	else
+	{
+		shader = false;
 	}
 }
 

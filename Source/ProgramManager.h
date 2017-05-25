@@ -1,12 +1,14 @@
 #ifndef __PROGRAMMANAGER_H_
 #define __PROGRAMMANAGER_H_
 
-#include "Globals.h"
-#include "Devil\include\IL\ilut.h"
-#include "assimp\include\assimp\cimport.h"
-#include <assimp\include\assimp\postprocess.h>
+/*#include "Devil\include\IL\ilut.h"
+#include "assimp\include\assimp\cimport.h"*/
+//#include <assimp\include\assimp\postprocess.h>
 #include <assimp/include/assimp/scene.h>
 #include <map>
+#include <vector>
+
+class Application;
 
 class ProgramManager 
 {
@@ -36,6 +38,7 @@ public:
 	void UnuseProgram();
 
 	static ProgramManager* GetInstance();
+	//void Log(std::vector<GLchar> &log_to_print);
 };
 #endif
 

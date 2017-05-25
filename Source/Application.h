@@ -7,6 +7,7 @@
 #include "SimpleTimer.h"
 #include "Timer.h"
 
+
 class ModuleRender;
 class ModuleWindow;
 class ModuleTextures;
@@ -19,6 +20,7 @@ class ModuleEditor;
 class ModuleAnim;
 class ModulePhysics;
 class ModuleText;
+class ProgramManager;
 
 //JSON Parser
 class JsonParser;
@@ -73,6 +75,9 @@ public:
 	ModulePlayer* player;
 	ModuleScene* scene_intro;
 	ModuleEnemy* enemies;
+
+	ProgramManager* shaders = nullptr;
+	
 
 
 private:
