@@ -19,7 +19,7 @@ ComponentMesh::~ComponentMesh()
 		delete(vertices_skinned);
 }
 
-bool ComponentMesh::Update2(Frustum f)
+bool ComponentMesh::Update(Frustum f)
 {
 	glBindVertexArray(vao);
 	BROFILER_CATEGORY("Update Mesh 2", Profiler::Color::Black);
@@ -35,7 +35,8 @@ bool ComponentMesh::Update2(Frustum f)
 				mat = bones[b]->attached_to->GetModelSpaceTransformMatrix() * bones[b]->bind;
 				for (unsigned int w = 0; w < bones[b]->num_weights; ++w)
 				{
-					float3 temp = bones[b]->weights[w].weight * mat.TransformPos(float3(vertices[bones[b]->weights[w].vertex].x, vertices[bones[b]->weights[w].vertex].y, vertices[bones[b]->weights[w].vertex].z));
+					/*float3 temp = bones[b]->weights[w].weight * mat.TransformPos(float3(vertices[bones[b]->weights[w].vertex].x, vertices[bones[b]->weights[w].vertex].y, vertices[bones[b]->weights[w].vertex].z));*/
+					float3 temp = bones[b]->weights[w].weight * mat.TransformPos(vertices[bones[b]->weights[w].vertex]);
 					vertices_skinned[bones[b]->weights[w].vertex] += temp;
 					//	vertices_skinned[m_bones[b].weights[w].vertex] += m_bones[b].weights[w].weight * (mat * vertices[m_bones[b].weights[w].vertex].ToPos4()).Float3Part();
 				}
@@ -55,7 +56,7 @@ bool ComponentMesh::Update2(Frustum f)
 		glBindBuffer(GL_ARRAY_BUFFER, vbo[TEXCOORD_BUFFER]);
 		//glClientActiveTexture(GL_TEXTURE0);
 		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-		glTexCoordPointer(2, GL_FLOAT, 0, 0);
+		glTexCoordPointer(3, GL_FLOAT, 0, 0);
 	}
 
 	if (vbo[NORMAL_BUFFER]) {
@@ -76,7 +77,7 @@ bool ComponentMesh::Update2(Frustum f)
 	return true;
 }
 
-bool ComponentMesh::Update(Frustum f)
+bool ComponentMesh::Update2(Frustum f)
 {
 	BROFILER_CATEGORY("Update Mesh1", Profiler::Color::Black);
 
