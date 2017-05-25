@@ -7,6 +7,8 @@
 #include "Component.h"
 #pragma comment(lib, "MathGeoLib.lib") 
 #include "MathGeoLib.h"
+#include "ModulePhysics.h"
+
 
 class ComponentMesh;
 class ComponentMaterial;
@@ -66,6 +68,7 @@ class GameObject
 			void setRotation(Quat newRotation);
 
 			void setScale(aiVector3D newScale);
+			void setMass(float mass);
 
 			bool intersectFrustumAABB(Frustum f, AABB b);
 			void setTransformAnimation(aiVector3D scale, aiVector3D position, Quat rotation);
@@ -75,10 +78,10 @@ class GameObject
 			bool frustumCulling = false;
 
 
-
+			btRigidBody* rigidBody;
 			AABB boundingBox;
 			float3* corners = new float3[8];
-			
+			bool movement = false;
 			std::vector<Component*> components;
 			
 };
