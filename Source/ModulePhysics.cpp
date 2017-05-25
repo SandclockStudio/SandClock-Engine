@@ -4,6 +4,7 @@
 
 ModulePhysics::ModulePhysics(bool active)
 {
+
 }
 
 ModulePhysics::~ModulePhysics()
@@ -18,7 +19,7 @@ bool ModulePhysics::Init()
 	solver = new btSequentialImpulseConstraintSolver();
 	
 	world = new btDiscreteDynamicsWorld(dispatcher, broad_phase, solver, collision_conf);
-	//world->setGravity(btVector3(0.0f, -5.0f, 0.0f));
+	world->setGravity(btVector3(0.0f, -5.0f, 0.0f));
 
 	//world->setDebugDrawer(debug_draw);
 	gameModule = true;
@@ -47,11 +48,11 @@ update_status ModulePhysics::PostUpdate(float dt)
 	return UPDATE_CONTINUE;
 }
 
-btRigidBody* ModulePhysics::AddCubeBody()
+btRigidBody* ModulePhysics::AddCubeBody(float mass2)
 {
 	btRigidBody* ret = nullptr;
 
-	float mass = 1.0f;
+	float mass = mass2;
 	OBB box;
 	
 	box.pos = float3::zero;

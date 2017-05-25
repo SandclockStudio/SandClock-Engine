@@ -44,7 +44,7 @@ public:
 	update_status PreUpdate(float dt);
 	update_status Update(float dt);
 	update_status PostUpdate(float dt);
-	btRigidBody * AddCubeBody();
+	btRigidBody * AddCubeBody(float mass2);
 	bool CleanUp();
 
 

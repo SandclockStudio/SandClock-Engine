@@ -18,6 +18,7 @@
 #include "GameObject.h"
 #include "ComponentMesh.h"
 #include "ModulePhysics.h"
+#include "ComponentRigidbody.h"
 
 ModuleScene::ModuleScene(bool active) : Module(active)
 {}
@@ -106,7 +107,6 @@ bool ModuleScene::Start()
 	billboard = new GrassBillboard();
 	billboard->Init();
 
-
 	for (size_t i = 1; i < gameObject.size(); i++)
 	{
 		if (gameObject[i]->components.size() > 2)
@@ -127,6 +127,7 @@ bool ModuleScene::Start()
 		}
 
 	}
+	gameObject[84]->setPosition(aiVector3D(0, 10, 0));
 
 	return true;
 }
