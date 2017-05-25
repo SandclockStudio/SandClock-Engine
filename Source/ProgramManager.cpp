@@ -140,7 +140,7 @@ void ProgramManager::UnuseProgram()
 
 ProgramManager * ProgramManager::GetInstance()
 {
-	if (!instance.get() == NULL)
+	if (instance.get() == 0)
 	{
 		instance = std::auto_ptr<ProgramManager>(new ProgramManager);
 	}

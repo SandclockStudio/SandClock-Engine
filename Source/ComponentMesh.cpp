@@ -22,10 +22,31 @@ ComponentMesh::~ComponentMesh()
 bool ComponentMesh::Update2(Frustum f)
 {
 	glBindVertexArray(vao);
-
+	BROFILER_CATEGORY("Update Mesh 2", Profiler::Color::Black);
+	if (has_bones)
+	{
+		if (App->animations->IsEnabled())
+		{
+			vertices_skinned = new float3[num_vertices];
+			memset(vertices_skinned, 0, num_vertices * sizeof(float3));
+			float4x4 mat = float4x4::identity;
+			for (unsigned int b = 0; b < bones.size(); ++b)
+			{
+				mat = bones[b]->attached_to->GetModelSpaceTransformMatrix() * bones[b]->bind;
+				for (unsigned int w = 0; w < bones[b]->num_weights; ++w)
+				{
+					float3 temp = bones[b]->weights[w].weight * mat.TransformPos(float3(vertices[bones[b]->weights[w].vertex].x, vertices[bones[b]->weights[w].vertex].y, vertices[bones[b]->weights[w].vertex].z));
+					vertices_skinned[bones[b]->weights[w].vertex] += temp;
+					//	vertices_skinned[m_bones[b].weights[w].vertex] += m_bones[b].weights[w].weight * (mat * vertices[m_bones[b].weights[w].vertex].ToPos4()).Float3Part();
+				}
+			}
+			glBindBuffer(GL_ARRAY_BUFFER, vbo[VERTEX_BUFFER]);
+			glBufferData(GL_ARRAY_BUFFER, num_vertices * sizeof(vertices_skinned[0]), &vertices_skinned[0], GL_DYNAMIC_DRAW);
+		}
+	}
 
 	if (vbo[VERTEX_BUFFER]) {
-		glBindBuffer(GL_ARRAY_BUFFER, vbo[VERTEX_BUFFER]);
+		//glBindBuffer(GL_ARRAY_BUFFER, vbo[VERTEX_BUFFER]);
 		glEnableClientState(GL_VERTEX_ARRAY);
 		glVertexPointer(3, GL_FLOAT, 0, 0);
 	}
@@ -43,33 +64,11 @@ bool ComponentMesh::Update2(Frustum f)
 		glNormalPointer(GL_FLOAT, 0, 0);
 	}
 
-	BROFILER_CATEGORY("Update Mesh 2", Profiler::Color::Black);
-	if (has_bones)
-	{
-		if (App->animations->IsEnabled())
-		{
-			vertices_skinned = new float3[num_vertices];
-			memset(vertices_skinned, 0, num_vertices * sizeof(float3));
-			float4x4 mat = float4x4::identity;
-			for (unsigned int b = 0; b < bones.size(); ++b)
-			{
-				mat = bones[b]->attached_to->GetModelSpaceTransformMatrix() * bones[b]->bind;
-				for (unsigned int w = 0; w < bones[b]->num_weights; ++w)
-				{
-					float3 temp = bones[b]->weights[w].weight * mat.TransformPos(float3(vertices[bones[b]->weights[w].vertex].x, vertices[bones[b]->weights[w].vertex].y, vertices[bones[b]->weights[w].vertex].z));
-					vertices_skinned[bones[b]->weights[w].vertex] += float3(temp.x, temp.y, temp.z);
-					//	vertices_skinned[m_bones[b].weights[w].vertex] += m_bones[b].weights[w].weight * (mat * vertices[m_bones[b].weights[w].vertex].ToPos4()).Float3Part();
-				}
-			}
-			glBindBuffer(GL_ARRAY_BUFFER, vbo[VERTEX_BUFFER]);
-			glBufferData(GL_ARRAY_BUFFER, num_vertices * sizeof(vertices_skinned[0]), &vertices_skinned[0], GL_DYNAMIC_DRAW);
-		}
-	}
-
 
 	if (vbo[INDEX_BUFFER]) {
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo[INDEX_BUFFER]);
 		glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_INT, NULL);
+
 	}
 
 	glBindVertexArray(0);
@@ -86,7 +85,7 @@ bool ComponentMesh::Update(Frustum f)
 	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 	
 	glNormalPointer(GL_FLOAT, 0, normals);
-	glTexCoordPointer(3, GL_FLOAT, sizeof(aiVector3D), tex_coords);
+	glTexCoordPointer(3, GL_FLOAT, sizeof(float3), tex_coords);
 	
 	if (has_bones)
 	{
@@ -162,9 +161,9 @@ void ComponentMesh::LoadMesh(aiMesh* mesh, const aiScene* scene)
 
 	BROFILER_CATEGORY("LoadMesh", Profiler::Color::Black);
 	indices = new unsigned int[mesh->mNumFaces * 3];
-	vertices = new aiVector3D[3 * mesh->mNumVertices];
-	normals = new aiVector3D[2 * mesh->mNumVertices];
-	tex_coords = new aiVector3D[2 * mesh->mNumVertices];
+	vertices = new float3[3 * mesh->mNumVertices];
+	normals = new float3[2 * mesh->mNumVertices];
+	tex_coords = new float3[2 * mesh->mNumVertices];
 	num_indices = mesh->mNumFaces * 3;
 	num_vertices = mesh->mNumVertices;
 	componentType = MESH;
@@ -181,7 +180,7 @@ void ComponentMesh::LoadMesh(aiMesh* mesh, const aiScene* scene)
 	{
 		for (unsigned int j = 0; j < mesh->mNumVertices; j++)
 		{
-			vertices[j] = aiVector3D(mesh->mVertices[j].x, mesh->mVertices[j].y, mesh->mVertices[j].z);
+			vertices[j] = float3(mesh->mVertices[j].x, mesh->mVertices[j].y, mesh->mVertices[j].z);
 		}
 
 		glGenBuffers(1, &vbo[VERTEX_BUFFER]);
@@ -195,13 +194,13 @@ void ComponentMesh::LoadMesh(aiMesh* mesh, const aiScene* scene)
 	{
 		for (unsigned int j = 0; j < mesh->mNumVertices; j++)
 		{
-			tex_coords[j] = aiVector3D(mesh->mTextureCoords[0][j].x, mesh->mTextureCoords[0][j].y, mesh->mTextureCoords[0][j].z);
+			tex_coords[j] = float3(mesh->mTextureCoords[0][j].x, mesh->mTextureCoords[0][j].y, mesh->mTextureCoords[0][j].z);
 		}
 
 		glGenBuffers(1, &vbo[TEXCOORD_BUFFER]);
 		glBindBuffer(GL_ARRAY_BUFFER, vbo[TEXCOORD_BUFFER]);
 		glBufferData(GL_ARRAY_BUFFER, 2 * mesh->mNumVertices * sizeof(GLfloat), tex_coords, GL_DYNAMIC_DRAW);
-		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, NULL);
 		glEnableVertexAttribArray(1);
 
 	}
@@ -210,7 +209,7 @@ void ComponentMesh::LoadMesh(aiMesh* mesh, const aiScene* scene)
 	{
 		for (unsigned int j = 0; j < mesh->mNumVertices; j++)
 		{
-			normals[j] = aiVector3D(mesh->mNormals[j].x, mesh->mNormals[j].y, mesh->mNormals[j].z);
+			normals[j] = float3(mesh->mNormals[j].x, mesh->mNormals[j].y, mesh->mNormals[j].z);
 		}
 		glGenBuffers(1, &vbo[NORMAL_BUFFER]);
 		glBindBuffer(GL_ARRAY_BUFFER, vbo[NORMAL_BUFFER]);

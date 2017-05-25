@@ -75,8 +75,6 @@ public:
 	ModulePlayer* player;
 	ModuleScene* scene_intro;
 	ModuleEnemy* enemies;
-
-	ProgramManager* shaders = nullptr;
 	
 
 
