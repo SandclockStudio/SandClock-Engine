@@ -18,9 +18,10 @@ public:
 	~ComponentMaterial();
 
 	bool Update(Frustum f);
-
+	bool PostUpdate(Frustum f);
 
 	void LoadMaterial(aiMaterial* material);
+	void SetShader(char* name);
 
 
 private:
@@ -30,6 +31,9 @@ private:
 	float shiness = 0.0f;
 	unsigned texture = 0;
 
+	bool shader = false;
+	std::string shader_name = "";
+	bool alpha = false;
 
 	
 };

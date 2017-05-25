@@ -3,7 +3,6 @@
 
 class Application;
 struct Collider;
-
 class Module
 {
 public:

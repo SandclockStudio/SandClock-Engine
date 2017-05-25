@@ -3,6 +3,11 @@
 
 static std::auto_ptr<ProgramManager> instance;
 
+void Log(std::vector<GLchar> &log_to_print)
+{
+	
+}
+
 ProgramManager::ProgramManager()
 {
 
@@ -130,6 +135,7 @@ void ProgramManager::useProgram(const char * name)
 
 void ProgramManager::UnuseProgram()
 {
+	glUseProgram(0);
 }
 
 ProgramManager * ProgramManager::GetInstance()
@@ -141,3 +147,5 @@ ProgramManager * ProgramManager::GetInstance()
 	return instance.get();
 			
 }
+
+

@@ -54,9 +54,9 @@ bool ComponentCamera::Update(Frustum f)
 	{
 		iPoint motion = App->input->GetMouseMotion();
 
-		float dx = (float)-motion.x * rotation_speed * dt;
-		float dy = (float)-motion.y * rotation_speed *dt;
-		LookAt(dx, dy);
+		aux = (float)-motion.x * rotation_speed * dt;
+		aux2 = (float)-motion.y * rotation_speed *dt;
+		LookAt(aux, aux2);
 	}
 	return true;
 }
@@ -71,6 +71,8 @@ void ComponentCamera::LookAt(float dx, float dy)
 	quaternion = Quat::RotateAxisAngle(frustum.WorldRight(), dy);
 	frustum.SetUp(quaternion.Mul(frustum.Up()).Normalized());
 	frustum.SetFront(quaternion.Mul(frustum.Front()).Normalized());
+
+	frustum.Up().AngleBetween(frustum.Front());
 }
 
 void ComponentCamera::Position(float3 pos)

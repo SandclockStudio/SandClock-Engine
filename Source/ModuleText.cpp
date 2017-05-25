@@ -1,5 +1,6 @@
 #include "Application.h"
 #include "ModuleText.h"
+#include "ModuleScene.h"
 
 
 void font_data::init(const char * fname, unsigned int h)
@@ -228,6 +229,7 @@ void ModuleText::print(const font_data & ft_font, float x, float y, const char *
 	float modelview_matrix[16];
 	glGetFloatv(GL_MODELVIEW_MATRIX, modelview_matrix);
 
+	float positions;
 	// This Is Where The Text Display Actually Happens.
 	// For Each Line Of Text We Reset The Modelview Matrix
 	// So That The Line's Text Will Start In The Correct Position.
@@ -238,7 +240,9 @@ void ModuleText::print(const font_data & ft_font, float x, float y, const char *
 
 	glPushMatrix();
 	glLoadIdentity();
-	glTranslatef(x, y - h* lines.size() - 1, 0);
+	glTranslatef(x, y - h* lines.size() - 1, App->scene_intro->positionZcamera);
+	glRotatef(180-App->scene_intro->rotationY, 0, 1, 0);
+	glRotatef(App->scene_intro->rotationX, 1, 0, 0);
 	glMultMatrixf(modelview_matrix);
 
 	// The Commented Out Raster Position Stuff Can Be Useful If You Need To
@@ -272,7 +276,7 @@ bool ModuleText::CleanUp()
 
 update_status ModuleText::Update(float dt)
 {
-	print(font, 600, 800,"Sandclockk");
+	print(font, App->scene_intro->positionXcamera, App->scene_intro->positionYCamera + 600, "Sandclockk");
 	return UPDATE_CONTINUE;
 }
 
@@ -283,7 +287,7 @@ update_status ModuleText::PreUpdate(float dt)
 
 update_status ModuleText::PostUpdate(float dt)
 {
-	
+
 	return UPDATE_CONTINUE;
 }
 

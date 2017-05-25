@@ -218,6 +218,13 @@ update_status ModuleScene::Update(float dt)
 {
 	gameObject[0]->Update(componentCamera->frustum);
 
+	positionXcamera = componentCamera->getPositionX();
+	positionYCamera = componentCamera->getPositionY();
+	positionZcamera = componentCamera->getPositionZ();
+	rotationX = componentCamera->getRotationX();
+	rotationY = componentCamera->getRotationY();
+
+
 	std::vector<GameObject*> childs = root->getChilds();
 	
 	for (size_t i = 0; i < childs.size(); i++)
